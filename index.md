@@ -2,6 +2,9 @@
 ## Using Stripe with Rails
 
 * Introduction
+  * why stripe?
+  * why rails?
+  * what we're going to cover
 * Initial app description
   * products
   * users/admins
@@ -35,7 +38,7 @@
     * sucker punch
     * dj
     * resque/sidekiq
-* Handlging callbacks
+* Handling callbacks
   * which callbacks are important
     * for a one-off product site, not very many
     * for subscriptions, more important
