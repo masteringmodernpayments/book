@@ -1,6 +1,6 @@
 # Initial Application
 
-We're going t
+In this chapter we're going to create a very simple rails application so we have something to work with for later chapters. All of the rest of the exa
 
     $ rails new sales --database postgresql --test-framework=rspec
     $ cd sales
