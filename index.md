@@ -20,6 +20,7 @@
 * Save transaction information with a Transaction record
   * basic record
     * amount charged
+    * stripe fee
     * user_id
     * timestamps
     * stripe token
