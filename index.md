@@ -5,7 +5,7 @@
   * why stripe?
   * why rails?
   * what we're going to cover
-* Initial app description [[initial_app]]
+* [Initial app description](/initial_app)
   * products
   * users/admins
 * Initial payment integration with checkout.js
