@@ -16,6 +16,12 @@
   * ssl
 * Save transaction information with a Transaction record
   * basic record
+    * amount charged
+    * user_id
+    * timestamps
+    * stripe token
+    * card info
+    * stripe charge id
   * state machine with aasm
   * save transaction history with paper_trail
 * Handlging callbacks
