@@ -20,6 +20,12 @@
   * save transaction history with paper_trail
 * Handlging callbacks
 * Use background workers
+  * rationale
+  * problems they solve
+  * different worker systems
+    * sucker punch
+    * dj
+    * resque/sidekiq
 * Handling subscriptions
 * Email
   * receipts
