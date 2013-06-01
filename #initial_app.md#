@@ -36,7 +36,11 @@ At this point you have to do some manual configuration. Essentially you have to 
 
     config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
-This to 
+This to `config/routes.rb`:
+
+    root :to => 'products#index'
+
+and this in `app/views/layouts/application.html.erb`:
     
     $ bundle exec rails generate devise User
     $ bundle exec rake db:migrate
