@@ -32,7 +32,7 @@
   * save transaction history with paper_trail
     * rationale
     * implementation
-* Use background workers
+* [Use background workers](/background_worker)
   * rationale
   * problems they solve
   * different worker systems
@@ -57,5 +57,3 @@
   * controls
     * refunding transactions
     * cancelling/pausing subscriptions
-
-
