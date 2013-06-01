@@ -47,10 +47,14 @@ and this in `app/views/layouts/application.html.erb` right after the `body` tag:
 
 Also, you'll want to delete `public/index.html` because it gets in Devise's way.
 
-Now, let's create a User for devise to work with:
+Now, let's create a User model for devise to work with:
     
     $ bundle exec rails generate devise User
     $ bundle exec rake db:migrate
+
+Open up `app/controllers/application_controller.rb` and add this line, which will secure everything by default:
+
+    before_filter :authenticate_user!
 
 ## Models
 
