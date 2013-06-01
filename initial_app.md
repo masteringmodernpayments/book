@@ -3,6 +3,6 @@
     $ rails new sales --database postgresql --test-framework=rspec
     $ cd sales
     $ createuser -s sales
-    $ bundle exec rake db:migrate db:setup
+    $ bundle exec rake db:setup
 
    
