@@ -79,3 +79,4 @@ Open up `app/models/sale.rb` and make it look like this:
 
       belongs_to :product
     end
+
