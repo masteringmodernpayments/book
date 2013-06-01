@@ -23,7 +23,11 @@
     * card info
     * stripe charge id
   * state machine with aasm
+    * rationale
+    * implementation
   * save transaction history with paper_trail
+    * rationale
+    * implementation
 * Handlging callbacks
 * Use background workers
   * rationale
