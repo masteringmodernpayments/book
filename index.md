@@ -18,7 +18,7 @@
   * basic record
   * state machine with aasm
   * save transaction history with paper_trail
-* Callbacks
+* Handlging callbacks
 * Use background workers
 * Handling subscriptions
 * Email
