@@ -13,22 +13,24 @@ Processing payments correctly is hard. This is one of the biggest lessons I've l
 
 Let's take Stripe's example code:
 
-    Stripe.api_key = ENV['STRIPE_API_KEY']
-    
-    # Get the credit card details submitted by the form
-    token = params[:stripeToken]
-    
-    # Create the charge on Stripe's servers - this will charge the user's card
-    begin
-      charge = Stripe::Charge.create(
-        :amount => 1000, # amount in cents, again
-        :currency => "usd",
-        :card => token,
-        :description => "payinguser@example.com"
-      )
-    rescue Stripe::CardError => e
-      # The card has been declined
-    end
+```ruby
+Stripe.api_key = ENV['STRIPE_API_KEY']
+
+# Get the credit card details submitted by the form
+token = params[:stripeToken]
+
+# Create the charge on Stripe's servers - this will charge the user's card
+begin
+  charge = Stripe::Charge.create(
+    :amount => 1000, # amount in cents, again
+    :currency => "usd",
+    :card => token,
+    :description => "payinguser@example.com"
+  )
+rescue Stripe::CardError => e
+  # The card has been declined
+end
+```
     
 Pretty straight-forward. Using the `stripeToken` that `stripe.js` inserted into your form, create a charge object. If this fails due to a `CardError`, you can safely assume that the customer's card got declined. Behind the scenes, `Stripe::Charge` makes an `https` call to Stripe's API. Typically, this completes almost immediately.
 
@@ -40,90 +42,100 @@ Essentially, the solution is to put the call to `Stripe::Charge.create` in a bac
 
 First, let's create a job class:
 
-    class StripeCharger
-      include SuckerPunch::Worker
+```ruby
+class StripeCharger
+  include SuckerPunch::Worker
 
-      def perform(event)
-        ActiveRecord::Base.connection_pool.with_connection do
-          token =  event[:token]
-          txn = Transaction.find(event[:transaction_id])
+  def perform(event)
+    ActiveRecord::Base.connection_pool.with_connection do
+      token =  event[:token]
+      txn = Transaction.find(event[:transaction_id])
 
-          begin
-            charge = Stripe::Charge.create(
-              amount: txn.amount,
-              currency: "usd",
-              card: token,
-              description: txn.email
-            )
-            txn.state = 'complete'
-            txn.stripe_id = charge.id
-            txn.save!
-          rescue Stripe::Error => e
-            txn.state = 'failed'
-            txn.error = e.json_body
-            txn.save!
-          end
-        end
+      begin
+        charge = Stripe::Charge.create(
+          amount: txn.amount,
+          currency: "usd",
+          card: token,
+          description: txn.email
+        )
+        txn.state = 'complete'
+        txn.stripe_id = charge.id
+        txn.save!
+      rescue Stripe::Error => e
+        txn.state = 'failed'
+        txn.error = e.json_body
+        txn.save!
       end
     end
+  end
+end
+```
 
 Again, pretty straightforward. Sucker Punch will create an instance of your job class and call `#perform` on it with a hash of values that you pass in to the queue, which we'll get to in a second. We look up a `Transaction` record, initiate the charge, and capture any errors that happen along the way.
 
 `Transaction` in this case is a simple `ActiveRecord` object with just a few attributes, just enough to capture what Stripe gives us:
 
-    class Transaction < ActiveRecord::Base
-      attr_accessible :stripe_id, :state, :amount, :error, :email
-    end
+```ruby
+class Transaction < ActiveRecord::Base
+  attr_accessible :stripe_id, :state, :amount, :error, :email
+end
+```
     
 Sucker Punch needs to know about our job class, so let's tell it in an initializer:
 
-    SuckerPunch.config do
-      queue name: :payments_queue, worker: StripeCharger, workers: 10
-    end
+```ruby
+SuckerPunch.config do
+  queue name: :payments_queue, worker: StripeCharger, workers: 10
+end
+```
 
 Now for the controller that ties it all together:
 
-    class TransactionsController < ApplicationController
+```ruby
+class TransactionsController < ApplicationController
 
-      def create
-        txn = Transaction.new(
-          amount: 1000,
-          email: params[:email],
-          state: 'pending'
-        )
-        if txn.save
-          SuckerPunch::Queue[:payments_queue].async.perform(
-            transaction_id: txn.id,
-            token: params[:stripeToken]
-          )
-          render json: txn.to_json
-        else
-          render json: {error: txn.error_messages}, status: 422
-        end
-      end
-      
-      def show
-        txn = Transaction.find(params[:id])
-        raise ActionController::RoutingError.new('not found')
-          unless txn
-
-        render json: txn.to_json
-      end
+  def create
+    txn = Transaction.new(
+      amount: 1000,
+      email: params[:email],
+      state: 'pending'
+    )
+    if txn.save
+      SuckerPunch::Queue[:payments_queue].async.perform(
+        transaction_id: txn.id,
+        token: params[:stripeToken]
+      )
+      render json: txn.to_json
+    else
+      render json: {error: txn.error_messages}, status: 422
     end
+  end
+  
+  def show
+    txn = Transaction.find(params[:id])
+    raise ActionController::RoutingError.new('not found')
+      unless txn
+
+    render json: txn.to_json
+  end
+end
+```
 
 The `create` method creates a new `Transaction` record, setting it's state to `pending`. It then queues the transaction to be processed by `StripeCharger`. The `show` method simply looks up the transaction and spits back some JSON. On your customer-facing page you'd do something like this:
 
-    function doPoll(id){
-        $.get('/transactions/' + id, function(data) {
-            if (data.state === "complete") {
-              window.location = '/thankyou';
-            } elsif (data.state === "failed") {
-              handleFailure(data);
-            } else {
-              setTimeout(function(){ doPoll(id); }, 500);
-            }
-        });
-    }
+```javascript
+function doPoll(id){
+    $.get('/transactions/' + id, function(data) {
+        if (data.state === "complete") {
+          window.location = '/thankyou';
+        } elsif (data.state === "failed") {
+          handleFailure(data);
+        } else {
+          setTimeout(function(){ doPoll(id); }, 500);
+        }
+    });
+}
+```
     
 Basically, you'll poll `/transactions/<id>` until the transaction ends in either success or failure. You'd probably want to show a spinner or something to the user while this is happening.
 
