@@ -12,12 +12,14 @@ A note on versions. The example app will be using Rails 3.2.13 and PostgreSQL 9.
 
 Let's create an initial application:
 
-    $ rails new sales --database postgresql --test-framework=rspec
-    $ cd sales
-    $ createuser -s sales
-    $ rake db:setup
-    $ rake db:migrate
-    $ rake test
+```bash
+$ rails new sales --database postgresql --test-framework=rspec
+$ cd sales
+$ createuser -s sales
+$ rake db:setup
+$ rake db:migrate
+$ rake test
+```
 
 I'm going to use [PostgreSQL][postgresql] for the example app because that's what I know best, it's what [Heroku][heroku] provides for free, and it's what I suggest to everyone who asks. If you want to use a different database, feel free to substitute. Any `ActiveRecord`-compatible database should be sufficient.
 
