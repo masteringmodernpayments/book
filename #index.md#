@@ -1,0 +1,14 @@
+# Mastering Modern Payments
+## Using Stripe with Rails
+
+0. introduction
+1. Initial app description
+  * products
+  * users/admins
+2. Initial payment integration
+  * purchases
+  * in-process
+    * process transaction
+    * associate product with user
+    * send user an email
+3. Payment For
