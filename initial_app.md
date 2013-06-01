@@ -63,7 +63,7 @@ Our sales site needs something to sell, so let's create a product model:
 
     class Product < ActiveRecord::Base
       attr_accessible :description, :name, :permalink, :price, :user_id
-    
+
       belongs_to :user
     end
 
@@ -77,5 +77,5 @@ Open up `app/models/sale.rb` and make it look like this:
     class Sale < ActiveRecord::Base
       attr_accessible :email, :guid, :product_id
 
-belongs_to :product
+      belongs_to :product
     end
