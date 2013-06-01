@@ -17,7 +17,7 @@
 * Payment Form with stripe.js
   * iframe
   * ssl
-* Save transaction info rmation with a Transaction record
+* Save transaction information with a Transaction record
   * basic record
     * amount charged
     * user_id
