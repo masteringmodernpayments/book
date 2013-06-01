@@ -59,10 +59,23 @@ Our sales site needs something to sell, so let's create a product model:
     $ bundle exec rails g scaffold Product name:string permalink:string description:text price:integer user_id:integer
     $ bundle exec rake db:migrate
 
-`name` and `description` will actually get displayed to the customer, `permalink` will be used later.
+`name` and `description` will actually get displayed to the customer, `permalink` will be used later. Open up `app/models/product.rb` and change it too look like this:
+
+    class Product < ActiveRecord::Base
+      attr_accessible :description, :name, :permalink, :price, :user_id
+    
+      belongs_to :user
+    end
 
 The sales site needs a way to track, you know, sales. Let's make a Sale model too.
 
     $ bundle exec rails g scaffold Sale email:string guid:string product_id:integer
     $ bundle exec rake db:migrate
 
+Open up `app/models/sale.rb` and make it look like this:
+
+    class Sale < ActiveRecord::Base
+      attr_accessible :email, :guid, :product_id
+
+belongs_to :product
+    end
