@@ -13,6 +13,6 @@ Let's create an initial application:
     $ bundle exec rake db:migrate
     $ bundle exec rake test
 
-I'm going 
+I'm going to use Postgresql for the example app because that's what I know best, it's what Heroku uses, and it's what I suggest
 
 
