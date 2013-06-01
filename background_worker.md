@@ -1,5 +1,7 @@
 # Processing Payments with Background Workers
 
+*This needs to be completely reworked for the guide, since it's just referencing a generic app*
+
 [stripe]: https://stripe.com/docs/tutorials/checkout
 [guide]: /payment-integration.html
 [docs]: https://stripe.com/docs/api
