@@ -45,6 +45,8 @@ and this in `app/views/layouts/application.html.erb` right after the `body` tag:
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
+Also, you'll want to delete `public/index.html` because it gets in Devise's way.
+
 Now, let's create a User for devise to work with:
     
     $ bundle exec rails generate devise User
