@@ -27,9 +27,11 @@ Eventually we're going to want to be able to authenticate users and admins. The 
 
     gem 'devise', '~> 2.2.4'
 
-and run bundler:
+then run bundler and set up Devise:
 
     $ bundle install
+    $ bundle exec rails generate devise:install
+    $ bundle exec rails generate devise User
 
 ## Models
 
