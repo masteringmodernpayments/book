@@ -15,9 +15,9 @@ Let's create an initial application:
     $ rails new sales --database postgresql --test-framework=rspec
     $ cd sales
     $ createuser -s sales
-    $ bundle exec rake db:setup
-    $ bundle exec rake db:migrate
-    $ bundle exec rake test
+    $ rake db:setup
+    $ rake db:migrate
+    $ rake test
 
 I'm going to use [PostgreSQL][postgresql] for the example app because that's what I know best, it's what [Heroku][heroku] provides for free, and it's what I suggest to everyone who asks. If you want to use a different database, feel free to substitute. Any `ActiveRecord`-compatible database should be sufficient.
 
@@ -30,7 +30,7 @@ Eventually we're going to want to be able to authenticate users and admins. The 
 then run bundler and set up Devise:
 
     $ bundle install
-    $ bundle exec rails generate devise:install
+    $ rails generate devise:install
 
 At this point you have to do some manual configuration. Essentially you have to configure ActionMailer, routes, and layout. Add this to `config/environments/development.rb`:
 
@@ -49,19 +49,23 @@ Also, you'll want to delete `public/index.html` because it gets in Devise's way.
 
 Now, let's create a User model for devise to work with:
     
-    $ bundle exec rails generate devise User
-    $ bundle exec rake db:migrate
+    $ rails generate devise User
+    $ rake db:migrate
 
 Open up `app/controllers/application_controller.rb` and add this line, which will secure everything by default:
 
     before_filter :authenticate_user!
 
+You'll need to a user so you can actually log in to the site. Fire up `rails console` and type:
+
+    User.create!(email: 'you@example.com', password: 'password', password_confirmation: 'password')
+
 ## Models
 
 Our sales site needs something to sell, so let's create a product model:
 
-    $ bundle exec rails g scaffold Product name:string permalink:string description:text price:integer user_id:integer
-    $ bundle exec rake db:migrate
+    $ rails g scaffold Product name:string permalink:string description:text price:integer user_id:integer
+    $ rake db:migrate
 
 `name` and `description` will actually get displayed to the customer, `permalink` will be used later. Open up `app/models/product.rb` and change it too look like this:
 
@@ -73,8 +77,8 @@ Our sales site needs something to sell, so let's create a product model:
 
 The sales site needs a way to track, you know, sales. Let's make a Sale model too.
 
-    $ bundle exec rails g scaffold Sale email:string guid:string product_id:integer
-    $ bundle exec rake db:migrate
+    $ rails g scaffold Sale email:string guid:string product_id:integer
+    $ rake db:migrate
 
 Open up `app/models/sale.rb` and make it look like this:
 
