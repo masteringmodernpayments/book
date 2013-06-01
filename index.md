@@ -14,7 +14,7 @@
 * Payment Form without checkout.js
 * Save transaction information with a Transaction record
 * Callbacks
-* Use a background worker
+* Use background workers
 * Save transaction history with paper_trail
 * Handling subscriptions
 * Email
