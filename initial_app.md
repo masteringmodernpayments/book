@@ -32,6 +32,7 @@ then run bundler and set up Devise:
     $ bundle install
     $ bundle exec rails generate devise:install
     $ bundle exec rails generate devise User
+    $ bundle exec rake db:migrate
 
 ## Models
 
