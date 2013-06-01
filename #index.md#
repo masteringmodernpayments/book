@@ -5,10 +5,13 @@
 1. Initial app description
   * products
   * users/admins
-2. Initial payment integration
+2. Initial payment integration with checkout.js
   * purchases
   * in-process
     * process transaction
     * associate product with user
     * send user an email
-3. Payment For
+3. Payment Form without checkout.js
+4. Save transaction information with a Transaction record
+5. Use a background worker
+6. Sa
