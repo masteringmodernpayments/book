@@ -38,4 +38,4 @@ then run bundler and set up Devise:
 
 Our sales site needs something to sell, so let's create a product model:
 
-    $ bundle exec rails g scaffold Product name:string permalink:string description:text price:integer 
+    $ bundle exec rails g scaffold Product name:string permalink:string description:text price:integer user_id:integer
