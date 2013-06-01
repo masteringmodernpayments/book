@@ -16,7 +16,7 @@
   * ssl
 * Save transaction information with a Transaction record
   * basic record
-  * state machine
+  * state machine with aasm
   * save transaction history with paper_trail
 * Callbacks
 * Use background workers
