@@ -1,7 +1,7 @@
 # Mastering Modern Payments
 ## Using Stripe with Rails
 
-* introduction
+* Introduction
 * Initial app description
   * products
   * users/admins
