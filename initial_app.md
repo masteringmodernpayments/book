@@ -61,3 +61,8 @@ Our sales site needs something to sell, so let's create a product model:
 
 `name` and `description` will actually get displayed to the customer, `permalink` will be used later.
 
+The sales site needs a way to track, you know, sales. Let's make a Sale model too.
+
+    $ bundle exec rails g scaffold Sale email:string guid:string product_id:integer
+    $ bundle exec rake db:migrate
+
