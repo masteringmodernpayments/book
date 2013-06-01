@@ -2,4 +2,5 @@
 
 require 'sinatra'
 
-get '/'
+get '/' do
+  @page = 
