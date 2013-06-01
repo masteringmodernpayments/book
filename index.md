@@ -22,6 +22,9 @@
 * Use background workers
 * Handling subscriptions
 * Email
+  * receipts
+  * notifications
+  * card-about-to-expires
 * Admin pages
-* Subscriptions
+
 
