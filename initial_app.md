@@ -31,6 +31,22 @@ then run bundler and set up Devise:
 
     $ bundle install
     $ bundle exec rails generate devise:install
+
+At this point you have to do some manual configuration. Essentially you have to configure ActionMailer, routes, and layout. Add this to `config/environments/development.rb`:
+
+    config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+This to `config/routes.rb`:
+
+    root :to => 'products#index'
+
+and this in `app/views/layouts/application.html.erb`:
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+Now, let's create a User for devise to work with:
+    
     $ bundle exec rails generate devise User
     $ bundle exec rake db:migrate
 
