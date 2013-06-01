@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require 'sinatra'
+
+@renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+
+get '/' do
+  @page = File.read('index.md')
+  @content = @renderer.render(@page)
+  
