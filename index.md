@@ -13,6 +13,7 @@
     * send user an email
 * Payment Form without checkout.js
 * Save transaction information with a Transaction record
+* Callbacks
 * Use a background worker
 * Save transaction history with paper_trail
 * Handling subscriptions
