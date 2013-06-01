@@ -40,7 +40,7 @@ This to `config/routes.rb`:
 
     root :to => 'products#index'
 
-and this in `app/views/layouts/application.html.erb`:
+and this in `app/views/layouts/application.html.erb` right after the `body` tag:
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
