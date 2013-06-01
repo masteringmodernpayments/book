@@ -1,0 +1,10 @@
+# Initial Application
+
+We're going t
+
+    $ rails new sales --database postgresql --test-framework=rspec
+    $ cd sales
+    $ createuser -s sales
+    $ bundle exec rake db:setup
+
+
