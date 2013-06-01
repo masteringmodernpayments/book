@@ -2,5 +2,10 @@
 
 require 'sinatra'
 
+@renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+
 get '/' do
-  @page = 
+  @content = @renderer.render(File.read('index.md'))
+  erb :page
+end
+  
