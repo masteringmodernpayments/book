@@ -17,7 +17,7 @@
 * Save transaction information with a Transaction record
   * basic record
   * state machine
-  * Save transaction history with paper_trail
+  * save transaction history with paper_trail
 * Callbacks
 * Use background workers
 * Handling subscriptions
