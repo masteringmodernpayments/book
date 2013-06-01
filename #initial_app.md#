@@ -90,4 +90,4 @@ Open up `app/models/sale.rb` and make it look like this:
 
 ## Next
 
-Now we h
+Now we have a very simple application, but it's enough to get going. We have things to sell and a way to track sales, as well as authe
