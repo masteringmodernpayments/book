@@ -26,5 +26,8 @@
   * notifications
   * card-about-to-expires
 * Admin pages
+  * dashboard
+  * reports
+
 
 
