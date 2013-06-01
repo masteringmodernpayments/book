@@ -15,4 +15,8 @@ Let's create an initial application:
 
 I'm going to use PostgreSQL for the example app because that's what I know best, it's what Heroku provides for free, and it's what I suggest to everyone who asks. If you want to use a different database, feel free to substitute. Any `ActiveRecord`-compatible database should be sufficient.
 
-## Scaffolds
+## Models
+
+Our sales site needs something to sell, so let's create a product model:
+
+    $ bundle exec rails g model 
