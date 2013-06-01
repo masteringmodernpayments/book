@@ -9,7 +9,7 @@
 
 Processing payments correctly is hard. This is one of the biggest lessons I've learned while writing my various [SaaS projects](/projects.html). Stripe does everything they can to make it easy, with [quick start guides][stripe] and [great documentation][docs]. One thing they really don't cover in the docs is what to do if your connection with their API fails for some reason. Processing payments inside a web request is asking for trouble, and the solution is to run them using a background job. 
 
-### The Problem
+## The Problem
 
 Let's take Stripe's example code:
 
@@ -34,7 +34,7 @@ Pretty straight-forward. Using the `stripeToken` that `stripe.js` inserted into 
 
 But what if it doesn't? The internet between your server and Stripe's could be slow or down. DNS resolution could be failing. There's a million reasons why this code could take awhile. Browsers typically have around a one minute timeout and application servers like Unicorn usually will kill the request after 30 seconds. That's a long time to keep the user waiting just to end up at an error page.
 
-### The Solution
+## The Solution
 
 Essentially, the solution is to put the call to `Stripe::Charge.create` in a background job. This example is going to use a very simple background worker system named [Sucker Punch][sucker_punch]. It runs in the same process as your web request but uses [Celluloid][celluloid] to do things in a background thread.
 
