@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'sinatra'
+require 'redcarpet'
 
 @renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
 
