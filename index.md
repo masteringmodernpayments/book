@@ -28,7 +28,6 @@
   * save transaction history with paper_trail
     * rationale
     * implementation
-* Handlging callbacks
 * Use background workers
   * rationale
   * problems they solve
@@ -36,6 +35,10 @@
     * sucker punch
     * dj
     * resque/sidekiq
+* Handlging callbacks
+  * which callbacks are important
+    * for a one-off product site, not very many
+    * for subscriptions, more important
 * Handling subscriptions
 * Email
   * receipts
