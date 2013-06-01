@@ -27,6 +27,10 @@ Eventually we're going to want to be able to authenticate users and admins. The 
 
     gem 'devise', '~> 2.2.4'
 
+and run bundler:
+
+    $ bundle install
+
 ## Models
 
 Our sales site needs something to sell, so let's create a product model:
