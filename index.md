@@ -50,6 +50,6 @@
 * Admin pages
   * dashboard
   * reports
-
+  * controls (canceling subscriptions, refunding transactions)
 
 
