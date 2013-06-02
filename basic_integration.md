@@ -104,9 +104,9 @@ Time to set up the views. Put this in `app/views/transactions/new.html.erb`:
 
 <%= form_tag buy_path(permalink: @product.permalink) do %>
   <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
-          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          data-description="<%= @product.name %>"
-          data-amount="<%= @product.price %>"></script>
+           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+           data-description="<%= @product.name %>"
+           data-amount="<%= @product.price %>"></script>
 <% end %>
 ```
 
