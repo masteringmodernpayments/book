@@ -72,7 +72,15 @@ SuckerPunch::Queue[:banana_queue].async.perform("hi")
 
 ### Database Persistence
 
-The classic, tried-and-true background worker is called [Delayed Job][dj]. It's been around since 2008 and is battle tested and production ready. At my day job we use it to process hundreds of thousands of events every day and it never fails
+The classic, tried-and-true background worker is called [Delayed Job][dj]. It's been around since 2008 and is battle tested and production ready. At my day job we use it to process hundreds of thousands of events every day and it's basically fire and forget. It's also easier to use than Sucker Punch. Assuming a class like this:
+
+```ruby
+class Banana
+  def initialize(size)
+    @size = size
+
+end
+```
 
 This example is going to use a very simple background worker system named [Sucker Punch][sucker_punch]. It runs in the same process as your web request but uses [Celluloid][celluloid] to do things in a background thread.
 
