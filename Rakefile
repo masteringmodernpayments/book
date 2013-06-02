@@ -19,7 +19,7 @@ task :count do
       end
 
       if in_code_block
-        file_code_count += 1
+        file_code_count += 1 unless line =~ /^\s+$/
       else
         file_word_count += line.split(/\s+/).compact.size
       end
