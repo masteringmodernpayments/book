@@ -59,8 +59,8 @@ def TransactionsController < ApplicationController
         card:        token,
         description: params[:email]
       )
-      Sale.create!(product_id: product.id, email: params[:email])
-      redirect_to :success
+      sale = Sale.create!(product_id: product.id, email: params[:email])
+      redirect_to show_sale_url(sale)
     rescue Stripe::CardError => e
       # The card has been declined or some other error has occured
       @error = e
