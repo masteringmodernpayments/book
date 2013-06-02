@@ -27,6 +27,5 @@ task :count do
     word_count += file_word_count
   end
 
-  puts "word: #{word_count}"
-  puts "code: #{code_count}"
+  puts "#{word_count} #{code_count}"
 end
