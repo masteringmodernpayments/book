@@ -122,10 +122,10 @@ end
 BananaWorker.perform_async("hi")
 ```
 
-To work jobs, fire up Sidekiq
+To work jobs, fire up Sidekiq:
 
-```
-
+```bash
+$ bundle exec sidekiq
 ```
 
 
