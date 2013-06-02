@@ -41,6 +41,9 @@ def TransactionsController < ApplicationController
   def new
   end
 
+  def success
+  end
+
   def create
     product = Product.where(id: params[:product_id]).first
     raise ActiveSupport::RoutingError.new("Not found") unless product
@@ -49,10 +52,10 @@ def TransactionsController < ApplicationController
 
     begin
       charge = Stripe::Charge.create(
-        :amount => product.price
-        :currency => "usd",
-        :card => token,
-        :description => params[:email]
+        amount:      product.price,
+        currency:    "usd",
+        card:        token,
+        description: params[:email]
       )
       Sale.create!(product_id: product.id, email: params[:email])
       redirect_to :success
@@ -63,12 +66,10 @@ def TransactionsController < ApplicationController
     end
   end
 
-  def success
-  end
 end
 ```
 
-`#new` is just a placeholder to render the form. 
+`#new` and `#success` are just placeholders for rendering the corresponding views. The real action happens in `#create`, where we look up the product and charge the customer.
 
 ## Views
 
