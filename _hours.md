@@ -21,6 +21,8 @@
 
 ## 2013-06-02 Sun
 
+* overall: 2019 207 (+651)
+
 ### 10:30am - 11:45am (1.25)
 
 * Moved bugsplat.info -> petekeen.com, wrote a 400 word blog post about it
