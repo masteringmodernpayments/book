@@ -132,7 +132,7 @@ $ bundle exec sidekiq
 
 <hr>
 
-For this example we're going to use Sucker Punch. 
+For this example we're going to use Sucker Punch, just because it's self-contained and easy to use and doesn't require you to run anything other than a web process. If you'd like to use one of the other job systems described above, or if you already have yo
 
 First, let's create a job class:
 
