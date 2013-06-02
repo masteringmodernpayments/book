@@ -143,6 +143,7 @@ $ git commit -m 'Initial commit'
 $ git push heroku master
 $ heroku run rake db:migrate
 $ heroku run console # create a new user like we did before in the local console
+$ heroku restart web
 $ heroku open
 ```
 
