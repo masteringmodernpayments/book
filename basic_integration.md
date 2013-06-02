@@ -45,12 +45,14 @@ def TransactionsController < ApplicationController
     product = Product.where(id: params[:product_id]).first
     raise ActiveSupport::RoutingError.new("Not found") unless product
 
+    token = params[:stripeToken]
+
     begin
       charge = Stripe::Charge.create(
-        :amount => 1000, # amount in cents, again
+        :amount => product.price
         :currency => "usd",
         :card => token,
-        :description => "payinguser@example.com"
+        :description => params[:email]
       )
     rescue Stripe::CardError => e
       # The card has been declined
