@@ -122,7 +122,7 @@ The view for `#pickup` is even simpler. In `app/views/transactions/pickup.html.e
 ```ruby
 <h1>Download <%= @product.name %></h1>
 
-<p>Thanks for buying "<%= @product.name %>". You can download your copy by clicking the link below.</p>
+<p>Thanks for buying "<%= @product.name %>". You can download your purchase by clicking the link below.</p>
 
 <p><%= link_to "Download", @product.download_url %></p>
-```
+``` 
