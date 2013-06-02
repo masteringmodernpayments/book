@@ -58,6 +58,7 @@ def TransactionsController < ApplicationController
     rescue Stripe::CardError => e
       # The card has been declined
     end
+  end
 end
 
 ## Views
