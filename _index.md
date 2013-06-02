@@ -9,7 +9,7 @@
   * products
   * users/admins
 * PCI Compliance Issues
-* Initial payment integration with checkout.js
+* [Initial payment integration with checkout.js](/basic_integration)
   * purchases
   * in-process
     * process transaction
