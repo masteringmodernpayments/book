@@ -58,12 +58,14 @@ def TransactionsController < ApplicationController
       render :success
     rescue Stripe::CardError => e
       # The card has been declined
-      error = e
-      render :error
+      @error = e
+      render :new
     end
   end
 end
 ```
+
+`#new` is just a placeholder to render the 
 
 ## Views
 
