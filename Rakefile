@@ -37,9 +37,9 @@ task :check do
   Dir.glob('*.md').each do |file|
     next if file =~ /^_/
 
-    file_count = File.read(file).match(/(Essentially|Basically)/).try(:count)
-    if file_count
-      count += file_count
+    matches = File.read(file).match(/(Essentially|Basically)/)
+    if matches
+      count += matches.count
       puts "#{file} matches"
     end
   end
