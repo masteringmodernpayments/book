@@ -1,6 +1,8 @@
+[stripe_guide]: https://stripe.com/docs/checkout/guides/rails
+
 # The Simplest Stripe Integration
 
-This chapter is going to be a whirlwind integration with Stripe. It's going to be simple and nothing you haven't seen before, but it'll give us something to build on for the next few sections.
+This chapter is going to be a whirlwind integration with Stripe. It's going to be simple and nothing you haven't seen before, but it'll give us something to build on for the next few sections. This is loosely based on Stripe's own [Rails Checkout Guide][stripe_guide]
 
 ## Basic Setup
 
@@ -10,8 +12,26 @@ First, add the Stripe gem to your Gemfile:
 gem 'stripe', git: 'https://github.com/stripe/stripe-ruby'
 ```
 
-And run bundle install:
+And then run `bundle install`.
+
+We'll also need to set up the Stripe keys:
+
+```
+# in config/initializers/stripe.rb
+Rails.configuration.stripe = {
+  publishable_key: ENV['STRIPE_PUBLISHABLE_KEY'],
+  secret_key: ENV['STRIPE_SECRET_KEY'],
+}
+
+Stripe.api_key = Rails.configuration.stripe.secret_key
+
+## Controller
+
+Next, let's create a new controller named `Transactions` where our Stripe-related logic will live:
 
 ```bash
-$ bundle install
+$ rails generate controller transactions
 ```
+
+## Views
+
