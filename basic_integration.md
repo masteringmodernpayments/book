@@ -127,5 +127,4 @@ The view for `#pickup` is even simpler, since it basically just has to display t
 <p><%= link_to "Download", @product.download_url %></p>
 ```
 
-## Deploying on Heroku
 
