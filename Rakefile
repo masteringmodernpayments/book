@@ -16,12 +16,12 @@ task :count do
         next
       end
 
-      count = line.split(/\w+/).compact.size
+      count = 
 
       if in_code_block
         file_code_count += 1
       else
-        file_word_count += count
+        file_word_count += line.split(/\w+/).compact.size
       end
     end
 
