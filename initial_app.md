@@ -108,9 +108,17 @@ Open up `app/models/sale.rb` and make it look like this:
 
 ```ruby
 class Sale < ActiveRecord::Base
-  attr_accessible :email, :guid, :product_id
+  attr_accessible :email, :product_id
 
   belongs_to :product
+
+  before_save :populate_guid
+
+  def populate_guid
+    if new_record?
+      self.guid = SecureRandom.guid()
+    end
+  end
 end
 ```
 
