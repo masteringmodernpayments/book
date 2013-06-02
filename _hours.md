@@ -18,3 +18,7 @@
 * Added a whole section talking about various worker options
 * Started writing this journal
 * Wrote some rake tasks to count words, sloc, and check for tics
+
+### 10:30am - 11:45am (1.25)
+
+* Moved bugsplat.info -> petekeen.com, wrote a 400 word blog post about it
