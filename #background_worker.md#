@@ -102,7 +102,7 @@ To work pending jobs, just run
 $ bundle exec rake jobs:work
 ```
 
-Delayed Job does have some drawbacks. First, because it stores jobs in the same database as everything else it has to content with everythign else. For example, your database server may have a limit on the number of connections 
+Delayed Job does have some drawbacks. First, because it stores jobs in the same database as everything else it has to content with everythign else. For example, your database serve almost certainly has a limit on the number of connections it can handle, and every worker will require two of them, one for Delayed Job itself and another for any ActiveRecord objects. Second,
 
 ### Redis
 
