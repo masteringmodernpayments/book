@@ -39,6 +39,8 @@ def TransactionsController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:new, :create]
 
   def new
+    @product = Product.where(permalink: params[:product]).first
+    raise ActiveSupport::RoutingError.new("Not found") unless product
   end
 
   def show
@@ -71,7 +73,7 @@ def TransactionsController < ApplicationController
 end
 ```
 
-`#new` is just a placeholder for rendering the corresponding view. The real action happens in `#create` where we look up the product and actually charge the customer. In the last chapter we included a `permalink` attribute in `Product` and we use that here to look up the product, mainly because it'll let us generate nicer-looking URLs. If there's an error we display the `#new` action again. If there's not, we redirect to a route named `pickup`.
+`#new` is just a placeholder for rendering the corresponding view. The real action happens in `#create` where we look up the product and actually charge the customer. In the last chapter we included a `permalink` attribute in `Product` and we use that here to look up the product, mainly because it'll let us generate nicer-looking URLs. If there's an error we display the `#new` action again. If there's not we redirect to a route named `pickup`.
 
 ## Routes
 
@@ -83,7 +85,17 @@ match '/buy/:permalink' => 'transactions#create', via: :post, as: :buy
 match '/pickup/:guid'   => 'transactions#show',   via: :get,  as: :pickup
 ```
 
-Resourceful URLs are great for CRUD-style things and admin views, but they're not that useful
+### Why not RESTful URLs?
+
+RESTful URLs are great if you're building a reusable API, but for this example we're writing a pretty simple website and the customer-facing URLs should look good. If you want to use resources, feel free to adjust the examples.
 
 ## Views
 
+Time to set up the views. Put this in `app/views/transactions/new.html.erb`:
+
+```
+<h1><%= @product.name %></h1>
+<%= form_tag buy_path(permalink: @product.permalink) do %>
+  
+<% end %>
+```
