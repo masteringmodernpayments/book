@@ -60,6 +60,7 @@ def TransactionsController < ApplicationController
     end
   end
 end
+```
 
 ## Views
 
