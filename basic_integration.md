@@ -4,6 +4,11 @@
 
 This chapter is going to be a whirlwind integration with Stripe. It's going to be simple and nothing you haven't seen before, but it'll give us something to build on for the next few sections. This is loosely based on Stripe's own [Rails Checkout Guide][stripe_guide].
 
+Remember that this application is going to be selling digital downloads, so we're going to have two actions:
+
+* "buy", where we create a Sale record and actually charge the customer,
+* "pickup", where the customer can download their product.
+
 ## Basic Setup
 
 First, add the Stripe gem to your Gemfile:
@@ -112,3 +117,4 @@ Time to set up the views. Put this in `app/views/transactions/new.html.erb`:
 
 This is a very simple example of a product purchase page with the product's name, description, and a Stripe button using `checkout.js`. Notice that we just drop the description in as html, so make sure that's locked down. We're rendering this for the `#create` action, too, so if there's an error we'll display it above the checkout button.
 
+The form for `#pickup` is simiarly easy. 
