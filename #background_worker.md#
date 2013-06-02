@@ -89,8 +89,10 @@ end
 To queue the `#split` method in a background job, all you have to do is:
 
 ```ruby
-Banana.new('medium').
+Banana.new('medium').delay.split
 ```
+
+That is, stick a call to `delay` before your method call. Delayed Job will serialize the whole object into the database, re-ifying it when 
 
 This example is going to use a very simple background worker system named [Sucker Punch][sucker_punch]. It runs in the same process as your web request but uses [Celluloid][celluloid] to do things in a background thread.
 
