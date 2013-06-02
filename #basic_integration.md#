@@ -12,9 +12,15 @@ gem 'stripe', git: 'https://github.com/stripe/stripe-ruby'
 
 And then run `bundle install`.
 
+We'll also need to set up the Stripe keys. We'll keep them 
+
+## Controller
+
 Next, let's create a new controller named `Transactions` where our Stripe-related logic will live:
 
 ```bash
 $ rails generate controller transactions
 ```
+
+## Views
 
