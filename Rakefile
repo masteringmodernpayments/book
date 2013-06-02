@@ -32,7 +32,7 @@ task :count do
   puts "overall: #{word_count} #{code_count}"
 end
 
-task :check do
+task :check_tics do
   count = 0
   Dir.glob('*.md').each do |file|
     next if file =~ /^_/
@@ -47,5 +47,29 @@ task :check do
   if count > 0
     exit 1
   end
-  
 end
+
+task :check_spelling do
+  count = 0
+  words = {}
+
+  File.open('/usr/share/dict/words') do |f|
+    f.each do |w|
+      words[w] = true
+    end
+  end
+  
+  Dir.glob('*.md').each do |file|
+    next if file =~ /^_/
+
+
+    if matches
+      count += matches.length
+      puts "#{file} matches"
+    end
+  end
+
+  if count > 0
+    exit 1
+  end
+  
