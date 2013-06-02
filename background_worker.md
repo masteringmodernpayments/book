@@ -102,6 +102,8 @@ To work pending jobs, just run
 $ bundle exec rake jobs:work
 ```
 
+Delayed Job does have some drawbacks. First, because it stores jobs in the same database as everything else it has to content with everythign else. For example, your database serve almost certainly has a limit on the number of connections it can handle, and every worker will require two of them, one for Delayed Job itself and another for any ActiveRecord objects. Second, it can get tricky to backup because you really don't need to be backing up the jobs table.
+
 ### Redis
 
 [Redis][redis] bills itself as a "networked data structure server". It's a database server that provides rich data types like lists, queues, sets, and hashes, all while being extremely fast because everything is in-memory all the time. The best Redis-based background worker, in my opinion, is [Sidekiq][sidekiq] written by [Mike Perham][mperham]. It uses the same actor-based concurrency library under the hood as Sucker Punch, but because it stores jobs in Redis it can also provide things like a beautiful management console and fine-grained control over jobs. The setup is essentially identical to Sucker Punch:
