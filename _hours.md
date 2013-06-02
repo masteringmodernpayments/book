@@ -1,3 +1,3 @@
-# Hours Worked
+# Writing Journal
 
 * 2013-06-01: 11:00am - 1:30am (2.5), 4:30pm - 6:30pm (2)
