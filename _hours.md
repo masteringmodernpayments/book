@@ -29,4 +29,6 @@
 
 ### 11:45am - 2:30pm (2.75)
 
-* Wrote [basic_integration](/basic_integration)
+* Wrote draft [basic_integration](/basic_integration)
+* Added a section about deploying to [initial_app](/initial_app)
+* Added `download_url` to purchases
