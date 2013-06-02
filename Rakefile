@@ -61,12 +61,27 @@ task :check_spelling do
   
   Dir.glob('*.md').each do |file|
     next if file =~ /^_/
+    in_code_block = false
 
+    line_num = 0
 
-    if matches
-      count += matches.length
-      puts "#{file} matches"
+    File.open(file).each do |line|
+      line_num += 1
+      if line =~ /^```/
+        in_code_block = !in_code_block
+        next
+      end
+
+      unless in_code_block
+        line.split(/\w+/).each do |word|
+          unless words.has_key? word.downcase
+            puts "#{file}:#{line_num}: #{word}"
+          end
+        end
+      end
     end
+
+
   end
 
   if count > 0
