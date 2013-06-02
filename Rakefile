@@ -41,7 +41,7 @@ task :check do
     if file_count
       count += file_count
       puts "#{file} matches"
-    
+    end
   end
 
   if count > 0
