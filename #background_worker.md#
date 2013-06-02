@@ -72,7 +72,7 @@ end
 SuckerPunch::Queue[:banana_queue].async.perform("hi")
 ```
 
-The d
+The drawback to Sucker Punch, of course, is that if the web process falls over then your jobs evaporate. This will happen, no two ways about it. Errors and deploys will both kill the web process and era
 
 ### Database Persistence
 
