@@ -62,6 +62,9 @@ def TransactionsController < ApplicationController
       render :new
     end
   end
+
+  def success
+  end
 end
 ```
 
