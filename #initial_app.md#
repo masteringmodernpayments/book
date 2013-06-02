@@ -131,7 +131,9 @@ We're using a GUID here so that when we eventually allow the user to look at the
 
 ## Deploying
 
-[Heroku][heroku] is bar-none the fastest way to get a Rails app deployed into a production environment, so that's what we're going to use throughout the guide. If you already have a deployment system for your application by all means use that. First, download and install the [Heroku Toolbelt][toolbelt] for your platform. Follow 
+[Heroku][heroku] is bar-none the fastest way to get a Rails app deployed into a production environment, so that's what we're going to use throughout the guide. If you already have a deployment system for your application by all means use that. First, download and install the [Heroku Toolbelt][toolbelt] for your platform. Make sure you `heroku login` to set your credentials.
+
+Next, create an appliation and deploy the example code
 
 ## Next
 
