@@ -7,6 +7,7 @@
 [docs]: https://stripe.com/docs/api
 [sucker_punch]: https://github.com/brandonhilkert/sucker_punch
 [Celluloid]: https://github.com/celluloid/celluloid/
+[redis]: http://redis.io
 
 Processing payments correctly is hard. This is one of the biggest lessons I've learned while writing my various [SaaS projects](/projects.html). Stripe does everything they can to make it easy, with [quick start guides][stripe] and [great documentation][docs]. One thing they really don't cover in the docs is what to do if your connection with their API fails for some reason. Processing payments inside a web request is asking for trouble, and the solution is to run them using a background job. 
 
@@ -39,11 +40,11 @@ But what if it doesn't? The internet between your server and Stripe's could be s
 
 ## The Solution
 
-The solution is to put the call to `Stripe::Charge.create` in a background job. There's a bunch of different background worker systems available for Rails and Ruby in general, scaling all the way from simple in-process threaded workers with no persistence to external workers persisting jobs to the datb
+The solution is to put the call to `Stripe::Charge.create` in a background job. There's a bunch of different background worker systems available for Rails and Ruby in general, scaling all the way from simple in-process threaded workers with no persistence to external workers persisting jobs to the database or [Redis][redis], then even further to message busses like AMQP.
 
-### 
+### In-Process
 
-
+One of the best in-process work
 
 
 
