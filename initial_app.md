@@ -1,6 +1,7 @@
 [devise]: https://github.com/plataformatec/devise
 [heroku]: https://www.heroku.com
 [postgresql]: http://www.postgresql.org
+[toolbelt]: https://toolbelt.heroku.com
 
 todo yet:
 * display sale to user
@@ -128,6 +129,22 @@ end
 
 We're using a GUID here so that when we eventually allow the user to look at their transaction they won't see the `id`, which means they won't be able to guess the next ID in the sequence and potentially see someone else's transaction.
 
+## Deploying
+
+[Heroku][heroku] is bar-none the fastest way to get a Rails app deployed into a production environment, so that's what we're going to use throughout the guide. If you already have a deployment system for your application by all means use that. First, download and install the [Heroku Toolbelt][toolbelt] for your platform. Make sure you `heroku login` to set your credentials.
+
+Next, create an appliation and deploy the example code to it:
+
+```bash
+$ heroku create
+$ git init .
+$ git add .
+$ git commit -m 'Initial commit'
+$ git push heroku master
+$ heroku open
+```
+
 ## Next
 
 Now we have a very simple application, but it's enough to get going. We have things to sell and a way to track sales, as well as authentication so not just anybody can come muck with our stuff. Next, we'll run through the simplest Stripe integration and actually sell some stuff.
+
