@@ -8,6 +8,7 @@
 [sucker_punch]: https://github.com/brandonhilkert/sucker_punch
 [Celluloid]: https://github.com/celluloid/celluloid/
 [redis]: http://redis.io
+[dj]: https://github.com/collectiveidea/delayed_job
 
 Processing payments correctly is hard. This is one of the biggest lessons I've learned while writing my various [SaaS projects](/projects.html). Stripe does everything they can to make it easy, with [quick start guides][stripe] and [great documentation][docs]. One thing they really don't cover in the docs is what to do if your connection with their API fails for some reason. Processing payments inside a web request is asking for trouble, and the solution is to run them using a background job. 
 
@@ -40,7 +41,7 @@ But what if it doesn't? The internet between your server and Stripe's could be s
 
 ## The Solution
 
-The solution is to put the call to `Stripe::Charge.create` in a background job. There's a bunch of different background worker systems available for Rails and Ruby in general, scaling all the way from simple in-process threaded workers with no persistence to external workers persisting jobs to the database or [Redis][redis], then even further to message busses like AMQP.
+The solution is to put the call to `Stripe::Charge.create` in a background job. There's a bunch of different background worker systems available for Rails and Ruby in general, scaling all the way from simple in-process threaded workers with no persistence to external workers persisting jobs to the database or [Redis][redis], then even further to message busses like AMQP, which are overkill for what we need to do.
 
 ### In-Process
 
@@ -67,6 +68,22 @@ end
 ```ruby
 # somewhere in a controller
 SuckerPunch::Queue[:banana_queue].async.perform("hi")
+```
+
+### Database Persistence
+
+The classic, tried-and-true background worker is called [Delayed Job][dj]. It's been around since 2008 and is battle tested and production ready. At my day job we use it to process hundreds of thousands of events every day and it's basically fire and forget. It's also easier to use than Sucker Punch. Assuming a class like this:
+
+```ruby
+class Banana
+  def initialize(size)
+    @size = size
+  end
+
+  def split
+    puts "I am a banana split, #{@size} size!"
+  end
+end
 ```
 
 This example is going to use a very simple background worker system named [Sucker Punch][sucker_punch]. It runs in the same process as your web request but uses [Celluloid][celluloid] to do things in a background thread.
