@@ -60,7 +60,7 @@ def TransactionsController < ApplicationController
       Sale.create!(product_id: product.id, email: params[:email])
       redirect_to :success
     rescue Stripe::CardError => e
-      # The card has been declined
+      # The card has been declined or some other error has occured
       @error = e
       render :new
     end
@@ -69,7 +69,7 @@ def TransactionsController < ApplicationController
 end
 ```
 
-`#new` and `#success` are just placeholders for rendering the corresponding views. The real action happens in `#create`, where we look up the product and charge the customer.
+`#new` and `#success` are just placeholders for rendering the corresponding views. The real action happens in `#create`, where we look up the product and actually charge the customer.
 
 ## Views
 
