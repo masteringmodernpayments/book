@@ -43,7 +43,9 @@ But what if it doesn't? The internet between your server and Stripe's could be s
 
 ## The Solution
 
-The solution is to put the call to `Stripe::Charge.create` in a background job. There's a bunch of different background worker systems available for Rails and Ruby in general, scaling all the way from simple in-process threaded workers with no persistence to external workers persisting jobs to the database or [Redis][redis], then even further to message busses like AMQP, which are overkill for what we need to do.
+The solution is to put the call to `Stripe::Charge.create` in a background job. By separating the work that can fail or take a long time from the web request we insulate the user from timeouts and errors while giving our app the ability to retry (if possible) or tell us something failed (if not). 
+
+There's a bunch of different background worker systems available for Rails and Ruby in general, scaling all the way from simple in-process threaded workers with no persistence to external workers persisting jobs to the database or [Redis][redis], then even further to message busses like AMQP, which are overkill for what we need to do.
 
 ### In-Process
 
@@ -127,7 +129,6 @@ To work jobs, fire up Sidekiq:
 ```bash
 $ bundle exec sidekiq
 ```
-
 
 This example is going to use a very simple background worker system named [Sucker Punch][sucker_punch]. It runs in the same process as your web request but uses [Celluloid][celluloid] to do things in a background thread.
 
