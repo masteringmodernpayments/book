@@ -47,8 +47,8 @@ The solution is to put the call to `Stripe::Charge.create` in a background job. 
 One of the best in-process workers that I've come across is called [Sucker Punch][sucker_punch]. Under the hood it uses the actor model to safely use concurrent threads for work processing, but you don't really have to worry about that. It's pretty trivial to use, just include the `SuckerPunch::Worker` module into your worker class, declare a queue using that class, and chuck jobs into it.
 
 ```ruby
-# in lib/wo
-class SomeBackgroundWorker
+# in app/workers/some_background_worker.rb
+class BananaWorker
   include SuckerPunch::Worker
 
   def perform(event)
@@ -58,9 +58,9 @@ end
 ```
 
 ```ruby
-# in
+# in config/initializers/queues.rb
 SuckerPunch.config do
-  queue name: :payments_queue, worker: StripeCharger, workers: 10
+  queue name: :banana_queue, worker: BananaWorker, workers: 10
 end
 ```
 
