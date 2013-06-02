@@ -38,7 +38,7 @@ $ bundle install
 $ rails generate devise:install
 ```
 
-At this point you have to do some manual configuration. Essentially you have to configure ActionMailer, routes, and layout. Add this to `config/environments/development.rb`:
+At this point you have to do some manual configuration. Add this to `config/environments/development.rb`:
 
 ```ruby
 config.action_mailer.default_url_options = { :host => 'localhost:3000' }
