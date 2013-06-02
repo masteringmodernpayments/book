@@ -10,10 +10,11 @@ First, add the Stripe gem to your Gemfile:
 gem 'stripe', git: 'https://github.com/stripe/stripe-ruby'
 ```
 
-And run bundle install:
+And then run `bundle install`.
+
+Next, let's create a new controller named `Transactions` where our Stripe-related logic will live:
 
 ```bash
-$ bundle install
+$ rails generate controller transactions
 ```
 
-Let's create a n
