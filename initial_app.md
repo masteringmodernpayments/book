@@ -151,5 +151,5 @@ You should see a login prompt from Devise. Go ahead and login and create a few p
 
 ## Next
 
-Now we have a very simple application, but it's enough to get going. We have things to sell and a way to track sales, as well as authentication so not just anybody can come muck with our stuff. Next, we'll run through the simplest Stripe integration and actually sell some stuff.
+Now we have a very simple application which will be enough to get going. We have things to sell and a way to track sales, as well as authentication so not just anybody can come muck with our stuff. Next, we'll run through the simplest Stripe integration and actually sell some stuff.
 
