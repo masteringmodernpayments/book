@@ -16,7 +16,7 @@ And then run `bundle install`.
 
 We'll also need to set up the Stripe keys:
 
-```
+```ruby
 # in config/initializers/stripe.rb
 Rails.configuration.stripe = {
   publishable_key: ENV['STRIPE_PUBLISHABLE_KEY'],
