@@ -6,8 +6,8 @@ This chapter is going to be a whirlwind integration with Stripe. It's going to b
 
 Remember that this application is going to be selling digital downloads, so we're going to have two actions:
 
-* "buy", where we create a Sale record and actually charge the customer,
-* "pickup", where the customer can download their product.
+* **buy** where we create a Sale record and actually charge the customer,
+* **pickup** where the customer can download their product.
 
 ## Basic Setup
 
@@ -117,4 +117,12 @@ Time to set up the views. Put this in `app/views/transactions/new.html.erb`:
 
 This is a very simple example of a product purchase page with the product's name, description, and a Stripe button using `checkout.js`. Notice that we just drop the description in as html, so make sure that's locked down. We're rendering this for the `#create` action, too, so if there's an error we'll display it above the checkout button.
 
-The form for `#pickup` is simiarly easy. 
+The view for `#pickup` is even simpler. In `app/views/transactions/pickup.html.erb`:
+
+```ruby
+<h1>Download <%= @product.name %></h1>
+
+<p>Thanks for buying "<%= @product.name %>". You can download your copy by clicking the link below.</p>
+
+<p><%= link_to "Download", @product.download_url %></p>
+```
