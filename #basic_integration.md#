@@ -85,7 +85,7 @@ match '/pickup/:guid'   => 'transactions#show',   via: :get,  as: :pickup
 
 ### Why not RESTful URLs?
 
-RESTful URLs are fine if what you're actually writing is an API,
+RESTful URLs are great if you're building a reusable API, but for this example we're writing a pretty simple website and the
 
 ## Views
 
