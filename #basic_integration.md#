@@ -75,7 +75,12 @@ end
 
 ## Routes
 
-The routes for transactions are pr
+The routes for transactions are pretty simple. Add this to `config/routes.rb`:
+
+```ruby
+match '/buy/:permalink' => 'transactions#new',    via: :get,  as: :buy
+match '/buy/:permalink' => 'transactions#create', via: :post, as: :create_t
+```
 
 ## Views
 
