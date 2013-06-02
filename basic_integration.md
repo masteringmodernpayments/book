@@ -55,8 +55,11 @@ def TransactionsController < ApplicationController
         :description => params[:email]
       )
       Sale.create!(product_id: product.id, email: params[:email])
+      render :success
     rescue Stripe::CardError => e
       # The card has been declined
+      error = e
+      render :error
     end
   end
 end
