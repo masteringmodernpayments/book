@@ -39,7 +39,7 @@ But what if it doesn't? The internet between your server and Stripe's could be s
 
 ## The Solution
 
-The solution is to put the call to `Stripe::Charge.create` in a background job. There's a bunch of different background worker systems available for Rails and Ruby in general, some of the
+The solution is to put the call to `Stripe::Charge.create` in a background job. There's a bunch of different background worker systems available for Rails and Ruby in general, scaling all the way from simple in-process threaded workers with no persistence to external workers persisting jobs to the datb
 
 ### 
 
