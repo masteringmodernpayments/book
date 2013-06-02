@@ -37,9 +37,9 @@
   * rationale
   * problems they solve
   * different worker systems
-    * sucker punch
-    * dj
-    * resque/sidekiq
+    - sucker punch
+    - dj
+    - resque/sidekiq
 * Handling callbacks
   * which callbacks are important
     * for a one-off product site, not very many
