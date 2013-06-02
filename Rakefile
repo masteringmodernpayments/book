@@ -19,7 +19,7 @@ task :count do
       count = line.split(/\w+/).compact.size
 
       if in_code_block
-        file_code_count += count
+        file_code_count += 1
       else
         file_word_count += count
       end
