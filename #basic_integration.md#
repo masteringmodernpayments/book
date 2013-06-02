@@ -85,7 +85,12 @@ match '/pickup/:guid'   => 'transactions#show',   via: :get,  as: :pickup
 
 ### Why not RESTful URLs?
 
-RESTful URLs are great if you're building a reusable API, but for this example we're writing a pretty simple website and the
+RESTful URLs are great if you're building a reusable API, but for this example we're writing a pretty simple website and the customer-facing URLs should look good. If you want to use resources, feel free to adjust the examples.
 
 ## Views
 
+Time to set up the views. Put this in `app/views/transactions/new.html.erb`:
+
+```
+
+```
