@@ -6,6 +6,7 @@
 ### 11:00am - 1:30am (2.5)
 
 * Set up the initial example app
+* Created a repo for the guide itself and copied the TOC into [index](/index)
 * Wrote draft of [initial app](/initial_app)
 * Set up a [viewer app on subspace](http://guide.subspace.bugsplat.info)
 * Imported [background_worker](/background_worker) from the blog
