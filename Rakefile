@@ -1,3 +1,5 @@
+task :default => [:count, :check_tics]
+
 task :count do
 
   code_count = 0
