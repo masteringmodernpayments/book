@@ -16,8 +16,6 @@ task :count do
         next
       end
 
-      count = 
-
       if in_code_block
         file_code_count += 1
       else
