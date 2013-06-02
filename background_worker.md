@@ -132,7 +132,7 @@ $ bundle exec sidekiq
 
 <hr>
 
-This example is going to use a very simple background worker system named [Sucker Punch][sucker_punch]. It runs in the same process as your web request but uses [Celluloid][celluloid] to do things in a background thread.
+For this example we're going to use Sucker Punch, just because it's self-contained and easy to use and doesn't require you to run anything other than a web process. If you'd like to use one of the other job systems described above, or if you already have your own for other things, it should be trivial to change.
 
 First, let's create a job class:
 
@@ -167,14 +167,6 @@ end
 
 Again, pretty straightforward. Sucker Punch will create an instance of your job class and call `#perform` on it with a hash of values that you pass in to the queue, which we'll get to in a second. We look up a `Transaction` record, initiate the charge, and capture any errors that happen along the way.
 
-`Transaction` in this case is a simple `ActiveRecord` object with just a few attributes, just enough to capture what Stripe gives us:
-
-```ruby
-class Transaction < ActiveRecord::Base
-  attr_accessible :stripe_id, :state, :amount, :error, :email
-end
-```
-    
 Sucker Punch needs to know about our job class, so let's tell it in an initializer:
 
 ```ruby
