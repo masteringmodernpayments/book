@@ -73,7 +73,7 @@ task :check_spelling do
       end
 
       unless in_code_block
-        line.split(/\w+/).each do |word|
+        line.split(/\s+/).each do |word|
           puts word
           next unless word.downcase =~ /^[a-z]+$/
           unless words.has_key? word.downcase
