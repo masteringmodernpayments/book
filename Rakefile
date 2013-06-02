@@ -31,3 +31,21 @@ task :count do
 
   puts "overall: #{word_count} #{code_count}"
 end
+
+task :check do
+  count = 0
+  Dir.glob('*.md').each do |file|
+    next if file =~ /^_/
+
+    file_count = File.read(file).match(/(Essentially|Basically)/).try(:count)
+    if file_count
+      count += file_count
+      puts "#{file} matches"
+    
+  end
+
+  if count > 0
+    exit 1
+  end
+  
+end
