@@ -58,3 +58,6 @@
   * controls
     * refunding transactions
     * cancelling/pausing subscriptions
+
+
+* [Journal](/_hours)
