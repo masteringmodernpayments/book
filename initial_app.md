@@ -122,6 +122,8 @@ class Sale < ActiveRecord::Base
 end
 ```
 
+We're using a GUID here so that when we eventually allow the user to look at their transaction they won't see the `id`, which means they won't be able to guess the next ID in the sequence and potentially see someone else's transaction.
+
 ## Next
 
 Now we have a very simple application, but it's enough to get going. We have things to sell and a way to track sales, as well as authentication so not just anybody can come muck with our stuff. Next, we'll run through the simplest Stripe integration and actually sell some stuff.
