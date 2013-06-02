@@ -130,7 +130,7 @@ We're using a GUID here so that when we eventually allow the user to look at the
 
 ## Deploying
 
-[Heroku][heroku] is bar-none t
+[Heroku][heroku] is bar-none the fastest way to get a Rails app deployed into a production environment, so that's what we're going to use throughout the guide. Feel free to substitute your ow
 
 ## Next
 
