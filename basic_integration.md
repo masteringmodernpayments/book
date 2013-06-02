@@ -71,7 +71,7 @@ def TransactionsController < ApplicationController
 end
 ```
 
-`#new` and `#success` are just placeholders for rendering the corresponding views. The real action happens in `#create`, where we look up the product and actually charge the customer. In the last chapter we included a `permalink` attribute in `Product` and we use that here to look up the product, mainly because it'll let us generate nicer-looking URLs. If there's an error we display the `#new` action again. If there's not, we redirect to a route named `pickup`.
+`#new` is just a placeholder for rendering the corresponding view. The real action happens in `#create` where we look up the product and actually charge the customer. In the last chapter we included a `permalink` attribute in `Product` and we use that here to look up the product, mainly because it'll let us generate nicer-looking URLs. If there's an error we display the `#new` action again. If there's not, we redirect to a route named `pickup`.
 
 ## Routes
 
@@ -82,6 +82,8 @@ match '/buy/:permalink' => 'transactions#new',    via: :get,  as: :buy
 match '/buy/:permalink' => 'transactions#create', via: :post, as: :buy
 match '/pickup/:guid'   => 'transactions#show',   via: :get,  as: :pickup
 ```
+
+Resourceful URLs are great for CRUD-style things and admin views, but they're not that useful
 
 ## Views
 
