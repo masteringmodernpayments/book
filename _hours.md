@@ -16,3 +16,4 @@
 * Added a whole section talking about various worker options
 * Started writing this journal
 * Wrote some rake tasks to count words, sloc, and check for tics
+
