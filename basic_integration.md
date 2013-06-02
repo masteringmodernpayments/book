@@ -54,7 +54,7 @@ def TransactionsController < ApplicationController
         :card => token,
         :description => params[:email]
       )
-      sale = Sale.create!(product_id: product.id, email: params[:email])
+      Sale.create!(product_id: product.id, email: params[:email])
     rescue Stripe::CardError => e
       # The card has been declined
     end
