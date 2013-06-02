@@ -20,19 +20,19 @@
   * ssl
 * Save transaction information with a Transaction record
   * basic record
-    * amount charged
-    * stripe fee
-    * user_id
-    * timestamps
-    * stripe token
-    * card info
-    * stripe charge id
+    - amount charged
+    - stripe fee
+    - user_id
+    - timestamps
+    - stripe token
+    - card info
+    - stripe charge id
   * state machine with aasm
-    * rationale
-    * implementation
+    - rationale
+    - implementation
   * save transaction history with paper_trail
-    * rationale
-    * implementation
+    - rationale
+    - implementation
 * [Use background workers](/background_worker)
   * rationale
   * problems they solve
