@@ -39,7 +39,7 @@ task :check do
 
     matches = File.read(file).match(/(Essentially|Basically)/)
     if matches
-      count += matches.count
+      count += matches.length
       puts "#{file} matches"
     end
   end
