@@ -132,5 +132,10 @@ The view for `#pickup` is even simpler, since it basically just has to display t
 Add all the new files to git and commit, then run:
 
 ```bash
-$ heroku config:add STRIPE_PUBLISHABLE_KEY=pk_your_stripe_publishable_key STRIPE_SECRET_KEY=sk_your_stripe_secret_key
+$ heroku config:add STRIPE_PUBLISHABLE_KEY=pk_your_stripe_testing_publishable_key STRIPE_SECRET_KEY=sk_your_stripe_testing_secret_key
 $ git push heroku master
+```
+
+You should be able to navigate to `https://your-app.herokuapp.com/buy/some_permalink` and click the buy button to buy and download a product.
+
+## Next
