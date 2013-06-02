@@ -130,6 +130,8 @@ To work jobs, fire up Sidekiq:
 $ bundle exec sidekiq
 ```
 
+<hr>
+
 This example is going to use a very simple background worker system named [Sucker Punch][sucker_punch]. It runs in the same process as your web request but uses [Celluloid][celluloid] to do things in a background thread.
 
 First, let's create a job class:
