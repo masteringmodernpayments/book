@@ -95,6 +95,9 @@ Time to set up the views. Put this in `app/views/transactions/new.html.erb`:
 
 ```
 <h1><%= @product.name %></h1>
+
+<%= @product.description.html_safe %>
+
 <%= form_tag buy_path(permalink: @product.permalink) do %>
   
 <% end %>
