@@ -1,0 +1,12 @@
+task :count do
+
+  overall_count = 0
+  
+  Dir.glob('*.md').each do |file|
+    next if file =~ /^_/
+
+    filecou
+    
+    File.open(
+  end
+end
