@@ -55,7 +55,7 @@ def TransactionsController < ApplicationController
         :description => params[:email]
       )
       Sale.create!(product_id: product.id, email: params[:email])
-      render :success
+      redirect_to :success
     rescue Stripe::CardError => e
       # The card has been declined
       @error = e
@@ -65,7 +65,7 @@ def TransactionsController < ApplicationController
 end
 ```
 
-`#new` is just a placeholder to render the 
+`#new` is just a placeholder to render the form. 
 
 ## Views
 
