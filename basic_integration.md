@@ -71,7 +71,17 @@ def TransactionsController < ApplicationController
 end
 ```
 
-`#new` and `#success` are just placeholders for rendering the corresponding views. The real action happens in `#create`, where we look up the product and actually charge the customer. In the last chapter we included a `permalink` attribute in `Product` and we use that here to look up the product, mainly because it'll let us generate nicer-looking URLs.
+`#new` and `#success` are just placeholders for rendering the corresponding views. The real action happens in `#create`, where we look up the product and actually charge the customer. In the last chapter we included a `permalink` attribute in `Product` and we use that here to look up the product, mainly because it'll let us generate nicer-looking URLs. If there's an error we display the `#new` action again. If there's not, we redirect to a route named `pickup`.
+
+## Routes
+
+The routes for transactions are pretty simple. Add this to `config/routes.rb`:
+
+```ruby
+match '/buy/:permalink' => 'transactions#new',    via: :get,  as: :buy
+match '/buy/:permalink' => 'transactions#create', via: :post, as: :buy
+match '/pickup/:guid'   => 'transactions#show',   via: :get,  as: :pickup
+```
 
 ## Views
 
