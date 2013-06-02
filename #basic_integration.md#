@@ -92,5 +92,8 @@ RESTful URLs are great if you're building a reusable API, but for this example w
 Time to set up the views. Put this in `app/views/transactions/new.html.erb`:
 
 ```
-
+<h1>Buying <%= 
+<%= form_tag buy_path(params[:permalink]) do %>
+  
+<% end %>
 ```
