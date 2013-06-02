@@ -100,6 +100,10 @@ To work pending jobs, just run
 $ bundle exec rake jobs:work
 ```
 
+### Redis
+
+Redis bills itself as a "networked data structure server". It's a type of database server that provides
+
 This example is going to use a very simple background worker system named [Sucker Punch][sucker_punch]. It runs in the same process as your web request but uses [Celluloid][celluloid] to do things in a background thread.
 
 First, let's create a job class:
