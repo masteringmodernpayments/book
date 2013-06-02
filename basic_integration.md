@@ -69,7 +69,7 @@ def TransactionsController < ApplicationController
 end
 ```
 
-`#new` and `#success` are just placeholders for rendering the corresponding views. The real action happens in `#create`, where we look up the product and actually charge the customer. The 
+`#new` and `#success` are just placeholders for rendering the corresponding views. The real action happens in `#create`, where we look up the product and actually charge the customer. In the last chapter we included a `permalink` attribute in `Product` and we use that here to look up the product, mainly because it'll let us generate nicer-looking URLs.
 
 ## Views
 
