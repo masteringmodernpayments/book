@@ -104,7 +104,7 @@ $ bundle exec rake jobs:work
 
 ### Redis
 
-[Redis][redis] bills itself as a "networked data structure server". It's a database server that provides rich data types like lists, queues, sets, and hashes, all while being extremely fast because everything is in-memory all the time. The best Redis-based background worker, in my opinion, is [Sidekiq][sidekiq] written by [Mike Perham][]
+[Redis][redis] bills itself as a "networked data structure server". It's a database server that provides rich data types like lists, queues, sets, and hashes, all while being extremely fast because everything is in-memory all the time. The best Redis-based background worker, in my opinion, is [Sidekiq][sidekiq] written by [Mike Perham][mperham]. It uses the same actor-based concurrency library under the hood as Sucker Punch, but because it stores jobs in Redis it can also provide things like a beautiful management console and fine-grained control over jobs. The setup is essentially
 
 This example is going to use a very simple background worker system named [Sucker Punch][sucker_punch]. It runs in the same process as your web request but uses [Celluloid][celluloid] to do things in a background thread.
 
