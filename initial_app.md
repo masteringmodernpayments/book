@@ -141,9 +141,11 @@ $ git init .
 $ git add .
 $ git commit -m 'Initial commit'
 $ git push heroku master
-$ heroku open
 $ heroku run console # create a new user like we did before in the local console
+$ heroku open
 ```
+
+You should
 
 ## Next
 
