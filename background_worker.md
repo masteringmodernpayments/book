@@ -9,6 +9,8 @@
 [Celluloid]: https://github.com/celluloid/celluloid/
 [redis]: http://redis.io
 [dj]: https://github.com/collectiveidea/delayed_job
+[sidekiq]: http://sidekiq.org
+[mperham]: http://www.mikeperham.com
 
 Processing payments correctly is hard. This is one of the biggest lessons I've learned while writing my various [SaaS projects](/projects.html). Stripe does everything they can to make it easy, with [quick start guides][stripe] and [great documentation][docs]. One thing they really don't cover in the docs is what to do if your connection with their API fails for some reason. Processing payments inside a web request is asking for trouble, and the solution is to run them using a background job. 
 
@@ -85,6 +87,41 @@ class Banana
   end
 end
 ```
+
+To queue the `#split` method in a background job, all you have to do is:
+
+```ruby
+Banana.new('medium').delay.split
+```
+
+That is, put a call to `delay` before the call to `split`. Delayed Job will serialize the object, put it in the database, and then when a worker is ready to process the job it'll do the reverse and finally run the `split` method.
+
+To work pending jobs, just run
+
+```bash
+$ bundle exec rake jobs:work
+```
+
+### Redis
+
+[Redis][redis] bills itself as a "networked data structure server". It's a database server that provides rich data types like lists, queues, sets, and hashes, all while being extremely fast because everything is in-memory all the time. The best Redis-based background worker, in my opinion, is [Sidekiq][sidekiq] written by [Mike Perham][mperham]. It uses the same actor-based concurrency library under the hood as Sucker Punch, but because it stores jobs in Redis it can also provide things like a beautiful management console and fine-grained control over jobs. The setup is essentially identical to Sucker Punch:
+
+```ruby
+# in app/workers/banana_worker.rb
+class BananaWorker
+  include Sidekiq::Worker
+
+  def perform(event)
+    puts "I am a banana!"
+  end
+end
+```
+
+```ruby
+# somewhere in a controller
+BananaWorker.perform_async("hi")
+```
+
 
 This example is going to use a very simple background worker system named [Sucker Punch][sucker_punch]. It runs in the same process as your web request but uses [Celluloid][celluloid] to do things in a background thread.
 
