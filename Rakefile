@@ -13,7 +13,22 @@ task :count do
     File.open(file).each do |line|
       if line =~ /^```/
         in_code_block = !in_code_block
+        next
+      end
+
+      count = line.split(/\w+/).compact.size
+
+      if in_code_block
+        file_code_count += count
+      else
+        file_word_count += count
       end
     end
+
+    code_count += file_code_count
+    word_count += file_word_count
   end
+
+  puts "word: #{word_count}"
+  puts "code: #{code_count}"
 end
