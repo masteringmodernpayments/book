@@ -1,6 +1,6 @@
 # Writing Journal
 
-## 2013-06-01
+## 2013-06-01 Sat
 
 * overall: 1369 135
 
@@ -18,6 +18,8 @@
 * Added a whole section talking about various worker options
 * Started writing this journal
 * Wrote some rake tasks to count words, sloc, and check for tics
+
+## 2013-06-02 Sun
 
 ### 10:30am - 11:45am (1.25)
 
