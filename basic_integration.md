@@ -43,6 +43,7 @@ def TransactionsController < ApplicationController
 
   def show
     @sale = Sale.where(guid: params[:guid]).first
+    raise ActiveSupport::RoutingError.new("Not found") unless @sale
   end
 
   def create
