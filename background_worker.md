@@ -72,6 +72,8 @@ end
 SuckerPunch::Queue[:banana_queue].async.perform("hi")
 ```
 
+The drawback to Sucker Punch, of course, is that if the web process falls over then your jobs evaporate. This will happen, no two ways about it. Errors and deploys will both kill the web process and erase your jobs.
+
 ### Database Persistence
 
 The classic, tried-and-true background worker is called [Delayed Job][dj]. It's been around since 2008 and is battle tested and production ready. At my day job we use it to process hundreds of thousands of events every day and it's basically fire and forget. It's also easier to use than Sucker Punch. Assuming a class like this:
@@ -102,7 +104,7 @@ To work pending jobs, just run
 $ bundle exec rake jobs:work
 ```
 
-Delayed Job does have some drawbacks. First, because it stores jobs in the same database as everything else it has to content with everythign else. For example, your database serve almost certainly has a limit on the number of connections it can handle, and every worker will require two of them, one for Delayed Job itself and another for any ActiveRecord objects. Second, it can get tricky to backup because you really don't need to be backing up the jobs table.
+Delayed Job does have some drawbacks. First, because it stores jobs in the same database as everything else it has to content with everythign else. For example, your database serve almost certainly has a limit on the number of connections it can handle, and every worker will require two of them, one for Delayed Job itself and another for any ActiveRecord objects. Second, it can get tricky to backup because you really don't need to be backing up the jobs table. That said, it's relatively simple and straight forward and has the distinct advantage of not making you run any new external services.
 
 ### Redis
 
@@ -132,13 +134,13 @@ $ bundle exec sidekiq
 
 <hr>
 
-For this example we're going to use Sucker Punch, just because it's self-contained and easy to use and doesn't require you to run anything other than a web process. If you'd like to use one of the other job systems described above, or if you already have your own for other things, it should be trivial to change.
+For this example we're going to use Sidekiq. If you'd like to use one of the other job systems described above, or if you already have your own for other things, it should be trivial to change.
 
 First, let's create a job class:
 
 ```ruby
 class StripeCharger
-  include SuckerPunch::Worker
+  include Sidekiq::Worker
 
   def perform(event)
     ActiveRecord::Base.connection_pool.with_connection do
@@ -165,17 +167,9 @@ class StripeCharger
 end
 ```
 
-Again, pretty straightforward. Sucker Punch will create an instance of your job class and call `#perform` on it with a hash of values that you pass in to the queue, which we'll get to in a second. We look up a `Transaction` record, initiate the charge, and capture any errors that happen along the way.
+Again, pretty straightforward. Sidekiq will create an instance of your job class and call `#perform` on it with a hash of values that you pass in to the queue, which we'll get to in a second. We look up a `Transaction` record, initiate the charge, and capture any errors that happen along the way.
 
-Sucker Punch needs to know about our job class, so let's tell it in an initializer:
-
-```ruby
-SuckerPunch.config do
-  queue name: :payments_queue, worker: StripeCharger, workers: 10
-end
-```
-
-Now for the controller that ties it all together:
+Now, in the TransactionsController, replace the transaction processing code with a call to `perform_async`, like so:
 
 ```ruby
 class TransactionsController < ApplicationController
@@ -187,7 +181,7 @@ class TransactionsController < ApplicationController
       state: 'pending'
     )
     if txn.save
-      SuckerPunch::Queue[:payments_queue].async.perform(
+      StripeCharter.perform_async(
         transaction_id: txn.id,
         token: params[:stripeToken]
       )
