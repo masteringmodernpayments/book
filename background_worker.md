@@ -181,7 +181,7 @@ class TransactionsController < ApplicationController
       state: 'pending'
     )
     if txn.save
-      StripeCharter.perform_async(
+      StripeCharger.perform_async(
         transaction_id: txn.id,
         token: params[:stripeToken]
       )
