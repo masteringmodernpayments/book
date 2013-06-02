@@ -76,15 +76,14 @@ task :check_spelling do
         line.split(/\w+/).each do |word|
           unless words.has_key? word.downcase
             puts "#{file}:#{line_num}: #{word}"
+            count += 1
           end
         end
       end
     end
-
-
   end
 
   if count > 0
     exit 1
   end
-  
+end
