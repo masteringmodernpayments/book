@@ -142,7 +142,10 @@ $ git add .
 $ git commit -m 'Initial commit'
 $ git push heroku master
 $ heroku open
+$ heroku run console # create a new user like we did before in irb
 ```
+
+
 
 ## Next
 
