@@ -7,6 +7,7 @@
 [docs]: https://stripe.com/docs/api
 [sucker_punch]: https://github.com/brandonhilkert/sucker_punch
 [Celluloid]: https://github.com/celluloid/celluloid/
+[redis]: http://redis.io
 
 Processing payments correctly is hard. This is one of the biggest lessons I've learned while writing my various [SaaS projects](/projects.html). Stripe does everything they can to make it easy, with [quick start guides][stripe] and [great documentation][docs]. One thing they really don't cover in the docs is what to do if your connection with their API fails for some reason. Processing payments inside a web request is asking for trouble, and the solution is to run them using a background job. 
 
@@ -39,7 +40,36 @@ But what if it doesn't? The internet between your server and Stripe's could be s
 
 ## The Solution
 
-The solution is to put the call to `Stripe::Charge.create` in a background job. This example is going to use a very simple background worker system named [Sucker Punch][sucker_punch]. It runs in the same process as your web request but uses [Celluloid][celluloid] to do things in a background thread.
+The solution is to put the call to `Stripe::Charge.create` in a background job. There's a bunch of different background worker systems available for Rails and Ruby in general, scaling all the way from simple in-process threaded workers with no persistence to external workers persisting jobs to the database or [Redis][redis], then even further to message busses like AMQP.
+
+### In-Process
+
+One of the best in-process workers that I've come across is called [Sucker Punch][sucker_punch]. Under the hood it uses the actor model to safely use concurrent threads for work processing, but you don't really have to worry about that. It's pretty trivial to use, just include the `SuckerPunch::Worker` module into your worker class, declare a queue using that class, and chuck jobs into it.
+
+```ruby
+# in app/workers/banana_worker.rb
+class BananaWorker
+  include SuckerPunch::Worker
+
+  def perform(event)
+    puts "I am a banana!"
+  end
+end
+```
+
+```ruby
+# in config/initializers/queues.rb
+SuckerPunch.config do
+  queue name: :banana_queue, worker: BananaWorker, workers: 10
+end
+```
+
+```ruby
+# somewhere in a controller
+SuckerPunch::Queue[:banana_queue].async.perform("hi")
+```
+
+This example is going to use a very simple background worker system named [Sucker Punch][sucker_punch]. It runs in the same process as your web request but uses [Celluloid][celluloid] to do things in a background thread.
 
 First, let's create a job class:
 
