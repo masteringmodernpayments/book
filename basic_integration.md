@@ -127,3 +127,10 @@ The view for `#pickup` is even simpler, since it basically just has to display t
 <p><%= link_to "Download", @product.download_url %></p>
 ```
 
+## Deploy
+
+Add all the new files to git and commit, then run:
+
+```bash
+$ heroku config:add STRIPE_PUBLISHABLE_KEY=pk_your_stripe_publishable_key STRIPE_SECRET_KEY=sk_your_stripe_secret_key
+$ git push heroku master
