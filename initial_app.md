@@ -147,7 +147,7 @@ $ heroku restart web # restart the web dyno to pick up the database changes
 $ heroku open
 ```
 
-You should
+You should see a login prompt from Devise. Go ahead and login and create a few products.
 
 ## Next
 
