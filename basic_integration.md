@@ -32,9 +32,30 @@ Note that we're getting the keys from the environment. This is for two reasons: 
 
 Next, let's create a new controller named `Transactions` where our Stripe-related logic will live:
 
-```bash
-$ rails generate controller transactions
-```
+```ruby
+# in app/controllers/transactions_controller.rb
+
+def TransactionsController < ApplicationController
+  skip_before_filter :authenticate_user!, only: [:new, :create]
+
+  def new
+  end
+
+  def create
+    product = Product.where(id: params[:product_id]).first
+    raise ActiveSupport::RoutingError.new("Not found") unless product
+
+    begin
+      charge = Stripe::Charge.create(
+        :amount => 1000, # amount in cents, again
+        :currency => "usd",
+        :card => token,
+        :description => "payinguser@example.com"
+      )
+    rescue Stripe::CardError => e
+      # The card has been declined
+    end    
+end
 
 ## Views
 
