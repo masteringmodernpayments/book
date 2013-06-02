@@ -1,6 +1,7 @@
 [devise]: https://github.com/plataformatec/devise
 [heroku]: https://www.heroku.com
 [postgresql]: http://www.postgresql.org
+[toolbelt]: https://toolbelt.heroku.com
 
 todo yet:
 * display sale to user
@@ -130,7 +131,7 @@ We're using a GUID here so that when we eventually allow the user to look at the
 
 ## Deploying
 
-[Heroku][heroku] is bar-none the fastest way to get a Rails app deployed into a production environment, so that's what we're going to use throughout the guide. Feel free to substitute your ow
+[Heroku][heroku] is bar-none the fastest way to get a Rails app deployed into a production environment, so that's what we're going to use throughout the guide. If you already have a deployment system for your application by all means use that. First, download and install the [Heroku Toolbelt][toolbelt] for your platform. Follow 
 
 ## Next
 
