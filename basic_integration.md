@@ -41,7 +41,8 @@ def TransactionsController < ApplicationController
   def new
   end
 
-  def success
+  def show
+    @sale = Sale.where(guid: params[:guid]).first
   end
 
   def create
