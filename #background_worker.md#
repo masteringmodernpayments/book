@@ -44,11 +44,11 @@ The solution is to put the call to `Stripe::Charge.create` in a background job. 
 
 ### In-Process
 
-One of the best in-process workers that I've come across is called [Sucker Punch][sucker_punch]. Under the hood it uses the actor model to safely use concurrent threads for work processing, but you don't really have to worry about that. It's pretty trivial to use, just mi
+One of the best in-process workers that I've come across is called [Sucker Punch][sucker_punch]. Under the hood it uses the actor model to safely use concurrent threads for work processing, but you don't really have to worry about that. It's pretty trivial to use, just include the `SuckerPunch::Worker` module into your worker class, declare a queue using that class, and chuck jobs into it.
 
-
-
-
+```
+class SomeBackgroundWorker
+  include Suc
 
 
 This example is going to use a very simple background worker system named [Sucker Punch][sucker_punch]. It runs in the same process as your web request but uses [Celluloid][celluloid] to do things in a background thread.
