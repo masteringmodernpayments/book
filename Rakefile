@@ -55,7 +55,7 @@ task :check_spelling do
 
   File.open('/usr/share/dict/words') do |f|
     f.each do |w|
-      words[w] = true
+      words[w.strip] = true
     end
   end
   
