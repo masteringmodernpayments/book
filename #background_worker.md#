@@ -44,7 +44,7 @@ The solution is to put the call to `Stripe::Charge.create` in a background job. 
 
 ### In-Process
 
-One of the best in-process work
+One of the best in-process workers that I've come across is called [Sucker Punch][sucker_punch]. Under the hood it uses Ruby threads and C
 
 
 
