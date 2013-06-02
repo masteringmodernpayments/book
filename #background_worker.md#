@@ -92,7 +92,7 @@ To queue the `#split` method in a background job, all you have to do is:
 Banana.new('medium').delay.split
 ```
 
-That is, put 
+That is, put a call to `delay` before the call to `split`. Delayed Job will serialize the object, put it in the database, and then when a worker is ready to process the job it'll do the reverse and finally run the `split` method.
 
 To work pending jobs, just run
 
