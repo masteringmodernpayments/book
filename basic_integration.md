@@ -2,4 +2,16 @@
 
 This chapter is going to be a whirlwind integration with Stripe. It's going to be simple and nothing you haven't seen before, but it'll give us something to build on for the next few sections.
 
-## B
+## Basic Setup
+
+First, add the Stripe gem to your Gemfile:
+
+```ruby
+gem 'stripe', git: 'https://github.com/stripe/stripe-ruby'
+```
+
+And run bundle install:
+
+```bash
+$ bundle install
+```
