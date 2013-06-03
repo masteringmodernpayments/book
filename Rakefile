@@ -2,7 +2,7 @@ task :default => [:count, :check_tics]
 
 task :count do
 
-  goal_count = 20000
+  goal_count = 20000.0
 
   code_count = 0
   word_count = 0
@@ -33,6 +33,7 @@ task :count do
     puts "#{file}: #{file_word_count} #{file_code_count}"
   end
 
+  goal_pct = (word_count / goal_count * 100).round
   puts "overall: #{word_count} #{code_count}"
 end
 
