@@ -51,6 +51,7 @@ class TransactionsController < ApplicationController
   def show
     @sale = Sale.where(guid: params[:guid]).first
     raise ActionController::RoutingError.new("Not found") unless @sale
+    @product = @sale.product
   end
 
   def create
