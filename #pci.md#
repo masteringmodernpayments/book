@@ -12,4 +12,4 @@ The real revolutionary part of how Stripe works is in how they reduce your compl
 
 Stripe, with `stripe.js`, makes this kind of a thing of the past. When you create a form using `stripe.js` or `checkout.js` loaded from Stripe's servers, none of the customer's credit card info is sent through your servers. The javascript that gets injected into your form instead sends that info to Stripe's servers over HTTPS, where they turn it into a single-use *token*. Your server can then use that token to refer to a customer's credit card without having seen it at all.
 
-The only thing you as a merchant have to do to be PCI compliant in this situation is to make sure you're serving up your pages over HTTPS
+The only thing you as a merchant have to do to be PCI compliant in this situation is to make sure you're serving up your payment-related pages over HTTPS. As long as you're loading `stripe.js` from Stripe via HTTPS into a secure webpage which POSTs to a secure endpoint, and you make sure not to put `name`s on any of the relat
