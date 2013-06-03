@@ -8,7 +8,7 @@
 * [Initial app description](/initial_app)
   * products
   * users/admins
-* PCI Compliance Issues
+* [PCI Compliance](/pci)
 * [Initial payment integration with checkout.js](/basic_integration)
   * purchases
   * in-process
