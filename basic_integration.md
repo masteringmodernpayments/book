@@ -40,7 +40,7 @@ Next, let's create a new controller named `Transactions` where our Stripe-relate
 ```ruby
 # in app/controllers/transactions_controller.rb
 
-def TransactionsController < ApplicationController
+class TransactionsController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:new, :create]
 
   def new
