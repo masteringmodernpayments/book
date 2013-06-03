@@ -32,3 +32,7 @@
 * Wrote draft [basic_integration](/basic_integration)
 * Added a section about deploying to [initial_app](/initial_app)
 * Added `download_url` to purchases
+
+### 3:45pm - 6:00pm (2.25)
+
+* Implemented the [basic_integration](/basic_integration), fixed a bunch of bugs
