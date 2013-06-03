@@ -36,3 +36,11 @@
 ### 3:45pm - 6:00pm (2.25)
 
 * Implemented the [basic_integration](/basic_integration), fixed a bunch of bugs
+
+## 2013-06-03 Mon
+
+* overall: 2605 213 (9%)
+
+### 6:15am - 7am (0.75)
+
+* Wrote about [PCI compliance](/pci)
