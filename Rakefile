@@ -34,7 +34,7 @@ task :count do
   end
 
   goal_pct = (word_count / goal_count * 100).round
-  puts "overall: #{word_count} #{code_count}"
+  puts "overall: #{word_count} #{code_count} (#{goal_pct}%)"
 end
 
 task :check_tics do
