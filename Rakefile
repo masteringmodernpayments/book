@@ -2,7 +2,7 @@ task :default => [:count, :check_tics]
 
 task :count do
 
-  goal_count = 20000.0
+  goal_count = 30000.0
 
   code_count = 0
   word_count = 0
