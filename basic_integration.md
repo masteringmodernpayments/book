@@ -44,7 +44,7 @@ class TransactionsController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:new, :create]
 
   def new
-    @product = Product.where(permalink: params[:product]).first
+    @product = Product.where(permalink: params[:permalink]).first
     raise ActionController::RoutingError.new("Not found") unless @product
   end
 
