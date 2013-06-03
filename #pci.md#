@@ -8,4 +8,4 @@ Back in the early 2000s the credit card industry got together and decided on a w
 
 Now, though, both of those practices along with a host of others would get your merchant account cancelled. Being PCI compliant means that you adhere to all of the practices that apply to the way you process credit cards. Stripe is certified Service Provider Level 1, which means they have to have store credit card information encrypted in separate machines, possibly in separate data centers, than all of the rest of their infrastructure. It also means that nobody internal to Stripe can access unencrypted credit card numbers. Their software makes charges based on your API calls by sending information to an exclusive set of providers, entirely hidden from employees.
 
-The real revolutionary part of how Stripe works is in how they reduce your compliance scope as a merchant. Before Stripe, when epo
+The real revolutionary part of how Stripe works is in how they reduce your compliance scope as a merchant. Before Stripe, a typical online merchant would have a normal HTTP 
