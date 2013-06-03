@@ -3,10 +3,6 @@
 [postgresql]: http://www.postgresql.org
 [toolbelt]: https://toolbelt.heroku.com
 
-todo yet:
-* display sale to user
-* add a download URL to the product and allow the user to download it
-
 # Initial Application
 
 In this chapter we're going to create a very simple rails application so we have something to work with for later chapters. All of the rest of the examples in the guide will be based on this app. You can either follow along with the instructions or use the app in the `sales` directory in the example code.
