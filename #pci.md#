@@ -1,3 +1,5 @@
 # PCI Compliance
 
-One of the biggest reasons to choose Stripe over other ways of processing credit cards is that they minimize your exposure to *PCI compliance*. PCI stands for "Payment Card Industry", if you were wondering. Back in the early 2000s the credit card industry got together and decided on a whole bunch of int
+One of the biggest reasons to choose Stripe over other ways of processing credit cards is that they minimize your exposure to *PCI compliance*. PCI stands for "Payment Card Industry", if you were wondering.
+
+Back in the early 2000s the credit card industry got together and decided on a whole bunch of interrelated standards for how to secure a payment system such that personally identifiable information, especially credit card numbers, is unlikely to be leaked to the outside world. For example, before the era of PCI compliance it w
