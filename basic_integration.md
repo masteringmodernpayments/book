@@ -54,7 +54,7 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    product = Product.where(permalink: params[:product]).first
+    product = Product.where(permalink: params[:permalink]).first
     raise ActionController::RoutingError.new("Not found") unless product
 
     token = params[:stripeToken]
