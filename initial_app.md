@@ -83,6 +83,56 @@ You'll need to a user so you can actually log in to the site. Fire up `rails con
 User.create!(email: 'you@example.com', password: 'password', password_confirmation: 'password')
 ```
 
+## Models
+
+Our sales site needs something to sell, so let's create a product model:
+
+```bash
+$ rails g scaffold Product name:string permalink:string description:text price:integer user_id:integer download_url:text
+$ rake db:migrate
+```
+
+`name` and `description` will actually get displayed to the customer, `permalink` and `download_url` will be used later. Open up `app/models/product.rb` and change it too look like this:
+
+```ruby
+class Product < ActiveRecord::Base
+  attr_accessible :description, :name, :permalink, :price, :user_id, :download_url
+
+  belongs_to :user
+end
+```
+
+The sales site needs a way to track, you know, sales. Let's make a Sale model too.
+
+```bash
+$ rails g scaffold Sale email:string guid:string uct_id:integer
+$ rake db:migrate
+```
+
+Open up `app/models/sale.rb` and make it look like this:
+
+```ruby
+class Sale < ActiveRecord::Base
+  attr_accessible :email, :product_id
+
+  belongs_to :product
+
+  before_save :populate_guid
+
+  def populate_guid
+    if new_record?
+      self.guid = SecureRandom.uuid()
+    end
+  end
+end
+```
+
+We're using a GUID here so that when we eventually allow the user to look at their transaction they won't see the `id`, which means they won't be able to guess the next ID in the sequence and potentially see someone else's transaction.
+
+## Deploying
+
+[Heroku][heroku] is bar-none the fastest way to get a Rails app deployed into a production environment, so that's what we're going to use throughout the guide. If you already have a deployment system for your application by all means use that. First, download and install the [Heroku Toolbelt][toolbelt] for your platform. Make sure you `heroku login` to set your credentials.
+
 We have to add one more config option. Because of how Heroku handles databases, our app does not have access to the database while compiling assets. Conveniently Rails has an option to turn off connecting to the database at that time. Set it in `config/application.rb`:
 
 ```
