@@ -1,0 +1,107 @@
+[devise]: https://github.com/plataformatec/devise
+[heroku]: https://www.heroku.com
+[postgresql]: http://www.postgresql.org
+[toolbelt]: https://toolbelt.heroku.com
+
+todo yet:
+* display sale to user
+* add a download URL to the product and allow the user to download it
+
+# Initial Application
+
+In this chapter we're going to create a very simple rails application so we have something to work with for later chapters. All of the rest of the examples in the guide will be based on this app. You can either follow along with the instructions or use the app in the `sales` directory in the example code.
+
+A note on versions. The example app will be using Rails 3.2.13 and PostgreSQL 9.2.
+
+## Boilerplate
+
+Let's create an initial application:
+
+```bash
+$ rails new sales --database postgresql --test-framework=rspec
+$ cd sales
+$ createuser -s sales
+$ rake db:setup
+$ rake db:migrate
+$ rake test
+```
+
+I'm going to use [PostgreSQL][postgresql] for the example app because that's what I know best, it's what [Heroku][heroku] provides for free, and it's what I suggest to everyone who asks. If you want to use a different database, feel free to substitute. Any `ActiveRecord`-compatible database should be sufficient.
+
+## Authentication
+
+Eventually we're going to want to be able to authenticate users and admins. The example is going to use a gem named [Devise][devise] which handles everything user-related out of the box. Add it to your `Gemfile`:
+
+```ruby
+gem 'devise', '~> 2.2.4'
+```
+
+then run bundler and set up Devise:
+
+```bash
+$ bundle install
+$ rails generate devise:install
+```
+
+At this point you have to do some manual configuration. Add this to `config/environments/development.rb`:
+
+```ruby
+config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+```
+
+This to `config/routes.rb`:
+
+```ruby
+root :to => 'products#index'
+```
+
+and this in `app/views/layouts/application.html.erb` right after the `body` tag:
+
+```erb
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+```
+
+Also, you'll want to delete `public/index.html` because it gets in Devise's way.
+
+Now, let's create a User model for devise to work with:
+
+```bash
+$ rails generate devise User
+$ rake db:migrate
+```
+
+Open up `app/controllers/application_controller.rb` and add this line, which will secure everything by default:
+
+```ruby
+before_filter :authenticate_user!
+```
+
+You'll need to a user so you can actually log in to the site. Fire up `rails console` and type:
+
+```ruby
+User.create!(email: 'you@example.com', password: 'password', password_confirmation: 'password')
+```
+
+We have to add one more config option. Because of how Heroku handles databases, i
+
+Next, create an appliation and deploy the example code to it:
+
+```bash
+$ heroku create
+$ git init .
+$ git add .
+$ git commit -m 'Initial commit'
+$ git push heroku master
+$ heroku run rake db:migrate
+$ heroku run console # create a new user like we did before in the local console
+$ heroku restart web # restart the web dyno to pick up the database changes
+$ heroku open
+```
+
+You should see a login prompt from Devise. Go ahead and login and create a few products.
+
+## Next
+
+Now we have a very simple application which will be enough to get going. We have things to sell and a way to track sales, as well as authentication so not just anybody can come muck with our stuff. Next, we'll run through the simplest Stripe integration and actually sell some stuff.
+
