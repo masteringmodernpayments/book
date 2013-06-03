@@ -45,17 +45,17 @@ class TransactionsController < ApplicationController
 
   def new
     @product = Product.where(permalink: params[:product]).first
-    raise ActiveSupport::RoutingError.new("Not found") unless product
+    raise ActionController::RoutingError.new("Not found") unless @product
   end
 
   def show
     @sale = Sale.where(guid: params[:guid]).first
-    raise ActiveSupport::RoutingError.new("Not found") unless @sale
+    raise ActionController::RoutingError.new("Not found") unless @sale
   end
 
   def create
     product = Product.where(permalink: params[:product]).first
-    raise ActiveSupport::RoutingError.new("Not found") unless product
+    raise ActionController::RoutingError.new("Not found") unless product
 
     token = params[:stripeToken]
 
