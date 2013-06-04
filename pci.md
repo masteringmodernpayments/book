@@ -8,6 +8,8 @@
 
 One of the biggest reasons to choose Stripe over other ways of processing credit cards is that they minimize your exposure to *PCI compliance*. PCI stands for "[Payment Card Industry][pci]", if you were wondering.
 
+Note: I'm not an expert in PCI compliance and this chapter shouldn't be interpreted as legal advice about it. Rather, this is background information and advice on how to implement Stripe's guidelines. If you have questions, please ask Stripe.
+
 Back in the early 2000s the credit card industry got together and decided on a whole bunch of interrelated standards for how to secure a payment system such that personally identifiable information, especially credit card numbers, is unlikely to be leaked to the outside world. For example, before the era of PCI compliance it was common for your unencrypted credit card number to be tacked onto your user record in an application database. Also, it was typical for sites to use plain HTTP for payment forms instead of HTTPS.
 
 Now, though, both of those practices along with a host of others would get your merchant account cancelled. Being PCI compliant means that you adhere to all of the practices that apply to the way you process credit cards. Stripe is certified Service Provider Level 1, which means they have to have store credit card information encrypted in separate machines, possibly in separate data centers, than all of the rest of their infrastructure. It also means that nobody internal to Stripe can access unencrypted credit card numbers. Their software makes charges based on your API calls by sending information to an exclusive set of providers, entirely hidden from employees.
