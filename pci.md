@@ -99,7 +99,7 @@ $ heroku certs
 
 Now just configure `www.example.com` as a CNAME pointing at the `herokussl.com` endpoint printed from `heroku certs` and test it out:
 
-```
+```bash
 $ curl -kvI https://www.example.com
 ```
 
