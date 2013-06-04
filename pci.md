@@ -82,6 +82,8 @@ You'll now be prompted to enter your administrative contact info, which it helpf
 
 You'll get taken to a web page with a handy dandy flow chart, and within a few mintues you'll get an email. Click the link in the email, copy and paste the verification code, and hit the "Next" button. You'll get another email, this one with your new certificate attached.
 
+### Installing the certificate at Heroku
+
 At this point, you'll need to attach the SSL certificate to your application. With Heroku, [this is easy][heroku_ssl].
 
 ```bash
