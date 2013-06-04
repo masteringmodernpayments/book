@@ -19,4 +19,4 @@ The only thing you as a merchant have to do to be PCI compliant in this situatio
 
 ## Implementing HTTPS with Rails
 
-Ra
+Rails after v3.1 makes forcing visitors to HTTPS incredibly easy. In `config/envi
