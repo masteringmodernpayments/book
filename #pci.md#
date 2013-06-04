@@ -40,10 +40,15 @@ There are many different places where you can buy a certificate. I've had good l
 
 First make sure you have `openssl` installed on your machine. It comes installed by default on Mac OS X but on Linux you may have to install it from your package manager.
 
-### Generating a Private Key
+### Generate a Private Key
 
 ```bash
 $ openssl genrsa -out example.com.key 2048
 ```
 
-This generates a 2048 bit [RSA key][rsa]
+This generates a 2048 bit [RSA key][rsa] and stores it in `example.com.key`.
+
+### Generate a Certificate Signing Request
+
+```bash
+$ openssl req -new -key example.com.key -out e
