@@ -3,7 +3,7 @@
 [pci]: https://www.pcisecuritystandards.org
 [stripe_pci]: https://stripe.com/help/security
 [rsa]: http://en.wikipedia.org/wiki/RSA_(algorithm)
-[namecheap_comodo]: http://www.namecheap.com/ssl-certificates/comodo.aspx
+[namecheap_ssl]: http://www.namecheap.com/ssl-certificates.aspx
 
 One of the biggest reasons to choose Stripe over other ways of processing credit cards is that they minimize your exposure to *PCI compliance*. PCI stands for "[Payment Card Industry][pci]", if you were wondering.
 
@@ -69,4 +69,4 @@ This will print out a bunch of information about your certificate. You can ignor
 
 ### Buy the actual certificate
 
-Head on over to [Namecheap's SSL page][namecheap
+Head on over to [Namecheap's SSL page][namecheap_ssl]. Here you're presented with a bunch of different options presented in what they feel is least-secure to most-secure list. I always buy the cheapest option, since the more expensive
