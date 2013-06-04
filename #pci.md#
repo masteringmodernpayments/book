@@ -4,6 +4,7 @@
 [stripe_pci]: https://stripe.com/help/security
 [rsa]: http://en.wikipedia.org/wiki/RSA_(algorithm)
 [namecheap_ssl]: http://www.namecheap.com/ssl-certificates.aspx
+[heroku_ssl]: https://devcenter.heroku.com/articles/ssl-endpoint
 
 One of the biggest reasons to choose Stripe over other ways of processing credit cards is that they minimize your exposure to *PCI compliance*. PCI stands for "[Payment Card Industry][pci]", if you were wondering.
 
@@ -79,8 +80,15 @@ You'll now be prompted to enter your administrative contact info, which it helpf
 
 You'll get taken to a web page with a handy dandy flow chart, and within a few mintues you'll get an email. Click the link in the email and hit the "Verify" button. You'll get another email, this one with your new certificate attached.
 
-At this point, you'll need to attach the SSL certificate to your application. With Heroku, this is easy.
+At this point, you'll need to attach the SSL certificate to your application. With Heroku, [this is easy][heroku_ssl].
 
 ```bash
-$ heroku 
+$ heroku addons:add ssl:endpoint
+$ heroku certs:add www.example.com.crt bundle.pem example.com.key
+```
+
+To see if the certificate installed properly:
+
+```bash
+$ he
 
