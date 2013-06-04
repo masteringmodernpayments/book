@@ -44,3 +44,11 @@
 ### 6:15am - 7am (0.75)
 
 * Wrote about [PCI compliance](/pci)
+
+## 2013-06-04 Tue
+
+* overall: 3332 221 (11%)
+
+### 7:00am - 8:00am (1)
+
+* Wrote about SSL in [PCI compliance](/pci)
