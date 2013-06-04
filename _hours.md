@@ -52,3 +52,4 @@
 ### 7:00am - 8:00am (1)
 
 * Wrote about SSL in [PCI compliance](/pci)
+* Added a paragraph about how it's not advice about compliance and if you have questions to contact Stripe directly.
