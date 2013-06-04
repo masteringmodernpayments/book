@@ -78,7 +78,7 @@ Namecheap will give you a list of email addresses to choose from. This is where 
 
 You'll now be prompted to enter your administrative contact info, which it helpfully copied from your domain registration if you registered through Namecheap. Fill this stuff out, then hit Next.
 
-You'll get taken to a web page with a handy dandy flow chart, and within a few mintues you'll get an email. Click the link in the email and hit the "Verify" button. You'll get another email, this one with your new certificate attached.
+You'll get taken to a web page with a handy dandy flow chart, and within a few mintues you'll get an email. Click the link in the email, copy and paste the verification code, and hit the "Next" button. You'll get another email, this one with your new certificate attached.
 
 At this point, you'll need to attach the SSL certificate to your application. With Heroku, [this is easy][heroku_ssl].
 
