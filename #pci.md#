@@ -73,5 +73,7 @@ Head on over to [Namecheap's SSL page][namecheap_ssl]. Here you're presented wit
 
 Go through checkout and pay and you'll get sent to a page where you can pick your server type and paste your CSR. For Heroku you should choose the "Other" option in the server dropdown. Open your CSR up and paste the entire contents into the text box, then hit Next.
 
-Namecheap will give you a list of email addresses to choose from. This is where it's going to send the verification email that contains a link you have to click to proceed through th
+Namecheap will give you a list of email addresses to choose from. This is where it's going to send the verification email that contains a link you have to click to proceed through the process. If you don't already have one of these email aliases set up, you should do so now before picking one and clicking Next.
+
+You'll now be prompted to enter your administrative contact info, which it helpfully 
 
