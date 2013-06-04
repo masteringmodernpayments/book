@@ -60,4 +60,6 @@ Also, make sure to leave extra attributes including the challenge password blank
 
 ### Validate your new CSR
 
-```openssl req -noout -text -in example.com.csr
+```bash
+$ openssl req -noout -text -in example.com.csr
+```
