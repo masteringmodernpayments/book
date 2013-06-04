@@ -2,6 +2,7 @@
 
 [pci]: https://www.pcisecuritystandards.org
 [stripe_pci]: https://stripe.com/help/security
+[rsa]: http://en.wikipedia.org/wiki/RSA_(algorithm)
 
 One of the biggest reasons to choose Stripe over other ways of processing credit cards is that they minimize your exposure to *PCI compliance*. PCI stands for "[Payment Card Industry][pci]", if you were wondering.
 
@@ -37,9 +38,12 @@ There are many different places where you can buy a certificate. I've had good l
 * Receive your shiny new certificate
 * Remove the passphrase from your certificate so that the webserver can use it.
 
-First make sure you have `openssl` installed on your machine. It comes installed by default on Mac OS X, on linux you may have to 
+First make sure you have `openssl` installed on your machine. It comes installed by default on Mac OS X but on Linux you may have to install it from your package manager.
 
 ### Generating a Private Key
 
 ```bash
-$ openssl genrsa -des3 -out certificate.key
+$ openssl genrsa -out example.com.key 2048
+```
+
+This generates a 2048 bit [RSA key][rsa]
