@@ -1,12 +1,15 @@
 # PCI Compliance
 
 [pci]: https://www.pcisecuritystandards.org
+[stripe_pci]: https://stripe.com/help/security
 
 One of the biggest reasons to choose Stripe over other ways of processing credit cards is that they minimize your exposure to *PCI compliance*. PCI stands for "[Payment Card Industry][pci]", if you were wondering.
 
 Back in the early 2000s the credit card industry got together and decided on a whole bunch of interrelated standards for how to secure a payment system such that personally identifiable information, especially credit card numbers, is unlikely to be leaked to the outside world. For example, before the era of PCI compliance it was common for your unencrypted credit card number to be tacked onto your user record in an application database. Also, it was typical for sites to use plain HTTP for payment forms instead of HTTPS.
 
 Now, though, both of those practices along with a host of others would get your merchant account cancelled. Being PCI compliant means that you adhere to all of the practices that apply to the way you process credit cards. Stripe is certified Service Provider Level 1, which means they have to have store credit card information encrypted in separate machines, possibly in separate data centers, than all of the rest of their infrastructure. It also means that nobody internal to Stripe can access unencrypted credit card numbers. Their software makes charges based on your API calls by sending information to an exclusive set of providers, entirely hidden from employees.
+
+## Stripe and PCI
 
 The real revolutionary part of how Stripe works is in how they reduce your compliance scope as a merchant. Before Stripe, a typical online merchant would have a normal HTML form on their website where customers would put in their credit card information. This form would post to the merchant's server, where they would take the credit card info and pass it along to their *gateway service*, which would then talk to all of the various banks and things and then eventually deposit the money into their *merchant account*. This means, among other things, that each merchant would have to become PCI certified, even if they weren't storing the credit card info anywhere in their system. Theoretically, an attacker could stick some code into a merchant's payment processing system and divert credit card numbers. Or, if the merchant's site wasn't using HTTPS they could perform a man-in-the-middle attack and capture credit card info that way.
 
