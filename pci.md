@@ -58,4 +58,6 @@ OpenSSL will ask you a bunch of questions now. Fill them in like the prompts, bu
 
 Also, make sure to leave extra attributes including the challenge password blank.
 
-### 
+### Validate your new CSR
+
+```openssl req -noout -text -in example.com.csr
