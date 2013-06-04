@@ -90,5 +90,11 @@ $ heroku certs:add www.example.com.crt bundle.pem example.com.key
 To see if the certificate installed properly:
 
 ```bash
-$ he
+$ heroku certs
+```
+
+Now just configure `www.example.com` as a CNAME pointing at the `herokussl.com` endpoint printed from `heroku certs` and test it out:
+
+```
+$ curl -kvI https://www.example.co
 
