@@ -3,6 +3,8 @@
 [pci]: https://www.pcisecuritystandards.org
 [stripe_pci]: https://stripe.com/help/security
 [rsa]: http://en.wikipedia.org/wiki/RSA_(algorithm)
+[namecheap_ssl]: http://www.namecheap.com/ssl-certificates.aspx
+[heroku_ssl]: https://devcenter.heroku.com/articles/ssl-endpoint
 
 One of the biggest reasons to choose Stripe over other ways of processing credit cards is that they minimize your exposure to *PCI compliance*. PCI stands for "[Payment Card Industry][pci]", if you were wondering.
 
@@ -63,3 +65,39 @@ Also, make sure to leave extra attributes including the challenge password blank
 ```bash
 $ openssl req -noout -text -in example.com.csr
 ```
+
+This will print out a bunch of information about your certificate. You can ignore almost all of it, but pay attention to the line `CN=example.com`. This should match what you put in for your server name in the `Common Name` field.
+
+### Buy the actual certificate
+
+Head on over to [Namecheap's SSL page][namecheap_ssl]. Here you're presented with a bunch of different options presented in what they feel is least-secure to most-secure list. I generally buy the cheapest option because they're all pretty much the same in the $10 range. If you want, you can get EV1 certification which will give you the green bar in Safari and Firefox. You'll have to do some more paperwork to get it, though. For now, let's just get the cheapest Comodo certificate.
+
+Go through checkout and pay and you'll get sent to a page where you can pick your server type and paste your CSR. For Heroku you should choose the "Other" option in the server dropdown. Open your CSR up and paste the entire contents into the text box, then hit Next.
+
+Namecheap will give you a list of email addresses to choose from. This is where it's going to send the verification email that contains a link you have to click to proceed through the process. If you don't already have one of these email aliases set up, you should do so now before picking one and clicking Next.
+
+You'll now be prompted to enter your administrative contact info, which it helpfully copied from your domain registration if you registered through Namecheap. Fill this stuff out, then hit Next.
+
+You'll get taken to a web page with a handy dandy flow chart, and within a few mintues you'll get an email. Click the link in the email and hit the "Verify" button. You'll get another email, this one with your new certificate attached.
+
+At this point, you'll need to attach the SSL certificate to your application. With Heroku, [this is easy][heroku_ssl].
+
+```bash
+$ heroku addons:add ssl:endpoint
+$ heroku certs:add www.example.com.crt bundle.pem example.com.key
+```
+
+To see if the certificate installed properly:
+
+```bash
+$ heroku certs
+```
+
+Now just configure `www.example.com` as a CNAME pointing at the `herokussl.com` endpoint printed from `heroku certs` and test it out:
+
+```
+$ curl -kvI https://www.example.com
+```
+
+This should print out a bunch of stuff about SSL and the headers from your application.
+
