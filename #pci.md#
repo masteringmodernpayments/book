@@ -69,4 +69,6 @@ This will print out a bunch of information about your certificate. You can ignor
 
 ### Buy the actual certificate
 
-Head on over to [Namecheap's SSL page][namecheap_ssl]. Here you're presented with a bunch of different options presented in what they feel is least-secure to most-secure list. I generally buy the cheapest option because they're all pretty much the same in the $10 range. If you want, you can get EV1 certification which will give you the green bar in Safari and
+Head on over to [Namecheap's SSL page][namecheap_ssl]. Here you're presented with a bunch of different options presented in what they feel is least-secure to most-secure list. I generally buy the cheapest option because they're all pretty much the same in the $10 range. If you want, you can get EV1 certification which will give you the green bar in Safari and Firefox. You'll have to do some more paperwork to get it, though. For now, let's just get the cheapest Comodo certificate.
+
+Go through checkout and pay and you'll get sent to a page where you can pick you
