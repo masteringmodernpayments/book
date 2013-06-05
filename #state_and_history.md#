@@ -78,6 +78,13 @@ We moved the logic to charge the card from the controller into the model. This a
 
 ```ruby
 def create
-  product = Product.where(permalink: params[:perm
+  product = Product.where(permalink: params[:permalink]).first
+  raise ActionController::RoutingError.new("Not found") unless product
+
+  token = params[:stripeToken]
+  transaction = Transaction.create(
+    amount: product.price,
+    email: params[:email],
+    stripe_token: token
 end
 ```
