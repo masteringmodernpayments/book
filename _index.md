@@ -18,7 +18,7 @@
 * Payment Form with stripe.js
   * iframe
   * ssl
-* Save transaction information with a Transaction record
+* [Save transaction information with a Transaction record](/state_and_history)
   * basic record
     - amount charged
     - stripe fee
