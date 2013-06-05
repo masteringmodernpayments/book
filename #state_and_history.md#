@@ -1,1 +1,3 @@
-Transaction Records
+# Transaction Records
+
+So far in our little example app we can buy and sell downloadable products using Stripe.
