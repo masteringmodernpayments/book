@@ -2,4 +2,4 @@
 
 So far in our little example app we can buy and sell downloadable products using Stripe. However, the only way we can know how much money our store has made is by asking Stripe. We can't easily ask our database for reporting purposes becase we're just tracking sales as one-off events. We also have to trust Stripe to not mess up, which when you're dealing with financial concerns can be a lot to ask. It would be better if we could keep our own records and then reconcile them with Stripe later.
 
-Ideally, we'd like to be able to trace each sale through from initialization to completion, including purchase, refunds, errors, etc. One step along the way is to track the state of each transactio
+Ideally, we'd like to be able to trace each sale through from initialization to completion, including purchase, refunds, errors, etc. One step along the way is to track the state of each transaction using a *state machine*. A state machine is simply a formal definition of what states an object can be in and the transitions that can happen to get it between states. For example, 
