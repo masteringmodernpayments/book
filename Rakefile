@@ -4,7 +4,7 @@ def each_line_in_guide
   Dir.glob('*.md').each do |file|
     next if file =~ /^_/
     in_code_block = false
-    File.open(file).each_with_index do |line_num, line|
+    File.open(file).each_with_index do |file, line_num, line|
       yield line_num + 1, line.rstrip
     end
   end
