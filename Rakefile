@@ -48,6 +48,10 @@ task :check_tics do
       puts "#{file} matches"
     end
   end
+
+  if count > 0
+    exit 1
+  end
 end
 
 task :check_todos do
@@ -61,5 +65,9 @@ task :check_todos do
         count += 1
       end
     end
+  end
+
+  if count > 0
+    exit 1
   end
 end
