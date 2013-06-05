@@ -72,4 +72,6 @@ class Transaction < ActiveRecord::Base
 end
 ```
 
-Inside the `aasm` block, every state we described earlier gets a `state` declaration, and every event gets an `event` declaration. Notice that the `:pending` state is what the record will be created with. Also, notice that the transition from `:pending` to `:processing` has an `:after` callback declared. After `aasm` updates the `state` property and saves the record it will call the `charge_card` method, which 
+Inside the `aasm` block, every state we described earlier gets a `state` declaration, and every event gets an `event` declaration. Notice that the `:pending` state is what the record will be created with. Also, notice that the transition from `:pending` to `:processing` has an `:after` callback declared. After `aasm` updates the `state` property and saves the record it will call the `charge_card` method.
+
+We moved the logic to charge the card from the controller into the model. This not only adheres to Fat Model Skinny Co
