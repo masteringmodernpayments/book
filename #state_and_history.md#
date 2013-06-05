@@ -86,5 +86,12 @@ def create
     amount: product.price,
     email: params[:email],
     stripe_token: token
+  )
+  transaction.process!
+  if transaction.finished?
+    sale = Sale.create!(product_id: product.id, email: params[:email])
+    redirect_to pickup_url(guid: sale.guid)
+  else
+    error = transaction.e
 end
 ```
