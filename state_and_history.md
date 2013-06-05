@@ -169,3 +169,4 @@ Now, let's display versions on the Sale show view:
 ```
 
 Each change will have a timestamp and a block of changes, one row for each column that changed in that update.
+
