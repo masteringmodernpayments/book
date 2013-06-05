@@ -1,3 +1,3 @@
 # Transaction Records
 
-So far in our little example app we can buy and sell downloadable products using Stripe.
+So far in our little example app we can buy and sell downloadable products using Stripe. However, the only way we can know how much money our store has made is by asking Stripe. We 
