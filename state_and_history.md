@@ -52,6 +52,10 @@ class Transaction < ActiveRecord::Base
     end
   end
 
+  def charge_chard
+    
+  end
+
 
 end
 
