@@ -92,8 +92,9 @@ def create
     sale = Sale.create!(product_id: product.id, email: params[:email])
     redirect_to pickup_url(guid: sale.guid)
   else
-    error = transaction.error.
+    @error = transaction.error
     render :new
   end
 end
 ```
+
