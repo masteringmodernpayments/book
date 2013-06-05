@@ -94,13 +94,13 @@ def create
   raise ActionController::RoutingError.new("Not found") unless product
 
   token = params[:stripeToken]
-  transaction = Transaction.create(
+  sale = Transaction.create(
     amount: product.price,
     email: params[:email],
     stripe_token: token
   )
-  transaction.process!
-  if transaction.finished?
+  sale.process!
+  if sale.finished?
     redirect_to pickup_url(guid: sale.guid)
   else
     @error = transaction.error
