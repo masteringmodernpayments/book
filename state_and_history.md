@@ -127,7 +127,7 @@ gem 'paper_trail', '~> 2'
 Install the gem, which will generate a migration for you, and run the migration:
 
 ```bash
-$ rails generate paper_trail:install
+$ rails generate paper_trail:install --with-changes
 $ rake db:migrate
 ```
 
@@ -141,3 +141,28 @@ class Sale < ActiveRecord::Base
 end
 ```
 
+Now, let's display versions on the Sale show view:
+
+```erb
+# in app/views/sales/show.html.erb
+
+<table>
+  <thead>
+    <tr>
+      <th>Timestamp</th>
+      <th>Changes</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%= @sale.versions.each do |version| %>
+    <tr>
+      <td><%= version.created_at %></td>
+      <td>
+        <% version.changeset.sort.each do |key, value| %>
+          <b><%= key %></b>: <%= value %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
