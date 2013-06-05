@@ -20,4 +20,8 @@ Now, add `aasm` to your Gemfile:
 gem 'aasm'
 ```
 
-and create a state m
+Our state machine will have N possible states:
+
+* *pending* means we just created the record
+* *processing* means we're in the middle of processing
+* *finished* means we're done talking to 
