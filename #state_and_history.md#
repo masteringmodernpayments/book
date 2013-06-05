@@ -11,7 +11,7 @@ Ideally, we'd like to be able to trace each sale through from initialization to 
 There's an excellent gem named [aasm][] that makes implementing state machines for ActiveRecord objects very easy. Let's add some more fields to `Sale`:
 
 ```bash
-$ rails g migration AddFieldsToSale state:string stripe_id:string stripe_token:string card_last4:string card_expiration:string email:string error:text product_id:integer
+$ rails g migration AddFieldsToSale state:string stripe_id:string stripe_token:string card_last4:string card_expiration:string card_type:string email:string error:text product_id:integer
 ```
 
 Now, add `aasm` to your Gemfile:
@@ -60,7 +60,11 @@ class Sale < ActiveRecord::Base
         card: self.stripe_token,
         description: self.email,
       )
+      self.update_attributes(
+        stripe_id: charg
       self.stripe_id = charge.id
+      self.card_last4 = charge.card.last4
+      self.card_expiration = charge.card.expiration
       self.save!
       self.finish!
     rescue Stripe::Error => e
