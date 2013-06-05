@@ -1,4 +1,4 @@
-task :default => [:count, :check_tics]
+task :default => [:count, :check_tics, :check_todos]
 
 task :count do
 
