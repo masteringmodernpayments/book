@@ -53,7 +53,12 @@ class Transaction < ActiveRecord::Base
   end
 
   def charge_chard
-    
+    begin
+      charge = Stripe::Charge.create(
+        amount: self.amount,
+        currency: "usd",
+        card: self.stripe_token,
+        description: self.
   end
 
 
