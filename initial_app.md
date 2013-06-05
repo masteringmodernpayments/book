@@ -155,7 +155,7 @@ $ heroku restart web # restart the web dyno to pick up the database changes
 $ heroku open
 ```
 
-You should see a login prompt from Devise. Go ahead and login and create a few products.
+You should see a login prompt from Devise. Go ahead and login and create a few products. We'll get to buying and downloading in the next chapter.
 
 ## Next
 
