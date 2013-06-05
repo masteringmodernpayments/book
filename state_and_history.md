@@ -66,7 +66,6 @@ class Sale < ActiveRecord::Base
         card_expiration: Date.new(charge.card.exp_year, Charge.card.exp_month, 1),
         card_type: charge.card.type
       )
-      self.save!
       self.finish!
     rescue Stripe::Error => e
       self.error = e.message
