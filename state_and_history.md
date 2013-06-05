@@ -26,3 +26,30 @@ Our state machine will have four possible states:
 * *processing* means we're in the middle of processing
 * *finished* means we're done talking to Stripe and everything went well
 * *error* means that we're done talking to Stripe and there was an error
+
+We'll also have a few different events for the transaction: `process`, `finish`, and `error`. Let's describe this using `aasm`:
+
+```ruby
+class Transaction < ActiveRecord::Base
+  include AASM
+
+  aasm do
+    state :pending, initial: true
+    state :processing
+    state :finished
+    state :error
+
+    event :process do
+      transitions from: :pending, to: :processing
+    end
+
+    event :finish do
+      transitions from: :processing, to: :finished
+    end
+
+    event :error do
+      transitions from: :processing, to: :error
+    end
+  end
+end
+
