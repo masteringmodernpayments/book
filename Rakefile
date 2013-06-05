@@ -62,12 +62,13 @@ task :check_todos do
     in_code_block = false
     File.open(file).each_with_index do |line_num, line|
       if line =~ /TODO/
-        puts "#{file}:#{line_num} #{line.rstrip()};
+        puts "#{file}:#{line_num} #{line.rstrip()}"
+        count += 1
       end
     end
-    code_count += file_code_count
-    word_count += file_word_count
+  end
 
-    puts "#{file}: #{file_word_count} #{file_code_count}"
+  if count > 0
+    exit 1
   end
 end
