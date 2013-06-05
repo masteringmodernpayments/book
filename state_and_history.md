@@ -93,7 +93,6 @@ def create
   )
   transaction.process!
   if transaction.finished?
-    sale = Sale.create!(product_id: product.id, email: params[:email])
     redirect_to pickup_url(guid: sale.guid)
   else
     @error = transaction.error
@@ -102,4 +101,3 @@ def create
 end
 ```
 
-Not too much different. We use the Transaction record to 
