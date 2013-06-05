@@ -61,10 +61,10 @@ class Sale < ActiveRecord::Base
         description: self.email,
       )
       self.update_attributes(
-        stripe_id: charge.id,
-        card_last4: charge.card.last4
+        stripe_id:       charge.id,
+        card_last4:      charge.card.last4
         card_expiration: Date.new(charge.card.exp_year, Charge.card.exp_month, 1),
-        card_type: charge.card.type
+        card_type:       charge.card.type
       )
       self.finish!
     rescue Stripe::Error => e
