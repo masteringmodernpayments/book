@@ -39,7 +39,7 @@ class Transaction < ActiveRecord::Base
     state :finished
     state :error
 
-    event :process do
+    event :process, after: :charge_card do
       transitions from: :pending, to: :processing
     end
 
@@ -51,5 +51,7 @@ class Transaction < ActiveRecord::Base
       transitions from: :processing, to: :error
     end
   end
+
+
 end
 
