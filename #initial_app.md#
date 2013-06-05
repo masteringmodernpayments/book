@@ -9,10 +9,10 @@ In this chapter we're going to create a simple rails application so we have some
 
 A note on versions. The example app will be using Rails 3.2.13 and PostgreSQL 9.2.
 
-Our app will sell downloadable products. Users will be able to create p
+Our app will sell downloadable products. Users will be able to create products and customers will be able to buy them, and we'll keep track of sales so we can do reporting later. Customers will be able to come back and download their purchases multiple times.
 
 * **Product**, representing a product that we're going to be selling. 
-* User, used for logging in and managing 
+* **User, used for logging in and managing products
 
 
 ## Boilerplate
