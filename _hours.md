@@ -53,3 +53,8 @@
 
 * Wrote about SSL in [PCI compliance](/pci)
 * Added a paragraph about how it's not advice about compliance and if you have questions to contact Stripe directly.
+
+### 5:30pm - 8:00pm (2.5)
+
+* Wrote about paper trail and aasm in [State and History](/state_and_history)
+
