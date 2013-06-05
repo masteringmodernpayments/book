@@ -25,7 +25,7 @@ Our state machine will have four possible states:
 * *pending* means we just created the record
 * *processing* means we're in the middle of processing
 * *finished* means we're done talking to Stripe and everything went well
-* *error* means that we're done talking to Stripe and there was an error
+* *errored* means that we're done talking to Stripe and there was an error
 
 We'll also have a few different events for the transaction: `process`, `finish`, and `error`. Let's describe this using `aasm`:
 
@@ -37,7 +37,7 @@ class Transaction < ActiveRecord::Base
     state :pending, initial: true
     state :processing
     state :finished
-    state :error
+    state :errored
 
     event :process, after: :charge_card do
       transitions from: :pending, to: :processing
@@ -58,7 +58,16 @@ class Transaction < ActiveRecord::Base
         amount: self.amount,
         currency: "usd",
         card: self.stripe_token,
-        description: self.
+        description: self.email,
+      )
+      self.stripe_id = charge.id
+      self.save!
+      self.finish!
+    rescue Stripe::Error => e
+      self.error = e.json_body
+      self.save!
+      self.error!
+    end
   end
 
 
