@@ -159,7 +159,7 @@ Now, let's display versions on the Sale show view:
       <td><%= version.created_at %></td>
       <td>
         <% version.changeset.sort.each do |key, value| %>
-          <b><%= key %></b>: <%= value[0] %> to <%= value[1] %>
+          <b><%= key %></b>: <%= value[0] %> to <%= value[1] %><br>
         <% end %>
       </td>
     </tr>
