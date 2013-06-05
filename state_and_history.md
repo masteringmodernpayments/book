@@ -11,7 +11,7 @@ Ideally, we'd like to be able to trace each sale through from initialization to 
 There's an excellent gem named [aasm][] that makes implementing state machines for ActiveRecord objects very easy. Let's make a new record named **Transaction** to store our state machine:
 
 ```bash
-$ rails g model Transaction amount:integer state:string stripe_id:string stripe_token:string card_last4:string card_expiration:string email:string error:text
+$ rails g model Transaction amount:integer state:string stripe_id:string stripe_token:string card_last4:string card_expiration:string email:string error:text product_id:integer
 ```
 
 Now, add `aasm` to your Gemfile:
@@ -98,3 +98,4 @@ def create
 end
 ```
 
+Not too much different. We use the Transaction record to 
