@@ -1,5 +1,6 @@
 [aasm]: https://github.com/aasm/aasm
 [fmsc]: http://weblog.jamisbuck.org/2006/10/18/skinny-controller-fat-model
+[paper_trail]: https://github.com/airblade/paper_trail
 
 # State and History
 
@@ -55,7 +56,7 @@ class Sale < ActiveRecord::Base
     end
   end
 
-  def charge_chard
+  def charge_card
     begin
       charge = Stripe::Charge.create(
         amount: self.amount,
@@ -114,4 +115,78 @@ end
 Not that much different, really. We create the Sale object, and then instead of doing the Stripe processing in the controller we call the `process!` method that `aasm` creates. If the sale is finished we'll redirect to the pickup url. If isn't finished we assume it's errored, so we render out the `new` view with the error.
 
 ## Audit Trail
+
+Another thing that will be very useful for forensic purposes is an audit trail that tells us every change to a record. For example, we'll be able to see if transactions are taking a long time to process, if a lot of them start erroring we can see when it happened, etc. Basically, we want to have a version history for each Sale record. The easiest way to implement this is to use a gem named [Paper Trail][paper_trail]. Paper Trail monitors changes on a record and will serialize the state of the object before the change and stuff it into a `versions` table. It has convenient methods for navigating versions, which we'll use to display the history of the record in an admin interface later.
+
+First, add the gem to your Gemfile:
+
+```ruby
+gem 'paper_trail', '~> 2'
+```
+
+Install the gem, which will generate a migration for you, and run the migration:
+
+```bash
+$ rails generate paper_trail:install
+$ rake db:migrate
+```
+
+And now add `has_paper_trail` to the Sale model:
+
+```ruby
+class Sale < ActiveRecord::Base
+  has_paper_trail
+  
+  before_save :populate_guid
+
+  include AASM
+
+  aasm do
+    state :pending, initial: true
+    state :processing
+    state :finished
+    state :errored
+
+    event :process, after: :charge_card do
+      transitions from: :pending, to: :processing
+    end
+
+    event :finish do
+      transitions from: :processing, to: :finished
+    end
+
+    event :error do
+      transitions from: :processing, to: :errored
+    end
+  end
+
+  def charge_card
+    begin
+      charge = Stripe::Charge.create(
+        amount: self.amount,
+        currency: "usd",
+        card: self.stripe_token,
+        description: self.email,
+      )
+      self.update_attributes(
+        stripe_id:       charge.id,
+        card_last4:      charge.card.last4
+        card_expiration: Date.new(charge.card.exp_year, Charge.card.exp_month, 1),
+        card_type:       charge.card.type
+      )
+      self.finish!
+    rescue Stripe::Error => e
+      self.error = e.message
+      self.save!
+      self.error!
+    end
+  end
+
+  def populate_guid
+    if new_record?
+      self.guid = SecureRandom.uuid()
+    end
+  end
+end
+```
 
