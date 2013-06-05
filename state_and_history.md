@@ -48,7 +48,7 @@ class Transaction < ActiveRecord::Base
     end
 
     event :error do
-      transitions from: :processing, to: :error
+      transitions from: :processing, to: :errored
     end
   end
 
@@ -69,7 +69,31 @@ class Transaction < ActiveRecord::Base
       self.error!
     end
   end
-
-
 end
+```
 
+Inside the `aasm` block, every state we described earlier gets a `state` declaration, and every event gets an `event` declaration. Notice that the `:pending` state is what the record will be created with. Also, notice that the transition from `:pending` to `:processing` has an `:after` callback declared. After `aasm` updates the `state` property and saves the record it will call the `charge_card` method.
+
+We moved the logic to charge the card from the controller into the model. This adheres to the Fat Model Skinny Controller priciple, where all of the logic lives in the model and the controller just drives it. Let's see what the controller's `create` method looks like now:
+
+```ruby
+def create
+  product = Product.where(permalink: params[:permalink]).first
+  raise ActionController::RoutingError.new("Not found") unless product
+
+  token = params[:stripeToken]
+  transaction = Transaction.create(
+    amount: product.price,
+    email: params[:email],
+    stripe_token: token
+  )
+  transaction.process!
+  if transaction.finished?
+    sale = Sale.create!(product_id: product.id, email: params[:email])
+    redirect_to pickup_url(guid: sale.guid)
+  else
+    error = transaction.error
+    render :new
+  end
+end
+```
