@@ -166,3 +166,4 @@ Now, let's display versions on the Sale show view:
   <% end %>
   </tbody>
 </table>
+```
