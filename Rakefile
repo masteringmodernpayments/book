@@ -59,8 +59,8 @@ task :check_todos do
   Dir.glob('*.md').each do |file|
     next if file =~ /^_/
 
-    in_code_block = false
     File.open(file).each_with_index do |line_num, line|
+      puts line
       if line =~ /TODO/
         puts "#{file}:#{line_num} #{line.rstrip()}"
         count += 1
