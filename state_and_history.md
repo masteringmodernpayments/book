@@ -1,4 +1,5 @@
 [aasm]: https://github.com/aasm/aasm
+[fmsc]: http://weblog.jamisbuck.org/2006/10/18/skinny-controller-fat-model
 
 # Transaction Records
 
@@ -86,7 +87,9 @@ end
 
 Inside the `aasm` block, every state we described earlier gets a `state` declaration, and every event gets an `event` declaration. Notice that the `:pending` state is what the record will be created with. Also, notice that the transition from `:pending` to `:processing` has an `:after` callback declared. After `aasm` updates the `state` property and saves the record it will call the `charge_card` method.
 
-We moved the logic to charge the card from the controller into the model. This adheres to the Fat Model Skinny Controller priciple, where all of the logic lives in the model and the controller just drives it. Let's see what the controller's `create` method looks like now:
+Among other things, `aasm` will give you predicates to ask the model if it is in a particular state (for example, `finished?`). It will also create scopes for you, so you can find how many finished records there are with `Sale.finished.count`
+
+We moved the logic to charge the card from the controller into the model. This adheres to the [Fat Model Skinny Controller][fmsc] priciple, where all of the logic lives in the model and the controller just drives it. Let's see what the controller's `create` method looks like now:
 
 ```ruby
 def create
@@ -110,3 +113,4 @@ def create
 end
 ```
 
+Not that much different, really. We create the Sale object, and then instead of doing the Stripe processing in the controller we call the `process!` method that `aasm` creates.
