@@ -111,4 +111,5 @@ def create
 end
 ```
 
-Not that much different, really. We create the Sale object, and then instead of doing the Stripe processing in the controller we call the `process!` method that `aasm` creates.
+Not that much different, really. We create the Sale object, and then instead of doing the Stripe processing in the controller we call the `process!` method that `aasm` creates. If the sale is finished we'll redirect to the pickup url. If isn't finished we assume it's errored, so we render out the `new` view with the error.
+
