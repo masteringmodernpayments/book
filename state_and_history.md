@@ -8,10 +8,10 @@ So far in our little example app we can buy and sell downloadable products using
 
 Ideally, we'd like to be able to trace each sale through from initialization to completion, including purchase, refunds, errors, etc. One step along the way is to track the state of each transaction using a *state machine*. A state machine is simply a formal definition of what states an object can be in and the transitions that can happen to get it between states. TODO: think of an example.
 
-There's an excellent gem named [aasm][] that makes implementing state machines for ActiveRecord objects very easy. Let's make a new record named **Transaction** to store our state machine:
+There's an excellent gem named [aasm][] that makes implementing state machines for ActiveRecord objects very easy. Let's add some more fields to `Sale`:
 
 ```bash
-$ rails g model Transaction amount:integer state:string stripe_id:string stripe_token:string card_last4:string card_expiration:string email:string error:text product_id:integer
+$ rails g migration AddFieldsToSale state:string stripe_id:string stripe_token:string card_last4:string card_expiration:string card_type:string email:string error:text product_id:integer
 ```
 
 Now, add `aasm` to your Gemfile:
@@ -30,7 +30,7 @@ Our state machine will have four possible states:
 We'll also have a few different events for the transaction: `process`, `finish`, and `error`. Let's describe this using `aasm`:
 
 ```ruby
-class Transaction < ActiveRecord::Base
+class Sale < ActiveRecord::Base
   include AASM
 
   aasm do
@@ -60,7 +60,12 @@ class Transaction < ActiveRecord::Base
         card: self.stripe_token,
         description: self.email,
       )
-      self.stripe_id = charge.id
+      self.update_attributes(
+        stripe_id: charge.id,
+        card_last4: charge.card.last4
+        card_expiration: Date.new(charge.card.exp_year, Charge.card.exp_month, 1),
+        card_type: charge.card.type
+      )
       self.save!
       self.finish!
     rescue Stripe::Error => e
