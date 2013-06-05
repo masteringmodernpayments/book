@@ -1,7 +1,7 @@
 [aasm]: https://github.com/aasm/aasm
 [fmsc]: http://weblog.jamisbuck.org/2006/10/18/skinny-controller-fat-model
 
-# Transaction Records
+# State and History
 
 So far in our little example app we can buy and sell downloadable products using Stripe. However, the only way we can know how much money our store has made is by asking Stripe. We can't easily ask our database for reporting purposes becase we're just tracking sales as one-off events. We also have to trust Stripe to not mess up, which when you're dealing with financial concerns can be a lot to ask. It would be better if we could keep our own records and then reconcile them with Stripe later.
 
