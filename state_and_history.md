@@ -64,7 +64,7 @@ class Transaction < ActiveRecord::Base
       self.save!
       self.finish!
     rescue Stripe::Error => e
-      self.error = e.json_body
+      self.error = e.message
       self.save!
       self.error!
     end
@@ -92,7 +92,7 @@ def create
     sale = Sale.create!(product_id: product.id, email: params[:email])
     redirect_to pickup_url(guid: sale.guid)
   else
-    error = transaction.error
+    error = transaction.error.
     render :new
   end
 end
