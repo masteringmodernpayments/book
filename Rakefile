@@ -1,5 +1,16 @@
 task :default => [:count, :check_tics]
 
+def each_line_in_guide
+  Dir.glob('*.md').each do |file|
+    next if file =~ /^_/
+
+    in_code_block = false
+    File.open(file).each_with_index do |line_num, line|
+      yield line_num + 1, line.rstrip
+    end
+  end
+end
+
 task :count do
 
   goal_count = 30000.0
@@ -54,3 +65,19 @@ task :check_tics do
   end
 end
 
+task :check_todos do
+  count = 0
+  Dir.glob('*.md').each do |file|
+    next if file =~ /^_/
+
+    matches = File.read(file).match(/(TODO)/)
+    if matches
+      count += matches.length
+      puts "#{file} matches"
+    end
+  end
+
+  if count > 0
+    exit 1
+  end
+end
