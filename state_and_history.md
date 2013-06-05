@@ -116,7 +116,7 @@ Not that much different, really. We create the Sale object, and then instead of 
 
 ## Audit Trail
 
-Another thing that will be very useful for forensic purposes is an audit trail that tells us every change to a record. For example, we'll be able to see if transactions are taking a long time to process, if a lot of them start erroring we can see when it happened, etc. We want to have a version history for each Sale record. The easiest way to implement this is to use a gem named [Paper Trail][paper_trail]. Paper Trail monitors changes on a record and will serialize the state of the object before the change and stuff it into a `versions` table. It has convenient methods for navigating versions, which we'll use to display the history of the record in an admin interface later.
+Another thing that will be very useful for forensic purposes is an audit trail that tells us every change to a record which acts like a version history. For example, we'll be able to see if transactions are taking a long time to process, if a lot of them start erroring we can see when it happened, etc. The easiest way to implement this is to use a gem named [Paper Trail][paper_trail]. Paper Trail monitors changes on a record and will serialize the state of the object before the change and stuff it into a `versions` table. It has convenient methods for navigating versions, which we'll use to display the history of the record in an admin interface later.
 
 First, add the gem to your Gemfile:
 
