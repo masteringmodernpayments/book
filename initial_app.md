@@ -5,9 +5,15 @@
 
 # Initial Application
 
-In this chapter we're going to create a very simple rails application so we have something to work with for later chapters. All of the rest of the examples in the guide will be based on this app. You can either follow along with the instructions or use the app in the `sales` directory in the example code.
+In this chapter we're going to create a simple rails application so we have something to work with for later chapters. All of the rest of the examples in the guide will be based on this app. You can either follow along with the instructions or use the app in the `sales` directory in the example code.
 
 A note on versions. The example app will be using Rails 3.2.13 and PostgreSQL 9.2.
+
+Our app will sell downloadable products. Users will be able to create products and customers will be able to buy them, and we'll keep track of sales so we can do reporting later. Customers will be able to come back and download their purchases multiple times.
+
+* **Product**, representing a product that we're going to be selling. 
+* **User**, for logging in and managing products
+* **Sale**, to represent each individual customer purchase
 
 ## Boilerplate
 
