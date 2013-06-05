@@ -136,57 +136,8 @@ And now add `has_paper_trail` to the Sale model:
 ```ruby
 class Sale < ActiveRecord::Base
   has_paper_trail
-  
-  before_save :populate_guid
 
-  include AASM
-
-  aasm do
-    state :pending, initial: true
-    state :processing
-    state :finished
-    state :errored
-
-    event :process, after: :charge_card do
-      transitions from: :pending, to: :processing
-    end
-
-    event :finish do
-      transitions from: :processing, to: :finished
-    end
-
-    event :error do
-      transitions from: :processing, to: :errored
-    end
-  end
-
-  def charge_card
-    begin
-      charge = Stripe::Charge.create(
-        amount: self.amount,
-        currency: "usd",
-        card: self.stripe_token,
-        description: self.email,
-      )
-      self.update_attributes(
-        stripe_id:       charge.id,
-        card_last4:      charge.card.last4
-        card_expiration: Date.new(charge.card.exp_year, Charge.card.exp_month, 1),
-        card_type:       charge.card.type
-      )
-      self.finish!
-    rescue Stripe::Error => e
-      self.error = e.message
-      self.save!
-      self.error!
-    end
-  end
-
-  def populate_guid
-    if new_record?
-      self.guid = SecureRandom.uuid()
-    end
-  end
+  ... rest of Sale from before
 end
 ```
 
