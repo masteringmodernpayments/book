@@ -95,6 +95,7 @@ def create
 
   token = params[:stripeToken]
   sale = Sale.create(
+    product_id:   product.id,
     amount:       product.price,
     email:        params[:email],
     stripe_token: token
