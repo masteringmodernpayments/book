@@ -58,6 +58,6 @@
   * controls
     * refunding transactions
     * cancelling/pausing subscriptions
-
+* Marketplaces with Connect and Payout
 
 * [Journal](/_hours)
