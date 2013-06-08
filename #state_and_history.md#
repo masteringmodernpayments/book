@@ -30,7 +30,7 @@ class Turnstile
 end
 ```
 
-AASM is the successor to a previous gem named "acts_as_state_machine", which was hard-coded to ActiveRecord objects and had a few problems. AASM fixes those problems and lets you describe state machines inside any class, not just ActiveRecord. As you can see, it implements a simple DSL for states
+AASM is the successor to a previous gem named "acts_as_state_machine", which was hard-coded to ActiveRecord objects and had a few problems. AASM fixes those problems and lets you describe state machines inside any class, not just ActiveRecord. As you can see, it implements a simple DSL for states and events. AASM will create a few methods on instances of Turnstile for triggering events and asking about the state of the object. We'll get things
 
 Let's add some more fields to `Sale`:
 
