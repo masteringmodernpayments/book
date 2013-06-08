@@ -47,7 +47,7 @@ $ rails g migration AddFieldsToSale \
 $ rake db:migrate
 ```
 
-Now, add `aasm` to your Gemfile:
+Now, add `aasm` to your Gemfile and run `bundle install`:
 
 ```ruby
 gem 'aasm'
