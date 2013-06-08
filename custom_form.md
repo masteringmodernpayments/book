@@ -96,3 +96,34 @@ function stripeResponseHandler(status, response) {
 
 If the response has an error, display the error and re-enable the "Pay" button. Otherwise, append a hidden input to the form and resubmit using the DOM method instead of the jQuery method so we don't get stuck in an infinite loop.
 
+## Embedding the Form
+
+Custom forms are all well and good, but wouldn't it be cool if we could embed it in another page just like Stripe's Checkout? Let's give it a shot. Create a file `public/example.html` and put this in it:
+
+```html
+<html>
+  <head>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Example Iframe</h1>
+    <button class="btn btn-primary" id="openBtn">Buy</button>
+    <div id="paymentModal" class="modal hide fade" role="dialog">
+      <div class="modal-body">
+        <iframe src="" style="zoom:0.6" width="99.6%" height="450" frameborder="0"></iframe>
+      </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      var frameSrc = "/buy/design-for-failure"
+      $("#openBtn").click(function() {
+        $("#paymentModal").on("show", function() {
+          $('iframe').attr('src', frameSrc);
+        });
+        $("#paymentModal").modal({show: true});
+      });
+    </script>
+  </body>
+</html>
+```
