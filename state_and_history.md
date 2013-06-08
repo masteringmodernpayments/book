@@ -4,11 +4,30 @@
 
 # State and History
 
-So far in our little example app we can buy and sell downloadable products using Stripe. We're not keeping much information in our own database, though. We can't easily see how much we've earned, we can't see how big Stripe's cut has been. Ideally our application's database would keep track of this. The mantra with financial transactions should always be "trust and verify". To that end we should be tracking sales through each stage, from customer initialization all the way through to completion.
+So far in our little example app we can buy and sell downloadable products using Stripe. We're not keeping much information in our own database, though. We can't easily see how much we've earned, we can't see how big Stripe's cut has been. Ideally our application's database would keep track of this. The mantra with financial transactions should always be "trust and verify". To that end we should be tracking sales through each stage of the process, from the point the customer clicks the buy button all the way through to a possible refund. We should know, at any given moment, what state a transaction is in and it's entire history.
 
 ## State Machines
 
-Ideally, we'd like to be able to trace each sale through from initialization to completion, including purchase, refunds, errors, etc. One step along the way is to track the state of each transaction using a *state machine*. A state machine is simply a formal definition of what states an object can be in and the transitions that can happen to get it between states. TODO: think of an example.
+The first step of tracking is to turn each transaction into a *state machine*. A state machine is simply a formal definition of what states an object can be in and the transitions that can happen to get it between states. For example, consider a subway turnstile. Normally it's locked. When you put a coin in or swipe your card, it unlocks. Then when you pass through or a timer expires, it locks itself again. We could model that like this:
+
+```
+class Turnstile
+
+  include AASM
+
+  aasm do
+    state :locked, initial: true
+    state :unlocked
+
+    event :pay
+      transitions from: :locked, to: :unlocked
+    end
+
+    event :use
+      transitions from: :unlocked, to: locked
+    end
+  end
+end
 
 There's an excellent gem named [aasm][] that makes implementing state machines for ActiveRecord objects very easy. Let's add some more fields to `Sale`:
 
