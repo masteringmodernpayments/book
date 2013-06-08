@@ -60,7 +60,7 @@ The Sale state machine will have four possible states:
 * *finished* means we're done talking to Stripe and everything went well
 * *errored* means that we're done talking to Stripe and there was an error
 
-It'll also have a few different events for the transaction: `process`, `finish`, and `error`. Let's describe this using `aasm`:
+It'll also have a few different events for the transaction: `process`, `finish`, and `fail`. Let's describe this using `aasm`:
 
 ```ruby
 class Sale < ActiveRecord::Base
