@@ -127,3 +127,6 @@ Custom forms are all well and good, but wouldn't it be cool if we could embed it
   </body>
 </html>
 ```
+
+This page loads jQuery and Twitter Bootstrap from public CDNs and then uses them to create a Bootstrap Modal containing an `iframe`. Initially this iframe's `src` attribute is set to nothing. This is to prevent the iframe from loading on page load which could cause a lot of unnecessary traffic on the server running the sales application. When the customer clicks the button we set up the `src` attribute of the iframe and then show the modal.
+
