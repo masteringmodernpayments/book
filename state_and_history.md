@@ -4,7 +4,7 @@
 
 # State and History
 
-So far in our little example app we can buy and sell downloadable products using Stripe. However, the only way we can know how much money our store has made is by asking Stripe. We can't easily ask our database for reporting purposes becase we're just tracking sales as one-off events. We also have to trust Stripe to not mess up, which when you're dealing with financial concerns can be a lot to ask. It would be better if we could keep our own records and then reconcile them with Stripe later.
+So far in our little example app we can buy and sell downloadable products using Stripe. We're not keeping much information in our own database, though. We can't easily see how much we've earned, we can't see how big Stripe's cut has been. Ideally our application's database would keep track of this. The mantra with financial transactions should always be "trust and verify". To that end we should be tracking sales through each stage, from customer initialization all the way through to completion, including refunds.
 
 ## State Machines
 
