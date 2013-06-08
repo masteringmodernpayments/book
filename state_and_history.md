@@ -94,7 +94,7 @@ before_save :populate_guid
       transitions from: :processing, to: :finished
     end
 
-    event :error do
+    event :fail do
       transitions from: :processing, to: :errored
     end
   end
