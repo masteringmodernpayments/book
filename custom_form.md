@@ -163,3 +163,4 @@ In `app/views/transactions/iframe.html.rb`:
 <%= render :partial => 'frame' %>
 ```
 
+Now, change `frameSrc` to point at `/iframe/design-for-failure` and reload the page.
