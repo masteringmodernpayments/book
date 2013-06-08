@@ -164,3 +164,5 @@ In `app/views/transactions/iframe.html.rb`:
 ```
 
 Now, change `frameSrc` to point at `/iframe/design-for-failure` and reload the page.
+
+We can fix the other problem, with the `X-Frame-Options` header, simply by changing the language to say "Make sure to right-click and select Save As" indead of just telling the customer to click the link. In a later chapter I'll talk about emailing and we'll be changing this some more.
