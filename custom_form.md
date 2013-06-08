@@ -162,3 +162,4 @@ In `app/views/transactions/iframe.html.rb`:
 
 <%= render :partial => 'frame' %>
 ```
+
