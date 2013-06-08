@@ -116,7 +116,7 @@ Custom forms are all well and good, but wouldn't it be cool if we could embed it
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-      var frameSrc = "/buy/design-for-failure"
+      var frameSrc = "/buy/design-for-failure"; // You'll want to customize this.
       $("#openBtn").click(function() {
         $("#paymentModal").on("show", function() {
           $('iframe').attr('src', frameSrc);
@@ -130,3 +130,4 @@ Custom forms are all well and good, but wouldn't it be cool if we could embed it
 
 This page loads jQuery and Twitter Bootstrap from public CDNs and then uses them to create a Bootstrap Modal containing an `iframe`. Initially this iframe's `src` attribute is set to nothing. This is to prevent the iframe from loading on page load which could cause a lot of unnecessary traffic on the server running the sales application. When the customer clicks the button we set up the `src` attribute of the iframe and then show the modal.
 
+This is pretty cool but also problematic. The iframe just loads the normal `/buy` action
