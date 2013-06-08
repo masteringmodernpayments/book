@@ -174,6 +174,8 @@ class Sale < ActiveRecord::Base
 end
 ```
 
+`has_paper_trail` takes a bunch of options for things like specifiying which lifecycle events to monitor, which fields to include and which to ignore, etc. The defaults should generally be fine.
+
 Here's some simple code for the `SalesController#show` action to display the history of the sale:
 
 ```erb
