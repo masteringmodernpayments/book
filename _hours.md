@@ -60,6 +60,8 @@
 
 ## 2013-06-08 Sat
 
+* overall: 5046 457 (17%)
+
 ### 10:00am - 11:00am (1)
 
 * Implemented [State and History](/state_and_history)
