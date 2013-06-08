@@ -150,7 +150,7 @@ def create
   if sale.finished?
     redirect_to pickup_url(guid: sale.guid)
   else
-    @error = transaction.error
+    flash[:alert] = sale.error
     render :new
   end
 end
