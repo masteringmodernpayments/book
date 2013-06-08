@@ -109,9 +109,9 @@ class Sale < ActiveRecord::Base
 end
 ```
 
-Inside the `aasm` block, every state we described earlier gets a `state` declaration, and every event gets an `event` declaration. Notice that the `:pending` state is what the record will be created with. Also, notice that the transition from `:pending` to `:processing` has an `:after` callback declared. After `aasm` updates the `state` property and saves the record it will call the `charge_card` method. Among other things, `aasm` will give you predicates to ask the model if it is in a particular state (for example, `finished?`). It will also create scopes for you, so you can find how many finished records there are with `Sale.finished.count`.
+Inside the `aasm` block, every state we described earlier gets a `state` declaration, and every event gets an `event` declaration. Notice that the `:pending` state is what the record will be created with. Also, notice that the transition from `:pending` to `:processing` has an `:after` callback declared. After AASM updates the `state` property and saves the record it will call the `charge_card` method. AASM will automatically create scopes, so for example you can find how many finished records there are with `Sale.finished.count`.
 
-We moved the logic to charge the card from the controller into the model. This adheres to the [Fat Model Skinny Controller][fmsc] priciple, where all of the logic lives in the model and the controller just drives it. Let's see what the controller's `create` method looks like now:
+Notice that the stuff about charging the card moved into the model. This adheres to the [Fat Model Skinny Controller][fmsc] priciple, where all of the logic lives in the model and the controller just drives it. Here's how the controller's `create` method looks now:
 
 ```ruby
 def create
