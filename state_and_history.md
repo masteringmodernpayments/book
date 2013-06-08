@@ -35,7 +35,17 @@ AASM is the successor to a previous gem named `acts_as_state_machine` which was 
 AASM can also be used with ActiveRecord, just like it's predecessor. Let's begin by adding some more fields to `Sale`:
 
 ```bash
-$ rails g migration AddFieldsToSale state:string stripe_id:string stripe_token:string card_last4:string card_expiration:string card_type:string email:string error:text product_id:integer fee_amount:integer
+$ rails g migration AddFieldsToSale \
+    state:string \
+    stripe_id:string \
+    stripe_token:string \
+    card_last4:string \
+    card_expiration:string \
+    card_type:string \
+    email:string \
+    error:text \
+    product_id:integer \
+    fee_amount:integer
 ```
 
 Now, add `aasm` to your Gemfile:
