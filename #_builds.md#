@@ -4,5 +4,13 @@ Note: none of this is actually implemented yet.
 
 Desired artifacts:
 
-* Website (actually an app where users can login and searcthe site)
-* 
+* Website (actually an app where users can login and search and view the guide)
+* Downloadable HTML
+* PDF
+* Mobi
+* ePub
+
+Implementation details
+
+* Use Docverter to do the HTML -> PDF/Mobi/ePub conversions
+* Use a Rails app running the 
