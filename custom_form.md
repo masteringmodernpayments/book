@@ -141,7 +141,7 @@ Then, create a new action named `iframe`:
 ```ruby
 # in config/routes.rb
 
-match '/iframe/:permalink' => 'transactions#iframe, via: :get, as :buy_iframe
+match '/iframe/:permalink' => 'transactions#iframe', via: :get, as :buy_iframe
 ```
 
 ```ruby
