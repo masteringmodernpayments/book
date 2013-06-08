@@ -12,5 +12,5 @@ Desired artifacts:
 
 Implementation details
 
-* Use Docverter to do the HTML -> PDF/Mobi/ePub conversions
-* Use a Rails app running the 
+* Use a Rails app that includes the sales engine to actually sell access to the guide
+* App deploy checks out the latest version of the guide, does document conversion 
