@@ -101,6 +101,7 @@ before_save :populate_guid
 
   def charge_card
     begin
+      save!
       charge = Stripe::Charge.create(
         amount: self.amount,
         currency: "usd",
