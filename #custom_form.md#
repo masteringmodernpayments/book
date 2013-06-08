@@ -46,4 +46,4 @@ Here's the form we'll be using:
 <% end %>
 ```
 
-There's a few interesting things going on here. First, notice the almost-excessive amount of markup. I'
+There's a few interesting things going on here. First, notice the almost-excessive amount of markup. I'm using 
