@@ -8,6 +8,19 @@ Here's the form we'll be using:
 
 ```erb
 <%= form_tag buy_path(permalink: @product.permalink) do %>
-  <span class="payment-errors"
+  <span class="payment-errors"></span>
+  <div class="payment-row">
+    <label>
+      <span>Email Address</span>
+      <input type="email" name="email" />
+    </label>
+  </div>
+  <div class="payment-row">
+    <label>
+      <span>Email Address</span>
+      <input type="text" size="20" data-stripe= />
+    </label>
+  </div>
+
 <% end %>
 ```
