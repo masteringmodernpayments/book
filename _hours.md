@@ -58,3 +58,8 @@
 
 * Wrote about paper trail and aasm in [State and History](/state_and_history)
 
+## 2013-06-08 Sat
+
+### 10:00am - 11:00am (1)
+
+* Implemented [State and History](/state_and_history)
