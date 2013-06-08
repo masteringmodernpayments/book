@@ -160,7 +160,7 @@ In `app/views/transactions/iframe.html.rb`:
 
 <p>Price: <%= formatted_price(@product.price) %></p>
 
-<%= render :partial => 'frame' %>
+<%= render :partial => 'form' %>
 ```
 
 Now, change `frameSrc` to point at `/iframe/design-for-failure` and reload the page.
