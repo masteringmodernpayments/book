@@ -51,7 +51,7 @@ The Sale state machine will have four possible states:
 * *finished* means we're done talking to Stripe and everything went well
 * *errored* means that we're done talking to Stripe and there was an error
 
-We'll also have a few different events for the transaction: `process`, `finish`, and `error`. Let's describe this using `aasm`:
+It'll also have a few different events for the transaction: `process`, `finish`, and `error`. Let's describe this using `aasm`:
 
 ```ruby
 class Sale < ActiveRecord::Base
@@ -90,7 +90,8 @@ class Sale < ActiveRecord::Base
         stripe_id:       charge.id,
         card_last4:      charge.card.last4
         card_expiration: Date.new(charge.card.exp_year, Charge.card.exp_month, 1),
-        card_type:       charge.card.type
+        card_type:       charge.card.type,
+        fee_amount:      charge.fee
       )
       self.finish!
     rescue Stripe::Error => e
