@@ -10,7 +10,7 @@ Desired artifacts:
 * Mobi
 * ePub
 
-Implementation details
+Implementation:
 
 * Use a Rails app that includes the sales engine to actually sell access to the guide
 * App deploy checks out the latest version of the guide, does document conversion on the fly
