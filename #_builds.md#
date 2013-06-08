@@ -2,4 +2,7 @@
 
 Note: none of this is actually implemented yet.
 
-There's already a `Rakefile` here so might as well use tha
+Desired artifacts:
+
+* Website (actually an app where users can login and searcthe site)
+* 
