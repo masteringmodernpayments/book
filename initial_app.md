@@ -107,7 +107,7 @@ end
 The sales site needs a way to track, you know, sales. Let's make a Sale model too.
 
 ```bash
-$ rails g scaffold Sale email:string guid:string uct_id:integer
+$ rails g scaffold Sale email:string guid:string product_id:integer
 $ rake db:migrate
 ```
 
