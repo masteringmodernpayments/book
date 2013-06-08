@@ -68,4 +68,13 @@ $(function({
 
 To intercept the form submission process, tack on a `submit` handler using jQuery:
 
-```javascrip
+```javascript
+$('#payment-form').submit(function(event) {
+  var form = $(this);
+  form.find('button').prop('disabled', true);
+  Stripe.createToken(form, stripeResponseHandler);
+  return false;
+});
+```
+
+When the customer clicks the "Pay" button we disable the button so they can't click it again, then call `Stripe.createToken`, passing in the form and a callback fucnt
