@@ -144,5 +144,15 @@ Then, create a new action named `iframe`:
 match '/iframe/:permalink' => 'transactions#iframe, via: :get, as :buy_iframe
 ```
 
-```erb
+```ruby
 # in app/controllers/transactions_controller.rb
+
+def iframe
+  @product = Product.where(permalink: params[:permalink]).first
+  raise ActionController::RoutingError.new("Not found") unless @product
+end
+```
+
+```erb
+# in app/views/transactions/iframe.rb
+
