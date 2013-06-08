@@ -15,9 +15,6 @@
     * process transaction
     * associate product with user
     * send user an email
-* Payment Form with stripe.js
-  * iframe
-  * ssl
 * [Save transaction information with a Transaction record](/state_and_history)
   * basic record
     - amount charged
@@ -33,6 +30,8 @@
   * save transaction history with paper_trail
     - rationale
     - implementation
+* [Payment Form with stripe.js](/custom_form)
+  * iframe
 * [Use background workers](/background_worker)
   * rationale
   * problems they solve
