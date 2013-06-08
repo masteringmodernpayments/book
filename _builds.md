@@ -15,4 +15,4 @@ Implementation details
 * Use a Rails app that includes the sales engine to actually sell access to the guide
 * App deploy checks out the latest version of the guide, does document conversion on the fly
 * Customers get an email with no-login links to download (actually generate) the book as well
-  as a link to create a login
+  as a link to create a login to the site for searchable access and updates
