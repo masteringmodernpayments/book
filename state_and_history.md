@@ -64,7 +64,19 @@ It'll also have a few different events for the transaction: `process`, `finish`,
 
 ```ruby
 class Sale < ActiveRecord::Base
-  before_save :populate_guid
+  attr_accessible
+    :email,
+    :guid,
+    :product_id,
+    :state,
+    :stripe_id,
+    :stripe_token,
+    :card_last4,
+    :card_expiration,
+    :error,
+    :fee_amount
+
+before_save :populate_guid
 
   include AASM
 
