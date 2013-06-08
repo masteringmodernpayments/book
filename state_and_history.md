@@ -8,7 +8,7 @@ So far in our little example app we can buy and sell downloadable products using
 
 ## State Machines
 
-The first step of tracking is to turn each transaction into a *state machine*. A state machine is simply a formal definition of what states an object can be in and the transitions that can happen to get it between states. For example, consider a subway turnstile. Normally it's locked. When you put a coin in or swipe your card, it unlocks. Then when you pass through or a timer expires, it locks itself again. We could model that like this:
+The first step of tracking is to turn each transaction into a *state machine*. A state machine is simply a formal definition of what states an object can be in and the transitions that can happen to get it between states. For example, consider a subway turnstile. Normally it's locked. When you put a coin in or swipe your card, it unlocks. Then when you pass through or a timer expires, it locks itself again. We could model that like this, using a gem called [AASM][aasm]:
 
 ```
 class Turnstile
@@ -28,11 +28,14 @@ class Turnstile
     end
   end
 end
+```
 
-There's an excellent gem named [aasm][] that makes implementing state machines for ActiveRecord objects very easy. Let's add some more fields to `Sale`:
+AASM is the successor to a previous gem named "acts_as_state_machine", which was hard-coded to ActiveRecord objects and had a few problems. AASM fixes those problems and lets you describe state machines inside any class, not just ActiveRecord. As you can see, it implements a simple DSL for states and events. AASM will create a few methods on instances of Turnstile, things like `pay!` and `use!` to trigger the corresponding events and `locked?` and `unlocked?` to ask about the state.
+
+AASM can also be used with ActiveRecord, just like it's predecessor. Let's begin by adding some more fields to `Sale`:
 
 ```bash
-$ rails g migration AddFieldsToSale state:string stripe_id:string stripe_token:string card_last4:string card_expiration:string card_type:string email:string error:text product_id:integer
+$ rails g migration AddFieldsToSale state:string stripe_id:string stripe_token:string card_last4:string card_expiration:string card_type:string email:string error:text product_id:integer fee_amount:integer
 ```
 
 Now, add `aasm` to your Gemfile:
