@@ -174,6 +174,8 @@ It would be nice to see all of this information we're saving now. Let's change t
   </tr>>
   <% end %>
 </table>
+
+<%= link_to 'Back', sales_path %>
 ```
 
 ## Audit Trail
