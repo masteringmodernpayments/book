@@ -44,6 +44,7 @@ $ rails g migration AddFieldsToSale \
     card_type:string \
     error:text \
     fee_amount:integer
+$ rake db:migrate
 ```
 
 Now, add `aasm` to your Gemfile:
