@@ -1,8 +1,9 @@
 [bootstrap]: http://twitter.github.io/bootstrap
+[tutorial]: https://stripe.com/docs/tutorials/forms
 
 # Custom Payment Forms
 
-Until now we've been using Stripe's excellent `checkout.js` that provides a popup iframe to collect credit card information, post it to Stripe and turn it into a `stripeToken` and then finally post our form. There's something conspicuously absent from all of this, however. Remember how Sale has an email attribute? We're not populating that right now because `checkout.js` doesn't easily let us add our own fields. For that we'll need to create our own form. Stripe still makes this easy, though, with `stripe.js`.
+Until now we've been using Stripe's excellent `checkout.js` that provides a popup iframe to collect credit card information, post it to Stripe and turn it into a `stripeToken` and then finally post our form. There's something conspicuously absent from all of this, however. Remember how Sale has an email attribute? We're not populating that right now because `checkout.js` doesn't easily let us add our own fields. For that we'll need to create our own form. Stripe still makes this easy, though, with `stripe.js`. The first half of this chapter is adapted from Stripe's [custom form tutorial][tutorial]: 
 
 ## Inline Form
 
@@ -66,3 +67,15 @@ $(function({
 </script>
 ```
 
+To intercept the form submission process, tack on a `submit` handler using jQuery:
+
+```javascript
+$('#payment-form').submit(function(event) {
+  var form = $(this);
+  form.find('button').prop('disabled', true);
+  Stripe.createToken(form, stripeResponseHandler);
+  return false;
+});
+```
+
+When the customer clicks the "Pay" button we disable the button so they can't click it again, then call `Stripe.createToken`, passing in the form and a callback function. Stripe's javascript will submit all of the inputs with a  `data-stripe` attribute to their server, create a token, and call the callback function with a status and response. The implmentation of `stripeResponseHandler` is pretty straightforward
