@@ -43,7 +43,7 @@ Here's the form we'll be using:
 
   <div class="form-row">
     <div class="controls">
-      <button type="submit">Pay</button>
+      <button type="submit" class="btn btn-primary">Pay</button>
     </div>
   </div>
 <% end %>
@@ -94,4 +94,4 @@ function stripeResponseHandler(status, response) {
 }
 ```
 
-
+If the response has an error, display the error and re-enable the "Pay" button
