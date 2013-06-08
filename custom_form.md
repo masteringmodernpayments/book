@@ -110,7 +110,7 @@ Custom forms are all well and good, but wouldn't it be cool if we could embed it
     <button class="btn btn-primary" id="openBtn">Buy</button>
     <div id="paymentModal" class="modal hide fade" role="dialog">
       <div class="modal-body">
-        <iframe src="" style="zoom:0.6" width="99.6%" height="500" frameborder="0"></iframe>
+        <iframe src="" style="zoom:0.6" width="99.6%" height="550" frameborder="0"></iframe>
       </div>
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
