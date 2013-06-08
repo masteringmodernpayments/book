@@ -8,7 +8,7 @@ So far in our little example app we can buy and sell downloadable products using
 
 ## State Machines
 
-The first step of tracking is to turn each transaction into a *state machine*. A state machine is simply a formal definition of what states an object can be in and the transitions that can happen to get it between states. For example, consider a subway turnstile. Normally it's locked. When you put a coin in or swipe your card, it unlocks. Then when you pass through or a timer expires, it locks itself again. We could model that like this, using a gem called [AASM][aasm]:
+The first step of tracking is to turn each transaction into a *state machine*. A state machine is simply a formal definition of what states an object can be in and the transitions that can happen to get it between states. At any given moment an object can only be in a single state. For example, consider a subway turnstile. Normally it's locked. When you put a coin in or swipe your card, it unlocks. Then when you pass through or a timer expires, it locks itself again. We could model that like this, using a gem called [AASM][aasm]:
 
 ```
 class Turnstile
