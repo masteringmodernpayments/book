@@ -80,7 +80,7 @@ before_save :populate_guid
 
   include AASM
 
-  aasm do
+  aasm column: 'state', skip_validation_on_save: true do
     state :pending, initial: true
     state :processing
     state :finished
@@ -216,6 +216,7 @@ Here's some simple code for the `SalesController#show` action to display the his
   <thead>
     <tr>
       <th>Timestamp</th>
+      <th>Event</th>
       <th>Changes</th>
     </tr>
   </thead>
@@ -223,6 +224,7 @@ Here's some simple code for the `SalesController#show` action to display the his
   <%= @sale.versions.each do |version| %>
     <tr>
       <td><%= version.created_at %></td>
+      <td><%= version.event %></td>
       <td>
         <% version.changeset.sort.each do |key, value| %>
           <b><%= key %></b>: <%= value[0] %> to <%= value[1] %><br>
