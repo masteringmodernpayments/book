@@ -55,3 +55,5 @@ To do that we need to actually send the form to Stripe. First include `stripe.js
 ```html
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 ```
+
+
