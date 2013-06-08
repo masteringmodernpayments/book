@@ -44,7 +44,7 @@ Now, add `aasm` to your Gemfile:
 gem 'aasm'
 ```
 
-Our state machine will have four possible states:
+The Sale state machine will have four possible states:
 
 * *pending* means we just created the record
 * *processing* means we're in the middle of processing
