@@ -136,5 +136,13 @@ This is pretty cool but also problematic. The iframe just loads the normal `/buy
 <%= render :partial => 'form' %>
 ```
 
-Then, create a new action named `iframe`. In routes:
+Then, create a new action named `iframe`:
 
+```ruby
+# in config/routes.rb
+
+match '/iframe/:permalink' => 'transactions#iframe, via: :get, as :buy_iframe
+```
+
+```erb
+# in app/controllers/transactions_controller.rb
