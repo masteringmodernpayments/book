@@ -236,4 +236,4 @@ Here's some simple code for the `SalesController#show` action to display the his
 </table>
 ```
 
-Each change will have a timestamp and a block of changes, one row for each column that changed in that update. For a typical completed sale there will be three rows, "pending", "processing", and "completed" with all of the information from Stripe.
+Each change will have a timestamp, the event, and a block of changes, one row for each column that changed in that update. For a typical completed sale there will be three rows, "pending", "processing", and "completed" with all of the information from Stripe.
