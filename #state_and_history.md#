@@ -139,7 +139,7 @@ Not that much different, really. We create the Sale object, and then instead of 
 
 ## Audit Trail
 
-Another thing that will be very useful is an audit trail that tells us every change to a record. Every time AASM updates the `state` field, every change that happens during the charging pr The easiest way to implement this is to use a gem named [Paper Trail][paper_trail]. Paper Trail monitors changes on a record and will serialize the state of the object before the change and stuff it into a `versions` table. It has convenient methods for navigating versions, which we'll use to display the history of the record in an admin interface later.
+Another thing that will be very useful is an audit trail that tells us every change to a record. Every time AASM updates the `state` field, every change that happens during the charging process, every change to the object at all. There are a few different schools of thought on how to implement this. The classical way would be to use database triggers to write copies of the database rows into an audit table. This has theThe easiest way to implement this is to use a gem named [Paper Trail][paper_trail]. Paper Trail monitors changes on a record and will serialize the state of the object before the change and stuff it into a `versions` table. It has convenient methods for navigating versions, which we'll use to display the history of the record in an admin interface later.
 
 First, add the gem to your Gemfile:
 
