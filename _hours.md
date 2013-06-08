@@ -63,3 +63,8 @@
 ### 10:00am - 11:00am (1)
 
 * Implemented [State and History](/state_and_history)
+
+### 11:00am - 1:30am (2.5)
+
+* Wrote and implemented [Custom Payment Forms](/custom_forms)
+
