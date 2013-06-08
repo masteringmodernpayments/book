@@ -42,9 +42,7 @@ $ rails g migration AddFieldsToSale \
     card_last4:string \
     card_expiration:string \
     card_type:string \
-    email:string \
     error:text \
-    product_id:integer \
     fee_amount:integer
 ```
 
