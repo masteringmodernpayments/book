@@ -1,6 +1,8 @@
 # Mastering Modern Payments
 ## Using Stripe with Rails
 
+### Chapters
+
 * Introduction
   * why stripe?
   * why rails?
@@ -59,4 +61,6 @@
     * cancelling/pausing subscriptions
 * Marketplaces with Connect and Payout
 
+### Meta
 * [Journal](/_hours)
+* [Building Artifacts](/_builds)
