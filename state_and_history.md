@@ -136,13 +136,13 @@ Notice that the stuff about charging the card moved into the model. This adheres
 
 ```ruby
 def create
-  product = Product.where(permalink: params[:permalink]).first
-  raise ActionController::RoutingError.new("Not found") unless product
+  @product = Product.where(permalink: params[:permalink]).first
+  raise ActionController::RoutingError.new("Not found") unless @product
 
   token = params[:stripeToken]
   sale = Sale.create(
-    product_id:   product.id,
-    amount:       product.price,
+    product_id:   @product.id,
+    amount:       @product.price,
     email:        params[:email],
     stripe_token: token
   )
