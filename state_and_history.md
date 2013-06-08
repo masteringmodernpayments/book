@@ -117,9 +117,8 @@ before_save :populate_guid
       )
       self.finish!
     rescue Stripe::Error => e
-      self.error = e.message
-      self.save!
-      self.error!
+      self.update_attributes(error: e.message)
+      self.fail!
     end
   end
 
