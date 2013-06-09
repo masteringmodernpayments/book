@@ -1,3 +1,5 @@
+require 'docverter'
+
 task :default => [:count, :check_tics, :check_todos]
 
 task :count do
@@ -70,4 +72,29 @@ task :check_todos do
   if count > 0
     exit 1
   end
+end
+
+task :pdf do
+
+  chapters = %w(
+    initial_app.md
+    basic_integration.md
+    custom_form.md
+    state_and_history.md
+    callbacks.md
+    background_worker.md
+  )
+  
+  Docverter.base_url = 'http://c.docverter.com'
+
+  content = ""
+
+  Dir.glob('*.md').each do |file|
+    next if file =~ /^_/
+
+  
+  res = Docverter::Conversion.run do |c|
+    c.from = 'markdown'
+    c.to = 'pdf'
+
 end
