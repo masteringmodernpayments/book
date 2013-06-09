@@ -41,7 +41,7 @@
     - sucker punch
     - dj
     - resque/sidekiq
-* Handling callbacks
+* [Handling callbacks](/callbacks)
   * which callbacks are important
     * for a one-off product site, not very many
     * for subscriptions, more important
