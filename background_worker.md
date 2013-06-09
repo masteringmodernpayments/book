@@ -110,7 +110,6 @@ Delayed Job does have some drawbacks. First, because it stores jobs in the same 
 [Redis][redis] bills itself as a "networked data structure server". It's a database server that provides rich data types like lists, queues, sets, and hashes, all while being extremely fast because everything is in-memory all the time. The best Redis-based background worker, in my opinion, is [Sidekiq][sidekiq] written by [Mike Perham][mperham]. It uses the same actor-based concurrency library under the hood as Sucker Punch, but because it stores jobs in Redis it can also provide things like a beautiful management console and fine-grained control over jobs. The setup is essentially identical to Sucker Punch:
 
 ```ruby
-# in app/workers/banana_worker.rb
 class BananaWorker
   include Sidekiq::Worker
 
