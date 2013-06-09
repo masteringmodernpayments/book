@@ -8,4 +8,4 @@
 
 ### Refunds
 
-### Can
+### Cancelling and Pausing
