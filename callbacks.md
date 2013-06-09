@@ -20,8 +20,15 @@ We'll need a new controller to handle callbacks:
 
 class CallbacksController < ApplicationController
   skip_before_filter :authenticate_user!
+  before_filter :parse_and_validate_event
 
   def create
+  
+  end
+
+  private
+  def parse_and_validate_event
+    @event = JSON.parse(request.body.read)
   end
 end
 ```
