@@ -74,7 +74,10 @@
 
 * overall: 5463 484 (18%)
 
-### 10:00am - 12:00am (20
+### 10:00am - 12:00pm (2)
 
 * Started working on [callbacks](/callbacks)
 
+### 12:00pm - 2:pm (2)
+
+* Added simple PDF export
