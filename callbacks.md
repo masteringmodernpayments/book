@@ -56,6 +56,7 @@ class EventsController < ApplicationController
     @event = Event.new(id: event['id'], type: event['type'])
     unless event.save
       render :nothing => true, :status => 400
+      return
     end
     @stripe_event = @event.stripe_event
   end
