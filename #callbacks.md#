@@ -7,4 +7,4 @@ Stripe will send your application events as things happen to payments that you i
 * when something about a customer changes
 * when a customer disputes a charge
 
-Some of these are more imp
+Some of these are more important than others. For example, if you're selling one-off products you probably don't care about the events about charge successes and failures because you're
