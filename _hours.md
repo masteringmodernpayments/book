@@ -68,5 +68,5 @@
 
 ### 11:00am - 1:30am (2.5)
 
-* Wrote and implemented [Custom Payment Forms](/custom_forms)
+* Wrote and implemented [Custom Payment Forms](/custom_form)
 
