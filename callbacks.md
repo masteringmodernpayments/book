@@ -37,10 +37,9 @@ end
 
 ## Controller
 
-We'll need a new controller to handle callbacks:
+We'll need a new controller to handle callbacks. In `app/controllers/events.rb`:
 
 ```ruby
-# in app/controllers/events.rb
 
 class EventsController < ApplicationController
   skip_before_filter :authenticate_user!
