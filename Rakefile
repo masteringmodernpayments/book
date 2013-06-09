@@ -97,5 +97,6 @@ task :pdf do
     end
 
     p c.input_files
+    c.convert
   end
 end
