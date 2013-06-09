@@ -45,10 +45,9 @@ There's a bunch of different background worker systems available for Rails and R
 
 ### In-Process
 
-One of the best in-process workers that I've come across is called [Sucker Punch][sucker_punch]. Under the hood it uses the actor model to safely use concurrent threads for work processing, but you don't really have to worry about that. It's pretty trivial to use, just include the `SuckerPunch::Worker` module into your worker class, declare a queue using that class, and chuck jobs into it.
+One of the best in-process workers that I've come across is called [Sucker Punch][sucker_punch]. Under the hood it uses the actor model to safely use concurrent threads for work processing, but you don't really have to worry about that. It's pretty trivial to use, just include the `SuckerPunch::Worker` module into your worker class, declare a queue using that class, and chuck jobs into it. In `app/workers/banana_worker.rb`:
 
 ```ruby
-# in app/workers/banana_worker.rb
 class BananaWorker
   include SuckerPunch::Worker
 
@@ -58,15 +57,17 @@ class BananaWorker
 end
 ```
 
+In `config/initializers/queues.rb`:
+
 ```ruby
-# in config/initializers/queues.rb
 SuckerPunch.config do
   queue name: :banana_queue, worker: BananaWorker, workers: 10
 end
 ```
 
+Then, in a controller somewhere:
+
 ```ruby
-# somewhere in a controller
 SuckerPunch::Queue[:banana_queue].async.perform("hi")
 ```
 
