@@ -40,19 +40,22 @@ end
 We'll need a new controller to handle callbacks:
 
 ```ruby
-# in app/controllers/callbacks.rb
+# in app/controllers/events.rb
 
-class CallbacksController < ApplicationController
+class EventsController < ApplicationController
   skip_before_filter :authenticate_user!
   before_filter :parse_and_validate_event
 
   def create
-  
   end
 
   private
   def parse_and_validate_event
-    
+    event = JSON.parse(request.body.read)
+    @event = Event.new(event['id'])
+    unless event.save
+      render :nothing => true, :status => 400
+    end
   end
 end
 ```
