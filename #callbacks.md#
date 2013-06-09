@@ -35,4 +35,4 @@ end
 
 ## Validating Events
 
-Stripe does not sign their 
+Stripe unfortunately does not sign their events. If they did we could verify that they sent them cryptographically, but because they don't the best thing to do is to take the ID from the POSTed event
