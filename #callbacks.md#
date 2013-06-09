@@ -1,3 +1,10 @@
 # Handling Callbacks
 
-Stripe will send your application events as things happen to payments that you initiate and your users' subscriptions. The full list of event types can be found in Stripe's extensive documentation, but here's a quick 
+Stripe will send your application events as things happen to payments that you initiate and your users' subscriptions. The full list of event types can be found in Stripe's extensive documentation, but here's a brief list:
+
+* when a charge succeeds or fails
+* when a subscription is due to be renewed
+* when something about a customer changes
+* when a customer disputes a charge
+
+Some
