@@ -74,3 +74,6 @@ task :check_todos do
   end
 end
 
+task :pdf do
+  system("curl -U admin:bugsplat1234 http://guide.subspace.bugsplat.info/_book.pdf > out.pdf")
+end
