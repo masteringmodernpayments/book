@@ -207,11 +207,9 @@ end
 
 `has_paper_trail` takes a bunch of options for things like specifiying which lifecycle events to monitor, which fields to include and which to ignore, etc. which are all described in it's documentation. The defaults should usually be fine.
 
-Here's some simple code for the `SalesController#show` action to display the history of the sale:
+Here's some simple code for the `SalesController#show` action to display the history of the sale. In `app/views/sales/show.html.erb`:
 
 ```erb
-# in app/views/sales/show.html.erb
-
 <table>
   <thead>
     <tr>
