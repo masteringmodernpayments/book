@@ -19,10 +19,9 @@ gem 'stripe', git: 'https://github.com/stripe/stripe-ruby'
 
 And then run `bundle install`.
 
-We'll also need to set up the Stripe keys:
+We'll also need to set up the Stripe keys. In `config/initializers/stripe.rb`:
 
 ```ruby
-# in config/initializers/stripe.rb
 Rails.configuration.stripe = {
   publishable_key: ENV['STRIPE_PUBLISHABLE_KEY'],
   secret_key:      ENV['STRIPE_SECRET_KEY'],
