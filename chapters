@@ -5,4 +5,5 @@ pci
 custom_form
 state_and_history
 callbacks
+subscriptions
 background_worker
