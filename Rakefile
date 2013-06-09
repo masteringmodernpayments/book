@@ -74,5 +74,6 @@ end
 
 task :pdf do
   require 'highline'
+  password = ask("Password: ") { |q| q.echo = false }
   system("curl -u admin:#{password} http://guide.subspace.bugsplat.info/_book.pdf > out.pdf")
 end
