@@ -38,7 +38,7 @@ Note that we're getting the keys from the environment. This is for two reasons: 
 Next, let's create a new controller named `Transactions` where our Stripe-related logic will live:
 
 ```ruby
-# in app/controllers/transactions_controller.rb
+ # in app/controllers/transactions_controller.rb
 
 class TransactionsController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:new, :create]
