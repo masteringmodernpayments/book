@@ -95,5 +95,7 @@ task :pdf do
     chapters.each do |file|
       c.add_input_file(file)
     end
+
+    p c.input_files
   end
 end
