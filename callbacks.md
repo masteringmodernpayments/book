@@ -47,7 +47,7 @@ class EventsController < ApplicationController
   before_filter :parse_and_validate_event
 
   def create
-    
+    render :nothing => true, :status => 200
   end
 
   private
