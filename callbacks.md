@@ -13,3 +13,12 @@ Callback handling is going to be unique to every application. For the example ap
 
 ## New Controller
 
+We'll need a new controller to handle callbacks:
+
+```ruby
+# in app/controllers/callbacks.rb
+
+class CallbacksController < ApplicationController
+  skip_before_filter :authenticate_user!
+end
+```
