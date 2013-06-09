@@ -13,7 +13,27 @@ Webhook handling is going to be unique to every application. For the example app
 
 ## Validating Events
 
-Stripe unfortunately does not sign their events. If they did we could verify that they sent them cryptographically, but because they don't the best thing to do is to take the ID from the POSTed event data and ask Stripe about it directly. Stripe also recommends that we store events and reject IDs that we've seen already to protect against replay attacks. Let's 
+Stripe unfortunately does not sign their events. If they did we could verify that they sent them cryptographically, but because they don't the best thing to do is to take the ID from the POSTed event data and ask Stripe about it directly. Stripe also recommends that we store events and reject IDs that we've seen already to protect against replay attacks. To knock both of these requirements out at the same time, lets make a new model called Event:
+
+```bash
+$ rails g model Event \
+  stripe_id:string \
+  type:string
+```
+
+We only need to store the `stripe_id` because we'll be looking up the event using the API every time. Storing the type could be useful later on for reporting purposes.
+
+The model should look like this:
+
+```ruby
+class Event < ActiveRecord::Base
+  validates_uniqueness_of :stripe_id
+
+  def stripe_event
+    Stripe::Event.retrieve(stripe_id)
+  end
+end
+```
 
 ## Controller
 
