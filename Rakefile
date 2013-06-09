@@ -90,8 +90,8 @@ task :pdf do
 
   File.open("out.pdf", "w+") do |output_file|
     c = Docverter::Conversion.new
-    c.from = 'markdown'
-    c.to   = 'pdf'
+    c.from     = 'markdown'
+    c.to       = 'pdf'
     c.template = 'pdf_template.html'
     chapters.each do |file|
       c.add_input_file(file)
