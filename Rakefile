@@ -1,5 +1,3 @@
-require 'highline'
-
 task :default => [:count, :check_tics, :check_todos]
 
 task :count do
@@ -75,6 +73,6 @@ task :check_todos do
 end
 
 task :pdf do
-  h = Highline.new
+  require 'highline'
   system("curl -u admin:#{password} http://guide.subspace.bugsplat.info/_book.pdf > out.pdf")
 end
