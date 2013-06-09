@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset="utf-8">
+<title>$title$ :: Pete Keen</title>
+<style type="text/css">
+  @page {
+    size: 8.5in 11in;
+    margin: 10%;
+
+    @bottom-left {
+      font-size: 60%;
+      padding-left: 1em;
+      content: "$title$ :: (c) Pete Keen (pete@petekeen.com)";
+    }
+  
+    @bottom-right {
+      font-size: 60%;
+      font-family: 'Droid Sans';
+      content: counter(page);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="container">
+<div id="header">
+<h1>
+Pete Keen
+</h1>
+
+</div>
+<div id="content-container">
+<div id="content">
+<div class="entry">
+<h2>$title$</h2>
+$if(date)$
+<p class="date">$date$</p>
+$endif$
+$body$
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
