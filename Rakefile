@@ -90,6 +90,7 @@ task :pdf do
   content = ""
 
   chapters.each do |file|
+    puts file
     content << File.read(file)
   end
 
