@@ -20,5 +20,8 @@ We'll need a new controller to handle callbacks:
 
 class CallbacksController < ApplicationController
   skip_before_filter :authenticate_user!
+
+  def create
+  end
 end
 ```
