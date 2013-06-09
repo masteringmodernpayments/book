@@ -88,7 +88,7 @@ task :pdf do
   Docverter.base_url = 'http://c.docverter.com'
 
 
-  File.open("out.pdf", "w+") do |file|
+  File.open("out.pdf", "w+") do |output_file|
     c = Docverter::Conversion.new
     c.from = 'markdown'
     c.to = 'pdf'
@@ -96,7 +96,6 @@ task :pdf do
       c.add_input_file(file)
     end
 
-    p c.input_files
-    c.convert
+    output_file.write c.convert
   end
 end
