@@ -73,7 +73,5 @@ task :check_todos do
 end
 
 task :pdf do
-  require 'highline'
-  password = Highline.new.ask("Password: ") { |q| q.echo = false }
-  system("curl -u admin:#{password} http://guide.subspace.bugsplat.info/_book.pdf > out.pdf")
+  system("curl -u admin:bugsplat1234 http://guide.subspace.bugsplat.info/_book.pdf > out.pdf")
 end
