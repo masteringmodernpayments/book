@@ -1,4 +1,4 @@
-require 'docverter'
+require 'highline'
 
 task :default => [:count, :check_tics, :check_todos]
 
@@ -75,5 +75,6 @@ task :check_todos do
 end
 
 task :pdf do
-  system("curl -u admin:bugsplat1234 http://guide.subspace.bugsplat.info/_book.pdf > out.pdf")
+  password = ask("Enter password:  ") { |q| q.echo = false }
+  system("curl -u admin: http://guide.subspace.bugsplat.info/_book.pdf > out.pdf")
 end
