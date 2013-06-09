@@ -76,5 +76,5 @@ end
 
 task :pdf do
   password = ask("Enter password:  ") { |q| q.echo = false }
-  system("curl -u admin: http://guide.subspace.bugsplat.info/_book.pdf > out.pdf")
+  system("curl -u admin:#{password} http://guide.subspace.bugsplat.info/_book.pdf > out.pdf")
 end
