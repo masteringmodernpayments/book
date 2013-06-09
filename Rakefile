@@ -89,12 +89,11 @@ task :pdf do
 
 
   File.open("out.pdf", "w+") do |file|
-    file.write Docverter::Conversion.run do |c|
-      c.from    = 'markdown'
-      c.to      = 'pdf'
-      chapters.each do |file|
-        c.add_input_file(file)
-      end
+    c = Docverter::Conversion.new
+    c.from = 'markdown'
+    c.to = 'pdf'
+    chapters.each do |file|
+      c.add_input_file(file)
     end
   end
 end
