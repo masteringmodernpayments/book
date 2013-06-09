@@ -17,8 +17,8 @@ Stripe unfortunately does not sign their events. If they did we could verify tha
 
 ```bash
 $ rails g model Event \
-  stripe_id:string \
-  type:string
+    stripe_id:string \
+    type:string
 ```
 
 We only need to store the `stripe_id` because we'll be looking up the event using the API every time. Storing the type could be useful later on for reporting purposes.
