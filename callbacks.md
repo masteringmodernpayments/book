@@ -47,12 +47,13 @@ class EventsController < ApplicationController
   before_filter :parse_and_validate_event
 
   def create
+    
   end
 
   private
   def parse_and_validate_event
     event = JSON.parse(request.body.read)
-    @event = Event.new(event['id'])
+    @event = Event.new(id: event['id'], type: event['type'])
     unless event.save
       render :nothing => true, :status => 400
     end
