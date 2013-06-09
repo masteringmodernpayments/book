@@ -119,8 +119,9 @@ class BananaWorker
 end
 ```
 
+Then in a controller:
+
 ```ruby
-# somewhere in a controller
 BananaWorker.perform_async("hi")
 ```
 
