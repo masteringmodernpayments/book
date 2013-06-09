@@ -98,7 +98,7 @@ task :pdf do
     file.write Docverter::Conversion.run do |c|
       c.from    = 'markdown'
       c.to      = 'pdf'
-      c.content = content
+      c.content = "hi"
     end
   end
 end
