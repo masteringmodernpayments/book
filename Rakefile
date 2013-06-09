@@ -96,5 +96,5 @@ task :pdf do
   res = Docverter::Conversion.run do |c|
     c.from = 'markdown'
     c.to = 'pdf'
-
+  end
 end
