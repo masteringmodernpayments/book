@@ -87,18 +87,14 @@ task :pdf do
   
   Docverter.base_url = 'http://c.docverter.com'
 
-  content = ""
-
-  chapters.each do |file|
-    puts file
-    content << File.read(file)
-  end
 
   File.open("out.pdf", "w+") do |file|
     file.write Docverter::Conversion.run do |c|
       c.from    = 'markdown'
       c.to      = 'pdf'
-      c.content = "hi"
+      chapters.each do |file|
+        c.add_input_file(file)
+      end
     end
   end
 end
