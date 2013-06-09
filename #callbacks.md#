@@ -63,4 +63,4 @@ class EventsController < ApplicationController
 end
 ```
 
-From the top, we skip Devise's `authenticate_user!` before filter bec
+From the top, we skip Devise's `authenticate_user!` before filter because Stripe is obviously not going to have a user for our application. Then, we make our own `before_filter` that actually parses out the event and does the work of preventing replay attacks. If we'
