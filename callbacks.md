@@ -57,6 +57,7 @@ class EventsController < ApplicationController
     unless event.save
       render :nothing => true, :status => 400
     end
+    @stripe_event = @event.stripe_event
   end
 end
 ```
