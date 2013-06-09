@@ -89,9 +89,9 @@ task :pdf do
 
   content = ""
 
-  Dir.glob('*.md').each do |file|
-    next if file =~ /^_/
-
+  chapters.each do |file|
+    content << File.read(file)
+  end
   
   res = Docverter::Conversion.run do |c|
     c.from = 'markdown'
