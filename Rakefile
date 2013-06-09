@@ -92,10 +92,12 @@ task :pdf do
   chapters.each do |file|
     content << File.read(file)
   end
-  
-  res = Docverter::Conversion.run do |c|
-    c.from = 'markdown'
-    c.to = 'pdf'
-    c.content = content
+
+  File.open("out.pdf", "w+") do |file|
+    file.write Docverter::Conversion.run do |c|
+      c.from = 'markdown'
+      c.to = 'pdf'
+      c.content = content
+    end
   end
 end
