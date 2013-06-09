@@ -136,17 +136,15 @@ This is pretty cool but also problematic. The iframe just loads the normal `/buy
 <%= render :partial => 'form' %>
 ```
 
-Then, create a new action named `iframe`:
+Then, create a new action named `iframe`, first in `config/routes.rb`:
 
 ```ruby
-# in config/routes.rb
-
 match '/iframe/:permalink' => 'transactions#iframe', via: :get, as: :buy_iframe
 ```
 
-```ruby
-# in app/controllers/transactions_controller.rb
+In `app/controllers/transactions_controller.rb`:
 
+```ruby
 def iframe
   @product = Product.where(permalink: params[:permalink]).first
   raise ActionController::RoutingError.new("Not found") unless @product
