@@ -74,29 +74,3 @@ task :check_todos do
   end
 end
 
-task :pdf do
-
-  chapters = %w(
-    initial_app.md
-    basic_integration.md
-    custom_form.md
-    state_and_history.md
-    callbacks.md
-    background_worker.md
-  )
-  
-  Docverter.base_url = 'http://c.docverter.com'
-
-
-  File.open("out.pdf", "w+") do |output_file|
-    c = Docverter::Conversion.new
-    c.from     = 'markdown'
-    c.to       = 'pdf'
-
-    chapters.each do |file|
-      c.add_input_file(file)
-    end
-
-    output_file.write c.convert
-  end
-end
