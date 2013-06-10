@@ -75,6 +75,9 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def download
+  end
+
 end
 ```
 
