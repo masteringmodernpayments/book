@@ -146,7 +146,7 @@ The view for `#pickup` is even simpler, since it basically just has to display t
 
 <p>Thanks for buying "<%= @product.name %>". You can download your purchase by clicking the link below.</p>
 
-<p><%= link_to "Download", @product.download_url %></p>
+<p><%= link_to "Download", download_url(@sale) %></p>
 ```
 
 ## Deploy
