@@ -96,9 +96,10 @@ end
 The routes for transactions are pretty simple. Add this to `config/routes.rb`:
 
 ```ruby
-match '/buy/:permalink' => 'transactions#new',    via: :get,  as: :buy
-match '/buy/:permalink' => 'transactions#create', via: :post, as: :buy
-match '/pickup/:guid'   => 'transactions#show',   via: :get,  as: :pickup
+match '/buy/:permalink' => 'transactions#new',      via: :get,  as: :buy
+match '/buy/:permalink' => 'transactions#create',   via: :post, as: :buy
+match '/pickup/:guid'   => 'transactions#show',     via: :get,  as: :pickup
+match '/download/:guid' => 'transactions#download', via: :get,  as: :download
 ```
 
 ### Why not RESTful URLs?
