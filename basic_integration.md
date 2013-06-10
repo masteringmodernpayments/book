@@ -76,6 +76,14 @@ class TransactionsController < ApplicationController
   end
 
   def download
+    @sale = Sale.where(guid: params[:guid]).first
+    raise ActionController::RoutingError.new("Not found") unless @sale
+
+    resp = HTTParty.get(@sale.product.download_url)
+
+    send_data resp.body,
+      :filename => File.basename(@sale.product.download_url),
+      :content_type => resp.headers['Content-Type']
   end
 
 end
