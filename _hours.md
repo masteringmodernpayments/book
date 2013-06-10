@@ -1,8 +1,5 @@
 # Writing Journal
 
-Date | Time | Hours | Description
------|------|-------|------------
-
 ## 2013-06-01 Sat
 
 * overall: 1369 135
