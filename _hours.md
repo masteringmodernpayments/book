@@ -78,6 +78,10 @@
 
 * Started working on [callbacks](/callbacks)
 
-### 12:00pm - 2:pm (2)
+### 12:00pm - 2:00pm (2)
 
 * Added simple PDF export
+
+### 4:00pm - 5:00pm (1)
+
+* Added table of contents and cover
