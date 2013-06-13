@@ -85,3 +85,9 @@
 ### 4:00pm - 5:00pm (1)
 
 * Added table of contents and cover
+
+## 2013-06-11 Wed
+
+### 8:00pm - 10:00pm (2)
+
+* Implemented some security checking stuff
