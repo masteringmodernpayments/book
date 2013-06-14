@@ -99,4 +99,4 @@
 * Fixed a bunch of security warnings
 * Added a bunch of tests
 * Added some cool stuff to the transaction form
-
+* The form is still pretty ugly, though. It needs some major love, including removing responsive styling for the iframe version.
