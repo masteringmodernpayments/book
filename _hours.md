@@ -91,3 +91,12 @@
 ### 8:00pm - 10:00pm (2)
 
 * Implemented some security checking stuff
+
+## 2013-06-12 Thu
+
+### 6:00pm - 10:00pm (4)
+
+* Fixed a bunch of security warnings
+* Added a bunch of tests
+* Added some cool stuff to the transaction form
+
