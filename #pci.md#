@@ -120,7 +120,7 @@ task :rails_best_practices do
 end
 ```
  
-The Rails scaffolding tends to produce code that doesn't adhere to these practices. Most notably it uses instance variables inside partialsa. The fix is pretty easy. Change this:
+The Rails scaffolding tends to produce code that doesn't adhere to these practices. Most notably it uses instance variables inside partials and it generates verbose render statements inside forms. The fix is pretty easy. Change this:
 
 ```erb
 <%= form_for @object do |f| %>
@@ -135,4 +135,13 @@ The Rails scaffolding tends to produce code that doesn't adhere to these practic
 To this:
 
 ```erb
-<%= form_for @object do 
+<%= form_for object do |f| %>
+  <%= f.text_input :attribute %>
+<% end %>
+```
+
+```erb
+<%= render 'form', object: @object %>
+```
+
+In more recent versions of Rails `render` is a lot smart
