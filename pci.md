@@ -6,7 +6,7 @@
 [namecheap_ssl]: http://www.namecheap.com/ssl-certificates.aspx
 [heroku_ssl]: https://devcenter.heroku.com/articles/ssl-endpoint
 
-One of the biggest reasons to choose Stripe over other ways of processing credit cards is that they work very hard to minimize your exposure to *PCI DSS*. PCI which stands for [Payment Card Industry Data Security Standards][pci]. 
+One of the biggest reasons to choose Stripe over other ways of processing credit cards is that they work very hard to minimize your exposure to *PCI DSS* which stands for [Payment Card Industry Data Security Standards][pci]. 
 
 Note: I'm not an expert in PCI compliance and this chapter shouldn't be interpreted as legal advice. Rather, this is background information and advice on how to implement Stripe's guidelines. If you have questions, please ask Stripe or your nearest local PCI consultant.
 
