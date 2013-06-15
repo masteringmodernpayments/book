@@ -206,6 +206,7 @@ end
 The `create` method creates a new `Sale` record which queues the transaction to be processed by `StripeCharger`. The `status` method simply looks up the transaction and spits back some JSON. To actually process the form we have something like this, which includes the call to `stripe.js`:
 
 ```javascript
+// Capture the submit event, call Stripe, and start a spinner
 $('#payment-form').submit(function(event) {
   var form = $(this);
   form.find('button').prop('disabled', true);
@@ -214,6 +215,10 @@ $('#payment-form').submit(function(event) {
   return false;
 });
 
+
+// Handle the async response from Stripe. On success,
+// POST the form data to the create action and start
+// polling for completion.
 function stripeResponseHandler(status, response) {
   var form = $('#payment-form');
   if (response.error) {
