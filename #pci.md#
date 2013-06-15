@@ -150,4 +150,4 @@ In more recent versions of Rails `render` is a lot smarter than it used to be. I
 
 ### Brakeman
 
-[Brakeman][brakeman] is a security static analysis scanner for Rails applications. It goes through your code looking for known security vulnerabilities and suggests fixes. The default Rails application, in fact, ships with one of these vulnerabilities. Rails generates a "secure token" that it uses to encrypt session information and sign cookies so users can't modify it. However, if
+[Brakeman][brakeman] is a security static analysis scanner for Rails applications. It goes through your code looking for known security vulnerabilities and suggests fixes. The default Rails application, in fact, ships with one of these vulnerabilities. Rails generates a "secret token" that it uses to encrypt session information and sign cookies so users can't modify it. By default, it sticks this token into `config/initializers/secret_token.rb` as plain text. 
