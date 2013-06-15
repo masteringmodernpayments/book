@@ -113,6 +113,8 @@
 
 ## 2013-06-14 Sat
 
-### 9:15am - ?
+* overall: 6069 532 (20%)
+
+### 9:15am - 12:00pm (2.75)
 
 * Added some stuff about queue classic
