@@ -181,11 +181,11 @@ class TransactionsController < ApplicationController
   end
   
   def status
-    txn = Transaction.find(params[:id])
+    sale = Sale.find(params[:guid])
     raise ActionController::RoutingError.new('not found')
-      unless txn
+      unless sale
 
-    render json: txn.to_json
+    render json: { status: sale.state }
   end
 end
 ```
