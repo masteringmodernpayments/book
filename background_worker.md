@@ -153,7 +153,19 @@ class StripeCharger
 end
 ```
 
-Again, pretty straightforward. Sidekiq will create an instance of your job class and call `#perform` on it with a hash of values that you pass in to the queue, which we'll get to in a second. We look up the relevant `Sale` record and tell it to process using the state machine event we set up earlier using `AASM`. 
+Again, pretty straightforward. Sidekiq will create an instance of your job class and call `#perform` on it with a hash of values that you pass in to the queue, which we'll get to in a second. We look up the relevant `Sale` record and tell it to process using the state machine event we set up earlier using `AASM`.
+
+To actually get `StripeCharger` in the loop we have to call it from an `after_create` hook.
+
+```ruby
+class Sale < ActiveRecord::Base
+  ...
+  after_create :queue_charge
+
+  def queue_charge
+    
+
+end
 
 Now, in the TransactionsController, replace the transaction processing code with a call to `perform_async`, like so:
 
