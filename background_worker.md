@@ -168,7 +168,7 @@ class Sale < ActiveRecord::Base
 end
 ```
 
-Now, in the TransactionsController, replace the transaction processing code with a call to `perform_async`, like so:
+Now, in the TransactionsController, all we have to do is create the `Sale` record:
 
 ```ruby
 class TransactionsController < ApplicationController
