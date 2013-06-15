@@ -188,4 +188,4 @@ task :deploy do
 end
 ```
 
-This checks the code using the test suite and the two scanners, pushes it to my git server, and then deploys.
+This checks the code using the test suite and the two scanners, pushes it to my git server, and then deploys using Capistrano.
