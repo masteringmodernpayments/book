@@ -111,7 +111,7 @@ There are a few other things you can do to help ensure that your Rails applicati
 gem 'rails_best_practices'
 ```
 
-I also recommend adding a rake taks to simplfy running it. In `lib/tasks/security.rake`:
+I also recommend adding a rake task to simplfy running it. In `lib/tasks/security.rake`:
 
 ```ruby
 task :rails_best_practices do
@@ -119,3 +119,4 @@ task :rails_best_practices do
   sh "rails_best_practices #{path}"
 end
 ```
+ 
