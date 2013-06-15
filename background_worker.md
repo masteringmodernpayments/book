@@ -166,6 +166,7 @@ class Sale < ActiveRecord::Base
     StripeCharger.perform_async(guid)
   end
 end
+```
 
 Now, in the TransactionsController, replace the transaction processing code with a call to `perform_async`, like so:
 
