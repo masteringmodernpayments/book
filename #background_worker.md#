@@ -203,7 +203,7 @@ class TransactionsController < ApplicationController
 end
 ```
 
-The `create` method creates a new `Sale` record which queues the transaction to be processed by `StripeCharger`. The `status` method simply looks up the transaction and spits back some JSON. To actually process
+The `create` method creates a new `Sale` record which queues the transaction to be processed by `StripeCharger`. The `status` method simply looks up the transaction and spits back some JSON. To actually process the form we have something like this, which includes the call to `stripe.js`:
 
 ```javascript
 $('#payment-form').submit(function(event) {
