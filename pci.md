@@ -99,3 +99,23 @@ $ curl -kvI https://www.example.com
 
 This should print out a bunch of stuff about SSL and the headers from your application.
 
+## Additional Security Best Practices
+
+There are a few other things you can do to help ensure that your Rails application is secure, above and beyond requiring HTTPS. Adhering to Rails best practices and making sure you don't accidentally introduce known attack vectors into your code are two of the best things you can do to make sure attackers won't be successful.
+
+### Rails Best Practices
+
+[Rails Best Practices][rbp] is a website where people can submit and upvote various practices that help to keep your app safe and secure, and help structure your code in a maintainable way. Conveniently, Rails Best Practices also publishes a gem that automatically checks your app against more than fourty of the most common best practices. To install it, add it to the `Gemfile`:
+
+```ruby
+gem 'rails_best_practices'
+```
+
+I also recommend adding a rake taks to simplfy running it. In `lib/tasks/security.rake`:
+
+```ruby
+task :rails_best_practices do
+  path = File.expand_path("../../../", __FILE__)
+  sh "rails_best_practices #{path}"
+end
+```
