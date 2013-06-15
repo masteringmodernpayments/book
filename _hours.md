@@ -118,3 +118,6 @@
 ### 9:15am - 12:00pm (2.75)
 
 * Added some stuff about queue classic
+* Switched to Sidekiq
+* Installed redis on empoknor
+* 
