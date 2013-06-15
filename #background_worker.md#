@@ -164,14 +164,18 @@ class TransactionsController < ApplicationController
     product = Product.where(permalink: params[:permalink]).first
     raise ActionController::RoutingError.new("Not found") unless product
 
-    token = pa
+    token = params[:stripeToken]
 
-    txn = Sale.new(
-      amount: 1000,
-      email: params[:email],
-      stripe_token: params[:stripeToken]
-      product_id:
-    )
+    sale = Sale.new do |s|
+      s.amount = product.price,
+      s.product_id = product.id,
+      s.stripe_token = token,
+      s.email = params[:email]
+    end
+
+    if sale.save
+      r
+
     if txn.save
       StripCharger.perform_async(
         transaction_id: txn.id,
