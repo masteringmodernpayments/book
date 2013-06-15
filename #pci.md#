@@ -178,4 +178,4 @@ task :check do
 end
 ```
 
-In my projects I usual
+In my projects I usually take this one step even farther and create a task named `deploy` which runs the `check` task before deploying the project. For my private ins
