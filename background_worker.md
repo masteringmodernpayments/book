@@ -153,7 +153,7 @@ class StripeCharger
 end
 ```
 
-Again, pretty straightforward. Sidekiq will create an instance of your job class and call `#perform` on it with a hash of values that you pass in to the queue, which we'll get to in a second. We look up a `Transaction` record, initiate the charge, and capture any errors that happen along the way.
+Again, pretty straightforward. Sidekiq will create an instance of your job class and call `#perform` on it with a hash of values that you pass in to the queue, which we'll get to in a second. We look up the relevant `Sale` record and tell it to process using the state machine event we set up earlier using `AASM`. 
 
 Now, in the TransactionsController, replace the transaction processing code with a call to `perform_async`, like so:
 
@@ -161,19 +161,22 @@ Now, in the TransactionsController, replace the transaction processing code with
 class TransactionsController < ApplicationController
 
   def create
-    txn = Transaction.new(
-      amount: 1000,
-      email: params[:email],
-      state: 'pending'
-    )
-    if txn.save
-      StripCharger.perform_async(
-        transaction_id: txn.id,
-        token: params[:stripeToken]
-      )
-      render json: txn.to_json
+    product = Product.where(permalink: params[:permalink]).first
+    raise ActionController::RoutingError.new("Not found") unless product
+
+    token = params[:stripeToken]
+
+    sale = Sale.new do |s|
+      s.amount = product.price,
+      s.product_id = product.id,
+      s.stripe_token = token,
+      s.email = params[:email]
+    end
+
+    if sale.save
+      render json: { guid: sale.guid }
     else
-      render json: {error: txn.error_messages}, status: 422
+      render json: { error: sale.errors.full_messages.join(" ") }, status: 400
     end
   end
   
