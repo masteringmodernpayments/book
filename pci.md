@@ -5,6 +5,8 @@
 [rsa]: http://en.wikipedia.org/wiki/RSA_(algorithm)
 [namecheap_ssl]: http://www.namecheap.com/ssl-certificates.aspx
 [heroku_ssl]: https://devcenter.heroku.com/articles/ssl-endpoint
+[rbp]: http://rails-bestpractices.com
+[brakeman]: http://brakemanscanner.org
 
 *Note: I'm not an expert in PCI compliance and this chapter shouldn't be interpreted as legal advice. Rather, this is background information and advice on how to implement Stripe's guidelines. If you have questions, please ask Stripe or your nearest local PCI consultant.*
 
@@ -120,10 +122,48 @@ task :rails_best_practices do
 end
 ```
  
-The Rails scaffolding tends to produce code that doesn't adhere to these practices. Most notably it uses instance variables inside partials. The fix is pretty easy:
+The Rails scaffolding tends to produce code that doesn't adhere to these practices. Most notably it uses instance variables inside partials and it generates verbose render statements inside forms. The fix is pretty easy. Change this:
 
 ```erb
 <%= form_for @object do |f| %>
   <%= f.text_input :attribute %>
 <% end %>
+```
+
+```erb
+<%= render partial: 'form' %>
+```
+
+To this:
+
+```erb
+<%= form_for object do |f| %>
+  <%= f.text_input :attribute %>
+<% end %>
+```
+
+```erb
+<%= render 'form', object: @object %>
+```
+
+In more recent versions of Rails `render` is a lot smarter than it used to be. It knows based on context what we mean by the second argument. We also don't have to specify the `locals:` key anymore, it's just implied that the second argument is the locals hash when rendering a partial.
+
+### Brakeman
+
+[Brakeman][brakeman] is a security static analysis scanner for Rails applications. It goes through your code looking for known security vulnerabilities and suggests fixes. The default Rails application, in fact, ships with one of these vulnerabilities. Rails generates a "secret token" that it uses to encrypt session information and sign cookies so users can't modify it. By default, it sticks this token into `config/initializers/secret_token.rb` as plain text. This is a vulnerability because if, for example, you release your application as open source anyone can find the token and decrypt your sessions and sign their own cookies and generally cause havok. There are various schools of thought on how to fix this. For the example application I've put the token into an environment variable. In `config/initializers/secret_token.rb`:
+
+```ruby
+Sales::Application.config.secret_token = ENV['SECRET_TOKEN']
+```
+
+```bash
+$ heroku config:add SECRET_TOKEN=some-secret-token
+```
+
+Running `brakeman` is similar to running `rails_best_practices`. Just invoke it from the root of your project to start a scan. I would again suggest creating a rake task to run `brakeman`. In `lib/tasks/security.rake`:
+
+```ruby
+task :brakeman do
+  sh "brakeman -q -z"
+end
 ```
