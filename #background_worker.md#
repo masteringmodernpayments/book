@@ -258,4 +258,4 @@ function showError(error) {
 }
 ```
     
-By makin
+Putting the call to `Stripe::Charge` in a background job and having the client poll eliminates a whole class of problems
