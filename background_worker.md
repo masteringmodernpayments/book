@@ -221,4 +221,4 @@ function doPoll(guid){
     
 Your page will poll `/transactions/<id>` until the transaction ends in either success or failure. You'd probably want to show a spinner or something to the user while this is happening.
 
-With this setup, you've insulated yourself from problems in your connection to Stripe, your connection to your customer, and everything in between.
+
