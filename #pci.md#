@@ -101,4 +101,8 @@ This should print out a bunch of stuff about SSL and the headers from your appli
 
 ## Additional Security Best Practices
 
-There are a few other things you can do to help ensure that your Rails application is secure, above and beyond requiring HTTPS. Adhering to Rails best practices and making sure you don't accidentally introduce known attack vectors into your code are two of the best things you can do to make sure 
+There are a few other things you can do to help ensure that your Rails application is secure, above and beyond requiring HTTPS. Adhering to Rails best practices and making sure you don't accidentally introduce known attack vectors into your code are two of the best things you can do to make sure attackers won't be successful.
+
+### Rails Best Practices
+
+[Rails Best Practices][rbp] is a website where people can submit and upvote various practices that hel
