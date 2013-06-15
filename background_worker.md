@@ -217,7 +217,8 @@ $('#payment-form').submit(function(event) {
 
 // Handle the async response from Stripe. On success,
 // POST the form data to the create action and start
-// polling for completion.
+// polling for completion. On error, display the error
+// to the user.
 function stripeResponseHandler(status, response) {
   var form = $('#payment-form');
   if (response.error) {
