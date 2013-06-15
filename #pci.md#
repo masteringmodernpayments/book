@@ -5,6 +5,8 @@
 [rsa]: http://en.wikipedia.org/wiki/RSA_(algorithm)
 [namecheap_ssl]: http://www.namecheap.com/ssl-certificates.aspx
 [heroku_ssl]: https://devcenter.heroku.com/articles/ssl-endpoint
+[rbp]: http://rails-bestpractices.com
+[brakeman]: http://brakemanscanner.org
 
 *Note: I'm not an expert in PCI compliance and this chapter shouldn't be interpreted as legal advice. Rather, this is background information and advice on how to implement Stripe's guidelines. If you have questions, please ask Stripe or your nearest local PCI consultant.*
 
@@ -144,4 +146,8 @@ To this:
 <%= render 'form', object: @object %>
 ```
 
-In more recent versions of Rails `render` is a lot smarter than it used to be. It knows based on context what we mean by the second argument. We also don't have to specify the `loc
+In more recent versions of Rails `render` is a lot smarter than it used to be. It knows based on context what we mean by the second argument. We also don't have to specify the `locals:` key anymore, it's just implied that the second argument is the locals hash when rendering a partial.
+
+### Brakeman
+
+[Brakeman][brakeman] is a security static analysis scanner for Rails appli
