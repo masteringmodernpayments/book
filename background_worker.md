@@ -180,7 +180,7 @@ class TransactionsController < ApplicationController
     end
   end
   
-  def show
+  def status
     txn = Transaction.find(params[:id])
     raise ActionController::RoutingError.new('not found')
       unless txn
