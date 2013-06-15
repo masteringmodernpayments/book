@@ -9,6 +9,7 @@
 [dj]: https://github.com/collectiveidea/delayed_job
 [sidekiq]: http://sidekiq.org
 [mperham]: http://www.mikeperham.com
+[qc]: https://github.com/ryandotsmith/queue_classic
 
 Processing payments correctly is hard. This is one of the biggest lessons I've learned while writing my various [SaaS projects](/projects.html). Stripe does everything they can to make it easy, with [quick start guides][stripe] and [great documentation][docs]. One thing they really don't cover in the docs is what to do if your connection with their API fails for some reason. Processing payments inside a web request is asking for trouble, and the solution is to run them using a background job. 
 
@@ -104,6 +105,8 @@ $ bundle exec rake jobs:work
 ```
 
 Delayed Job does have some drawbacks. First, because it stores jobs in the same database as everything else it has to content with everything else. For example, your database serve almost certainly has a limit on the number of connections it can handle, and every worker will require two of them, one for Delayed Job itself and another for any ActiveRecord objects. Second, it can get tricky to backup because you really don't need to be backing up the jobs table. That said, it's relatively simple and straight forward and has the distinct advantage of not making you run any new external services.
+
+Another PostgreSQL-specific database backed worker system is [Queue Classic][qc], which leverages some specific features that PostgreSQL provides to workers very efficient. Specifically it uses `listen` and `notify`, the built-in publish/subscribe system, to tell workers when there are jobs to be done so they don't have to poll. It also uses row-level locking to reduce database load and ensure only one worker is working a job at any given time.
 
 ### Redis
 
