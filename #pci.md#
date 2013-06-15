@@ -144,4 +144,4 @@ To this:
 <%= render 'form', object: @object %>
 ```
 
-In more recent versions of Rails `render` is a lot smart
+In more recent versions of Rails `render` is a lot smarter than it used to be. It knows based on context what we mean by the second argument. We also don't have to specify the `loc
