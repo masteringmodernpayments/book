@@ -190,7 +190,7 @@ class TransactionsController < ApplicationController
 end
 ```
 
-The `create` method creates a new `Transaction` record, setting it's state to `pending`. It then queues the transaction to be processed by `StripeCharger`. The `show` method simply looks up the transaction and spits back some JSON. On your customer-facing page you'd do something like this:
+The `create` method creates a new `Sale` record which queues the transaction to be processed by `StripeCharger`. The `status` method simply looks up the transaction and spits back some JSON. On your customer-facing page you'd do something like this:
 
 ```javascript
 function doPoll(id){
