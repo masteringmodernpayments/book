@@ -7,10 +7,11 @@
 [heroku_ssl]: https://devcenter.heroku.com/articles/ssl-endpoint
 [rbp]: http://rails-bestpractices.com
 [brakeman]: http://brakemanscanner.org
+[cochrane]: http://kencochrane.net/blog/2012/01/developers-guide-to-pci-compliant-web-applications/
 
 *Note: I'm not an expert in PCI compliance and this chapter shouldn't be interpreted as legal advice. Rather, this is background information and advice on how to implement Stripe's guidelines. If you have questions, please ask Stripe or your nearest local PCI consultant.*
 
-In 2004 after a rash of card all of the various credit card processing companies, including Mastercard, Visa, and Discover among others, started formulating security standards efforts. Visa dropped their own effort in 2005 and joined up with Mastercard, shortly followed by the rest of the industry. In 2006 version 1 of the [Payment Card Industry Data Security Standards][pci] was officially published which formalize and codify a bunch of common-sense security requirements for processing credit cards. In their merchant agreements every processor specifies that you have to comply with PCI or your account will be dropped and you'll get audited, which is rather undesirable.
+In 2004 after a rash of card all of the various credit card processing companies, including Mastercard, Visa, and Discover among others, started formulating security standards efforts. Visa dropped their own effort in 2005 and joined up with Mastercard, shortly followed by the rest of the industry. In 2006 version 1 of the [Payment Card Industry Data Security Standards][pci] was officially published which formalize and codify a bunch of common-sense security requirements for processing credit cards. In their merchant agreements every processor specifies that you have to comply with PCI or your account will be dropped and you'll get audited, which is rather undesirable. One of the best resources that I've found that talks about all of these requirements is Ken Cochrane's [Developers Guide to PCI Compliant Web Applications][cochrane]. He goes into quite a bit of depth on the various rules, regulations, and mitigation strategies that are out there.
 
 ## Stripe and PCI
 
