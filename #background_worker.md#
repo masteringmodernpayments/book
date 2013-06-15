@@ -161,10 +161,16 @@ Now, in the TransactionsController, replace the transaction processing code with
 class TransactionsController < ApplicationController
 
   def create
-    txn = Transaction.new(
+    product = Product.where(permalink: params[:permalink]).first
+    raise ActionController::RoutingError.new("Not found") unless product
+
+    token = pa
+
+    txn = Sale.new(
       amount: 1000,
       email: params[:email],
-      state: 'pending'
+      stripe_token: params[:stripeToken]
+      product_id:
     )
     if txn.save
       StripCharger.perform_async(
