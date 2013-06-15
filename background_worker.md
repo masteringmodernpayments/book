@@ -146,7 +146,8 @@ class StripeCharger
 
   def perform(guid)
     ActiveRecord::Base.connection_pool.with_connection do
-      sale = Sale.find(guid)
+      sale = Sale.where(guid: guid).first
+      return unless sale
       sale.process!
     end
   end
@@ -258,4 +259,4 @@ function showError(error) {
 }
 ```
     
-Putting the call to `Stripe::Charge` in a background job and having the client poll eliminates a whole class of problems related to network failures and insulates you from problems in Stripe's backend. If charges don't go through we just report that back to the user and if the job fails for some other reason Sidekiq will retry until it succeeds.
+Putting the call to Stripe::Charge` in a background job and having the client poll eliminates a whole class of problems related to network failures and insulates you from problems in Stripe's backend. If charges don't go through we just report that back to the user and if the job fails for some other reason Sidekiq will retry until it succeeds.
