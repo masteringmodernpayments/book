@@ -168,6 +168,8 @@ task :brakeman do
 end
 ```
 
+### Running Security Scanners on Deploy
+
 I would actually go further and create a task called `check` which runs your tests, Brakeman, and Rails Best Practices all at the same time:
 
 ```ruby
