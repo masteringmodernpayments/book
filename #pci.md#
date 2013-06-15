@@ -101,4 +101,4 @@ This should print out a bunch of stuff about SSL and the headers from your appli
 
 ## Additional Security Best Practices
 
-There are a few other things you can do to help ensure that your application is s
+There are a few other things you can do to help ensure that your Rails application is secure, above and beyond requiring HTTPS. There are a lo
