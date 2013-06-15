@@ -103,7 +103,10 @@
 
 ## 2013-06-13 Fri
 
-### 6:00pm - 8:30pm (2)
+### 6:00pm - 10:00pm (4)
 
 * Implemented async payments
 * Pushed to heroku http://sleepy-citadel-3647.herokuapp.com/buy/design-for-failure
+* Switched to queue classic
+* Pushed to empoknor https://sales.empoknor.bugsplat.info
+* Need to fix logging so logs get pushed to papertrail properly
