@@ -100,3 +100,9 @@
 * Added a bunch of tests
 * Added some cool stuff to the transaction form
 * The form is still pretty ugly, though. It needs some major love, including removing responsive styling for the iframe version.
+
+## 2013-06-13 Fri
+
+### 6:00pm - 8:30pm (2)
+
+* Implemented async payments
