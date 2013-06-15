@@ -109,4 +109,4 @@
 * Pushed to heroku http://sleepy-citadel-3647.herokuapp.com/buy/design-for-failure
 * Switched to queue classic
 * Pushed to empoknor https://sales.empoknor.bugsplat.info
-* Need to fix logging so logs get pushed to papertrail properly
+* Symlinked logs so papertrail picks them up
