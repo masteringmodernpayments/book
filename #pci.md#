@@ -168,4 +168,14 @@ task :brakeman do
 end
 ```
 
-I would actually go further and create a task called `check` which runs your tests, Brakeman, and Rails Best Practices all at th
+I would actually go further and create a task called `check` which runs your tests, Brakeman, and Rails Best Practices all at the same time:
+
+```ruby
+task :check do
+  Rake::Task['test'].invoke # could also be spec if you're using rspec
+  Rake::Task['brakeman'].invoke
+  Rake::Task['rails_best_practices'].invoke
+end
+```
+
+In my projects I usual
