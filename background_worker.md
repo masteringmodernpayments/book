@@ -203,22 +203,58 @@ class TransactionsController < ApplicationController
 end
 ```
 
-The `create` method creates a new `Sale` record which queues the transaction to be processed by `StripeCharger`. The `status` method simply looks up the transaction and spits back some JSON. On your customer-facing page you'd do something like this:
+The `create` method creates a new `Sale` record which queues the transaction to be processed by `StripeCharger`. The `status` method simply looks up the transaction and spits back some JSON. To actually process the form we have something like this, which includes the call to `stripe.js`:
 
 ```javascript
-function doPoll(guid){
-    $.get('/state/' + id, function(data) {
-        if (data.status === "complete") {
-          window.location = '/pickup' + guid;
-        } elsif (data.status === "failed") {
-          handleFailure(data);
-        } else {
-          setTimeout(function(){ doPoll(guid); }, 500);
-        }
+// Capture the submit event, call Stripe, and start a spinner
+$('#payment-form').submit(function(event) {
+  var form = $(this);
+  form.find('button').prop('disabled', true);
+  Stripe.createToken(form, stripeResponseHandler);
+  $('#spinner').show();
+  return false;
+});
+
+
+// Handle the async response from Stripe. On success,
+// POST the form data to the create action and start
+// polling for completion.
+function stripeResponseHandler(status, response) {
+  var form = $('#payment-form');
+  if (response.error) {
+    showError(response.error.message);
+  } else {
+    var token = response.id;
+    form.append($('<input type="hidden" name="stripeToken">').val(token));
+    $.ajax({
+      type: "POST",
+      url: "/buy/<%= permalink %>",
+      data: $('#payment-form').serialize(),
+      success: function(data) { console.log(data); poll(data.guid) },
+      error: function(data) { console.log(data); showError(data.responseJSON.error) }
     });
+  }
+}
+
+// Recursively poll for completion.
+function poll(guid) {
+  $.get("/status/" + guid, function(data) {
+    if (data.status === "finished") {
+      window.location = "/pickup/" + guid;
+    } else if (data.status === "error") {
+      showError(data.error)
+    } else {
+      setTimeout(function() { poll(guid) }, 500);
+    }
+  });
+}
+
+function showError(error) {
+  var form = $('#payment-form');
+  form.find('#payment-errors').text(error);
+  form.find('#payment-errors').show();
+  form.find('button').prop('disabled', false);
+  form.find('#spinner').hide();
 }
 ```
     
-Your page will poll `/transactions/<id>` until the transaction ends in either success or failure. You'd probably want to show a spinner or something to the user while this is happening.
-
-
