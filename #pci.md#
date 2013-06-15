@@ -120,4 +120,4 @@ task :rails_best_practices do
 end
 ```
  
-The most common errors
+The Rails scaffolding tends to produce code that doesn't adhere to these practices. Most notably it uses instance variables inside partials. The fix is pretty e
