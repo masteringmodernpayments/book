@@ -206,14 +206,14 @@ end
 The `create` method creates a new `Sale` record which queues the transaction to be processed by `StripeCharger`. The `status` method simply looks up the transaction and spits back some JSON. On your customer-facing page you'd do something like this:
 
 ```javascript
-function doPoll(id){
-    $.get('/transactions/' + id, function(data) {
+function doPoll(guid){
+    $.get('/state/' + id, function(data) {
         if (data.state === "complete") {
-          window.location = '/thankyou';
+          window.location = '/pickup' + guid;
         } elsif (data.state === "failed") {
           handleFailure(data);
         } else {
-          setTimeout(function(){ doPoll(id); }, 500);
+          setTimeout(function(){ doPoll(guid); }, 500);
         }
     });
 }
