@@ -144,26 +144,10 @@ First, let's create a job class:
 class StripeCharger
   include Sidekiq::Worker
 
-  def perform(event)
+  def perform(guid)
     ActiveRecord::Base.connection_pool.with_connection do
-      token =  event[:token]
-      txn = Transaction.find(event[:transaction_id])
-
-      begin
-        charge = Stripe::Charge.create(
-          amount: txn.amount,
-          currency: "usd",
-          card: token,
-          description: txn.email
-        )
-        txn.state = 'complete'
-        txn.stripe_id = charge.id
-        txn.save!
-      rescue Stripe::Error => e
-        txn.state = 'failed'
-        txn.error = e.json_body
-        txn.save!
-      end
+      sale = Sale.find(guid)
+      sale.process!
     end
   end
 end
