@@ -103,7 +103,7 @@
 
 ## 2013-06-13 Fri
 
-### 6:00pm - 10:00pm (4)
+### 6:00pm - 10:30pm (4.5)
 
 * Implemented async payments
 * Pushed to heroku http://sleepy-citadel-3647.herokuapp.com/buy/design-for-failure
