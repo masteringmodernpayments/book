@@ -110,3 +110,9 @@
 * Switched to queue classic
 * Pushed to empoknor https://sales.empoknor.bugsplat.info
 * Symlinked logs so papertrail picks them up
+
+## 2013-06-14 Sat
+
+### 9:15am - ?
+
+* Added some stuff about queue classic
