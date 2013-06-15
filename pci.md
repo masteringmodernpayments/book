@@ -167,3 +167,23 @@ task :brakeman do
   sh "brakeman -q -z"
 end
 ```
+
+I would actually go further and create a task called `check` which runs your tests, Brakeman, and Rails Best Practices all at the same time:
+
+```ruby
+task :check do
+  Rake::Task['test'].invoke # could also be spec if you're using rspec
+  Rake::Task['brakeman'].invoke
+  Rake::Task['rails_best_practices'].invoke
+end
+```
+
+In my projects I usually take this one step even farther and create a task named `deploy` which runs the `check` task before deploying the project. For the application that sells this book I have this task:
+
+```ruby
+task :deploy do
+  Rake::Task['check'].invoke
+  sh "git push origin master"
+  sh "cap deploy"
+end
+```
