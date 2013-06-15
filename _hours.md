@@ -120,4 +120,6 @@
 * Added some stuff about queue classic
 * Switched to Sidekiq
 * Installed redis on empoknor
-* 
+* Fixed a bunch of small things on the sales site including error handling
+* Added a section to PCI about security scanners and testing
+
