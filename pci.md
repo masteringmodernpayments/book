@@ -120,3 +120,10 @@ task :rails_best_practices do
 end
 ```
  
+The Rails scaffolding tends to produce code that doesn't adhere to these practices. Most notably it uses instance variables inside partials. The fix is pretty easy:
+
+```erb
+<%= form_for @object do |f| %>
+  <%= f.text_input :attribute %>
+<% end %>
+```
