@@ -208,9 +208,9 @@ The `create` method creates a new `Sale` record which queues the transaction to 
 ```javascript
 function doPoll(guid){
     $.get('/state/' + id, function(data) {
-        if (data.state === "complete") {
+        if (data.status === "complete") {
           window.location = '/pickup' + guid;
-        } elsif (data.state === "failed") {
+        } elsif (data.status === "failed") {
           handleFailure(data);
         } else {
           setTimeout(function(){ doPoll(guid); }, 500);
