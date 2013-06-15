@@ -215,7 +215,6 @@ $('#payment-form').submit(function(event) {
   return false;
 });
 
-
 // Handle the async response from Stripe. On success,
 // POST the form data to the create action and start
 // polling for completion.
