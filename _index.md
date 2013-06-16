@@ -59,7 +59,7 @@
   * controls
     * refunding transactions
     * cancelling/pausing subscriptions
-* Marketplaces with Connect and Payout
+* [Marketplaces with Connect and Payout](/marketplaces)
 
 ### Meta
 
