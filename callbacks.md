@@ -82,4 +82,11 @@ From the top, we skip Devise's `authenticate_user!` before filter because Stripe
 
 `create` is where the action happens. The `event_method` accessor on `Event` that we defined earlier will generate a symbol. If we've defined a private method of that name, call it with the event as the argument. If the handler returns something, render it as json and return it. If the handler doesn't return anything, just let Stripe know that we handled it by returning a success code.
 
-But we haven't actually done anything yet. 
+But we haven't actually done anything yet. Let's handle a dispute:
+
+```
+private
+def stripe_charge_dispute_created(event)
+  StripeMailer.dispute_created(event).send
+end
+```
