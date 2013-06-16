@@ -6,4 +6,5 @@
 
 ## Events you care about
 
-## Rece
+## How to generate PDF Receipts
+
