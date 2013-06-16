@@ -128,7 +128,7 @@ function poll(guid) {
 }
 ```
 
-If the response has an error, display the error and re-enable the "Pay" button. Otherwise, append a hidden input to the form and resubmit using the DOM method instead of the jQuery method so we don't get stuck in an infinite loop.
+If the response has an error, show it using `showError`. Otherwise, create the transaction
 
 ## Embedding the Form
 
