@@ -63,6 +63,10 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def stripe_charge_dispute_created(event)
+  end
+
   def parse_and_validate_event
     event = JSON.parse(request.body.read)
     @event = Event.new(id: event['id'], type: event['type'])
