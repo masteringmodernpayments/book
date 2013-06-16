@@ -98,6 +98,7 @@ class StripeMailer < ActionMailer::Base
   default :from => 'you@example.com'
 
   def dispute_created(event)
+    charge = event.data.object
     mail(to: 'you@example.com', subject: 'Dispute created on charge
   end
 end
