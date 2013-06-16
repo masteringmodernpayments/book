@@ -143,3 +143,5 @@ class StripeMailer < ActionMailer::Base
   end
 end
 ```
+
+In response to a charge succeeding we send a receipt to the customer and an alert to ourselves so we can get that sweet dopamine hit when the email alert sound dings.
