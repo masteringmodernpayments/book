@@ -36,10 +36,12 @@ class Event < ActiveRecord::Base
   end
 
   def event_method
-    "stripe_#{self.stripe_type.gsub('.', '_').to_sym}
+    "stripe_#{self.stripe_type.gsub('.', '_')}.to_sym
   end
 end
 ```
+
+The `stripe_event` method contacts Stripe and asks for event details. The `event_method` method generates
 
 ## Controller
 
