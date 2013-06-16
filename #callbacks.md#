@@ -133,4 +133,11 @@ class StripeMailer < ActionMailer::Base
   ...
 
   def admin_charge_succeeded(event)
-    
+    @charge = @event.data.object
+    mail(to: 'you@example.com', subject: 'Woo! Charge Succeeded!')
+  end
+
+  def receipt(event)
+    @charge = @event.data.object
+    @sale = Sale.where(stripe_id: @charge.id).first
+    mail(
