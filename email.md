@@ -2,9 +2,9 @@
 
 ## Tranasctional emails are different than list emails
 
-## Events customers care about
+## Events to care about
 
-## Events you care about
+## Dunning
 
 ## How to generate PDF Receipts
 
