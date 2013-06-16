@@ -88,6 +88,8 @@ From the top, we skip Devise's `authenticate_user!` before filter because Stripe
 
 `create` is where the action happens. The `event_method` accessor on `Event` that we defined earlier will generate a symbol. If we've defined a private method of that name, call it with the event as the argument. If the handler returns something, render it as json and return it. If the handler doesn't return anything, just let Stripe know that we handled it by returning a success code.
 
+## Handling Events
+
 But we haven't actually done anything yet. Let's handle a dispute:
 
 ```ruby
@@ -115,3 +117,11 @@ end
 ```
 
 In response to a dispute we send an email to ourselves with all of the details. Disputes should be rare enough that we can deal with them individually just with an email, but if they're not we could do some more complicated processing here.
+
+We should also handle a happy event. Let's do `charge.succeeded`:
+
+```ruby
+private
+def stripe_charge_succeeded(event)
+  StripeMailer.charge_succeeded(event).send
+end
