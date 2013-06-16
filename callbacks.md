@@ -70,6 +70,7 @@ class EventsController < ApplicationController
   private
 
   def stripe_charge_dispute_created(event)
+    
   end
 
   def parse_and_validate_event
