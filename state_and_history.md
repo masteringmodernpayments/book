@@ -24,7 +24,7 @@ class Turnstile
     end
 
     event :use
-      transitions from: :unlocked, to: locked
+      transitions from: :unlocked, to: :locked
     end
   end
 end
