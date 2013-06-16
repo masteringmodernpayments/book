@@ -80,6 +80,6 @@ end
 
 From the top, we skip Devise's `authenticate_user!` before filter because Stripe is obviously not going to have a user for our application. Then, we make our own `before_filter` that actually parses out the event and does the work of preventing replay attacks. If the event doesn't validate for some reason we return 400 and move on. If, on the other hand, it saves correctly we ask Stripe for a fresh copy of the event and then deal with it.
 
-`create` is where the action happens. The `event_method` accessor on `Event` that we defined earlier will generate a symbol. If we've defined a private method of that name, call it with the event as the argument. If the handler returns something, render it as json and return it. If the handler doesn't return anything, just let Stripe know that we handled it by returning a success code. 
+`create` is where the action happens. The `event_method` accessor on `Event` that we defined earlier will generate a symbol. If we've defined a private method of that name, call it with the event as the argument. If the handler returns something, render it as json and return it. If the handler doesn't return anything, just let Stripe know that we handled it by returning a success code.
 
 But we haven't actually done anything yet. 
