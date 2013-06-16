@@ -73,7 +73,7 @@ class Sale < ActiveRecord::Base
     :error,
     :fee_amount
 
-before_save :populate_guid
+  before_save :populate_guid
 
   include AASM
 
