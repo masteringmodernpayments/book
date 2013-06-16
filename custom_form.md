@@ -53,40 +53,6 @@ Here's the form we'll be using:
 </div>
 <% end %>
 </div>
-
-<script type="text/javascript">
-  $(function(){
-    Stripe.setPublishableKey('<%= Rails.configuration.stripe[:publishable_key] %>');
-
-    $('#number').keyup(function(event) {
-      var value = $('#number').val();
-      var img = $('#card-image')[0];
-      if (value !== "") {
-        if (value.charAt(0) === "3") {
-          img.src = "/img/amex.png";
-        } else if (value.charAt(0) === "4") {
-          img.src = "/img/visa.png";
-        } else if (value.charAt(0) === "5") {
-          img.src = "/img/mastercard.png";
-        } else if (value.charAt(0) === "6" && value.charAt(1) === "5") {
-          img.src = "/img/discover.png";
-        }
-      } else {
-        img.src = "/img/credit.png";
-      }
-    });
-
-    $('#payment-form').submit(function(event) {
-      var form = $(this);
-      form.find('button').prop('disabled', true);
-      Stripe.createToken(form, stripeResponseHandler);
-      $('#spinner').show();
-      return false;
-    });
-
-
-  });
-</script>
 ```
 
 There's a few interesting things going on here. First, notice the almost-excessive amount of markup. I'm using [Twitter Bootstrap][bootstrap] form markup for this, which gives nice looking styling by default.
