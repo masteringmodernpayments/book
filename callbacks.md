@@ -54,8 +54,8 @@ class EventsController < ApplicationController
   before_filter :parse_and_validate_event
 
   def create
-    if self.class.private_method_defined? @event.event_method
-      response = self.send(@event.event_method, @event)
+    if self.class.private_method_defined? @stripe_event.event_method
+      response = self.send(@stripe_event.event_method, @event)
       if response
         render json: response.to_json
       else
