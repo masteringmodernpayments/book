@@ -123,5 +123,24 @@ We should also handle a happy event. Let's do `charge.succeeded`:
 ```ruby
 private
 def stripe_charge_succeeded(event)
+  StripeMailer.receipt(event).send
   StripeMailer.admin_charge_succeeded(event).send
 end
+```
+
+```ruby
+class StripeMailer < ActionMailer::Base
+  ...
+
+  def admin_charge_succeeded(event)
+    @charge = @event.data.object
+    mail(to: 'you@example.com', subject: 'Woo! Charge Succeeded!')
+  end
+
+  def receipt(event)
+    @charge = @event.data.object
+    @sale = Sale.where(stripe_id: @charge.id).first
+    mail(to: @sale.email, subject: "Thanks for purchasing #{@sale.product.name}")
+  end
+end
+```
