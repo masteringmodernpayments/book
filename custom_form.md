@@ -8,43 +8,121 @@ Until now we've been using Stripe's excellent `checkout.js` that provides a popu
 Here's the form we'll be using:
 
 ```erb
-<%= form_tag buy_path(permalink: @product.permalink), :class => 'form-horizontal', :id => 'payment-form' do %>
-  <span class="payment-errors"></span>
-  <div class="control-group">
+<div class="well" style="margin-left: 0px">
+<%= form_tag buy_path(permalink: permalink), :class => '', :id => 'payment-form' do %>
+<div class="row">
+  <div id="payment-errors" class="alert span6" style="<%= sale.errors.any? ? '' : 'display: none;' %>">
+    <% if sale.errors.any? %>
+      <% sale.errors.full_messages.each do |msg| %>
+        <span><%= msg %></span>
+      <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="span3">
     <label class="control-label" for="email">Email</label>
-    <div class="controls">
-      <input type="email" name="email" id="email" placeholder="Email"/>
-    </div>
+    <input type="email" name="email" id="email" placeholder="you@example.com" class="span3"/>
   </div>
-  <div class="control-group">
+  <div class="span3">
     <label class="control-label" for="number">Card Number</label>
-    <div class="controls">
-      <input type="text" size="20" data-stripe="number" id="number" placeholder="**** **** **** ****"/>
-    </div>
+    <input type="text" size="20" data-stripe="number" id="number" placeholder="**** **** **** ****" class="span3"/>
   </div>
+</div>
 
-  <div class="control-group">
+<div class="row">
+  <div class="span3">
     <label class="control-label" for="cvc">CVC</label>
-    <div class="controls">
-      <input type="text" size="3" data-stripe="cvc" id="cvc" placeholder="***"/>
-    </label>
+    <input type="text" class="span1" size="3" data-stripe="cvc" id="cvc" placeholder="***"/>
+    <img id="card-image" src="/img/credit.png" style="height: 30px; padding-left: 10px; margin-top: -10px">
   </div>
-
-  <div class="form-row">
-    <label class="control-label">Expiration (MM/YYYY)</label>
-    <div class="controls">
-      <input type="text" size="2" data-stripe="exp-month" placeholder="MM"/>
-      <span> / </span>
-      <input type="text" size="4" data-stripe="exp-year" placeholder="YYYY"/>
-    </div>
+  <div class="span3">
+    <label class="control-label">Exp (MM/YYYY)</label>
+    <input class="span1" type="text" size="2" data-stripe="exp-month" placeholder="MM"/>
+    <span> / </span>
+    <input class="span1" type="text" size="4" data-stripe="exp-year" placeholder="YYYY"/>
   </div>
-
-  <div class="form-row">
-    <div class="controls">
-      <button type="submit" class="btn btn-primary">Pay</button>
-    </div>
+</div>
+<div class="row">
+  <div class="span3 price"><%= price %></div>
+  <div class="span3">
+    <button type="submit" class="btn btn-primary btn-large">Buy Now</button>
+    <img style="display: none;" src="/img/well_spinner.gif" id="spinner">
   </div>
+</div>
 <% end %>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    Stripe.setPublishableKey('<%= Rails.configuration.stripe[:publishable_key] %>');
+
+    $('#number').keyup(function(event) {
+      var value = $('#number').val();
+      var img = $('#card-image')[0];
+      if (value !== "") {
+        if (value.charAt(0) === "3") {
+          img.src = "/img/amex.png";
+        } else if (value.charAt(0) === "4") {
+          img.src = "/img/visa.png";
+        } else if (value.charAt(0) === "5") {
+          img.src = "/img/mastercard.png";
+        } else if (value.charAt(0) === "6" && value.charAt(1) === "5") {
+          img.src = "/img/discover.png";
+        }
+      } else {
+        img.src = "/img/credit.png";
+      }
+    });
+
+    $('#payment-form').submit(function(event) {
+      var form = $(this);
+      form.find('button').prop('disabled', true);
+      Stripe.createToken(form, stripeResponseHandler);
+      $('#spinner').show();
+      return false;
+    });
+
+    function stripeResponseHandler(status, response) {
+      var form = $('#payment-form');
+      if (response.error) {
+        showError(response.error.message);
+      } else {
+        var token = response.id;
+        form.append($('<input type="hidden" name="stripeToken">').val(token));
+        $.ajax({
+          type: "POST",
+          url: "/buy/<%= permalink %>",
+          data: $('#payment-form').serialize(),
+          success: function(data) { console.log(data); poll(data.guid) },
+          error: function(data) { console.log(data); showError(data.responseJSON.error) }
+        });
+      }
+    }
+
+    function showError(error) {
+      var form = $('#payment-form');
+      form.find('#payment-errors').text(error);
+      form.find('#payment-errors').show();
+      form.find('button').prop('disabled', false);
+      form.find('#spinner').hide();
+    }
+
+    function poll(guid) {
+      $.get("/status/" + guid, function(data) {
+        if (data.status === "finished") {
+          window.location = "/pickup/" + guid;
+        } else if (data.status === "errored") {
+          showError(data.error)
+        } else {
+          setTimeout(function() { poll(guid) }, 500);
+        }
+      });
+    }
+
+  });
+</script>
 ```
 
 There's a few interesting things going on here. First, notice the almost-excessive amount of markup. I'm using [Twitter Bootstrap][bootstrap] form markup for this, which gives nice looking styling by default.
@@ -74,6 +152,7 @@ $('#payment-form').submit(function(event) {
   var form = $(this);
   form.find('button').prop('disabled', true);
   Stripe.createToken(form, stripeResponseHandler);
+  $('#spinner').show();
   return false;
 });
 ```
