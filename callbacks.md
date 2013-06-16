@@ -95,7 +95,7 @@ But we haven't actually done anything yet. Let's handle a dispute:
 ```ruby
 private
 def stripe_charge_dispute_created(event)
-  StripeMailer.dispute_created(event).send
+  StripeMailer.admin_dispute_created(event).send
 end
 ```
 
@@ -105,7 +105,7 @@ In `app/mailers/stripe_mailer.rb`:
 class StripeMailer < ActionMailer::Base
   default :from => 'you@example.com'
 
-  def dispute_created(event)
+  def admin_dispute_created(event)
     @event = event
     @charge = @event.data.object
     @sale = Sale.where(stripe_id: @charge.id).first
@@ -123,5 +123,5 @@ We should also handle a happy event. Let's do `charge.succeeded`:
 ```ruby
 private
 def stripe_charge_succeeded(event)
-  StripeMailer.charge_succeeded(event).send
+  StripeMailer.admin_charge_succeeded(event).send
 end
