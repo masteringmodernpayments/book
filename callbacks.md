@@ -84,7 +84,7 @@ From the top, we skip Devise's `authenticate_user!` before filter because Stripe
 
 But we haven't actually done anything yet. Let's handle a dispute:
 
-```
+```ruby
 private
 def stripe_charge_dispute_created(event)
   StripeMailer.dispute_created(event).send
@@ -93,7 +93,7 @@ end
 
 In `app/mailers/stripe_mailer.rb`:
 
-```
+```ruby
 class StripeMailer < ActionMailer::Base
   default :from => 'you@example.com'
 
@@ -106,3 +106,4 @@ class StripeMailer < ActionMailer::Base
     end
   end
 end
+```
