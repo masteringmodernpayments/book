@@ -3,7 +3,7 @@
 
 ### Chapters
 
-* Introduction
+* [Introduction](/introduction)
   * why stripe?
   * why rails?
   * what we're going to cover
