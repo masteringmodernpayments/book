@@ -45,7 +45,7 @@
   * which callbacks are important
     * for a one-off product site, not very many
     * for subscriptions, more important
-* Handling subscriptions
+* [Handling subscriptions](/subscriptions)
   * creating/managing plans
   * adding users to subscriptions
   * should you automatically cancel if they stop paying? (no)
@@ -53,7 +53,7 @@
   * receipts
   * notifications
   * card-about-to-expires
-* Admin pages
+* [Admin pages](/admin_pages)
   * dashboard
   * reports
   * controls
