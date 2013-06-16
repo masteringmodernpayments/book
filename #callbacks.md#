@@ -98,6 +98,6 @@ class StripeMailer < ActionMailer::Base
   default :from => 'you@example.com'
 
   def dispute_created(event)
-    mail(to: 'you@example.com', 
+    mail(to: 'you@example.com', subject:
   end
 end
