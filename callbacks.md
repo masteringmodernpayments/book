@@ -117,7 +117,7 @@ class StripeMailer < ActionMailer::Base
 end
 ```
 
-Disputes are sad. We should also handle a happy event. Let's do `charge.succeeded`:
+Disputes are sad. We should also handle a happy event, like someone buying something. Let's do `charge.succeeded`:
 
 ```ruby
 private
