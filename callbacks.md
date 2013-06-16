@@ -91,3 +91,13 @@ def stripe_charge_dispute_created(event)
 end
 ```
 
+In `app/mailers/stripe_mailer.rb`:
+
+```
+class StripeMailer < ActionMailer::Base
+  default :from => 'you@example.com'
+
+  def dispute_created(event)
+    mail(to: 'you@example.com', subject: 'Dispute created on charge
+  end
+end
