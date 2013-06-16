@@ -41,7 +41,7 @@ class Event < ActiveRecord::Base
 end
 ```
 
-The `stripe_event` method contacts Stripe and asks for event details. The `event_method` method generates
+The `stripe_event` method contacts Stripe and asks for event details. The `event_method` method generates a symbol that we can use in the controller to dispatch the event to a handler based on its type.
 
 ## Controller
 
