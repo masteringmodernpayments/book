@@ -55,10 +55,6 @@ class EventsController < ApplicationController
 
   def create
 
-    if self.class.private_method_defined? :stripe_default_event_handler
-      self.send(:stripe_default_event_handler, @event)
-    end
-  
     if self.class.private_method_defined? @event.event_method
       response = self.send(@event.event_method, @event)
       if response
@@ -83,6 +79,8 @@ class EventsController < ApplicationController
 end
 ```
 
-From the top, we skip Devise's `authenticate_user!` before filter because Stripe is obviously not going to have a user for our application. Then, we make our own `before_filter` that actually parses out the event and does the work of preventing replay attacks. If the event doesn't validate for some reason we return 400 and move on. If, on the other hand, it saves correctly we ask Stripe for a fresh copy of the event and then deal with it. All `#create` has to do is return 200 to tell Stripe that we successfully dealt with the event.
+From the top, we skip Devise's `authenticate_user!` before filter because Stripe is obviously not going to have a user for our application. Then, we make our own `before_filter` that actually parses out the event and does the work of preventing replay attacks. If the event doesn't validate for some reason we return 400 and move on. If, on the other hand, it saves correctly we ask Stripe for a fresh copy of the event and then deal with it.
+
+`create` is where the action happens. The `
 
 But we haven't actually done anything yet. 
