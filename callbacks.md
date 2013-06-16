@@ -36,7 +36,7 @@ class Event < ActiveRecord::Base
   end
 
   def event_method
-    "stripe_#{self.stripe_type.gsub('.', '_')}.to_sym
+    "stripe_#{self.stripe_type.gsub('.', '_')}".to_sym
   end
 end
 ```
