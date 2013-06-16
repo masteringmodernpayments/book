@@ -52,6 +52,11 @@ class EventsController < ApplicationController
   before_filter :parse_and_validate_event
 
   def create
+
+    if self.class.private_method_defined? :stripe_default_event_handler
+      self.send(:stripe_default_event_handler, @event)
+    end
+  
     if self.class.private_method_defined? @event.event_method
       response = self.send(@event.event_method, @event)
       if response
