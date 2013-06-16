@@ -118,7 +118,7 @@ end
 
 In response to a dispute we send an email to ourselves with all of the details. Disputes should be rare enough that we can deal with them individually just with an email, but if they're not we could do some more complicated processing here.
 
-We should also handle a happy event. Let's do `charge.succeeded`:
+Disputes are sad. We should also handle a happy event. Let's do `charge.succeeded`:
 
 ```ruby
 private
