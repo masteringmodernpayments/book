@@ -68,7 +68,13 @@ class EventsController < ApplicationController
 
   def parse_and_validate_event
     event = JSON.parse(request.body.read)
+
+    if Rails.env.production? && event.livemode == false
+      render :nothing => true and return
+    end
+
     @event = Event.new(id: event['id'], type: event['type'])
+
     unless event.save
       render :nothing => true, :status => 400
       return
@@ -107,3 +113,5 @@ class StripeMailer < ActionMailer::Base
   end
 end
 ```
+
+We're sending an email to 
