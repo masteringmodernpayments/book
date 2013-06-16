@@ -1,5 +1,4 @@
 [stripe_event]: https://github.com/integrallis/stripe_event
-[activesupport_notifications]: http://api.rubyonrails.org/classes/ActiveSupport/Notifications.html
 
 # Handling Webhooks
 
@@ -49,7 +48,9 @@ class EventsController < ApplicationController
   before_filter :parse_and_validate_event
 
   def create
-    render :nothing => true, :status => 200
+    if self.method_defined? @event.event_method
+      response = self.send(@event.event_method, @event)
+    end
   end
 
   private
