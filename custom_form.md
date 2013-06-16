@@ -84,42 +84,6 @@ Here's the form we'll be using:
       return false;
     });
 
-    function stripeResponseHandler(status, response) {
-      var form = $('#payment-form');
-      if (response.error) {
-        showError(response.error.message);
-      } else {
-        var token = response.id;
-        form.append($('<input type="hidden" name="stripeToken">').val(token));
-        $.ajax({
-          type: "POST",
-          url: "/buy/<%= permalink %>",
-          data: $('#payment-form').serialize(),
-          success: function(data) { console.log(data); poll(data.guid) },
-          error: function(data) { console.log(data); showError(data.responseJSON.error) }
-        });
-      }
-    }
-
-    function showError(error) {
-      var form = $('#payment-form');
-      form.find('#payment-errors').text(error);
-      form.find('#payment-errors').show();
-      form.find('button').prop('disabled', false);
-      form.find('#spinner').hide();
-    }
-
-    function poll(guid) {
-      $.get("/status/" + guid, function(data) {
-        if (data.status === "finished") {
-          window.location = "/pickup/" + guid;
-        } else if (data.status === "errored") {
-          showError(data.error)
-        } else {
-          setTimeout(function() { poll(guid) }, 500);
-        }
-      });
-    }
 
   });
 </script>
@@ -163,13 +127,38 @@ When the customer clicks the "Pay" button we disable the button so they can't cl
 function stripeResponseHandler(status, response) {
   var form = $('#payment-form');
   if (response.error) {
-    form.find('.payment-errors').text(response.error.message);
-    form.find('button').prop('disabled', false);
+    showError(response.error.message);
   } else {
     var token = response.id;
     form.append($('<input type="hidden" name="stripeToken">').val(token));
-    form.get(0).submit();
+    $.ajax({
+      type: "POST",
+      url: "/buy/<%= permalink %>",
+      data: $('#payment-form').serialize(),
+      success: function(data) { console.log(data); poll(data.guid) },
+      error: function(data) { console.log(data); showError(data.responseJSON.error) }
+    });
   }
+}
+
+function showError(error) {
+  var form = $('#payment-form');
+  form.find('#payment-errors').text(error);
+  form.find('#payment-errors').show();
+  form.find('button').prop('disabled', false);
+  form.find('#spinner').hide();
+}
+
+function poll(guid) {
+  $.get("/status/" + guid, function(data) {
+    if (data.status === "finished") {
+      window.location = "/pickup/" + guid;
+    } else if (data.status === "errored") {
+      showError(data.error)
+    } else {
+      setTimeout(function() { poll(guid) }, 500);
+    }
+  });
 }
 ```
 
