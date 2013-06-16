@@ -50,6 +50,11 @@ class EventsController < ApplicationController
   def create
     if self.method_defined? @event.event_method
       response = self.send(@event.event_method, @event)
+      if response
+        render json: response.to_json
+      else
+        render nothing: true
+      end
     end
   end
 
