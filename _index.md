@@ -49,7 +49,7 @@
   * creating/managing plans
   * adding users to subscriptions
   * should you automatically cancel if they stop paying? (no)
-* Email
+* [Email](/email)
   * receipts
   * notifications
   * card-about-to-expires
