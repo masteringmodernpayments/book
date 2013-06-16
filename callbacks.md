@@ -86,11 +86,12 @@ end
 
 We skip Devise's `authenticate_user!` before filter because Stripe is obviously not going to have a user for our application. Then, we make our own `before_filter` that actually parses out the event and does the work of preventing replay attacks. This involves just creating an `Event` record, which validates that the `stripe_id` is unique. If the event doesn't validate we return 400 and move on. If the event is a testing mode event and the app is running in production mode, it silently accepts the event and does nothing. Stripe will happily send both live and test application events to our live endpoint so we need to check. If everything goes smoothly we ask Stripe for a fresh copy of the event and then deal with it.
 
-`create` is where all the action happens. The `event_method` accessor on `Event` that we defined earlier will generate a symbol. If we've defined a private method of that name, call it with the event as the argument. If the handler returns something, render it as json and return it. If the handler doesn't return anything, just let Stripe know that we handled it by returning a success code.
+`create` is where all the action happens. The `event_method` accessor on `Event` that we defined earlier will generate a symbol. If we've defined a private method of that name, call it with the event as the argument. If the handler returns something, render it as json and return it. If the handler doesn't return anything, just let Stripe know that we handled it by returning a success code. This setup lets us easily handle the events we care about by defining the appropriate handler while ignoring the events we don't care about.
 
 ## Handling Events
 
-But we haven't actually done anything yet. Let's handle a dispute:
+We haven't actually done anything yet. The first thing we should do is handle a dispute. Dispute events fire when a customer initiates a chargeback, which if we get enough of Stripe will think about dropping our account. In response to a dispute we send an email to ourselves with all of the details. Disputes should be rare enough that we can deal with them individually just with an email:
+
 
 ```ruby
 private
@@ -115,8 +116,6 @@ class StripeMailer < ActionMailer::Base
   end
 end
 ```
-
-In response to a dispute we send an email to ourselves with all of the details. Disputes should be rare enough that we can deal with them individually just with an email, but if they're not we could do some more complicated processing here.
 
 Disputes are sad. We should also handle a happy event. Let's do `charge.succeeded`:
 
