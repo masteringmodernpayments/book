@@ -114,4 +114,4 @@ class StripeMailer < ActionMailer::Base
 end
 ```
 
-In response to a dispute we send an email to ourselves with details about the dispute. 
+In response to a dispute we send an email to ourselves with all of the details.
