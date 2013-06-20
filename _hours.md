@@ -126,3 +126,10 @@
 ### 4:30pm - 6:45pm (2.25)
 
 * Wrote a bunch of stuff for the webhooks chapter
+
+## 2013-06-19 Wed
+
+### 7:00pm - 7:30pm (0.5)
+
+* Went down a blind alley in the email chapter
+* Might abandon the email chapter
