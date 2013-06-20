@@ -1,0 +1,14 @@
+# Effective Emailing
+
+Email is a critical component of any web application, doubly so applications that involve customer payments.
+
+## Tranasctional emails are different than list emails
+
+The first thing to understand is
+
+## Events to care about
+
+## Dunning
+
+## How to generate PDF Receipts
+
