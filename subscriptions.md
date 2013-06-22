@@ -11,6 +11,8 @@ This is actually where things can get tricky for Stripe integrations. Stripe's s
 
 ## Basic Subscription Integration
 
+* Newsletter subscriptions. Member gets a newsletter monthly newsletter in their email and pays some amount.
+
 ## Handling Upgrades and Downgrades
 
 ## Handling Addons
