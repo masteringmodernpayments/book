@@ -11,7 +11,6 @@ This is actually where things can get tricky for Stripe integrations. Stripe's s
 
 ## Basic Subscription Integration
 
-## Handling Addons
-
 ## Handling Upgrades and Downgrades
 
+## Handling Addons
