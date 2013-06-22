@@ -2,7 +2,9 @@
 
 So far in the example project we've only dealt with one-off transactions, where the customer comes along and buys a product once and we basically never have to deal with them again. The majority of SaaS products aren't really like this, though. Most SaaS projects bill customers monthly for services, maybe with some kind of addon system.
 
-This is actually where things can get tricky for Stripe integrations. Stripe's subsc
+This is actually where things can get tricky for Stripe integrations. Stripe's subscription plan support is functional but basic. The basic flow is:
+
+1) Create a Stripe customer, capturing their card information using S
 
 ## Creating and Managing Plans
 
