@@ -15,4 +15,8 @@ This is actually where things can get tricky for Stripe integrations. Stripe's s
 
 ## Handling Upgrades and Downgrades
 
+* Add a plan with monthly screencasts
+
 ## Handling Addons
+
+* Purchase one-off print editions
