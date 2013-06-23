@@ -38,7 +38,6 @@ Let's go ahead and create the `Plan` and `Subscription` models too:
 
 ```bash
 $ rails g model Plan user_id:integer stripe_id:string amount:integer interval:string
-$ rails g model Subscription plan_id:integer member_id:integer state:string
 $ rake db:migrate
 ```
 
