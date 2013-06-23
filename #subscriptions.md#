@@ -17,10 +17,11 @@ We're going to add newsletter subscriptions to our sales site. Every month paid-
 
 We're going to need some new models:
 
-* a `Plan` to store the inform
-* Subscription, to handl
+* `Plan` to store the information we need to know about Stripe plans
+* `Member` to 
+* `Subscription` which `belongs_to` both  and `Plan`
 
-* Newsletter subscriptions. Member gets a newsletter monthly newsletter in their email and pays some amount.
+
 
 ## Handling Upgrades and Downgrades
 
