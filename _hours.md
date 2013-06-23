@@ -1,6 +1,6 @@
 # Writing Journal
 
-#### 2013-06-01 Sat
+### 2013-06-01 Sat
 
 * overall: 1369 135
 
@@ -19,7 +19,7 @@
 * Started writing this journal
 * Wrote some rake tasks to count words, sloc, and check for tics
 
-#### 2013-06-02 Sun
+### 2013-06-02 Sun
 
 * overall: 2071 213 (7%)
 
@@ -37,7 +37,7 @@
 
 * Implemented the [basic_integration](/basic_integration), fixed a bunch of bugs
 
-#### 2013-06-03 Mon
+### 2013-06-03 Mon
 
 * overall: 2605 213 (9%)
 
@@ -45,7 +45,7 @@
 
 * Wrote about [PCI compliance](/pci)
 
-#### 2013-06-04 Tue
+### 2013-06-04 Tue
 
 * overall: 4125 314 (14%)
 
@@ -58,7 +58,7 @@
 
 * Wrote about paper trail and aasm in [State and History](/state_and_history)
 
-#### 2013-06-08 Sat
+### 2013-06-08 Sat
 
 * overall: 5046 457 (17%)
 
@@ -70,7 +70,7 @@
 
 * Wrote and implemented [Custom Payment Forms](/custom_form)
 
-#### 2013-06-09 Sun
+### 2013-06-09 Sun
 
 * overall: 5463 484 (18%)
 
@@ -86,13 +86,13 @@
 
 * Added table of contents and cover
 
-#### 2013-06-11 Wed
+### 2013-06-11 Wed
 
 *8:00pm - 10:00pm (2)*
 
 * Implemented some security checking stuff
 
-#### 2013-06-12 Thu
+### 2013-06-12 Thu
 
 *6:00pm - 10:00pm (4)*
 
@@ -101,7 +101,7 @@
 * Added some cool stuff to the transaction form
 * The form is still pretty ugly, though. It needs some major love, including removing responsive styling for the iframe version.
 
-##### 2013-06-13 Fri
+### 2013-06-13 Fri
 
 *6:00pm - 10:30pm (4.5)*
 
@@ -111,7 +111,7 @@
 * Pushed to empoknor https://sales.empoknor.bugsplat.info
 * Symlinked logs so papertrail picks them up
 
-##### 2013-06-14 Sat
+### 2013-06-14 Sat
 
 * overall: 6309 577 (21%)
 
@@ -127,14 +127,14 @@
 
 * Wrote a bunch of stuff for the webhooks chapter
 
-#### 2013-06-19 Wed
+### 2013-06-19 Wed
 
 *7:00pm - 7:30pm (0.5)*
 
 * Went down a blind alley in the email chapter
 * Might abandon the email chapter
 
-#### 2013-06-22 Sat
+### 2013-06-22 Sat
 
 * overall: 7025 582 (23%)
 
