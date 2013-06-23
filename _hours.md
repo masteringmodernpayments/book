@@ -143,3 +143,7 @@
 * Started working on the subscriptions chapter
 * Starting to realize that I'm running out of steam for this huge project
   and maybe I don't have that much to say afterall.
+
+### 6:15pm - 7pm (0.75)
+
+* Moved the rake tasks into a standalone book builder project
