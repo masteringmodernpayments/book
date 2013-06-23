@@ -28,7 +28,7 @@ $ rails g devise Member
 $ rake db:migrate
 ```
 
-Notice that Devise has added a `devise_for :members` at the top of `config/routes.rb` which lets
+Notice that Devise has added a `devise_for :members` at the top of `config/routes.rb` which lets us generate routes like `/members/sign_in`. It also added a few helpers for us to do tings like authenticate members. 
 
 ## Handling Upgrades and Downgrades
 
