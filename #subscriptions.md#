@@ -21,7 +21,7 @@ We're going to need some new models:
 * `Member` to keep track of members
 * `Subscription` which `belongs_to` both `Member`  and `Plan`
 
-Note that we're not using `User` here. 
+Note that we're not using `User` here. A `User` can create products and newsletters wh
 
 
 
