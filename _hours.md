@@ -133,3 +133,11 @@
 
 * Went down a blind alley in the email chapter
 * Might abandon the email chapter
+
+## 2013-06-22 Sat
+
+### 4:00pm - 5:15pm (1.25)
+
+* Started outlining the subscriptions chapter
+* Starting to realize that I'm running out of steam for this huge project
+  and maybe I don't have that much to say afterall.
