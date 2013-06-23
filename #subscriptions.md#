@@ -13,7 +13,9 @@ The tricky part starts when people want to change their subscription plan and th
 
 ## Basic Subscription Integration
 
-We're going to add newsletter subscriptions to our sales site. Every month paid-up members will receive the next newsletter to their email address.
+We're going to add newsletter subscriptions to our sales site. Every month paid-up members will receive the next newsletter to their email address. This is a simple illustration but generalizes well to other types of subscription services.
+
+
 
 * Newsletter subscriptions. Member gets a newsletter monthly newsletter in their email and pays some amount.
 
