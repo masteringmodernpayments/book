@@ -25,7 +25,9 @@ Note that we're not using `User` here. A `User` can create products and newslett
 
 ```bash
 $ rails g devise Member
+$ rake db:migrate
 ```
+
 
 
 ## Handling Upgrades and Downgrades
