@@ -19,7 +19,6 @@ We're going to need some new models:
 
 * `Member` to keep track of newsletter recipients
 * `Plan` to store the information we need to know about Stripe plans
-* `Subscription` which `belongs_to` both `Member`  and `Plan`
 
 Note that we're not using `User` here. A `User` can create products and newsletters and we don't want just anybody to be able to sign up and start doing that, at least not until we get to the chapter on Marketplaces later on. Thankfully, Devise makes it really easy to have multiple types of user accounts in the same application. Simply run the generator again:
 
