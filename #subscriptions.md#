@@ -28,7 +28,7 @@ $ rails g devise Member
 $ rake db:migrate
 ```
 
-Notic
+Notice that Devise has added a `devise_for :members` at the top of `config/routes.rb` which lets
 
 ## Handling Upgrades and Downgrades
 
