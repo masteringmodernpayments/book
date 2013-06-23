@@ -136,8 +136,10 @@
 
 ## 2013-06-22 Sat
 
-### 4:00pm - 5:15pm (1.25)
+* overall: 7025 582 (23%)
 
-* Started outlining the subscriptions chapter
+### 4:00pm - 6:15pm (2.25)
+
+* Started working on the subscriptions chapter
 * Starting to realize that I'm running out of steam for this huge project
   and maybe I don't have that much to say afterall.
