@@ -30,6 +30,12 @@ $ rake db:migrate
 
 Notice that Devise has added a `devise_for :members` at the top of `config/routes.rb` which lets us generate routes like `/members/sign_in`. It also added a few helpers for us to do tings like authenticate members. 
 
+Let's create the `Plan` and `Subscription` models:
+
+```bash
+$ rails g model Plan user_id:integer stripe_id:string amount:integer interval:string
+```
+
 ## Handling Upgrades and Downgrades
 
 * Add a plan with monthly screencasts
