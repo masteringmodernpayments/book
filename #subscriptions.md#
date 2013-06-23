@@ -1,0 +1,51 @@
+# Subscriptions
+
+So far in the example project we've only dealt with one-off transactions, where the customer comes along and buys a product once and we basically never have to deal with them again. The majority of SaaS products aren't really like this, though. Most SaaS projects bill customers monthly for services, maybe with some kind of add-on system.
+
+This is actually where things can get tricky for Stripe integrations. Stripe's subscription plan support is functional but basic. The basic flow is:
+
+1. Sign a user up for your system
+2. Capture their credit card info using `stripe.js` or `checkout.js`
+3. Create a Stripe-level customer record and attach them to a subscription plan
+4. Stripe handles billing them every period with variety of callbacks that you can hook into to influence the process
+
+The tricky part starts when people want to change their subscription plan and they have add-ons. Stripe automatically handles prorating subscription changes but since add-ons are handled using invoices you have to prorate them yourself. Let's handle the basic integration first and then we can talk about how to handle the weird case.
+
+## Basic Subscription Integration
+
+We're going to add newsletter subscriptions to our sales site. Every month paid-up members will receive the next newsletter to their email address. This is a simple illustration but generalizes well to other types of subscription services.
+
+We're going to need some new models:
+
+* `Plan` to store the information we need to know about Stripe plans
+* `Member` to keep track of newsletter recipients and which `belongs_to` a plan
+
+Note that we're not using `User` here. A `User` can create products and newsletters and we don't want just anybody to be able to sign up and start doing that, at least not until we get to the chapter on Marketplaces later on. Thankfully, Devise makes it really easy to have multiple types of user accounts in the same application. Simply run the generator again:
+
+```bash
+$ rails g devise Member
+$ rake db:migrate
+```
+
+Notice that Devise has added a `devise_for :members` at the top of `config/routes.rb` which lets us generate routes like `/members/sign_in`. It also added a few helpers for us to do tings like authenticate members. We'll also need to keep track of members' `stripe_id` so we can look them up later, so let's add that:
+
+```bash
+$ rails g migration AddStripeIdToMember stripe_id:string
+```
+
+Let's go ahead and create the `Plan` and `Subscription` models too:
+
+```bash
+$ rails g model Plan user_id:integer stripe_id:string amount:integer interval:string
+$ rake db:migrate
+```
+
+Remember that Stripe customers can only have one subscription, so there's no real point in having some sort of `Subscription` model. 
+
+## Handling Upgrades and Downgrades
+
+* Add a plan with monthly screencasts
+
+## Handling Addons
+
+* Purchase one-off print editions
