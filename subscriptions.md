@@ -27,7 +27,7 @@ $ rails g devise Member
 $ rake db:migrate
 ```
 
-Notice that Devise has added a `devise_for :members` at the top of `config/routes.rb` which lets us generate routes like `/members/sign_in`. It also added a few helpers for us to do tings like authenticate members. We'll also need to keep track of members' `stripe_id` so we can look them up later, so let's add that:
+Notice that Devise has added a `devise_for :members` at the top of `config/routes.rb` which lets us generate routes like `/members/sign_in`. It also added a few helpers for us to do things like authenticate members. We'll also need to keep track of members' `stripe_id` so we can look them up later, so let's add that:
 
 ```bash
 $ rails g migration AddStripeIdToMember stripe_id:string
@@ -40,7 +40,7 @@ $ rails g model Plan user_id:integer stripe_id:string amount:integer interval:st
 $ rake db:migrate
 ```
 
-We're going to track each member's subscription using `AASM` just like we do with charges, because there are a few different states they can be in. Remember also that Stripe customers can only have one subscription, so having a state column will let us keep track of that a little better.
+Remember that Stripe customers can only have one subscription, so there's no real point in having some sort of `Subscription` model. 
 
 ## Handling Upgrades and Downgrades
 
