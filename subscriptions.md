@@ -40,11 +40,15 @@ class AddStripeIdToMembers < ActiveRecord::Migration
 end
 ```
 
-Let's create the `Plan` and `Subscription` models:
+Let's go ahead and create the `Plan` and `Subscription` models too:
 
 ```bash
 $ rails g model Plan user_id:integer stripe_id:string amount:integer interval:string
+$ rails g model Subscription plan_id:integer member_id:integer state:string
+$ rake db:migrate
 ```
+
+We're going to track each member's subscription using `AASM` just like we do with charges, because there are a few different states they can be in. Remember also that Stripe customers can only have one subscription, so having a state column will let us keep track of that a little better.
 
 ## Handling Upgrades and Downgrades
 
