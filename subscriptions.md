@@ -66,6 +66,5 @@ class EmailSend < ActiveRecord::Base
       description: "email to #{address}"
     )
   end
-
 end
 ```
