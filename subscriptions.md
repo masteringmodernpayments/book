@@ -23,6 +23,8 @@ There are a bunch of different rails engines out there that let you more or less
 * [Stripe::Rails][stripe-rails] has much better webhook support but doesn't help you as much with pricing tables or views
 * [stripe_event][] handles *just* Stripe's webhooks, but it does a fairly good job of it.
 
+You should definitely check these options out. In this chapter we're going to go over a from-scratch integration to give you a feel for how everything comes together and should help you evaluate third party gems better.
+
 ## Basic Subscription Integration
 
 We're going to add newsletter subscriptions to our sales site. Every month paid-up members will receive the next newsletter to their email address. This is a simple illustration but generalizes well to other types of subscription services.
