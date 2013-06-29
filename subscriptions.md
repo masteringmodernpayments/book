@@ -12,7 +12,7 @@
 * basic subscriptions
   * add plan, frequency attributes to product
   * add member object with devise
-  * change sale to create a member
+  * add a /subscribe route for subscribing to subscription products
 ```
 
 So far in the example project we've only dealt with one-off transactions, where the customer comes along and buys a product once and we basically never have to deal with them again. The majority of SaaS products aren't really like this, though. Most SaaS projects bill customers monthly for services, maybe with some kind of add-on system.
