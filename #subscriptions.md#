@@ -87,4 +87,4 @@ def stripe_invoice_created(event)
 end
 ```
 
-Note that this can get complicated if emails are charged at different rate tiers 
+Note that this can get kind of complicated if invoice items can be charged at different rates. I would suggest creating an invoice it
