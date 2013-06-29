@@ -42,8 +42,7 @@ We're going to subscriptions to our sales site. Subscribers get access to every 
 
 We're going to need to make some changes to the site:
 
-* A new `Member` model to keep track of newsletter recipients
-* Add a `frequency` attribute to `Product` and set up a callback to create a Stripe plan
+* A new `Member` model to keep track of subscribers
 * Add a new controller method to process subscriptions
 
 Note that we're not using `User` here. A `User` can create products and newsletters and we don't want just anybody to be able to sign up and start doing that, at least not until we get to the chapter on Marketplaces later on. Thankfully, Devise makes it really easy to have multiple types of user accounts in the same application. Simply run the generator again:
@@ -60,6 +59,12 @@ $ rails g migration AddStripeIdToMember stripe_customer_id:string
 ```
 
 Remember that Stripe customers can only have one subscription, so there's no real point in having some sort of `Subscription` model.
+
+Let's make the changes to `Product`:
+
+```bash
+$ rails g migration AddFrequenc
+```
 
 ## Handling Upgrades and Downgrades
 
