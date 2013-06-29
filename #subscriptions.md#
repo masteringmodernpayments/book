@@ -48,4 +48,4 @@ You should definitely check these options out. In this chapter we're not going t
 
 ## Utility-Style Billing
 
-Let's say you're building an app where you want metered billing, like a phone bill. Handling a basic subscription is easy, of course, and well covered in the example ap
+Handling a basic subscription is straight forward and well covered in the example apps Let's say, howeer, you're building an app where you want metered billing like a phone bill. You'd have a basic subscription for access and then monthly invoicing for anything
