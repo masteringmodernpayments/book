@@ -1,11 +1,16 @@
 # Admin Site
 
+## Off the shelf
+
+* http://www.activeadmin.info/
+* https://github.com/sferik/rails_admin
+
 ## Dashboard
 
 ## Reports
 
 ## Controls
 
-### Refunds
+### Handling Refunds
 
-### Cancelling and Pausing
+### Cancelling and Pausing Subscriptions
