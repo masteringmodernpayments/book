@@ -50,7 +50,7 @@ $ rails g migration AddStripeIdToMember stripe_id:string
 Let's go ahead and create the `Plan` model too:
 
 ```bash
-$ rails g model Plan user_id:integer stripe_id:string amount:integer interval:string
+$ rails g scaffold Plan user_id:integer stripe_id:string amount:integer interval:string
 $ rake db:migrate
 ```
 
