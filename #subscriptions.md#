@@ -13,7 +13,9 @@ The tricky part starts when people want to change their subscription plan and th
 
 ## Off the shelf solutions
 
-There are a bunch of different rails engines out there to help you dro
+There are a bunch of different rails engines out there that let you more or less drop a subscription system into your app.
+
+* [Koudoku][koudoku] includes things like a pricing table, helpers for `stripe.js`, and robust plan cre
 
 ## Basic Subscription Integration
 
