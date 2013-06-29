@@ -89,4 +89,6 @@ Note that this can get kind of complicated if invoice items can be charged at di
 
 ## Add-ons
 
-Let's say your app lets people print off their photos and send them to their family. A basic subscription gets you one set of 5 photos sent to two addresses each month. An add-on would be something where the customer wants to send an additional photo to each address for just this month, or they want to send the set of 5 to a third address just this month. You would set this up just like the utility billing
+Let's say your app lets people print off their photos and send them to their family. A basic subscription gets you one set of 5 photos sent to two addresses each month. An add-on would be something where the customer wants to send an additional photo to each address for just this month, or they want to send the set of 5 to a third address just this month. You would set this up just like the utility billing example above. Each photo sent that's more than their plan level gets an InvoiceItem.
+
+For unlimited usage add-ons I would humbly suggest that you don't try to do them. Stipre
