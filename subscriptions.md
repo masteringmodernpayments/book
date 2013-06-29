@@ -7,10 +7,13 @@
 
 ## Outline
 
+```text
 * off the shelf stuff
-* basic subscription
+* basic subscriptions
   * add plan, frequency attributes to product
-  * add member object that has-many sales with customer_id
+  * add member object with devise, has_many sales
+  * change sale to create a member
+```
 
 So far in the example project we've only dealt with one-off transactions, where the customer comes along and buys a product once and we basically never have to deal with them again. The majority of SaaS products aren't really like this, though. Most SaaS projects bill customers monthly for services, maybe with some kind of add-on system.
 
