@@ -3,6 +3,7 @@
 [stripe_event]: https://github.com/integrallis/stripe_event
 [rails-stripe-membership-saas]: https://github.com/RailsApps/rails-stripe-membership-saas
 [monospace-rails]: https://github.com/stripe/monospace-rails
+[stripe-invoices]: https://stripe.com/docs/api#invoiceitems
 
 
 # Subscriptions
@@ -48,4 +49,23 @@ You should definitely check these options out. In this chapter we're not going t
 
 ## Utility-Style Billing
 
-Handling a basic subscription is straight forward and well covered in the example apps Let's say, howeer, you're building an app where you want metered billing like a phone bill. You'd have a basic subscription for access and then monthly invoicing for anything else. Stripe has a feature they call [Invoices][stripe-invoice] that makes this easy.
+Handling a basic subscription is straight forward and well covered in the example apps Let's say, howeer, you're building an app where you want metered billing like a phone bill. You'd have a basic subscription for access and then monthly invoicing for anything else. Stripe has a feature they call [Invoices][stripe-invoice] that makes this easy. For example, you want to allow customers to send email to a list and base the charge it on how many emails get sent. You could do something like this:
+
+```
+class EmailSend < ActiveRecord::Base
+  ...
+
+  belongs_to :user
+  after_create :add_invoice_item
+
+  def add_invoice_item
+    Stripe::InvoiceItem.create(
+      customer: user.stripe_customer_id,
+      amount: 10,
+      currency: "usd",
+      description: "email to #{address}"
+    )
+  end
+
+end
+```
