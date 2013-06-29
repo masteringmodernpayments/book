@@ -89,4 +89,4 @@ Note that this can get kind of complicated if invoice items can be charged at di
 
 ## Add-ons
 
-Add-ons typically come in two flavors: one-time-use and unlimited use. One-time-use would be something like an
+Add-ons typically come in two flavors: one-time use and unlimited use. Let's say your app lets people print
