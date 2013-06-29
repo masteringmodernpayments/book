@@ -57,7 +57,21 @@ Notice that Devise has added a `devise_for :members` at the top of `config/route
 $ rails g migration AddStripeIdToMember stripe_customer_id:string
 ```
 
+We also need to make this attribute accessible:
+
+```
+class Member < ActiveRecord::Base
+  ...
+
+  attr_accessible :stripe_customer_id
+end
+```
+
 Remember that Stripe customers can only have one subscription, so there's no point in having some sort of `Subscription` model.
+
+### Customizing Devise Views
+
+We need to customize Devise's sign up view so we can add
 
 ## Handling Upgrades and Downgrades
 
