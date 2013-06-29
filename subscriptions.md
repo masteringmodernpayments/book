@@ -61,10 +61,12 @@ class EmailSend < ActiveRecord::Base
   def add_invoice_item
     Stripe::InvoiceItem.create(
       customer: user.stripe_customer_id,
-      amount: 10,
+      amount: 1,
       currency: "usd",
       description: "email to #{address}"
     )
   end
 end
 ```
+
+At the end of the customer's billing cycle Stripe will tally up all of the `InvoiceItems` that you've added to the customer's bill and charge them. They'll also send you a webook detailing the customer's invoice 
