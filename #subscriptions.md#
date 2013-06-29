@@ -44,7 +44,7 @@ In addition, there's a fair number of example subscription applications you can 
 * [monospace-rails][] is Stripe's own example subscription app
 * [rails-stripe-membership-saas][] is another very good example
 
-You should definitely check these options out. In this chapter we're not going to go over a full integration, j
+You should definitely check these options out. In this chapter we're not going to go over a full subscription integration, since the two example apps above are very good. Instead, we're going to hit some interesting highlights and some pain points that people
 
 ## Basic Subscription Integration
 
