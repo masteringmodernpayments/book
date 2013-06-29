@@ -36,7 +36,7 @@ You should definitely check these options out. In this chapter we're not going t
 
 Handling a basic subscription is straight forward and well covered in the example apps Let's say, howeer, you're building an app where you want metered billing like a phone bill. You'd have a basic subscription for access and then monthly invoicing for anything else. Stripe has a feature they call [Invoices][stripe-invoice] that makes this easy. For example, you want to allow customers to send email to a list and base the charge it on how many emails get sent. You could do something like this:
 
-```
+```ruby
 class EmailSend < ActiveRecord::Base
   ...
 
@@ -58,7 +58,7 @@ At the end of the customer's billing cycle Stripe will tally up all of the `Invo
 
 Stripe will also send you a webook detailing the customer's entire invoice right before they initiate the charge. Instead of creating an invoice item for every single email as it gets sent, you could just create one invoice item for the number of emails sent in the billing period:
 
-```
+```ruby
 def stripe_invoice_created(event)
   invoice = event.data.object
 
