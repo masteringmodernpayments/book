@@ -38,7 +38,7 @@ You should definitely check these options out. In this chapter we're going to go
 
 ## Basic Subscription Integration
 
-We're going to add newsletter subscriptions to our sales site. Every month paid-up members will receive the next newsletter to their email address. This is a simple illustration but generalizes well to other types of subscription services.
+We're going to subscriptions to our sales site. Subscribers get access to every available product for a monthly price.
 
 We're going to need to make some changes to the site:
 
@@ -57,13 +57,6 @@ Notice that Devise has added a `devise_for :members` at the top of `config/route
 
 ```bash
 $ rails g migration AddStripeIdToMember stripe_id:string
-```
-
-Let's go ahead and create the `Plan` model too:
-
-```bash
-$ rails g scaffold Plan user_id:integer stripe_id:string amount:integer interval:string
-$ rake db:migrate
 ```
 
 Remember that Stripe customers can only have one subscription, so there's no real point in having some sort of `Subscription` model.
