@@ -69,4 +69,4 @@ class EmailSend < ActiveRecord::Base
 end
 ```
 
-At the end of the customer's billing cycle Stripe will tally up all of the `InvoiceItems` that you've added to the customer's bill and charge them. They'll also send you a webook detailing the customer's entire invoice right before they 
+At the end of the customer's billing cycle Stripe will tally up all of the `InvoiceItems` that you've added to the customer's bill and charge them. They'll also send you a webook detailing the customer's entire invoice right before they initiate the charge. This webhook is different than most webhooks that Stripe sends, in that if you respond with more invoice
