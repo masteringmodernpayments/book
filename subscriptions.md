@@ -74,9 +74,11 @@ class SubscriptionsController < ApplicationController
   def create
     @member = Member.new(params[:member])
     if @member.save
-      
+      @member
+    end
   end
 end
+```
 
 ## Handling Upgrades and Downgrades
 
