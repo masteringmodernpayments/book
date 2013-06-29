@@ -69,4 +69,21 @@ class EmailSend < ActiveRecord::Base
 end
 ```
 
-At the end of the customer's billing cycle Stripe will tally up all of the `InvoiceItems` that you've added to the customer's bill and charge them. They'll also send you a webook detailing the customer's invoice 
+At the end of the customer's billing cycle Stripe will tally up all of the `InvoiceItems` that you've added to the customer's bill and charge them.
+
+Stripe will also send you a webook detailing the customer's entire invoice right before they initiate the charge. Instead of creating an invoice item for every single email as it gets sent, you could just create one invoice item for the number of emails sent in the billing period:
+
+```
+def stripe_invoice_created(event)
+  invoice = event.data.object
+
+  num_emails = EmailSend.where('created_at between ? and ?', [Time.at(invoice.period_start), Time.at(invoice.period_end)]).count
+  Stripe::InvoiceItem.create(
+    invoice: invoice.id,
+    amount: num_emails,
+    currency: 'usd',
+    description: "#{num_emails} emails sent"
+  )
+end
+```
+
