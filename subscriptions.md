@@ -53,10 +53,10 @@ $ rails g devise Member
 $ rake db:migrate
 ```
 
-Notice that Devise has added a `devise_for :members` at the top of `config/routes.rb` which lets us generate routes like `/members/sign_in`. It also added a few helpers for us to do things like authenticate members. We'll also need to keep track of members' `stripe_id` so we can look them up later, so let's add that:
+Notice that Devise has added a `devise_for :members` at the top of `config/routes.rb` which lets us generate routes like `/members/sign_in`. It also added a few helpers for us to do things like authenticate members. We'll also need to keep track of members' `stripe_customer_id` so we can look them up later, so let's add that:
 
 ```bash
-$ rails g migration AddStripeIdToMember stripe_id:string
+$ rails g migration AddStripeIdToMember stripe_customer_id:string
 ```
 
 Remember that Stripe customers can only have one subscription, so there's no real point in having some sort of `Subscription` model.
