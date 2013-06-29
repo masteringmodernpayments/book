@@ -60,11 +60,6 @@ $ rails g migration AddStripeIdToMember stripe_customer_id:string
 
 Remember that Stripe customers can only have one subscription, so there's no real point in having some sort of `Subscription` model.
 
-Let's make the changes to `Product`:
-
-```bash
-$ rails g migration AddFrequenc
-```
 
 ## Handling Upgrades and Downgrades
 
