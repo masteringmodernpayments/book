@@ -71,13 +71,17 @@ end
 
 At the end of the customer's billing cycle Stripe will tally up all of the `InvoiceItems` that you've added to the customer's bill and charge them.
 
-Stripe will also send you a webook detailing the customer's entire invoice right before they initiate the charge. This webhook is different than most webhooks that Stripe sends, in that they don't just drop your response on the floor. Instead, if you respond with more InvoiceItems they'll add them to the customers invoice right there. Instead of creating an invoice item for every single email as it gets sent, you could just create one invoice item for the number of emails sent in the billing period:
+Stripe will also send you a webook detailing the customer's entire invoice right before they initiate the charge. Instead of creating an invoice item for every single email as it gets sent, you could just create one invoice item for the number of emails sent in the billing period:
 
 ```
 def stripe_invoice_created(event)
   invoice = event.data.object
 
   num_emails = EmailSend.where('created_at between ? and ?', [Time.at(invoice.period_start), Time.at(invoice.period_end)]).count
-  
+  Stripe::InvoiceItem.create(
+    invoice: invoice.id,
+    amount: num_emails,
+    currency: 'usd',
+    description: "#{num_emails} emails set
 end
 ```
