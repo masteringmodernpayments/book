@@ -89,4 +89,6 @@ end
 
 Note that this can get kind of complicated if invoice items can be charged at different rates. I would suggest creating an invoice item for every group of things that can be charged at the same rate.
 
-## 
+## Add-ons
+
+Stripe subscription plans are pretty simple. If you 
