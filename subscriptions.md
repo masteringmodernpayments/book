@@ -82,9 +82,9 @@ def stripe_invoice_created(event)
     invoice: invoice.id,
     amount: num_emails,
     currency: 'usd',
-    description: "#{num_emails} emails sent"
+    description: "#{num_emails} emails sent @ $0.01"
   )
 end
 ```
 
-Note that this can get complicated if 
+Note that this can get kind of complicated if invoice items can be charged at different rates. I would suggest creating an invoice item for every group of things that can be charged at the same rate.
