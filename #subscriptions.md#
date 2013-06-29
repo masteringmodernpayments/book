@@ -89,4 +89,4 @@ Note that this can get kind of complicated if invoice items can be charged at di
 
 ## Add-ons
 
-Add-ons typically come in two flavors: one-time use and unlimited use. Let's say your app lets people print
+Let's say your app lets people print off their photos and send them to their family. A basic subscription gets you o5 photos sent to two addresses each month. An add-on would be something where the customer
