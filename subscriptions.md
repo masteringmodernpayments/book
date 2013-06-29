@@ -38,7 +38,7 @@ You should definitely check these options out. In this chapter we're going to go
 
 ## Basic Subscription Integration
 
-We're going to subscriptions to our sales site. Subscribers get access to every available product for a monthly price.
+We're going to subscriptions to our sales site. Subscribers get access to every available product for one monthly price. This is a somewhat contrived example but it will demonstrate a full subscription integration.
 
 We're going to need to make some changes to the site:
 
