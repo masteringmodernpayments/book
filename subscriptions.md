@@ -1,6 +1,8 @@
 [koudoku]: https://github.com/andrewculver/koudoku
 [stripe-rails]: https://github.com/thefrontside/stripe-rails
 [stripe_event]: https://github.com/integrallis/stripe_event
+[rails-stripe-membership-saas]: https://github.com/RailsApps/rails-stripe-membership-saas
+[monospace-rails]: https://github.com/stripe/monospace-rails
 
 
 # Subscriptions
@@ -36,6 +38,13 @@ There are a bunch of different rails engines out there that let you more or less
 * [Koudoku][koudoku] includes things like a pricing table, helpers for `stripe.js`, and robust plan creation. It does not have particularly good support for Stripe's webhooks.
 * [Stripe::Rails][stripe-rails] has much better webhook support but doesn't help you as much with pricing tables or views
 * [stripe_event][] handles *just* Stripe's webhooks, but it does a fairly good job of it.
+
+In addition, there's a fair number of example subscription applications you can crib from:
+
+* [monospace-rails][] is Stripe's own example app
+* [rails-stripe-membership-saas][]
+* 
+
 
 You should definitely check these options out. In this chapter we're going to go over a from-scratch integration to give you a feel for how everything comes together and should help you evaluate third party gems better.
 
