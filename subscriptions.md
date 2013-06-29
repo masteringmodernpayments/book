@@ -8,19 +8,6 @@
 
 # Subscriptions
 
-## Outline
-
-```text
-* off the shelf stuff
-* basic subscriptions
-  * add member object with devise
-  * member sign_up view gets credit card info
-* the problem is that i'm going to duplicate a lot of the content from
-  state and history and background workers in this chapter. Is that
-  ok? not really sure. kind of a pain in the ass.
-* build it first, then write about it!!!!
-```
-
 So far in the example project we've only dealt with one-off transactions, where the customer comes along and buys a product once and we basically never have to deal with them again. The majority of SaaS products aren't really like this, though. Most SaaS projects bill customers monthly for services, maybe with some kind of add-on system. Stripe's subscription plan support is functional but basic. The general flow is:
 
 1. Sign a user up for your system
