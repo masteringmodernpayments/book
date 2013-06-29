@@ -11,7 +11,7 @@
 * off the shelf stuff
 * basic subscriptions
   * add plan, frequency attributes to product
-  * add member object with devise, has_many sales
+  * add member object with devise
   * change sale to create a member
 ```
 
@@ -44,7 +44,7 @@ We're going to need to make some changes to the site:
 
 * A new `Member` model to keep track of newsletter recipients
 * Add a `frequency` attribute to `Product` and set up a callback to create a Stripe plan
-* Change our `Transaction` controller to create a `Member` and then an associated `Sale`.
+* Add a 
 
 Note that we're not using `User` here. A `User` can create products and newsletters and we don't want just anybody to be able to sign up and start doing that, at least not until we get to the chapter on Marketplaces later on. Thankfully, Devise makes it really easy to have multiple types of user accounts in the same application. Simply run the generator again:
 
