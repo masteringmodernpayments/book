@@ -58,7 +58,7 @@ Notice that Devise has added a `devise_for :members` at the top of `config/route
 $ rails g migration AddStripeIdToMember stripe_customer_id:string
 ```
 
-Remember that Stripe customers can only have one subscription, so there's no real point in having some sort of `Subscription` model.
+Remember that Stripe customers can only have one subscription, so there's no point in having some sort of `Subscription` model.
 
 ## Handling Upgrades and Downgrades
 
