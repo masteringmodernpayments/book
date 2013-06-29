@@ -54,7 +54,7 @@ $ rails g scaffold Plan user_id:integer stripe_id:string amount:integer interval
 $ rake db:migrate
 ```
 
-Remember that Stripe customers can only have one subscription, so there's no real point in having some sort of `Subscription` model. 
+Remember that Stripe customers can only have one subscription, so there's no real point in having some sort of `Subscription` model.
 
 ## Handling Upgrades and Downgrades
 
