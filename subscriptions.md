@@ -46,5 +46,6 @@ In addition, there's a fair number of example subscription applications you can 
 
 You should definitely check these options out. In this chapter we're not going to go over a full subscription integration, since the two example apps above are very good. Instead, we're going to hit some interesting highlights and some pain points that you might face. Just remember the advice from State and History and Background Workers. Always do your communication with Stripe in the background and set things up so you automatically get an audit trail.
 
-## Invoicing
+## Utility-Style Billing
 
+Handling a basic subscription is straight forward and well covered in the example apps Let's say, howeer, you're building an app where you want metered billing like a phone bill. You'd have a basic subscription for access and then monthly invoicing for anything else. Stripe has a feature they call [Invoices][stripe-invoice] that makes this easy.
