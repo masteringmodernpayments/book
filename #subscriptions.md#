@@ -15,7 +15,9 @@ The tricky part starts when people want to change their subscription plan and th
 
 There are a bunch of different rails engines out there that let you more or less drop a subscription system into your app.
 
-* [Koudoku][koudoku] includes things like a pricing table, helpers for `stripe.js`, and robust plan cre
+* [Koudoku][koudoku] includes things like a pricing table, helpers for `stripe.js`, and robust plan creation. It does not have particularly good support for Stripe's webhooks.
+* [Stripe::Rails][stripe-rails] has much better webhook support but doesn't help you as much with pricing tables or views
+* [stripe_event][] handles *just* the webhook
 
 ## Basic Subscription Integration
 
