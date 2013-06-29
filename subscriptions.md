@@ -47,7 +47,7 @@ Notice that Devise has added a `devise_for :members` at the top of `config/route
 $ rails g migration AddStripeIdToMember stripe_id:string
 ```
 
-Let's go ahead and create the `Plan` and `Subscription` models too:
+Let's go ahead and create the `Plan` model too:
 
 ```bash
 $ rails g model Plan user_id:integer stripe_id:string amount:integer interval:string
