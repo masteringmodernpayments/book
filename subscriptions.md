@@ -30,7 +30,7 @@ This is actually where things can get tricky for Stripe integrations. Stripe's s
 3. Create a Stripe-level customer record and attach them to a subscription plan
 4. Stripe handles billing them every period with variety of callbacks that you can hook into to influence the process
 
-The tricky part starts when people want to change their subscription plan and they have add-ons. Stripe automatically handles prorating subscription changes but since add-ons are handled using invoices you have to prorate them yourself. Let's handle the basic integration first and then we can talk about how to handle the weird case.
+The thorny part starts when people want to change their subscription plan and they have add-ons. Stripe automatically handles prorating subscription changes but since add-ons are handled using invoices you have to prorate them yourself. Let's handle the basic integration first and then we can talk about how to handle the weird case.
 
 ## Off the shelf solutions
 
@@ -91,4 +91,4 @@ Note that this can get kind of complicated if invoice items can be charged at di
 
 ## Add-ons
 
-Stripe subscription plans are pretty simple. If you 
+Handling add-ons to subscriptions can get tricky
