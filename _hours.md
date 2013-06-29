@@ -147,3 +147,9 @@
 *6:15pm - 7pm (0.75)*
 
 * Moved the rake tasks into a standalone book builder project
+
+### 2013-06-28
+
+*9:45pm - 10:00pm (0.25)*
+
+* Added some references to subscriptions for 3rd party gems
