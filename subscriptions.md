@@ -43,7 +43,7 @@ We're going to subscriptions to our sales site. Subscribers get access to every 
 We're going to need to make some changes to the site:
 
 * A new `Member` model to keep track of subscribers
-* Add a new controller method to process subscriptions
+* Add a new controller to process subscriptions
 
 Note that we're not using `User` here. A `User` can create products and newsletters and we don't want just anybody to be able to sign up and start doing that, at least not until we get to the chapter on Marketplaces later on. Thankfully, Devise makes it really easy to have multiple types of user accounts in the same application. Simply run the generator again:
 
