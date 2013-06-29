@@ -68,7 +68,14 @@ class SubscriptionsController < ApplicationController
   skip_before_filter :authenticate_user!
 
   def new
-    en
+    @member = Member.new
+  end
+
+  def create
+    @member = Member.new(params[:member])
+    if @member.save
+      
+  end
 end
 
 ## Handling Upgrades and Downgrades
