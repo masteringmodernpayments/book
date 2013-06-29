@@ -89,4 +89,6 @@ Note that this can get kind of complicated if invoice items can be charged at di
 
 ## Add-ons
 
-Handling add-ons to subscriptions can get tricky
+Let's say your app lets people print off their photos and send them to their family. A basic subscription gets you one set of 5 photos sent to two addresses each month. An add-on would be something where the customer wants to send an additional photo to each address for just this month, or they want to send the set of 5 to a third address just this month. You would set this up just like the utility billing example above. Each photo sent that's more than their plan level gets an InvoiceItem.
+
+For unlimited usage add-ons I would suggest that you don't try to do them, because prorating things is not easy to do on your own. Stripe plans are very lightweight, you can easily create a new plan for every permutation of base + monthly add-on on the fly and just add customers to them. In the photo printing example, this would be something like adding two additional destination addresses each month and also adding three more photos, all for a discount on top of the normal per-photo additional charge. Just make sure your plan names are deterministic so you can deduce what users are supposed to pay when invoice time comes around.
