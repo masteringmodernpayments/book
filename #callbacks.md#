@@ -174,8 +174,20 @@ gem 'docverter'
 ```
 
 ```ruby
-class ReceiptMailer < Acti
-  
+class ReceiptMailer < ActionMailer::Base
+  def receipt(sale)
+    @sale = sale
+    html = render_to_string('pdf/receipt.html', layout: false,)
+    
+    pdf = Docverter::Conversion.run |c|
+      c.from = 'html'
+      c.to = 'pdf'
+      c.content = html
+    end
+
+    attachment['receipt.pdf'] = pdf
+    ma
+  end
 end
 ```
 
@@ -201,13 +213,7 @@ In `app/views/pdf/receipt.html.erb`:
 Then, to render the receipt:
 
 ```ruby
-html = render_to_string('pdf/receipt.html', sale: @sale)
 
-pdf = Docverter::Conversion.run |c|
-  c.from = 'html'
-  c.to = 'pdf'
-  c.content = html
-end
 ```
 
 Then just attach the PDF to your email:
