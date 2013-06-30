@@ -19,11 +19,11 @@ class Turnstile
     state :locked, initial: true
     state :unlocked
 
-    event :pay
+    event :pay do
       transitions from: :locked, to: :unlocked
     end
 
-    event :use
+    event :use do
       transitions from: :unlocked, to: :locked
     end
   end
@@ -62,7 +62,7 @@ It'll also have a few different events for the transaction: `process`, `finish`,
 
 ```ruby
 class Sale < ActiveRecord::Base
-  attr_accessible
+  attr_accessible \
     :email,
     :guid,
     :product_id,
