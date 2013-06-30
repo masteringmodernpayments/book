@@ -210,11 +210,3 @@ In `app/views/receipt_mailer/receipt.html.erb`:
 </html>
 ```
 
-Then, to render the receipt:
-
-```ruby
-
-```
-
-Then just attach the PDF to your email:
-
