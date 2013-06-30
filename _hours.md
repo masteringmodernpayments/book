@@ -156,6 +156,8 @@
 
 ### 2013-06-29
 
+* overall: 7574 632 (25%)
+
 *10:15am - 1:00pm (2.75)*
 
 * Worked on subscriptions
