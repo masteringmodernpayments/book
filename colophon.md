@@ -12,4 +12,4 @@ Pete Keen is a software developer who has built half a dozen different Stripe an
 
 ## Colophon
 
-This book is typeset using [Lora][] for body text, [Droid Sans][] for headers, and [Inconsolata][] for code, all from [Google Web Fonts][]. Initial production happened in Emacs using Markdown for basic formatting. Final production happens using a toolchain involving Rake and [Docverter][], the author's open source document conversion service.
+This book is typeset using [Lora][] for body text, [Droid Sans][] for headers, and [Inconsolata][] for code, all from [Google Web Fonts][]. Initial production happened in Emacs using Markdown for basic formatting. Final production uses a toolchain involving Rake and [Docverter][], the author's open source document conversion service.
