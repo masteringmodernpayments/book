@@ -153,3 +153,13 @@
 *9:45pm - 10:00pm (0.25)*
 
 * Added some references to subscriptions for 3rd party gems
+
+### 2013-06-29
+
+*10:15am - 1:00pm (2.75)*
+
+* Worked on subscriptions
+
+*5:45pm - 7pm (1.25)*
+
+* Worked more on subscriptions and callbacks
