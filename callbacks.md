@@ -173,7 +173,25 @@ In `Gemfile`:
 gem 'docverter'
 ```
 
-In `app/views/pdf/receipt.html.erb`:
+```ruby
+class ReceiptMailer < ActionMailer::Base
+  def receipt(sale)
+    @sale = sale
+    html = render_to_string('receipt_mailer/receipt.html')
+    
+    pdf = Docverter::Conversion.run |c|
+      c.from = 'html'
+      c.to = 'pdf'
+      c.content = html
+    end
+
+    attachment['receipt.pdf'] = pdf
+    mail(to: sale.email_address, subject: 'Receipt for your purchase')
+  end
+end
+```
+
+In `app/views/receipt_mailer/receipt.html.erb`:
 
 ```erb
 <html>
@@ -195,11 +213,8 @@ In `app/views/pdf/receipt.html.erb`:
 Then, to render the receipt:
 
 ```ruby
-html = render_to_string('pdf/receipt.html', sale: @sale)
 
-pdf = Docverter::Conversion.run |c|
-  c.from = 'html'
-  c.to = 'pdf'
-  c.content = html
-end
 ```
+
+Then just attach the PDF to your email:
+
