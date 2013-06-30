@@ -162,4 +162,4 @@ Subscription businesses, on the other hand, get a rich variety of events from St
 
 Customers, especially business customers, appreciate getting a PDF receipt along with the email. You make their lives measurably easier by including a file that they can just attach to their expense report, rather than having to go through a convoluted dance to convert your email into something they can use.
 
-The easiest way to generate PDFs that I know of is to use an open-source service that I created named Docverter. All you ah
+The easiest way to generate PDFs that I know of is to use an open-source service that I created named Docverter. All you have to do is generate some HTML and send it to Docverter, which will return a rendered PDF.
