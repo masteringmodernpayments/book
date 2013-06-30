@@ -174,6 +174,8 @@ It would be nice to see all of this information we're saving now. Let's change t
 <%= link_to 'Back', sales_path %>
 ```
 
+Notice that we're deep-linking directly into Stripe's management interface. That will give you one-click access to everything that Stripe knows about this transaction, as well as a button to refund the payment.
+
 ## Audit Trail
 
 Another thing that will be very useful is an audit trail that tells us every change to a record. Every time AASM updates the `state` field, every change that happens during the charging process, every change to the object at all. There are a few different schools of thought on how to implement this. The classical way would be to use database triggers to write copies of the database rows into an audit table. This has the advantage of working whether you use the ActiveRecord interface or straight SQL queries, but it's really hard to implement properly. The easiest way to implement audit trails that I've found is to use a gem named [Paper Trail][paper_trail]. Paper Trail monitors changes on a record using ActiveRecord's lifecycle events and will serialize the state of the object before the change and stuff it into a `versions` table. It has convenient methods for navigating versions, which we'll use to display the history of the record in an admin interface later.
