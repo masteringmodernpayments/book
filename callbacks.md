@@ -147,3 +147,18 @@ end
 In response to a charge succeeding we send a receipt to the customer and an alert to ourselves so we can get that sweet dopamine hit when the email alert sound dings.
 
 Many of the events that Stripe sends are for dealing with subscriptions. For example, Stripe will let you know when they're about to initiate a periodic charge and give you the opportunity to add extra things to the invoice, like monthly add-ons or overage billing. We'll talk more about this in the chapter on Subscriptions.
+
+## Effective Emailing
+
+Customers expect to be emailed when things happen with their account, and especially when you're charging them money. It's critical that you send them a few basic emails, and Stripe's events make it really easy.
+
+### Events to care about
+
+For a simple app that just sells downloadable things, there aren't that many events that you really need to care about. Your relationship with the customer, as far as their credit card is concerned, is a one time thing. Disputes are about the only thing that can cause you pain and we've already dealt with them above.
+
+Subscription businesses, on the other hand, get a rich variety of events from Stripe. For example, in the chapter on Subscriptions we're going to talk about how to use the Invoice events to handle Utility-style billing. 
+
+## Dunning
+
+## How to generate PDF Receipts
+
