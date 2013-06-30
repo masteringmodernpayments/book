@@ -198,7 +198,10 @@ In `app/views/receipt_mailer/receipt.html.erb`:
   <body>
     <h1>Receipt</h1>
     <p>
-      You purchased <%= sale.product.name %> for <%= formatted_price(sale.amount) %> on <%= sale.created_at.to_f("%Y-%m-%d") %>.
+      You purchased <%= @sale.product.name %> for <%= formatted_price(@sale.amount) %> on <%= @sale.created_at.to_f("%Y-%m-%d") %>.
+    </p>
+    <p>
+      <%= link_to pickup_url(guid: @sale.guid)
     </p>
     <p>
       Thank you for your purchase!
