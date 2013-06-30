@@ -1,6 +1,7 @@
 [stripe_event]: https://github.com/integrallis/stripe_event
 [PrinceXML]: http://www.princexml.com
 [DocRaptor]: http://docraptor.com
+[Docverter]: http://www.docverter.com
 
 # Handling Webhooks
 
@@ -164,4 +165,4 @@ Subscription businesses, on the other hand, get a rich variety of events from St
 
 Customers, especially business customers, appreciate getting a PDF receipt along with the email. You make their lives measurably easier by including a file that they can just attach to their expense report, rather than having to go through a convoluted dance to convert your email into something they can use.
 
-The easiest way to generate PDFs that I know of is to use an open-source service that I created named Docverter. All you have to do is generate some HTML and pass it to Docverter's API which then returns a PDF. There's another paid product named [PrinceXML][] that also makes excellent PDFs but it is very expensive and not very usable on cloud platforms like Heroku. [DocRaptor][] is a paid service that has licensed PrinceXML.
+There is a paid product named [PrinceXML][] that makes excellent PDFs but it is very expensive and not very usable on cloud platforms like Heroku. [DocRaptor][] is a paid service that has licensed PrinceXML and provides a nice API. However, the easiest and cheapest way to generate PDFs that I know of is to use an open-source service that I created named [Docverter][]. All you have to do is generate some HTML and pass it to Docverter's API which then returns a PDF.
