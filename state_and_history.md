@@ -199,7 +199,7 @@ And now add `has_paper_trail` to the Sale model:
 class Sale < ActiveRecord::Base
   has_paper_trail
 
-  ... rest of Sale from before
+  # ... rest of Sale from before
 end
 ```
 
