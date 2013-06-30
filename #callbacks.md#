@@ -167,10 +167,13 @@ Customers, especially business customers, appreciate getting a PDF receipt along
 
 There is a paid product named [PrinceXML][] that makes excellent PDFs but it is very expensive and not very usable on cloud platforms like Heroku. [DocRaptor][] is a paid service that has licensed PrinceXML and provides a nice API. However, the easiest and cheapest way to generate PDFs that I know of is to use an open-source service that I created named [Docverter][]. All you have to do is generate some HTML and pass it to Docverter's API which then returns a PDF:
 
-```ruby
-receipt = <<HERE
+In `app/views/pdf/receipt.html.erb`:
+
+```erb
 <html>
+</h
+```
 
-
-HERE
+```ruby
+html = render_to_string('pdf/receipt.html', 
 ```
