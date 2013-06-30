@@ -132,7 +132,7 @@ end
 
 ```ruby
 class StripeMailer < ActionMailer::Base
-  ...
+  # ...
 
   def admin_charge_succeeded(event)
     @charge = @event.data.object
