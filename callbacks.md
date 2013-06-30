@@ -165,4 +165,27 @@ Subscription businesses, on the other hand, get a rich variety of events from St
 
 Customers, especially business customers, appreciate getting a PDF receipt along with the email. You make their lives measurably easier by including a file that they can just attach to their expense report, rather than having to go through a convoluted dance to convert your email into something they can use.
 
-There is a paid product named [PrinceXML][] that makes excellent PDFs but it is very expensive and not very usable on cloud platforms like Heroku. [DocRaptor][] is a paid service that has licensed PrinceXML and provides a nice API. However, the easiest and cheapest way to generate PDFs that I know of is to use an open-source service that I created named [Docverter][]. All you have to do is generate some HTML and pass it to Docverter's API which then returns a PDF.
+There is a paid product named [PrinceXML][] that makes excellent PDFs but it is very expensive and not very usable on cloud platforms like Heroku. [DocRaptor][] is a paid service that has licensed PrinceXML and provides a nice API. However, the easiest and cheapest way to generate PDFs that I know of is to use an open-source service that I created named [Docverter][]. All you have to do is generate some HTML and pass it to Docverter's API which then returns a PDF:
+
+In `app/views/pdf/receipt.html.erb`:
+
+```erb
+<html>
+  <body>
+    <h1>Receipt</h1>
+    <p>
+      You purchased <%= sale.product.name %> for <%= formatted_price(sale.amount) %> on <%= sale.created_at.to_f("%Y-%m-%d") %>.
+    </p>
+    <p>
+      Thank you for your purchase!
+    </p>
+    <p>
+      -- Pete
+    </p>
+  </body>
+</html>
+```
+
+```ruby
+html = render_to_string('pdf/receipt.html', 
+```
