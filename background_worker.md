@@ -158,7 +158,8 @@ To actually get `StripeCharger` in the loop we have to call it from an `after_cr
 
 ```ruby
 class Sale < ActiveRecord::Base
-  ...
+  #...
+
   after_create :queue_charge
 
   def queue_charge
