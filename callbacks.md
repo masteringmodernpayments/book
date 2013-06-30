@@ -1,4 +1,5 @@
 [stripe_event]: https://github.com/integrallis/stripe_event
+[PrinceXML]: http://www.princexml.com
 
 # Handling Webhooks
 
@@ -154,11 +155,12 @@ Customers expect to be emailed when things happen with their account, and especi
 
 ### Events to care about
 
-For a simple app that just sells downloadable things, there aren't that many events that you really need to care about. Your relationship with the customer, as far as their credit card is concerned, is a one time thing. Disputes are about the only thing that can cause you pain and we've already dealt with them above.
+For a simple app that just sells downloadable things, there aren't that many events that you really need to care about. Your relationship with the customer, as far as their credit card is concerned, is a one time thing. Be sure to send them a receipt when the transaction goes through. Disputes are about the only thing that can cause you pain and we've already dealt with them above.
 
-Subscription businesses, on the other hand, get a rich variety of events from Stripe. For example, in the chapter on Subscriptions we're going to talk about how to use the Invoice events to handle Utility-style billing. 
+Subscription businesses, on the other hand, get a rich variety of events from Stripe. For example, in the chapter on Subscriptions we're going to talk about how to use the Invoice events to handle Utility-style billing.
 
-## Dunning
+### How to generate PDF Receipts
 
-## How to generate PDF Receipts
+Customers, especially business customers, appreciate getting a PDF receipt along with the email. You make their lives measurably easier by including a file that they can just attach to their expense report, rather than having to go through a convoluted dance to convert your email into something they can use.
 
+The easiest way to generate PDFs that I know of is to use an open-source service that I created named Docverter. All you have to do is generate some HTML and pass it to Docverter's API which then returns a PDF. There's another paid product named [PrinceXML][]
