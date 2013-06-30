@@ -171,7 +171,13 @@ In `app/views/pdf/receipt.html.erb`:
 
 ```erb
 <html>
-</h
+  <body>
+    <h1>Receipt</h1>
+    <p>
+      You purchased <%= sale.product.name %> for <%= formatted_price(sale.amount) %> on <%= sale.created_at.to_f("%
+      
+  </body>
+</html>
 ```
 
 ```ruby
