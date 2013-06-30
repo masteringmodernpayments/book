@@ -1,4 +1,7 @@
-[Lora]: 
+[Inconsolata]: http://www.google.com/fonts/specimen/Inconsolata
+[Lora]: http://www.google.com/fonts/specimen/Lora
+[Droid Sans]: http://www.google.com/fonts/specimen/Droid%20Sans
+
 
 # Colophon
 
@@ -8,4 +11,4 @@ Pete Keen is a software developer who has built half a dozen different Stripe an
 
 ## Colophon
 
-This book is typeset using [Lora][] for body text
+This book is typeset using [Lora][] for body text, [Droid Sans][] for headers, and [Inconsolata][] for code, all from [Google Web Fonts][]. Initial production happened in Emacs 
