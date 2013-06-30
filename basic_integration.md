@@ -9,7 +9,7 @@ Remember that this application is going to be selling digital downloads, so we'r
 * **buy** where we create a Sale record and actually charge the customer,
 * **pickup** where the customer can download their product.
 
-In addition, we're going to leverage Stripe's excellent admininstration interface. 
+In addition, we're going to leverage Stripe's excellent admininstration interface, which will show us all of our sales as they come in.
 
 ## Basic Setup
 
