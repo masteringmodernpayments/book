@@ -201,7 +201,7 @@ In `app/views/receipt_mailer/receipt.html.erb`:
       You purchased <%= @sale.product.name %> for <%= formatted_price(@sale.amount) %> on <%= @sale.created_at.to_f("%Y-%m-%d") %>.
     </p>
     <p>
-      <%= link_to pickup_url(guid: @sale.guid)
+      <%= link_to "Click here", pickup_url(guid: @sale.guid) %> to download your purchase.
     </p>
     <p>
       Thank you for your purchase!
