@@ -179,7 +179,7 @@ class ReceiptMailer < ActionMailer::Base
     @sale = sale
     html = render_to_string('receipt_mailer/receipt.html')
     
-    pdf = Docverter::Conversion.run |c|
+    pdf = Docverter::Conversion.run do |c|
       c.from = 'html'
       c.to = 'pdf'
       c.content = html
