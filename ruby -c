@@ -1,14 +1,11 @@
-Stripe.api_key = ENV['STRIPE_API_KEY']
+def stripe_invoice_created(event)
+  invoice = event.data.object
 
-token = params[:stripeToken]
-
-begin
-  charge = Stripe::Charge.create(
-    :amount => 1000, # amount in cents, again
-    :currency => "usd",
-    :card => token,
-    :description => "payinguser@example.com"
+  num_emails = EmailSend.where('created_at between ? and ?', [Time.at(invoice.period_start), Time.at(invoice.period_end)]).count
+  Stripe::InvoiceItem.create(
+    invoice: invoice.id,
+    amount: num_emails,
+    currency: 'usd',
+    description: "#{num_emails} emails sent @ $0.01"
   )
-rescue Stripe::CardError => e
-  # The card has been declined
 end
