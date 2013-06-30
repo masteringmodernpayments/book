@@ -1,0 +1,14 @@
+Stripe.api_key = ENV['STRIPE_API_KEY']
+
+token = params[:stripeToken]
+
+begin
+  charge = Stripe::Charge.create(
+    :amount => 1000, # amount in cents, again
+    :currency => "usd",
+    :card => token,
+    :description => "payinguser@example.com"
+  )
+rescue Stripe::CardError => e
+  # The card has been declined
+end
