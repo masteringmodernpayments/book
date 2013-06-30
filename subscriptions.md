@@ -38,7 +38,7 @@ Handling a basic subscription is straight forward and well covered in the exampl
 
 ```ruby
 class EmailSend < ActiveRecord::Base
-  ...
+  # ...
 
   belongs_to :user
   after_create :add_invoice_item
