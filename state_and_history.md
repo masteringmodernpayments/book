@@ -170,6 +170,7 @@ It would be nice to see all of this information we're saving now. Let's change t
   <% end %>
 </table>
 
+<%= link_to 'Stripe', "https://manage.stripe.com/payments/#{@sale.stripe_id}" %>
 <%= link_to 'Back', sales_path %>
 ```
 
