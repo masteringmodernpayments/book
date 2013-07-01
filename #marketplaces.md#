@@ -31,6 +31,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 end
 ```
 
-`STRIPE_SECRET_KEY` is the same key we set up in `config/initializers/stripe.rb` way back in the beginning. To get t`STRIPE_CONNECT_CLIENT_ID` 
+`STRIPE_SECRET_KEY` is the same key we set up in `config/initializers/stripe.rb` way back in the beginning. To get the value for `STRIPE_CONNECT_CLIENT_ID` you need to [register an application][stripe-connect-register]. This should be a simple process but 
 
 ## Payouts
