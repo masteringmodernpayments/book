@@ -1,6 +1,9 @@
+[stripe-connect]: https://stripe.com/connect
+[stripe-payouts]: https://stripe.com/blog/send-payouts-with-stripe
+
 # Marketplaces
 
-Marketplaces let multiple people sell goods and services on tStripe lets your SaaS implement a marketplace in two different
+Marketplaces let multiple people sell goods and services on the same site at the same time. Stripe lets your SaaS implement a marketplace in two different ways. With [Stripe Connect][stripe-connect], which connects  and with [Stripe Payouts][stripe-payouts]
 
 ## Connect
 
