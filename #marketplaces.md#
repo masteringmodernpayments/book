@@ -33,6 +33,10 @@ end
 
 `STRIPE_SECRET_KEY` is the same key we set up in `config/initializers/stripe.rb` way back in the beginning. To get the value for `STRIPE_CONNECT_CLIENT_ID` you need to [register an application][stripe-connect-register]. This should be a simple process but I've had trouble with it before. Feel free to contact Stripe's very helpful support if you hit any snags.
 
-When you send the user through `/auth/stripe_connect`, after registering them or log
+When you send the user through `/auth/stripe_connect`, after registering them or logging them in Stripe will send them back to `/auth/stripe_connect/callback` (via OmniAuth). Add a route to handle this:
+
+```ruby
+get '/auth/stripe_connect/callback', to: 'strip
+```
 
 ## Payouts
