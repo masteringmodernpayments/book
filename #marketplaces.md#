@@ -26,6 +26,11 @@ gem 'omniauth-stripe-connect'
 Then, add the middleware in an initializer `config/initializers/omniauth.rb`:
 
 ```ruby
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :stripe_connect, ENV['STRIPE_CONNECT_CLIENT_ID'], ENV['STRIPE_SECRET_KEY']
+end
 ```
+
+`STRIPE_SECRET_KEY` is the same key we set up in `config/initializers/stripe.rb` way back in the beginning. To get t`STRIPE_CONNECT_CLIENT_ID` 
 
 ## Payouts
