@@ -63,3 +63,8 @@ OmniAuth populates a param named `auth_hash` containing all of the OAuth informa
 
 ## Payouts
 
+### Collect Account Info
+
+### Make Charges
+
+### Create Transfers
