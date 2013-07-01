@@ -7,10 +7,10 @@ Marketplaces let multiple people sell goods and services on the same site at the
 
 Stripe recently added the ability to send transfers to any authorized US checking account via ACH transfers using a feature called [Payouts][stripe-payouts]. This enables for more nuanced interactions with your marketplace participants. For example, you could send their collected payments to them once a month, or only if they've passed a certain threshold. Payouts also allows non-technical people to easily participate in your marketplace, since they don't have to leave your site to create a Stripe account via Stripe's OAuth flow.
 
-Both Connect and Payouts are easily integrated into a Rails applcati
+Both Connect and Payouts are easily integrated into a Rails applcation with a few minor changes. In fact, depending on your use case you may want to hook up both and let market participants decide which is best for them.
 
 ## Connect
 
+Connect is
 
-
-## Payout
+## Payouts
