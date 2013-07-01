@@ -57,4 +57,6 @@ class StripeConnectController < ApplicationController
 end
 ```
 
+OmniAuth populates a param named `auth_hash` containing all of the OAuth information that Stripe returned. The salient bits are the user's `uid`, their `stripe_access_key`, and `stripe_publishable_key`. 
+
 ## Payouts
