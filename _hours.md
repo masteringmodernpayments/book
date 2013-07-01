@@ -165,3 +165,16 @@
 *5:45pm - 7pm (1.25)*
 
 * Worked more on subscriptions and callbacks
+
+### 2013-06-30
+
+* overall: 8108 648 (27%)
+
+*6:45pm - 8:00pm (1.25)*
+
+* Worked on marketplaces
+
+*8:45pm - 9:30pm (0.75)*
+
+* Worked on marketplaces some more
+
