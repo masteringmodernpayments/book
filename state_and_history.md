@@ -156,7 +156,6 @@ Not that much different, really. We create the Sale object, and then instead of 
 It would be nice to see all of this information we're saving now. Let's change the `Sales#show` template to dump out all of the fields:
 
 ```erb
-<%= syntax_
 <p id="notice"><%= notice %></p>
 <table>
   <tr>
