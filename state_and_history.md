@@ -21,6 +21,7 @@ class Turnstile
 
     event :pay do
       transitions from: :locked, to: :unlocked
+    end
 
     event :use do
       transitions from: :unlocked, to: :locked
