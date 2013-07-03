@@ -4,6 +4,7 @@
 [rails-stripe-membership-saas]: https://github.com/RailsApps/rails-stripe-membership-saas
 [monospace-rails]: https://github.com/stripe/monospace-rails
 [stripe-invoices]: https://stripe.com/docs/api#invoiceitems
+[patio11-rainy-day]: https://training.kalzumeus.com/newsletters/archive/rainy_day_ideas
 
 
 # Subscriptions
@@ -97,4 +98,8 @@ expiring_customers.each do |customer|
   customer.update_attributes(date_reminded: Date.today)
 end
 ```
+
+If the customer fails to update their card or their charge is declined for another reason you have a few options, according to [Patrick][patio11-rainy-day]:
+
+>
 
