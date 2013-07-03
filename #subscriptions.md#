@@ -87,5 +87,5 @@ For unlimited usage add-ons I would suggest that you don't try to do them, becau
 Really, though, you don't want to let the process even get started. The number one reason why subscription charges start getting declined is that the customer's card expires. Since you're saving the customer's card expiration in your database (if you're not, you should start), it's a trivial matter to find all of the customers that have an expiration coming up and send them a short reminder email:
 
 ```ruby
-expiring_customers = Customer.where('expiration_date <= ? 
+expiring_customers = Customer.where('expiration_date <= ?', Date.today() + 30.days)
 ```
