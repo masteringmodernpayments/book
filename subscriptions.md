@@ -99,7 +99,5 @@ expiring_customers.each do |customer|
 end
 ```
 
-If the customer fails to update their card or their charge is declined for another reason you have a few options, according to [Patrick][patio11-rainy-day]:
-
->
+If the customer still doesn't update their card or if it's declined for other reasons, you should immediately send them an email. Describe what happened and give them an easy way to login to your app and update their card. According to [Patrick McKenzie][patio11-rainy-day] you should also include a P.S. to the effect that you're a small business, not a bank, and that they're not in trouble or anything. You're sure it's a mistake so you won't be cutting them off for a few days.
 
