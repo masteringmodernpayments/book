@@ -178,3 +178,11 @@
 
 * Worked on marketplaces some more
 
+### 2013-07-02
+
+* overall: 8694 656 (29%)
+
+*5:15pm - 6:30pm*
+
+* Added some stuff about dunning to subscriptions
+
