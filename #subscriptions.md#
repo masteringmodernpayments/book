@@ -98,4 +98,4 @@ expiring_customers.each do |customer|
 end
 ```
 
-If the customer fails to update their card or their charge is declined for another reason you have a few options. Depending on the size of the customer you could let 
+If the customer fails to update their card or their charge is declined for another reason you have a few options. Depending on the size of the customer you could remind them again via email and then let them off for another month. With bigger customers you s
