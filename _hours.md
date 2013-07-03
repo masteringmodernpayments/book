@@ -182,7 +182,7 @@
 
 * overall: 8694 656 (29%)
 
-*5:15pm - 6:30pm*
+*5:15pm - 6:30pm (1.25)*
 
 * Added some stuff about dunning to subscriptions
 
