@@ -82,4 +82,4 @@ For unlimited usage add-ons I would suggest that you don't try to do them, becau
 
 ## Dunning
 
-"Dunning", in a general sense, means communicating with customers to make sure they pay their account. For subscription SaaS, the process gradually goes from a gentle reminder to account cancellation:
+"Dunning", in a general sense, means communicating with customers to make sure they pay their account. For a subscription SaaS using Stripe where the customer's card is billed automatically every period, the dunning process kicks in when a charge fails for
