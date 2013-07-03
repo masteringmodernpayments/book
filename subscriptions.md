@@ -102,3 +102,5 @@ end
 If the customer still doesn't update their card or if it's declined for other reasons, you should immediately send them an email. Describe what happened and give them an easy way to login to your app and update their card. According to [Patrick McKenzie][patio11-rainy-day] you should also include a P.S. to the effect that you're a small business, not a bank, and that they're not in trouble or anything. You're sure it's a mistake so you won't be cutting them off for a few days.
 
 Speaking of cutting them off, you really shouldn't automatically cancel anyone's account without a manual review process. Charges fail sometimes and it's nobody's fault, which is why Stripe automatically retries for you for a configurable number of days. After that's up and the charge finally fails, send yourself an email and follow up with the customer, either by email or over the phone.
+
+There's one more aspect to dunning, and that's following up on cancelled accounts. If a high value customer decides to cancel, give them a call and ask if there's anything you can do to change their mind. It's worth a shot, and most of the time you can work something out.
