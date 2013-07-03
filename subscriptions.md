@@ -80,3 +80,21 @@ Let's say your app lets people print off their photos and send them to their fam
 
 For unlimited usage add-ons I would suggest that you don't try to do them, because prorating things is not easy to do on your own. Stripe plans are very lightweight, you can easily create a new plan for every permutation of base + monthly add-on on the fly and just add customers to them. In the photo printing example, this would be something like adding two additional destination addresses each month and also adding three more photos, all for a discount on top of the normal per-photo additional charge. Just make sure your plan names are deterministic so you can deduce what users are supposed to pay when invoice time comes around.
 
+## Dunning
+
+"Dunning", in a general sense, means communicating with customers to make sure they pay their account. For a subscription SaaS using Stripe where the customer's card is billed automatically every period, the dunning process kicks in when a charge fails for some reason. We send them an email, then the next month we send them another, more strongly worded email, eventually leading to cancelling their account.
+
+Really, though, you don't want to let the process even get started. The number one reason why subscription charges start getting declined is that the customer's card expires. Since you're saving the customer's card expiration in your database (if you're not, you should start), it's a trivial matter to find all of the customers that have an expiration coming up and send them a short reminder email:
+
+```ruby
+expiring_customers = Customer.where(
+  'date_reminded is null and expiration_date <= ?',
+  Date.today() + 30.days
+)
+
+expiring_customers.each do |customer|
+  StripeMailer.card_expiring(customer).deliver
+  customer.update_attributes(date_reminded: Date.today)
+end
+```
+
