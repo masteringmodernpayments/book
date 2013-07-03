@@ -84,4 +84,4 @@ For unlimited usage add-ons I would suggest that you don't try to do them, becau
 
 "Dunning", in a general sense, means communicating with customers to make sure they pay their account. For a subscription SaaS using Stripe where the customer's card is billed automatically every period, the dunning process kicks in when a charge fails for some reason. We send them an email, then the next month we send them another, more strongly worded email, eventually leading to cancelling their account.
 
-Really, though, you don't want to let the process even get started. The best way to avoid failed charges is to be proactive with reminding the customer about their card expiration date because that is 
+Really, though, you don't want to let the process even get started. The number one reason why subscription charges start getting declined is that the customer's card expires. Since you're saving the customer's card expiration in your database (if you're not, yous houdl
