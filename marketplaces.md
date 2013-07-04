@@ -137,6 +137,9 @@ function stripeResponseHandler(response) {
   form.append("<input type='hidden' name='stripeToken' value='" + response.id + "'/>"
   form.get(0).submit();
 }
+```
+
+This is a simplified form of the normal Stripe card tokenizing form and works basically the same way. You call `Stripe.bankAccount.createToken` with the routing number, account number, and country of the account which we're hard coding to 'US'. `createToken` takes a callback which then appends a hidden input to the form and submits it using the DOM method instead of the jQuery method so we avoid creating loops.
 
 ### Make Charges
 
