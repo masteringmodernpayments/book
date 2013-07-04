@@ -7,7 +7,8 @@
 [patio11-rainy-day]: https://training.kalzumeus.com/newsletters/archive/rainy_day_ideas
 [monospace-users-controller]: https://github.com/stripe/monospace-rails/blob/master/app/controllers/users_controller.rb
 [monospace-user-model]: https://github.com/stripe/monospace-rails/blob/master/app/models/user.rb
-[can-can]: https://github.com/ryanb/cancan
+[cancan]: https://github.com/ryanb/cancan
+[cancan-wiki]: 
 
 
 # Subscriptions
@@ -168,7 +169,7 @@ end
 
 `update_stripe` is where all the action happens. If there's a token present and no saved `stripe_id` we create a customer and save off the customer's card's last 4 digits. We also update their subscription to a fixed subscription plan which we set up earlier in the Stripe web interface. If the record *does* have a `stripe_id` we know we're doing an update, so we look up the `Stripe::Customer` record and update it's properties. One important thing to note is `stripe_description`, which combine's the customer's name and email. `description` is a free-form string property stored at Stripe which they don't do anything with. However, it's searchable from their dashboard which makes it super easy to look up all of a customer's charges just by typing in their email address into the search tool.
 
-Monospace does not actually *do* anything with these users and their charges. Rails Stripe Membership SaaS goes much more in depth as to what a particular subscription plan means, in particular using a system called [CanCan][can-can]. CanCan lets you easily encapsulate logic around authorizations and permissions. For example, let's say Monospace actually has two plans, `premium` and `standard`. Premium members can post things while standard ones can only read. You'd specify that in CanCan like this:
+Monospace does not actually *do* anything with these users and their charges. Rails Stripe Membership SaaS goes much more in depth as to what a particular subscription plan means, in particular using a system called [CanCan][cancan]. CanCan lets you easily encapsulate logic around authorizations and permissions. For example, let's say Monospace actually has two plans, `premium` and `standard`. Premium members can post things while standard ones can only read. You'd specify that in CanCan like this:
 
 ```ruby
 class Ability
@@ -182,6 +183,8 @@ class Ability
   end
 end
 ```
+
+For more details, see the [CanCan documentation][cancan-wiki].
 
 ## Utility-Style Metered Billing
 
