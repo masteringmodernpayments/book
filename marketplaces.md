@@ -173,6 +173,6 @@ transfer = Stripe::Transfer.create(
   recipient:   user.stripe_recipient_id,
   description: 'Transfer'
 )
+```
 
 This will initiate a transfer of $100 into the user's registered account. If you instead use `self` for the `recipient` option it will transfer the requested amount into the account you've attached to the Stripe account.
-```
