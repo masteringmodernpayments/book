@@ -160,6 +160,8 @@ recipient = Stripe::Recipient.create(
 current_user.update_attributes(:stripe_recipient_id => recipient.id)
 ```
 
-Now, just create charges as normal while keeping track of which recipient the charges are intended for. The easiest way to do this is to attach the recipient_id or user_id to a `Sale` record.
+Now, just create charges as normal while keeping track of which recipient the charges are intended for. The easiest way to do this is to attach the `recipient_id` or `user_id` to a `Sale` record.
 
 ### Create Transfers
+
+When you're ready to pay out to a recipient, either on a schedule or when the user requests it, 
