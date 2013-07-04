@@ -163,7 +163,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-
+`self.authenticate` and `encrypt_password` are 
 
 ## Utility-Style Metered Billing
 
