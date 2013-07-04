@@ -194,9 +194,15 @@
 
 ### 2013-07-04
 
-* overall: 8983 761 96 (30%)
+* overall: 9922 827 103 (33%)
 
 *8:00am - 9:00am (1)*
 
 * Expanded the subscription chapter with a real example
 * Added a code sample count
+
+*10:00am - 12:00pm (2)*
+
+* Finished marketplaces
+* Fleshed out the introduction
+* Added a chapter with additional resources
