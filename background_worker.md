@@ -11,7 +11,7 @@
 [mperham]: http://www.mikeperham.com
 [qc]: https://github.com/ryandotsmith/queue_classic
 
-Processing payments correctly is hard. This is one of the biggest lessons I've learned while writing my various [SaaS projects](/projects.html). Stripe does everything they can to make it easy, with [quick start guides][stripe] and [great documentation][docs]. One thing they really don't cover in the docs is what to do if your connection with their API fails for some reason. Processing payments inside a web request is asking for trouble, and the solution is to run them using a background job. 
+Processing payments correctly is hard. This is one of the biggest lessons I've learned while writing my various [SaaS projects](http://www.petekeen.net/projects). Stripe does everything they can to make it easy, with [quick start guides][stripe] and [great documentation][docs]. One thing they really don't cover in the docs is what to do if your connection with their API fails for some reason. Processing payments inside a web request is asking for trouble, and the solution is to run them using a background job. 
 
 ## The Problem
 
