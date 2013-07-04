@@ -87,7 +87,9 @@ class UsersController < ApplicationController
 end
 ```
 
-Monospace uses it's own user system instead of Devise. `require_user` is defined in `application_controller` and just redirects to `/` if there's no user. The actions are all pretty standard, but note that we're dealing with `Stripe::StripeError` and `Stripe::CardError` directly. Genearlly you'd want to do these interactions in a background 
+Monospace uses it's own user system instead of Devise. `require_user` is defined in `application_controller` and just redirects to `/` if there's no user. The actions are all pretty standard, but note that we're dealing with `Stripe::StripeError` and `Stripe::CardError` directly. Genearlly you'd want to do these interactions in a background worker and show the user a spinner while the application is talking to Stripe. You can read all about that in the chapter on Background Workers.
+
+The juciest part of Monospace is in the model `a
 
 ## Utility-Style Metered Billing
 
