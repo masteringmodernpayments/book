@@ -17,5 +17,3 @@ Code examples are marked out like this.
 Shorter code snippets are marked `like this`.
 
 Links are [underlined](http://www.petekeen.net) and are all clickable from all of the electronic versions.
-
-
