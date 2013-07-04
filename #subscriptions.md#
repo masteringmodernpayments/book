@@ -163,7 +163,9 @@ class User < ActiveRecord::Base
 end
 ```
 
-`self.authenticate` and `encrypt_password` are part of the very simple authentication system. `BCrypt` is one of the best options to use for encrypting passwords. It handles all of the current industry best practices for storing and hashing passwords
+`self.authenticate` and `encrypt_password` are part of the very simple authentication system. `BCrypt` is one of the best options to use for encrypting things. It handles all of the current industry best practices for storing and hashing passwords.
+
+`update_stripe` is where all the action happens. If there's a token, create a 
 
 ## Utility-Style Metered Billing
 
