@@ -77,8 +77,8 @@ charge = Stripe::Charge.create({
 Note also in this example that we're passing the `application_fee` option. This subtracts that amount from the total `amount` after Stripe subtracts it's fee. So, in this example:
 
 ```text
-Amount              1000
-Stripe Fee:         (1000 * 0.029) + 30 = 59
+Amount             1000
+Stripe Fee:          59 (1000 * 0.029) + 30
 Application Fee     100
 -----------------------
 Total Paid to User  841
