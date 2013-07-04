@@ -101,6 +101,13 @@ Theoretically you could collect marketplace participants' checking account infor
 ```erb
 <%= form_tag update_checking_account_path(id: @user.id), :class => 'form-horizontal', :id => 'account-form' do %>
   <div class="control-group">
+    <label class="control-label" for="fullNa">Full Name</label>
+    <div class="controls">
+      <input type="text" name="fullName"/>
+    </div>
+  </div>
+
+  <div class="control-group">
     <label class="control-label" for="number">Routing Number</label>
     <div class="controls">
       <input type="text" size="9" class="routingNumber" id="number" placeholder="*********"/>
@@ -145,7 +152,9 @@ On the server side, just create a `Stripe::Recipient` and save the ID to the use
 
 ```ruby
 recipient = Stripe::Recipient.create(
-  name
+  name: current_user.name,
+  type: 'individual',
+  bank_account: '
 )
 ```
 
