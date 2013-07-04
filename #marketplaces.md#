@@ -61,7 +61,12 @@ OmniAuth populates a param named `auth_hash` containing all of the OAuth informa
 
 ### Make Charges with a User's Credentials
 
+To actually charge cards with an authenticated user's credentials all you have to do is pass the user's access key to the create call:
 
+```ruby
+charge = Stripe::Charge.create(
+  amount
+```
 
 ## Payouts
 
