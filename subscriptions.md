@@ -177,14 +177,21 @@ class Ability
 
   def initialize(user)
     if user.plan == 'premium'
-      can :manage, Article
+      can :create, Article
     end
     can :read, Article
   end
 end
 ```
 
-For more details, see the [CanCan documentation][cancan-wiki].
+And you'd check those permissions in a controller like this:
+
+```ruby
+can? :read, @article
+can? :create, @article
+```
+
+For more details, see the [CanCan documentation][cancan-wiki]. 
 
 ## Utility-Style Metered Billing
 
