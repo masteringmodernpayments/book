@@ -96,7 +96,7 @@ One thing to keep in mind is that once you create any `Stripe::Recipient`s *your
 
 ### Collect Account Info
 
-Theoretically you could collect marketplace participants' checking account information via a normal Rails action because PCI-DSS does not consider them sensitive information. However, `stripe.js` provides the capability to tokenize the numbers the same way it tokenizes credit card numbers and you really should take advantage of it. That way sensitive information never touches your server.
+Theoretically you could collect marketplace participants' checking account information via a normal Rails action because PCI-DSS does not consider them sensitive information. However, `stripe.js` provides the capability to tokenize the numbers the same way it tokenizes credit card numbers and you really should take advantage of it. That way sensitive information never touches your server:
 
 ```erb
 <%= form_tag update_checking_account_path(id: @user.id), :class => 'form-horizontal', :id => 'payment-form' do %>
@@ -109,18 +109,9 @@ Theoretically you could collect marketplace participants' checking account infor
   </div>
 
   <div class="control-group">
-    <label class="control-label" for="cvc">CVC</label>
+    <label class="control-label">Account Number</label>
     <div class="controls">
-      <input type="text" size="3" data-stripe="cvc" id="cvc" placeholder="***"/>
-    </label>
-  </div>
-
-  <div class="form-row">
-    <label class="control-label">Expiration (MM/YYYY)</label>
-    <div class="controls">
-      <input type="text" size="2" data-stripe="exp-month" placeholder="MM"/>
-      <span> / </span>
-      <input type="text" size="4" data-stripe="exp-year" placeholder="YYYY"/>
+      <input type="text" class="accountNumber" />
     </div>
   </div>
 
@@ -131,6 +122,8 @@ Theoretically you could collect marketplace participants' checking account infor
   </div>
 <% end %>
 ```
+
+
 
 ### Make Charges
 
