@@ -86,7 +86,7 @@ Application Fee     100
 Total Paid to User  841
 ```
 
-Other than the optional application fee and passing the user's access key to `Stripe::Charge#create` there's nothing else you have to do.
+Other than the optional application fee and passing the user's access key to `Stripe::Charge#create` there's nothing else you have to do for Connect.
 
 ## Payouts
 
