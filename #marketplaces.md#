@@ -139,7 +139,7 @@ function stripeResponseHandler(response) {
 }
 ```
 
-This is a simplified form of the normal Stripe card tokenizing form and works basically the same way. You call `Stripoe.bankAccount.createToke
+This is a simplified form of the normal Stripe card tokenizing form and works basically the same way. You call `Stripe.bankAccount.createToken` with the routing number, account number, and country of the account which we're hard coding to 'US'. `createToken` takes a callback which then appends a hidden input to the form and submits
 
 ### Make Charges
 
