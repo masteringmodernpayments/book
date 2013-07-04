@@ -1,3 +1,5 @@
 # Additional Resources
 
-* [Stripe's documentation](https://stripe.com/docs) is truly excellent. If some question isn't answered i
+* [Stripe's documentation](https://stripe.com/docs) is truly excellent. If some question isn't answered in this book that should be the first place you look.
+* [Ruby API Docs](https://stripe.com/docs/api/ruby): The ruby API has it's own documentation mini site
+* [Ruby API code](https://github.com/stripe/stripe-ruby): The
