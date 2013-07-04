@@ -199,3 +199,4 @@
 *8:00am - 9:00am (1)*
 
 * Expanded the subscription chapter with a real example
+* Added a code sample count
