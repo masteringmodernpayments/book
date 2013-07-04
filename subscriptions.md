@@ -176,9 +176,9 @@ class Ability
 
   def initialize(user)
     if user.plan == 'premium'
-      can :post, :all
+      can :manage, Thing
     end
-    can :read, :all
+    can :read, Thing
   end
 end
 ```
