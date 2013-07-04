@@ -1,5 +1,7 @@
 # Introduction
 
-Thanks for purchasing *Mastering Modern Payments*. In this book we're going to talk about integrating the Stripe payment processing system with Rails, a comprehensive modern web application stack. If you do
+Thanks for purchasing *Mastering Modern Payments*. In this book we're going to talk about integrating the Stripe payment processing system with Rails, a comprehensive modern web application stack. If you don't use Rails you'll have to translate the examples to your language and framework of choice, but the broad concepts should all transfer pretty well.
+
+Stripe has revolutionized the payment landscape for Software as a Service applications. Bef
 
 
