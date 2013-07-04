@@ -152,10 +152,12 @@ On the server side, just create a `Stripe::Recipient` and save the ID to the use
 
 ```ruby
 recipient = Stripe::Recipient.create(
-  name: current_user.name,
+  name: params[:fullName]
   type: 'individual',
-  bank_account: '
+  bank_account: params[:stripeToken]
 )
+
+current_user.update_attributes(:stripe_recipient_id => recipient.id)
 ```
 
 ### Create Transfers
