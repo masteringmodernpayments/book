@@ -87,6 +87,8 @@ class UsersController < ApplicationController
 end
 ```
 
+Monospace uses it's own user system instead of Devise. `require_user` is defined in `application_controller` and just redirects to `/` if there's no user. The `new` ro
+
 ## Utility-Style Metered Billing
 
 Handling a basic subscription is straight forward and well covered in the example apps. Let's say, however, you're building an app where you want metered billing like a phone bill. You'd have a basic subscription for access and then monthly invoicing for anything else. Stripe has a feature they call [Invoices][stripe-invoice] that makes this easy. For example, you want to allow customers to send email to a list and base the charge it on how many emails get sent. You could do something like this:
