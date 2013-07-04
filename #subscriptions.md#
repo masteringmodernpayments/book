@@ -163,7 +163,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-`self.authenticate` and `encrypt_password` are 
+`self.authenticate` and `encrypt_password` are part of the very simple authentication system. `BCrypt` is one of the best options to use for encrypting passwords. It handles all of the current industry best practices for storing and hashing passwords
 
 ## Utility-Style Metered Billing
 
