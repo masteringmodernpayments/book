@@ -96,7 +96,7 @@ One thing to keep in mind is that once you create any `Stripe::Recipient`s *your
 
 ### Collect Account Info
 
-Theoretically you could collect marketplace participants' checking account information via a normal Rails action because PCI-DSS does not cover them as 
+Theoretically you could collect marketplace participants' checking account information via a normal Rails action because PCI-DSS does not consider them sensitive information. However, `stripe.js` provides the capability to tokenize the numbers the same way it tokenizes credit card numbers and you really should take advantage of it. That way s
 
 ### Make Charges
 
