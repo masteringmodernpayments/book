@@ -8,14 +8,15 @@
 
 ## Examples
 
-
+* [Rails Stripe Membership SaaS](http://railsapps.github.io/rails-stripe-membership-saas/)
+* [Working with Stripe Payouts](http://blog.chriswinn.com/working-with-stripe-payouts) is a short article about integrating Stripe Payouts into your rails app
 
 ## Libraries
 
 * [Devise](https://github.com/plataformatec/devise), a Rails authentication library
 * [CanCan](https://github.com/ryanb/cancan), a Rails authorization library
-* [jQuery 
+* [jQuery Payment](https://github.com/stripe/jquery.payment) is a useful set of jQuery functions for working with payment fields
 
 ## Tutorials
 
-* [Working with Stripe Payouts](http://blog.chriswinn.com/working-with-stripe-payouts) is a short article about integrating Stripe Payouts into your rails app
+
