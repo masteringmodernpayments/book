@@ -1,3 +1,16 @@
 # Additional Resources
 
+## Documentation
 
+* [Stripe's documentation](https://stripe.com/docs) is truly excellent. If some question isn't answered in this book that should be the first place you look.
+* [Ruby API Docs](https://stripe.com/docs/api/ruby): The Ruby API has it's own documentation mini site
+* [Ruby API code](https://github.com/stripe/stripe-ruby): The ruby API is open source and is a pretty good read. If you're looking to build a comprehensive HTTP API in Ruby you should definitely model it on this.
+
+## Libraries
+
+* [Devise](https://github.com/plataformatec/devise), a Rails authentication library
+* [CanCan](https://github.com/ryanb/cancan), a Rails authorization library
+
+## Tutorials
+
+* [Working with Stripe Payouts](http://blog.chriswinn.com/working-with-stripe-payouts) is a short article about integrating Stripe Payouts into your rails app
