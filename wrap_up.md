@@ -11,13 +11,9 @@
 * [Rails Stripe Membership SaaS](http://railsapps.github.io/rails-stripe-membership-saas/) is a comprehensive example of a Stripe membership integration.
 * [RailsApps](http://railsapps.github.io) is great collection of example Rails apps in general.
 * [Working with Stripe Payouts](http://blog.chriswinn.com/working-with-stripe-payouts) is a short article about integrating Stripe Payouts into your rails app
-* 
 
 ## Libraries
 
 * [Devise](https://github.com/plataformatec/devise), a Rails authentication library
 * [CanCan](https://github.com/ryanb/cancan), a Rails authorization library
 * [jQuery Payment](https://github.com/stripe/jquery.payment) is a useful set of jQuery functions for working with payment fields
-
-
-
