@@ -164,4 +164,15 @@ Now, just create charges as normal while keeping track of which recipient the ch
 
 ### Create Transfers
 
-When you're ready to pay out to a recipient, either on a schedule or when the user requests it, 
+When you're ready to pay out to a recipient, either on a schedule or when the user requests it, all you have to do is create a `Stripe::Transfer`:
+
+```ruby
+transfer = Stripe::Transfer.create(
+  amount:      10000,
+  currency:    'usd',
+  recipient:   user.stripe_recipient_id,
+  description: 'Transfer'
+)
+
+This will initiate a transfer of $100 into the user's registered account. If you instead use `self` for the `recipient` option it will transfer the requested amount into the account you've attached to the Stripe account.
+```
