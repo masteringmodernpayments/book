@@ -186,4 +186,8 @@
 
 * Added some stuff about dunning to subscriptions
 
+### 2013-07-03
 
+*4:45pm - 7:00pm (2.25)*
+
+* Worked on the build process some more
