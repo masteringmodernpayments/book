@@ -5,6 +5,8 @@
 [monospace-rails]: https://github.com/stripe/monospace-rails
 [stripe-invoices]: https://stripe.com/docs/api#invoiceitems
 [patio11-rainy-day]: https://training.kalzumeus.com/newsletters/archive/rainy_day_ideas
+[monospace-users-controller]: https://github.com/stripe/monospace-rails/blob/master/app/controllers/users_controller.rb
+[monospace-user-model]: https://github.com/stripe/monospace-rails/blob/master/app/models/user.rb
 
 
 # Subscriptions
@@ -31,7 +33,139 @@ In addition, there's a fair number of example subscription applications you can 
 * [monospace-rails][] is Stripe's own example subscription app
 * [rails-stripe-membership-saas][] is another very good example
 
-You should definitely check these options out. In this chapter we're not going to go over a full subscription integration, since the two example apps above are very good. Instead, we're going to hit some interesting highlights and some pain points that you might face. Just remember the advice from State and History and Background Workers. Always do your communication with Stripe in the background and set things up so you automatically get an audit trail.
+You should definitely check these options out. In this chapter we're going to walk through Monospace Rails and then touch on a few pain points it doesn't cover.
+
+## Basic Integration
+
+We're going to start our walkthrough in [app/controllers/users_controller.rb][monospace-users-controller]:
+
+```ruby
+class UsersController < ApplicationController
+  before_filter :require_user, :only => [:edit, :update]
+
+  def new
+    redirect_to root_path, :notice => "You are already registered" if current_user
+
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(params[:user])
+    if @user.save
+      session[:user_id] = @user.id
+      redirect_to root_path, :notice => "Signed up!"
+    else
+      render :action => :new
+    end
+  rescue Stripe::CardError => e
+    @user.errors.add :base, e.message
+    @user.stripe_token = nil
+    render :action => :new
+
+  rescue Stripe::StripeError => e
+    logger.error e.message
+    @user.errors.add :base, "There was a problem with your credit card"
+    @user.stripe_token = nil
+    render :action => :new
+  end
+
+  def edit
+  end
+
+  def update
+    current_user.update_attributes(params[:user])
+    if current_user.save
+      redirect_to root_path, :notice => "Profile updated"
+    else
+      render :action => :edit
+    end
+  rescue Stripe::StripeError => e
+    logger.error e.message
+    @user.errors.add :base, "There was a problem with your credit card"
+    @user.stripe_token = nil
+    render :action => :edit
+  end
+end
+```
+
+Monospace uses it's own user system instead of Devise. `require_user` is defined in `application_controller` and just redirects to `/` if there's no user. The actions are all pretty standard, but note that we're dealing with `Stripe::StripeError` and `Stripe::CardError` directly. Genearlly you'd want to do these interactions in a background worker and show the user a spinner while the application is talking to Stripe. You can read all about that in the chapter on Background Workers.
+
+The juciest part of Monospace is in the model [app/models/user.rb][monospace-user-model]:
+
+```ruby
+class User < ActiveRecord::Base
+  attr_accessible :name, :email, :password, :password_confirmation, :stripe_token, :last_4_digits
+
+  attr_accessor :password, :stripe_token
+  before_save :encrypt_password
+  before_save :update_stripe
+
+  validates_confirmation_of :password
+  validates_presence_of :password, :on => :create
+
+  validates_presence_of :name
+  validates_presence_of :email
+  validates_uniqueness_of :email
+  validates_presence_of :last_4_digits
+
+  def stripe_description
+    "#{name}: #{email}"
+  end
+
+  def update_stripe
+    if stripe_id.nil?
+      if !stripe_token.present?
+        raise "We're doing something wrong -- this isn't supposed to happen"
+      end
+
+      customer = Stripe::Customer.create(
+        :email => email,
+        :description => stripe_description,
+        :card => stripe_token
+      )
+      self.last_4_digits = customer.active_card.last4
+      response = customer.update_subscription({:plan => "premium"})
+    else
+      customer = Stripe::Customer.retrieve(stripe_id)
+
+      if stripe_token.present?
+        customer.card = stripe_token
+      end
+
+      # in case they've changed
+      customer.email = email
+      customer.description = stripe_description
+
+      customer.save
+
+      self.last_4_digits = customer.active_card.last4
+    end
+
+    self.stripe_id = customer.id
+    self.stripe_token = nil
+  end
+
+  def self.authenticate(email, password)
+    user = self.find_by_email(email)
+    if user && BCrypt::Password.new(user.hashed_password) == password
+      user
+    else
+      nil
+    end
+  end
+
+
+  def encrypt_password
+    if password.present?
+      self.hashed_password = BCrypt::Password.create(password)
+    end
+  end
+end
+```
+
+`self.authenticate` and `encrypt_password` are part of the very simple authentication system. `BCrypt` is one of the best options to use for encrypting things. It handles all of the current industry best practices for storing and hashing passwords.
+
+`update_stripe` is where all the action happens. If there's a token present and no saved `stripe_id` we create a customer and save off the customer's card's last 4 digits. We also update their subscription to a fixed subscription plan which we set up earlier in the Stripe web interface. If the record *does* have a `stripe_id` we know we're doing an update, so we look up the `Stripe::Customer` record and update it's properties. One important thing to note is `stripe_description`, which combine's the customer's name and email. `description` is a free-form string property stored at Stripe which they don't do anything with. However, it's searchable from their dashboard which makes it super easy to look up all of a customer's charges just by typing in their email address into the search tool.
 
 ## Utility-Style Metered Billing
 
