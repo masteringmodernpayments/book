@@ -57,7 +57,7 @@ To do that we need to actually send the form to Stripe. First include `stripe.js
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 ```
 
-Next, Stripe needs our publishable key. Remember that we have that in the Rails config due to the initializer we [set up before](/initial_app). To set it, call `Stripe.setPublishableKey()` like this:
+Next, Stripe needs our publishable key. Remember that we have that in the Rails config due to the initializer we set up in the initial application. To set it, call `Stripe.setPublishableKey()` like this:
 
 ```erb
 <script type="text/javascript">
