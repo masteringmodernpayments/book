@@ -35,7 +35,7 @@ You should definitely check these options out. In this chapter we're not going t
 
 ## Utility-Style Metered Billing
 
-Handling a basic subscription is straight forward and well covered in the example apps Let's say, howeer, you're building an app where you want metered billing like a phone bill. You'd have a basic subscription for access and then monthly invoicing for anything else. Stripe has a feature they call [Invoices][stripe-invoice] that makes this easy. For example, you want to allow customers to send email to a list and base the charge it on how many emails get sent. You could do something like this:
+Handling a basic subscription is straight forward and well covered in the example apps. Let's say, however, you're building an app where you want metered billing like a phone bill. You'd have a basic subscription for access and then monthly invoicing for anything else. Stripe has a feature they call [Invoices][stripe-invoice] that makes this easy. For example, you want to allow customers to send email to a list and base the charge it on how many emails get sent. You could do something like this:
 
 ```ruby
 class EmailSend < ActiveRecord::Base
@@ -55,7 +55,7 @@ class EmailSend < ActiveRecord::Base
 end
 ```
 
-At the end of the customer's billing cycle Stripe will tally up all of the `InvoiceItems` that you've added to the customer's bill and charge them.
+At the end of the customer's billing cycle Stripe will tally up all of the `InvoiceItems` that you've added to the customer's bill and charge them the total plus their subscription plan's amount.
 
 Stripe will also send you a webook detailing the customer's entire invoice right before they initiate the charge. Instead of creating an invoice item for every single email as it gets sent, you could just create one invoice item for the number of emails sent in the billing period:
 
@@ -73,7 +73,7 @@ def stripe_invoice_created(event)
 end
 ```
 
-Note that this can get kind of complicated if invoice items can be charged at different rates. I would suggest creating an invoice item for every group of things that can be charged at the same rate.
+Note that this can get kind of complicated if invoice items can be charged at different rates. You can either add one `InvoiceItem` per indivicual charge, or you can add one `InvoiceItem` per item type with the amount set to `num_items * item amount`. 
 
 ## Add-ons
 
