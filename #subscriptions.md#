@@ -87,7 +87,7 @@ class UsersController < ApplicationController
 end
 ```
 
-Monospace uses it's own user system instead of Devise. `require_user` is defined in `application_controller` and just redirects to `/` if there's no user. The actions are all pretty standard, but note that we're dealing with `Stripe
+Monospace uses it's own user system instead of Devise. `require_user` is defined in `application_controller` and just redirects to `/` if there's no user. The actions are all pretty standard, but note that we're dealing with `Stripe::StripeError` and `Stripe::CardError` directly. Genearlly you'd want to do these interactions in a background 
 
 ## Utility-Style Metered Billing
 
