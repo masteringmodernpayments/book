@@ -101,6 +101,13 @@ Theoretically you could collect marketplace participants' checking account infor
 ```erb
 <%= form_tag update_checking_account_path(id: @user.id), :class => 'form-horizontal', :id => 'account-form' do %>
   <div class="control-group">
+    <label class="control-label" for="fullName">Full Name</label>
+    <div class="controls">
+      <input type="text" name="fullName" id="fullName" />
+    </div>
+  </div>
+
+  <div class="control-group">
     <label class="control-label" for="number">Routing Number</label>
     <div class="controls">
       <input type="text" size="9" class="routingNumber" id="number" placeholder="*********"/>
@@ -141,6 +148,14 @@ function stripeResponseHandler(response) {
 
 This is a simplified form of the normal Stripe card tokenizing form and works basically the same way. You call `Stripe.bankAccount.createToken` with the routing number, account number, and country of the account which we're hard coding to 'US'. `createToken` takes a callback which then appends a hidden input to the form and submits it using the DOM method instead of the jQuery method so we avoid creating loops.
 
-### Make Charges
+On the server side, just create a `Stripe::Recipient` and save the ID to the user's record:
+
+```ruby
+recipient = Stripe::Recipient.create(
+  name: current_user.name,
+  type: 'individual',
+  bank_account: '
+)
+```
 
 ### Create Transfers
