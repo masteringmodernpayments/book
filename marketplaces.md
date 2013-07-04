@@ -152,7 +152,7 @@ On the server side, just create a `Stripe::Recipient` and save the ID to the use
 
 ```ruby
 recipient = Stripe::Recipient.create(
-  name: params[:fullName]
+  name: params[:fullName],
   type: 'individual',
   bank_account: params[:stripeToken]
 )
