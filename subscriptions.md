@@ -8,7 +8,7 @@
 [monospace-users-controller]: https://github.com/stripe/monospace-rails/blob/master/app/controllers/users_controller.rb
 [monospace-user-model]: https://github.com/stripe/monospace-rails/blob/master/app/models/user.rb
 [cancan]: https://github.com/ryanb/cancan
-[cancan-wiki]: 
+[cancan-wiki]: https://github.com/ryanb/cancan/wiki
 
 
 # Subscriptions
