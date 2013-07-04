@@ -67,7 +67,7 @@ To actually charge cards with an authenticated user's credentials all you have t
 charge = Stripe::Charge.create(
   {
     amount:          1000,
-    application_fee: 100
+    application_fee: 100,
     currency:        'usd',
     card:            params[:stripeToken],
     description:     'customer@example.com',
