@@ -90,7 +90,53 @@ Other than the optional application fee and passing the user's access key to `St
 
 ## Payouts
 
+Stripe Payouts are another, more flexible way to implement marketplaces with Stripe. Instead of connecting to a user's Stripe account and making charges through it, you get authorization to make deposits directly into their checking account. Charges run through your Stripe account and you decide when to pay out to the user. This is useful if your marketplace particpants don't care that you're using Stripe, or if signing them up for an account is more burdensome than you want to deal with. For example, one of the initial customers for Stripe Payouts was Lyft, a do-it-yourself taxi service. Drivers give Lyft their checking account info who then create `Stripe::Recipient`s. Passengers pay with their credit cards through Lyft's mobile app, which uses Stripe behind the scenes to actually run payments. Drivers never have to deal with Stripe directly, instead Lyft just pays out to their accounts periodically.
+
+One thing to keep in mind is that once you create any `Stripe::Recipient`s *your account will no longer receive automatic payouts*. Instead, Stripe will hold funds in your merchant account until you tell them where to send them.
+
 ### Collect Account Info
+
+Theoretically you could collect marketplace participants' checking account information via a normal Rails action because PCI-DSS does not consider them sensitive information. However, `stripe.js` provides the capability to tokenize the numbers the same way it tokenizes credit card numbers and you really should take advantage of it. That way sensitive information never touches your server:
+
+```erb
+<%= form_tag update_checking_account_path(id: @user.id), :class => 'form-horizontal', :id => 'account-form' do %>
+  <div class="control-group">
+    <label class="control-label" for="number">Routing Number</label>
+    <div class="controls">
+      <input type="text" size="9" class="routingNumber" id="number" placeholder="*********"/>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Account Number</label>
+    <div class="controls">
+      <input type="text" class="accountNumber" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="controls">
+      <button type="submit" class="btn btn-primary">Pay</button>
+    </div>
+  </div>
+<% end %>
+```
+
+```javascript
+$('#account-form').submit(function() {
+  Stripe.bankAccount.createToken({
+    country: 'US',
+    routingNumber: $('.routingNumber').val(),
+    accountNumber: $('.accountNumber').val(),
+  }, stripeResponseHandler);
+  return false;
+});
+
+function stripeResponseHandler(response) {
+  var form = $('#account-form');
+  form.append("<input type='hidden' name='stripeToken' value='" + response.id + "'/>"
+  form.get(0).submit();
+}
 
 ### Make Charges
 
