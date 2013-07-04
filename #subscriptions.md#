@@ -73,7 +73,7 @@ def stripe_invoice_created(event)
 end
 ```
 
-Note that this can get kind of complicated if invoice items can be charged at different rates. The easiest way to do this is
+Note that this can get kind of complicated if invoice items can be charged at different rates. The easiest way to handle this situation is to add one `InvoiceItem`  by item type or amount and 
 
 ## Add-ons
 
