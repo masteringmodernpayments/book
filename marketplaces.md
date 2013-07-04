@@ -82,6 +82,9 @@ Stripe Fee:          59 (1000 * 0.029) + 30
 Application Fee     100
 -----------------------
 Total Paid to User  841
+```
+
+
 
 ## Payouts
 
