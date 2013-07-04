@@ -90,7 +90,9 @@ Other than the optional application fee and passing the user's access key to `St
 
 ## Payouts
 
-Stripe Payouts are another, more flexible way to implement marketplaces with Stripe. Instead of connecting to a user's Stripe account and making charges through it, you get authorization to make depos
+Stripe Payouts are another, more flexible way to implement marketplaces with Stripe. Instead of connecting to a user's Stripe account and making charges through it, you get authorization to make deposits directly into their checking account. Charges run through your Stripe account and you decide when to pay out to the user.
+
+This is useful if you have a non-technical audi
 
 ### Collect Account Info
 
