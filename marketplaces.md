@@ -175,4 +175,6 @@ transfer = Stripe::Transfer.create(
 )
 ```
 
-This will initiate a transfer of $100 into the user's registered account. If you instead use `self` for the `recipient` option it will transfer the requested amount into the account you've attached to the Stripe account.
+This will initiate a transfer of $100 into the user's registered account. If you instead use `self` for the `recipient` option it will transfer the requested amount into the account you've attached to the Stripe account. If you've configured a callback URL Stripe will send you an event when the transfer completes named `transfer.paid`. You can use this event to send the user a receipt or a notification. You'll also get an event `transfer.failed` if there was an error anywhere along the line.
+
+Each transfer costs a fixed $0.25 which is removed from your Stripe merchant account at the time you create the transfer. If the transfer fails Stripe charges you $1, which will again be removed from your merchant account.
