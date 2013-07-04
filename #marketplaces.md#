@@ -100,7 +100,6 @@ Theoretically you could collect marketplace participants' checking account infor
 
 ```erb
 <%= form_tag update_checking_account_path(id: @user.id), :class => 'form-horizontal', :id => 'account-form' do %>
-  <span class="payment-errors"></span>
   <div class="control-group">
     <label class="control-label" for="number">Routing Number</label>
     <div class="controls">
@@ -124,15 +123,19 @@ Theoretically you could collect marketplace participants' checking account infor
 ```
 
 ```javascript
-$('.account-form').submit(function() {
+$('#account-form').submit(function() {
   Stripe.bankAccount.createToken({
     country: 'US',
     routingNumber: $('.routingNumber').val(),
     accountNumber: $('.accountNumber').val(),
   }, stripeResponseHandler);
+  return false;
 });
 
-fu
+function stripeResponseHandler(response) {
+  var form = $('#account-form');
+  form.append("<input type='hidden',
+}
 
 ### Make Charges
 
