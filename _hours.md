@@ -191,3 +191,11 @@
 *4:45pm - 7:00pm (2.25)*
 
 * Worked on the build process some more
+
+### 2013-07-04
+
+* overall: 8983 761 96 (30%)
+
+*8:00am - 9:00am (1)*
+
+* Expanded the subscription chapter with a real example
