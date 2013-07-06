@@ -37,14 +37,10 @@ class Event < ActiveRecord::Base
   def stripe_event
     Stripe::Event.retrieve(stripe_id)
   end
-
-  def event_method
-    "stripe_#{self.stripe_type.gsub('.', '_')}".to_sym
-  end
 end
 ```
 
-The `stripe_event` method contacts Stripe and asks for event details. The `event_method` method generates a symbol that we can use in the controller to dispatch the event to a handler based on its type.
+The `stripe_event` method contacts Stripe and asks for event details.
 
 ## Controller
 
