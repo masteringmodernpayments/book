@@ -1,17 +1,17 @@
 # Processing Payments with Background Workers
 
-[stripe]: https://stripe.com/docs/tutorials/checkout
-[guide]: /payment-integration.html
-[docs]: https://stripe.com/docs/api
-[sucker_punch]: https://github.com/brandonhilkert/sucker_punch
-[Celluloid]: https://github.com/celluloid/celluloid/
-[redis]: http://redis.io
-[dj]: https://github.com/collectiveidea/delayed_job
-[sidekiq]: http://sidekiq.org
-[mperham]: http://www.mikeperham.com
-[qc]: https://github.com/ryandotsmith/queue_classic
+[background-worker-stripe]: https://stripe.com/docs/tutorials/checkout
+[background-worker-guide]: /payment-integration.html
+[background-worker-docs]: https://stripe.com/docs/api
+[background-worker-sucker_punch]: https://github.com/brandonhilkert/sucker_punch
+[background-worker-Celluloid]: https://github.com/celluloid/celluloid/
+[background-worker-redis]: http://redis.io
+[background-worker-dj]: https://github.com/collectiveidea/delayed_job
+[background-worker-sidekiq]: http://sidekiq.org
+[background-worker-mperham]: http://www.mikeperham.com
+[background-worker-qc]: https://github.com/ryandotsmith/queue_classic
 
-Processing payments correctly is hard. This is one of the biggest lessons I've learned while writing my various [SaaS projects](http://www.petekeen.net/projects). Stripe does everything they can to make it easy, with [quick start guides][stripe] and [great documentation][docs]. One thing they really don't cover in the docs is what to do if your connection with their API fails for some reason. Processing payments inside a web request is asking for trouble, and the solution is to run them using a background job. 
+Processing payments correctly is hard. This is one of the biggest lessons I've learned while writing my various [SaaS projects](http://www.petekeen.net/projects). Stripe does everything they can to make it easy, with [quick start guides][background-worker-stripe] and [great documentation][background-worker-docs]. One thing they really don't cover in the docs is what to do if your connection with their API fails for some reason. Processing payments inside a web request is asking for trouble, and the solution is to run them using a background job. 
 
 ## The Problem
 
@@ -42,11 +42,11 @@ But what if it doesn't? The internet between your server and Stripe's could be s
 
 The solution is to put the call to `Stripe::Charge.create` in a background job. By separating the work that can fail or take a long time from the web request we insulate the user from timeouts and errors while giving our app the ability to retry (if possible) or tell us something failed (if not). 
 
-There's a bunch of different background worker systems available for Rails and Ruby in general, scaling all the way from simple in-process threaded workers with no persistence to external workers persisting jobs to the database or [Redis][redis], then even further to message busses like AMQP, which are overkill for what we need to do.
+There's a bunch of different background worker systems available for Rails and Ruby in general, scaling all the way from simple in-process threaded workers with no persistence to external workers persisting jobs to the database or [Redis][background-worker-redis], then even further to message busses like AMQP, which are overkill for what we need to do.
 
 ### In-Process
 
-One of the best in-process workers that I've come across is called [Sucker Punch][sucker_punch]. Under the hood it uses the actor model to safely use concurrent threads for work processing, but you don't really have to worry about that. It's pretty trivial to use, just include the `SuckerPunch::Worker` module into your worker class, declare a queue using that class, and chuck jobs into it. In `app/workers/banana_worker.rb`:
+One of the best in-process workers that I've come across is called [Sucker Punch][background-worker-sucker_punch]. Under the hood it uses the actor model to safely use concurrent threads for work processing, but you don't really have to worry about that. It's pretty trivial to use, just include the `SuckerPunch::Worker` module into your worker class, declare a queue using that class, and chuck jobs into it. In `app/workers/banana_worker.rb`:
 
 ```ruby
 class BananaWorker
@@ -76,7 +76,7 @@ The drawback to Sucker Punch, of course, is that if the web process falls over t
 
 ### Database Persistence
 
-The classic, tried-and-true background worker is called [Delayed Job][dj]. It's been around since 2008 and is battle tested and production ready. At my day job we use it to process hundreds of thousands of events every day and it's basically fire and forget. It's also easier to use than Sucker Punch. Assuming a class like this:
+The classic, tried-and-true background worker is called [Delayed Job][background-worker-dj]. It's been around since 2008 and is battle tested and production ready. At my day job we use it to process hundreds of thousands of events every day and it's basically fire and forget. It's also easier to use than Sucker Punch. Assuming a class like this:
 
 ```ruby
 class Banana
@@ -106,11 +106,11 @@ $ bundle exec rake jobs:work
 
 Delayed Job does have some drawbacks. First, because it stores jobs in the same database as everything else it has to content with everything else. For example, your database serve almost certainly has a limit on the number of connections it can handle, and every worker will require two of them, one for Delayed Job itself and another for any ActiveRecord objects. Second, it can get tricky to backup because you really don't need to be backing up the jobs table. That said, it's relatively simple and straight forward and has the distinct advantage of not making you run any new external services.
 
-Another PostgreSQL-specific database backed worker system is [Queue Classic][qc], which leverages some specific features that PostgreSQL provides to workers very efficient. Specifically it uses `listen` and `notify`, the built-in publish/subscribe system, to tell workers when there are jobs to be done so they don't have to poll. It also uses row-level locking to reduce database load and ensure only one worker is working a job at any given time.
+Another PostgreSQL-specific database backed worker system is [Queue Classic][background-worker-qc], which leverages some specific features that PostgreSQL provides to workers very efficient. Specifically it uses `listen` and `notify`, the built-in publish/subscribe system, to tell workers when there are jobs to be done so they don't have to poll. It also uses row-level locking to reduce database load and ensure only one worker is working a job at any given time.
 
 ### Redis
 
-[Redis][redis] bills itself as a "networked data structure server". It's a database server that provides rich data types like lists, queues, sets, and hashes, all while being extremely fast because everything is in-memory all the time. The best Redis-based background worker, in my opinion, is [Sidekiq][sidekiq] written by [Mike Perham][mperham]. It uses the same actor-based concurrency library under the hood as Sucker Punch, but because it stores jobs in Redis it can also provide things like a beautiful management console and fine-grained control over jobs. The setup is essentially identical to Sucker Punch:
+[Redis][background-worker-redis] bills itself as a "networked data structure server". It's a database server that provides rich data types like lists, queues, sets, and hashes, all while being extremely fast because everything is in-memory all the time. The best Redis-based background worker, in my opinion, is [Sidekiq][background-worker-sidekiq] written by [Mike Perham][background-worker-mperham]. It uses the same actor-based concurrency library under the hood as Sucker Punch, but because it stores jobs in Redis it can also provide things like a beautiful management console and fine-grained control over jobs. The setup is essentially identical to Sucker Punch:
 
 ```ruby
 class BananaWorker
