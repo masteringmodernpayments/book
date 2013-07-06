@@ -1,9 +1,9 @@
-[bootstrap]: http://twitter.github.io/bootstrap
-[tutorial]: https://stripe.com/docs/tutorials/forms
+[custom-form-bootstrap]: http://twitter.github.io/bootstrap
+[custom-form-tutorial]: https://stripe.com/docs/tutorials/forms
 
 # Custom Payment Forms
 
-Until now we've been using Stripe's excellent `checkout.js` that provides a popup iframe to collect credit card information, post it to Stripe and turn it into a `stripeToken` and then finally post our form. There's something conspicuously absent from all of this, however. Remember how Sale has an email attribute? We're not populating that right now because `checkout.js` doesn't easily let us add our own fields. For that we'll need to create our own form. Stripe still makes this easy, though, with `stripe.js`. The first half of this chapter is adapted from Stripe's [custom form tutorial][tutorial].
+Until now we've been using Stripe's excellent `checkout.js` that provides a popup iframe to collect credit card information, post it to Stripe and turn it into a `stripeToken` and then finally post our form. There's something conspicuously absent from all of this, however. Remember how Sale has an email attribute? We're not populating that right now because `checkout.js` doesn't easily let us add our own fields. For that we'll need to create our own form. Stripe still makes this easy, though, with `stripe.js`. The first half of this chapter is adapted from Stripe's [custom form tutorial][custom-form-tutorial].
 
 Here's the form we'll be using:
 
@@ -47,7 +47,7 @@ Here's the form we'll be using:
 <% end %>
 ```
 
-There's a few interesting things going on here. First, notice the almost-excessive amount of markup. I'm using [Twitter Bootstrap][bootstrap] form markup for this, which gives nice looking styling by default.
+There's a few interesting things going on here. First, notice the almost-excessive amount of markup. I'm using [Twitter Bootstrap][custom-form-bootstrap] form markup for this, which gives nice looking styling by default.
 
 Second, take a look at the inputs. Only one of them, `email`, actually has a `name` attribute. The rest have `data-stripe` attributes. Browsers will only send inputs that have a `name` to the server, the rest get dropped on the floor. In this case, the inputs with `data-stripe` attributes will get picked up by `stripe.js` automatically and fed to Stripe's servers to be turned into a token.
 
