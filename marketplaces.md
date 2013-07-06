@@ -1,20 +1,20 @@
-[stripe-connect]: https://stripe.com/connect
-[stripe-payouts]: https://stripe.com/blog/send-payouts-with-stripe
-[OmniAuth]: https://github.com/intridea/omniauth
-[OmniAuth::StripeConnect]: https://github.com/isaacsanders/omniauth-stripe-connect
-[stripe-connect-register]: https://stripe.com/docs/connect/getting-started#register-application
+[marketplaces-stripe-connect]: https://stripe.com/connect
+[marketplaces-stripe-payouts]: https://stripe.com/blog/send-payouts-with-stripe
+[marketplaces-OmniAuth]: https://github.com/intridea/omniauth
+[marketplaces-OmniAuth::StripeConnect]: https://github.com/isaacsanders/omniauth-stripe-connect
+[marketplaces-stripe-connect-register]: https://stripe.com/docs/connect/getting-started#register-application
 
 # Marketplaces
 
-Marketplaces let multiple people sell goods and services on the same site at the same time. Stripe lets your SaaS implement a marketplace in two different ways. With [Stripe Connect][stripe-connect] your users connect their Stripe account with yours, allowing you to make charges with their Stripe account securely and while passing fees through directly. This is great for a technical audience or for a marketplace who's participants want to be able to manage their own Stripe account.
+Marketplaces let multiple people sell goods and services on the same site at the same time. Stripe lets your SaaS implement a marketplace in two different ways. With [Stripe Connect][marketplaces-stripe-connect] your users connect their Stripe account with yours, allowing you to make charges with their Stripe account securely and while passing fees through directly. This is great for a technical audience or for a marketplace who's participants want to be able to manage their own Stripe account.
 
-Stripe recently added the ability to send transfers to any authorized US checking account via ACH transfers using a feature called [Payouts][stripe-payouts]. This enables for more nuanced interactions with your marketplace participants. For example, you could send their collected payments to them once a month, or only if they've passed a certain threshold. Payouts also allows non-technical people to easily participate in your marketplace, since they don't have to leave your site to create a Stripe account via Stripe's OAuth flow.
+Stripe recently added the ability to send transfers to any authorized US checking account via ACH transfers using a feature called [Payouts][marketplaces-stripe-payouts]. This enables for more nuanced interactions with your marketplace participants. For example, you could send their collected payments to them once a month, or only if they've passed a certain threshold. Payouts also allows non-technical people to easily participate in your marketplace, since they don't have to leave your site to create a Stripe account via Stripe's OAuth flow.
 
 Both Connect and Payouts are easily integrated into a Rails applcation with a few minor changes. In fact, depending on your use case you may want to hook up both and let market participants decide which is best for them.
 
 ## Connect
 
-Connect is Stripe's OAuth2-based way for your application to create transactions, customers, subscription plans, and everything else Stripe has to offer on behalf of another user. Hooking it up to your Rails application is easy because someone else has done all of the hard work for you in a gem named [OmniAuth::StripeConnect][]. This gem uses the [OmniAuth][] OAuth abstraction library to allow you to connect to your users' Stripe accounts by simply sending them to `/auth/stripe_connect`, which will direct them through the OAuth2 dance and bring them back to your site.
+Connect is Stripe's OAuth2-based way for your application to create transactions, customers, subscription plans, and everything else Stripe has to offer on behalf of another user. Hooking it up to your Rails application is easy because someone else has done all of the hard work for you in a gem named [OmniAuth::StripeConnect][marketplaces-OmniAuth::StripeConnect]. This gem uses the [OmniAuth][marketplaces-Omniauth] OAuth abstraction library to allow you to connect to your users' Stripe accounts by simply sending them to `/auth/stripe_connect`, which will direct them through the OAuth2 dance and bring them back to your site.
 
 To start hooking this up, simply add the gems to your `Gemfile`:
 
