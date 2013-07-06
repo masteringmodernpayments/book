@@ -1,21 +1,21 @@
 # Security and PCI Compliance
 
-[pci]: https://www.pcisecuritystandards.org
-[stripe_pci]: https://stripe.com/help/security
-[rsa]: http://en.wikipedia.org/wiki/RSA_(algorithm)
-[namecheap_ssl]: http://www.namecheap.com/ssl-certificates.aspx
-[heroku_ssl]: https://devcenter.heroku.com/articles/ssl-endpoint
-[rbp]: http://rails-bestpractices.com
-[brakeman]: http://brakemanscanner.org
-[cochrane]: http://kencochrane.net/blog/2012/01/developers-guide-to-pci-compliant-web-applications/
+[pci-pci]: https://www.pcisecuritystandards.org
+[pci-stripe_pci]: https://stripe.com/help/security
+[pci-rsa]: http://en.wikipedia.org/wiki/RSA_(algorithm)
+[pci-namecheap_ssl]: http://www.namecheap.com/ssl-certificates.aspx
+[pci-heroku_ssl]: https://devcenter.heroku.com/articles/ssl-endpoint
+[pci-rbp]: http://rails-bestpractices.com
+[pci-brakeman]: http://brakemanscanner.org
+[pci-cochrane]: http://kencochrane.net/blog/2012/01/developers-guide-to-pci-compliant-web-applications/
 
 *Note: I'm not an expert in PCI compliance and this chapter shouldn't be interpreted as legal advice. Rather, this is background information and advice on how to implement Stripe's guidelines. If you have questions, please ask Stripe or your nearest local PCI consultant.*
 
-In 2004 after a rash of card all of the various credit card processing companies, including Mastercard, Visa, and Discover among others, started formulating security standards efforts. Visa dropped their own effort in 2005 and joined up with Mastercard, shortly followed by the rest of the industry. In 2006 version 1 of the [Payment Card Industry Data Security Standards][pci] was officially published which formalize and codify a bunch of common-sense security requirements for processing credit cards. In their merchant agreements every processor specifies that you have to comply with PCI or your account will be dropped and you'll get audited, which is rather undesirable. One of the best resources that I've found that talks about all of these requirements is Ken Cochrane's [Developers Guide to PCI Compliant Web Applications][cochrane]. He goes into quite a bit of depth on the various rules, regulations, and mitigation strategies that are out there.
+In 2004 after a rash of card all of the various credit card processing companies, including Mastercard, Visa, and Discover among others, started formulating security standards efforts. Visa dropped their own effort in 2005 and joined up with Mastercard, shortly followed by the rest of the industry. In 2006 version 1 of the [Payment Card Industry Data Security Standards][pci-pci] was officially published which formalize and codify a bunch of common-sense security requirements for processing credit cards. In their merchant agreements every processor specifies that you have to comply with PCI or your account will be dropped and you'll get audited, which is rather undesirable. One of the best resources that I've found that talks about all of these requirements is Ken Cochrane's [Developers Guide to PCI Compliant Web Applications][pci-cochrane]. He goes into quite a bit of depth on the various rules, regulations, and mitigation strategies that are out there.
 
 ## Stripe and PCI
 
-The real revolutionary part of how Stripe works is in how they [reduce your compliance scope][stripe_pci] as a merchant. Before Stripe, a typical online merchant would have a normal HTML form on their website where customers would put in their credit card information. This form would post to the merchant's server, where they would take the credit card info and pass it along to their *gateway service*, which would then talk to all of the various banks and things and then eventually deposit the money into their *merchant account*.  Theoretically an attacker could stick some code into a merchant's payment processing system and divert credit card numbers. Or, if the merchant's site wasn't using HTTPS they could perform a man-in-the-middle attack and capture credit card information as it travels over the wire. This means that each and every merchant would have to become PCI certified, even if they weren't storing the credit card info anywhere in their system.
+The real revolutionary part of how Stripe works is in how they [reduce your compliance scope][pci-stripe_pci] as a merchant. Before Stripe, a typical online merchant would have a normal HTML form on their website where customers would put in their credit card information. This form would post to the merchant's server, where they would take the credit card info and pass it along to their *gateway service*, which would then talk to all of the various banks and things and then eventually deposit the money into their *merchant account*.  Theoretically an attacker could stick some code into a merchant's payment processing system and divert credit card numbers. Or, if the merchant's site wasn't using HTTPS they could perform a man-in-the-middle attack and capture credit card information as it travels over the wire. This means that each and every merchant would have to become PCI certified, even if they weren't storing the credit card info anywhere in their system.
 
 Stripe, with `stripe.js`, makes all of this irrelevant. When you create a form using `stripe.js` or `checkout.js` loaded from Stripe's servers, none of the customer's credit card info is sent through your servers. Instead, the javascript your form calls sends that info to Stripe's servers over HTTPS, where they turn it into a single-use *token* which actually gets posted to your server. Your server can then use that token to refer to a customer's credit card without having seen it. The only thing you as a merchant have to do to be PCI compliant according to Stripe is to make sure you're serving up your payment-related pages over HTTPS and ensure they use `stripe.js` or `checkout.js`. We've already talked about `checkout.js` and we'll cover `stripe.js` in the chapter on Custom Forms.
 
@@ -31,7 +31,7 @@ This will redirect all non-https requests to https automatically on production. 
 
 ## Buying a Certificate
 
-There are many different places where you can buy a certificate. I've had good luck buying them through my registrar [Namecheap.com][namecheap]. The steps are:
+There are many different places where you can buy a certificate. I've had good luck buying them through my registrar [Namecheap.com][pci-namecheap]. The steps are:
 
 * Generate a private key
 * Using your private key, generate a Certificate Signing Request
@@ -47,7 +47,7 @@ First make sure you have `openssl` installed on your machine. It comes installed
 $ openssl genrsa -out example.com.key 2048
 ```
 
-This generates a 2048 bit [RSA key][rsa] and stores it in `example.com.key`.
+This generates a 2048 bit [RSA key][pci-rsa] and stores it in `example.com.key`.
 
 ### Generate a Certificate Signing Request
 
@@ -69,7 +69,7 @@ This will print out a bunch of information about your certificate. You can ignor
 
 ### Buy the actual certificate
 
-Head on over to [Namecheap's SSL page][namecheap_ssl]. Here you're presented with a bunch of different options presented in what they feel is least-secure to most-secure list. I generally buy the cheapest option because they're all pretty much the same in the $10 range. If you want, you can get EV1 certification which will give you the green bar in Safari and Firefox. You'll have to do some more paperwork to get it, though. For now, let's just get the cheapest Comodo certificate.
+Head on over to [Namecheap's SSL page][pci-namecheap_ssl]. Here you're presented with a bunch of different options presented in what they feel is least-secure to most-secure list. I generally buy the cheapest option because they're all pretty much the same in the $10 range. If you want, you can get EV1 certification which will give you the green bar in Safari and Firefox. You'll have to do some more paperwork to get it, though. For now, let's just get the cheapest Comodo certificate.
 
 Go through checkout and pay and you'll get sent to a page where you can pick your server type and paste your CSR. For Heroku you should choose the "Other" option in the server dropdown. Open your CSR up and paste the entire contents into the text box, then hit Next.
 
@@ -81,7 +81,7 @@ You'll get taken to a web page with a handy dandy flow chart, and within a few m
 
 ### Installing the certificate at Heroku
 
-At this point, you'll need to attach the SSL certificate to your application. With Heroku, [this is easy][heroku_ssl].
+At this point, you'll need to attach the SSL certificate to your application. With Heroku, [this is easy][pci-heroku_ssl].
 
 ```bash
 $ heroku addons:add ssl:endpoint
@@ -108,7 +108,7 @@ There are a few other things you can do to help ensure that your Rails applicati
 
 ### Rails Best Practices
 
-[Rails Best Practices][rbp] is a website where people can submit and upvote various practices that help to keep your app safe and secure, and help structure your code in a maintainable way. Conveniently, Rails Best Practices also publishes a gem that automatically checks your app against more than fourty of the most common best practices. To install it, add it to the `Gemfile`:
+[Rails Best Practices][pci-rbp] is a website where people can submit and upvote various practices that help to keep your app safe and secure, and help structure your code in a maintainable way. Conveniently, Rails Best Practices also publishes a gem that automatically checks your app against more than fourty of the most common best practices. To install it, add it to the `Gemfile`:
 
 ```ruby
 gem 'rails_best_practices'
@@ -151,7 +151,7 @@ In more recent versions of Rails `render` is a lot smarter than it used to be. I
 
 ### Brakeman
 
-[Brakeman][brakeman] is a security static analysis scanner for Rails applications. It goes through your code looking for known security vulnerabilities and suggests fixes. The default Rails application, in fact, ships with one of these vulnerabilities. Rails generates a "secret token" that it uses to encrypt session information and sign cookies so users can't modify it. By default, it sticks this token into `config/initializers/secret_token.rb` as plain text. This is a vulnerability because if, for example, you release your application as open source anyone can find the token and decrypt your sessions and sign their own cookies and generally cause havok. There are various schools of thought on how to fix this. For the example application I've put the token into an environment variable. In `config/initializers/secret_token.rb`:
+[Brakeman][pci-brakeman] is a security static analysis scanner for Rails applications. It goes through your code looking for known security vulnerabilities and suggests fixes. The default Rails application, in fact, ships with one of these vulnerabilities. Rails generates a "secret token" that it uses to encrypt session information and sign cookies so users can't modify it. By default, it sticks this token into `config/initializers/secret_token.rb` as plain text. This is a vulnerability because if, for example, you release your application as open source anyone can find the token and decrypt your sessions and sign their own cookies and generally cause havok. There are various schools of thought on how to fix this. For the example application I've put the token into an environment variable. In `config/initializers/secret_token.rb`:
 
 ```ruby
 Sales::Application.config.secret_token = ENV['SECRET_TOKEN']
