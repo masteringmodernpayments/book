@@ -1,14 +1,14 @@
-[koudoku]: https://github.com/andrewculver/koudoku
-[stripe-rails]: https://github.com/thefrontside/stripe-rails
-[stripe_event]: https://github.com/integrallis/stripe_event
-[rails-stripe-membership-saas]: https://github.com/RailsApps/rails-stripe-membership-saas
-[monospace-rails]: https://github.com/stripe/monospace-rails
-[stripe-invoices]: https://stripe.com/docs/api#invoiceitems
-[patio11-rainy-day]: https://training.kalzumeus.com/newsletters/archive/rainy_day_ideas
-[monospace-users-controller]: https://github.com/stripe/monospace-rails/blob/master/app/controllers/users_controller.rb
-[monospace-user-model]: https://github.com/stripe/monospace-rails/blob/master/app/models/user.rb
-[cancan]: https://github.com/ryanb/cancan
-[cancan-wiki]: https://github.com/ryanb/cancan/wiki
+[subscriptions-koudoku]: https://github.com/andrewculver/koudoku
+[subscriptions-stripe-rails]: https://github.com/thefrontside/stripe-rails
+[subscriptions-stripe_event]: https://github.com/integrallis/stripe_event
+[subscriptions-rails-stripe-membership-saas]: https://github.com/RailsApps/rails-stripe-membership-saas
+[subscriptions-monospace-rails]: https://github.com/stripe/monospace-rails
+[subscriptions-stripe-invoices]: https://stripe.com/docs/api#invoiceitems
+[subscriptions-patio11-rainy-day]: https://training.kalzumeus.com/newsletters/archive/rainy_day_ideas
+[subscriptions-monospace-users-controller]: https://github.com/stripe/monospace-rails/blob/master/app/controllers/users_controller.rb
+[subscriptions-monospace-user-model]: https://github.com/stripe/monospace-rails/blob/master/app/models/user.rb
+[subscriptions-cancan]: https://github.com/ryanb/cancan
+[subscriptions-cancan-wiki]: https://github.com/ryanb/cancan/wiki
 
 
 # Subscriptions
@@ -26,20 +26,20 @@ The tricky part starts when people want to change their subscription plan and th
 
 There are a bunch of different Rails engines out there that let you more or less drop a subscription system into your app.
 
-* [Koudoku][koudoku] includes things like a pricing table, helpers for `stripe.js`, and robust plan creation. It does not have particularly good support for Stripe's webhooks.
-* [Stripe::Rails][stripe-rails] has much better webhook support but doesn't help you as much with pricing tables or views
-* [stripe_event][] handles *just* Stripe's webhooks, but it does a fairly good job of it.
+* [Koudoku][subscriptions-koudoku] includes things like a pricing table, helpers for `stripe.js`, and robust plan creation. It does not have particularly good support for Stripe's webhooks.
+* [Stripe::Rails][subscriptions-stripe-rails] has much better webhook support but doesn't help you as much with pricing tables or views
+* [stripe_event][subscriptions-] handles *just* Stripe's webhooks, but it does a fairly good job of it.
 
 In addition, there's a fair number of example subscription applications you can crib from:
 
-* [monospace-rails][] is Stripe's own example subscription app
-* [rails-stripe-membership-saas][] is another very good example
+* [monospace-rails][subscriptions-] is Stripe's own example subscription app
+* [rails-stripe-membership-saas][subscriptions-] is another very good example
 
 You should definitely check these options out. In this chapter we're going to walk through Monospace Rails and then touch on a few pain points it doesn't cover.
 
 ## Basic Integration
 
-We're going to start our walkthrough in [app/controllers/users_controller.rb][monospace-users-controller]:
+We're going to start our walkthrough in [app/controllers/users_controller.rb][subscriptions-monospace-users-controller]:
 
 ```ruby
 class UsersController < ApplicationController
@@ -92,7 +92,7 @@ end
 
 Monospace uses it's own user system instead of Devise. `require_user` is defined in `application_controller` and just redirects to `/` if there's no user. The actions are all pretty standard, but note that we're dealing with `Stripe::StripeError` and `Stripe::CardError` directly. Genearlly you'd want to do these interactions in a background worker and show the user a spinner while the application is talking to Stripe. You can read all about that in the chapter on Background Workers.
 
-The juciest part of Monospace is in the model [app/models/user.rb][monospace-user-model]:
+The juciest part of Monospace is in the model [app/models/user.rb][subscriptions-monospace-user-model]:
 
 ```ruby
 class User < ActiveRecord::Base
@@ -169,7 +169,7 @@ end
 
 `update_stripe` is where all the action happens. If there's a token present and no saved `stripe_id` we create a customer and save off the customer's card's last 4 digits. We also update their subscription to a fixed subscription plan which we set up earlier in the Stripe web interface. If the record *does* have a `stripe_id` we know we're doing an update, so we look up the `Stripe::Customer` record and update it's properties. One important thing to note is `stripe_description`, which combine's the customer's name and email. `description` is a free-form string property stored at Stripe which they don't do anything with. However, it's searchable from their dashboard which makes it super easy to look up all of a customer's charges just by typing in their email address into the search tool.
 
-Monospace does not actually *do* anything with these users and their charges. Rails Stripe Membership SaaS goes much more in depth as to what a particular subscription plan means, in particular using a system called [CanCan][cancan]. CanCan lets you easily encapsulate logic around authorizations and permissions. For example, let's say Monospace actually has two plans, `premium` and `standard`. Premium members can post things while standard ones can only read. You'd specify that in CanCan like this:
+Monospace does not actually *do* anything with these users and their charges. Rails Stripe Membership SaaS goes much more in depth as to what a particular subscription plan means, in particular using a system called [CanCan][subscriptions-cancan]. CanCan lets you easily encapsulate logic around authorizations and permissions. For example, let's say Monospace actually has two plans, `premium` and `standard`. Premium members can post things while standard ones can only read. You'd specify that in CanCan like this:
 
 ```ruby
 class Ability
@@ -191,11 +191,11 @@ can? :read, @article
 can? :create, @article
 ```
 
-For more details, see the [CanCan documentation][cancan-wiki]. 
+For more details, see the [CanCan documentation][subscriptions-cancan-wiki]. 
 
 ## Utility-Style Metered Billing
 
-Handling a basic subscription is straight forward and well covered in the example apps. Let's say, however, you're building an app where you want metered billing like a phone bill. You'd have a basic subscription for access and then monthly invoicing for anything else. Stripe has a feature they call [Invoices][stripe-invoice] that makes this easy. For example, you want to allow customers to send email to a list and base the charge it on how many emails get sent. You could do something like this:
+Handling a basic subscription is straight forward and well covered in the example apps. Let's say, however, you're building an app where you want metered billing like a phone bill. You'd have a basic subscription for access and then monthly invoicing for anything else. Stripe has a feature they call [Invoices][subscriptions-stripe-invoice] that makes this easy. For example, you want to allow customers to send email to a list and base the charge it on how many emails get sent. You could do something like this:
 
 ```ruby
 class EmailSend < ActiveRecord::Base
@@ -259,7 +259,7 @@ expiring_customers.each do |customer|
 end
 ```
 
-If the customer still doesn't update their card or if it's declined for other reasons, you should immediately send them an email. Describe what happened and give them an easy way to login to your app and update their card. According to [Patrick McKenzie][patio11-rainy-day] you should also include a P.S. to the effect that you're a small business, not a bank, and that they're not in trouble or anything. You're sure it's a mistake so you won't be cutting them off for a few days.
+If the customer still doesn't update their card or if it's declined for other reasons, you should immediately send them an email. Describe what happened and give them an easy way to login to your app and update their card. According to [Patrick McKenzie][subscriptions-patio11-rainy-day] you should also include a P.S. to the effect that you're a small business, not a bank, and that they're not in trouble or anything. You're sure it's a mistake so you won't be cutting them off for a few days.
 
 Speaking of cutting them off, you really shouldn't automatically cancel anyone's account without a manual review process. Charges fail sometimes and it's nobody's fault, which is why Stripe automatically retries for you for a configurable number of days. After that's up and the charge finally fails, send yourself an email and follow up with the customer, either by email or over the phone.
 
