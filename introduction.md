@@ -4,6 +4,10 @@ Thanks for purchasing *Mastering Modern Payments*. In this book we're going to t
 
 Stripe has revolutionized the payment landscape for Software as a Service applications. Before Stripe you had to deal with multiple parties, multiple moving pieces, and integrate everything yourself. Now, all you have to do is make some very simple API calls. You don't even have to create an account, since the documentation site creates one for you on the fly. Every example is directly usable.
 
+## Why this book?
+
+Stripe has excellent documentation. Why should you read this book? Because the documentation does not go far enough. It assumes that Stripe will always be available and responsive. It gives small examples that don't apply well to a production application. This book goes farther and deeper than the short examples in Stripe's documentation and fully fleshes out production-level code.
+
 ## Who am I?
 
 I'm Pete Keen. I've been working with the Stripe API for a little over two years now and have built six applications that run payments through it. In addition, I've worked with a wide variety of payment systems at my day job. I've seen learned quite a lot about how to handle payments in general and I've tried to condense it down into something manageable in this book.
