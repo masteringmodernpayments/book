@@ -20,7 +20,9 @@ Versions of software used in examples:
 
 * Ruby 2.0.0-p0
 * Rails 4.0.0
-* stripe-ruby 1.8.3
+* Stripe Ruby API 1.8.3
+* Devise 3.0.0.rc
+* Paper Trail rails4 branch
 
 ## Conventions
 
