@@ -213,4 +213,4 @@
 
 * worked on the build process some more
 * added a little bit to the intro about versions
-* worked up a sales page
+* worked up a [sales page](http://www.petekeen.net/mmp-sales-beta)
