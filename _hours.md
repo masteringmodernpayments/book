@@ -206,3 +206,11 @@
 * Finished marketplaces
 * Fleshed out the introduction
 * Added a chapter with additional resources
+
+### 2013-07-05
+
+*4:00pm - 8:00pm (2)*
+
+* worked on the build process some more
+* added a little bit to the intro about versions
+
