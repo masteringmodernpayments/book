@@ -1,7 +1,7 @@
-[stripe_event]: https://github.com/integrallis/stripe_event
-[PrinceXML]: http://www.princexml.com
-[DocRaptor]: http://docraptor.com
-[Docverter]: http://www.docverter.com
+[callbacks-stripe_event]: https://github.com/integrallis/stripe_event
+[callbacks-PrinceXML]: http://www.princexml.com
+[callbacks-DocRaptor]: http://docraptor.com
+[callbacks-Docverter]: http://www.docverter.com
 
 # Handling Webhooks
 
@@ -14,7 +14,7 @@ Stripe will send your application events that they call webhooks as things happe
 
 Some of these are more important than others. For example, if you're selling one-off products you probably don't care about the events about charge successes and failures because you're initiating the charge and will know immediately how it went. Those events are more useful for subscription sites where Stripe is handling the periodic billing for you. On the other hand, you always want to know about charge disputes. Too many of those and Stripe may drop your account.
 
-Webhook handling is going to be unique to every application but we can sketch out a general framework that can be used for any application. This will be similar to the [stripe_event][] gem but with some added features. In particular, we'll be able to send responses back to Stripe for things like invoices.
+Webhook handling is going to be unique to every application but we can sketch out a general framework that can be used for any application. This will be similar to the [stripe_event][callbacks-stripe_event] gem but with some added features. In particular, we'll be able to send responses back to Stripe for things like invoices.
 
 ## Validating Events
 
@@ -165,7 +165,7 @@ Subscription businesses, on the other hand, get a rich variety of events from St
 
 Customers, especially business customers, appreciate getting a PDF receipt along with the email. You make their lives measurably easier by including a file that they can just attach to their expense report, rather than having to go through a convoluted dance to convert your email into something they can use.
 
-There is a paid product named [PrinceXML][] that makes excellent PDFs but it is very expensive and not very usable on cloud platforms like Heroku. [DocRaptor][] is a paid service that has licensed PrinceXML and provides a nice API. However, the easiest and cheapest way to generate PDFs that I know of is to use an open-source service that I created named [Docverter][]. All you have to do is generate some HTML and pass it to Docverter's API which then returns a PDF:
+There is a paid product named [PrinceXML][callbacks-PrinceXML] that makes excellent PDFs but it is very expensive and not very usable on cloud platforms like Heroku. [DocRaptor][callbacks-DocRaptor] is a paid service that has licensed PrinceXML and provides a nice API. However, the easiest and cheapest way to generate PDFs that I know of is to use an open-source service that I created named [Docverter][callbacks-Docverter]. All you have to do is generate some HTML and pass it to Docverter's API which then returns a PDF:
 
 In `Gemfile`:
 
