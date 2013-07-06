@@ -1,6 +1,6 @@
-[aasm]: https://github.com/aasm/aasm
-[fmsc]: http://weblog.jamisbuck.org/2006/10/18/skinny-controller-fat-model
-[paper_trail]: https://github.com/airblade/paper_trail
+[state-aasm]: https://github.com/aasm/aasm
+[state-fmsc]: http://weblog.jamisbuck.org/2006/10/18/skinny-controller-fat-model
+[state-paper_trail]: https://github.com/airblade/paper_trail
 
 # State and History
 
@@ -8,7 +8,7 @@ So far in our little example app we can buy and sell downloadable products using
 
 ## State Machines
 
-The first step of tracking is to turn each transaction into a *state machine*. A state machine is simply a formal definition of what states an object can be in and the transitions that can happen to get it between states. At any given moment an object can only be in a single state. For example, consider a subway turnstile. Normally it's locked. When you put a coin in or swipe your card, it unlocks. Then when you pass through it locks itself again. We could model that like this using a gem called [AASM][aasm]:
+ The first step of tracking is to turn each transaction into a *state machine*. A state machine is simply a formal definition of what states an object can be in and the transitions that can happen to get it between states. At any given moment an object can only be in a single state. For example, consider a subway turnstile. Normally it's locked. When you put a coin in or swipe your card, it unlocks. Then when you pass through it locks itself again. We could model that like this using a gem called [AASM][state-aasm]:
 
 ```ruby
 class Turnstile
@@ -127,7 +127,7 @@ end
 
 Inside the `aasm` block, every state we described earlier gets a `state` declaration, and every event gets an `event` declaration. Notice that the `:pending` state is what the record will be created with. Also, notice that the transition from `:pending` to `:processing` has an `:after` callback declared. After AASM updates the `state` property and saves the record it will call the `charge_card` method. AASM will automatically create scopes, so for example you can find how many finished records there are with `Sale.finished.count`.
 
-Notice that the stuff about charging the card moved into the model. This adheres to the [Fat Model Skinny Controller][fmsc] principle, where all of the logic lives in the model and the controller just drives it. Here's how `TransactionsController#create` method looks now:
+Notice that the stuff about charging the card moved into the model. This adheres to the [Fat Model Skinny Controller][state-fmsc] principle, where all of the logic lives in the model and the controller just drives it. Here's how `TransactionsController#create` method looks now:
 
 ```ruby
 def create
@@ -180,7 +180,7 @@ Notice that we're deep-linking directly into Stripe's management interface. That
 
 Another thing that will be very useful is an audit trail that tells us every change to a record. Every time AASM updates the `state` field, every change that happens during the charging process, every change to the object at all. Why would you even want this? It could potentially be quite a bit of work for not much payoff. Let me tell you a story. The company I work for deals with payments from about eight different payment providers. Each one of them is custom, one-off code that shares very little with the rest of the system. One day we started getting complaints about payments going missing, so started digging. However, not only were we *not* keeping history in the database, we weren't even comprehensively logging things. It took two software developers almost a week straight to finally figure out how payments were going missing on our end, by cross checking what little information we *did* have with what the payment providers had. We ended up giving away a bunch of gifts to keep everyone happy, not to mention the opportunity cost of having developers tracking things down. With a proper audit trail on our end we would have instantly been able to see when and where things were getting lost.
 
-There are a few different schools of thought on how to implement audit trails. The classical way would be to use database triggers to write copies of the database rows into an audit table. This has the advantage of working whether you use the ActiveRecord interface or straight SQL queries, but it's really hard to implement properly. The easiest way to implement audit trails that I've found is to use a gem named [Paper Trail][paper_trail]. Paper Trail monitors changes on a record using ActiveRecord's lifecycle events and will serialize the state of the object before the change and stuff it into a `versions` table. It has convenient methods for navigating versions, which we'll use to display the history of the record in an admin interface later.
+There are a few different schools of thought on how to implement audit trails. The classical way would be to use database triggers to write copies of the database rows into an audit table. This has the advantage of working whether you use the ActiveRecord interface or straight SQL queries, but it's really hard to implement properly. The easiest way to implement audit trails that I've found is to use a gem named [Paper Trail][state-paper_trail]. Paper Trail monitors changes on a record using ActiveRecord's lifecycle events and will serialize the state of the object before the change and stuff it into a `versions` table. It has convenient methods for navigating versions, which we'll use to display the history of the record in an admin interface later.
 
 First, add the gem to your Gemfile:
 
