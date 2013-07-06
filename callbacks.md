@@ -40,11 +40,9 @@ class Event < ActiveRecord::Base
 end
 ```
 
-The `stripe_event` method contacts Stripe and asks for event details.
-
 ## Controller
 
-We'll need a new controller to handle callbacks. In `app/controllers/events.rb`:
+We'll need a new controller to handle callbacks. In `app/controllers/events_controller.rb`:
 
 ```ruby
 
