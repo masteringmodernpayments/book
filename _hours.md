@@ -209,7 +209,7 @@
 
 ### 2013-07-05
 
-*4:00pm - 8:00pm (2)*
+*4:00pm - 8:00pm (4)*
 
 * worked on the build process some more
 * added a little bit to the intro about versions
