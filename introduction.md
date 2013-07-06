@@ -12,6 +12,10 @@ Stripe has excellent documentation. Why should you read this book? Because the d
 
 I'm Pete Keen. I've been working with the Stripe API for a little over two years now and have built six applications that run payments through it. In addition, I've worked with a wide variety of payment systems at my day job. I've seen learned quite a lot about how to handle payments in general and I've tried to condense it down into something manageable in this book.
 
+## Versions
+
+This book uses semantic versioning. The current version is **0.1.0**. 
+
 ## Conventions
 
 ```text
