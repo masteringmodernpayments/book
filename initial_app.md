@@ -1,7 +1,7 @@
-[devise]: https://github.com/plataformatec/devise
-[heroku]: https://www.heroku.com
-[postgresql]: http://www.postgresql.org
-[toolbelt]: https://toolbelt.heroku.com
+[initial-app-devise]: https://github.com/plataformatec/devise
+[initial-app-heroku]: https://www.heroku.com
+[initial-app-postgresql]: http://www.postgresql.org
+[initial-app-toolbelt]: https://toolbelt.heroku.com
 
 # Initial Application
 
@@ -28,11 +28,11 @@ $ rake db:migrate
 $ rake test
 ```
 
-I'm going to use [PostgreSQL][postgresql] for the example app because that's what I know best, it's what [Heroku][heroku] provides for free, and it's what I suggest to everyone who asks. If you want to use a different database, feel free to substitute. Any `ActiveRecord`-compatible database should be sufficient.
+I'm going to use [PostgreSQL][initial-app-postgresql] for the example app because that's what I know best, it's what [Heroku][initial-app-heroku] provides for free, and it's what I suggest to everyone who asks. If you want to use a different database, feel free to substitute. Any `ActiveRecord`-compatible database should be sufficient.
 
 ## Authentication
 
-Eventually we're going to want to be able to authenticate users and admins. The example is going to use a gem named [Devise][devise] which handles everything user-related out of the box. Add it to your `Gemfile`:
+Eventually we're going to want to be able to authenticate users and admins. The example is going to use a gem named [Devise][initial-app-devise] which handles everything user-related out of the box. Add it to your `Gemfile`:
 
 ```ruby
 gem 'devise', '~> 2.2.4'
@@ -133,7 +133,7 @@ We're using a GUID here so that when we eventually allow the user to look at the
 
 ## Deploying
 
-[Heroku][heroku] is bar-none the fastest way to get a Rails app deployed into a production environment, so that's what we're going to use throughout the guide. If you already have a deployment system for your application by all means use that. First, download and install the [Heroku Toolbelt][toolbelt] for your platform. Make sure you `heroku login` to set your credentials.
+[Heroku][initial-app-heroku] is bar-none the fastest way to get a Rails app deployed into a production environment, so that's what we're going to use throughout the guide. If you already have a deployment system for your application by all means use that. First, download and install the [Heroku Toolbelt][initial-app-toolbelt] for your platform. Make sure you `heroku login` to set your credentials.
 
 We have to add one more config option. Because of how Heroku handles databases, our app does not have access to the database while compiling assets. Conveniently Rails has an option to turn off connecting to the database at that time. Set it in `config/application.rb`:
 
