@@ -16,4 +16,4 @@
 
 * [Devise](https://github.com/plataformatec/devise), a Rails authentication library
 * [CanCan](https://github.com/ryanb/cancan), a Rails authorization library
-* [jQuery Payment](https://github.com/stripe/jquery.payment) is a useful set of jQuery functions for working with payment fields
+* [jQuery Payment](https://github.com/stripe/jquery.payment) is a veruy useful set of jQuery functions for working with payment fields
