@@ -9,9 +9,9 @@ In this chapter we're going to create a simple rails application so we have some
 
 Our app will sell downloadable products. Users will be able to create products and customers will be able to buy them, and we'll keep track of sales so we can do reporting later. Customers will be able to come back and download their purchases multiple times. We'll need three models:
 
-* **Product**, representing a product that we're going to be selling. 
-* **User**, for logging in and managing products
-* **Sale**, to represent each individual customer purchase
+* `Product`, representing a product that we're going to be selling. 
+* `User`, for logging in and managing products
+* `Sale`, to represent each individual customer purchase
 
 ## Boilerplate
 
