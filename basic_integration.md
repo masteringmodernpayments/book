@@ -2,7 +2,7 @@
 
 # The Simplest Stripe Integration
 
-This chapter is going to be a whirlwind integration with Stripe. It's going to be simple and nothing you haven't seen before, but it'll give us something to build on for the next few sections. This is loosely based on Stripe's own [Rails Checkout Guide][basic-integration-stripe_guide].
+This chapter is going to be a whirlwind integration with Stripe which will give us something to build on for the next few chapters. This is loosely based on Stripe's own [Rails Checkout Guide][basic-integration-stripe_guide].
 
 Remember that this application is going to be selling digital downloads, so we're going to have two actions:
 
