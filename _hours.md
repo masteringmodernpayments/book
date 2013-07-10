@@ -214,3 +214,15 @@
 * worked on the build process some more
 * added a little bit to the intro about versions
 * worked up a [sales page](http://www.petekeen.net/mmp-sales-beta)
+
+### 2013-07-09
+
+*8:00pm - 10:00pm (2)*
+
+* hand editing
+
+### 2013-07-10
+
+*9:00am - 11:00am (2)*
+
+* started implementing hand editing
