@@ -13,17 +13,17 @@
 
 In 2004 all of the various card processing companies including Mastercard, Visa, and Discover, started formulating security standards efforts with the aim of reducing the ongoing rash of credit card fraud. Visa dropped their own effort in 2005 and joined up with Mastercard, shortly followed by the rest of the industry. In 2006 version 1 of the [Payment Card Industry Data Security Standards][pci-pci] was officially published which formalized and codified a bunch of common-sense security requirements for processing credit cards. In their merchant agreements every processor specifies that you have to comply with PCI or your account will be dropped and you'll get audited, which is rather undesirable.
 
+## Developer's Guide
+
+One of the best resources that I've found that talks about all of these requirements is Ken Cochrane's [Developers Guide to PCI Compliant Web Applications][pci-cochrane]. He goes into quite a bit of depth on the various rules, regulations, and mitigation strategies that are out there. Most of the advice is platform-agnostic but some is Django-specific. All of it is great.
+
 ## Stripe and PCI
 
 The real revolutionary part of how Stripe works is in how they [reduce your compliance scope][pci-stripe_pci] as a merchant. Before Stripe, a typical online merchant would have a normal HTML form on their website where customers would put in their credit card information. This form would post to the merchant's server, where they would take the credit card info and pass it along to their *gateway service*, which would then talk to all of the various banks and things and then eventually deposit the money into their *merchant account*.  Theoretically an attacker could stick some code into a merchant's payment processing system and divert credit card numbers. Or, if the merchant's site wasn't using HTTPS they could perform a man-in-the-middle attack and capture credit card information as it travels over the wire. This means that each and every merchant would have to become PCI certified, even if they weren't storing the credit card info anywhere in their system.
 
 Stripe makes all of this irrelevant with their tokenization process. When you create a form using `stripe.js` or `checkout.js` loaded from Stripe's servers none of your customer's credit card info is sent through your servers. Instead, the javascript your form calls sends that info to Stripe's servers over HTTPS, where they turn it into a single-use *token* which you post to your app. Your server can then use that token to refer to a customer's credit card without ever having seen it.
 
-The only thing you as a merchant have to do to be PCI compliant according to Stripe is to make sure you're serving up your payment-related pages over HTTPS and ensure they use `stripe.js` or `checkout.js`. We've already talked about `checkout.js` and we'll cover `stripe.js` in the chapter on Custom Forms.
-
-## Developer's Guide
-
-One of the best resources that I've found that talks about all of these requirements is Ken Cochrane's [Developers Guide to PCI Compliant Web Applications][pci-cochrane]. He goes into quite a bit of depth on the various rules, regulations, and mitigation strategies that are out there. Most of the advice is platform-agnostic but some is Django-specific. All of it is great.
+The only thing you as a merchant have to do to be PCI compliant according to Stripe is to make sure you're serving up your payment-related pages over HTTPS and ensure they use `stripe.js` or `checkout.js`. We've already talked about `checkout.js` and we'll cover `stripe.js` in the chapter on Custom Forms. Let's talk about setting up HTTPS.
 
 ## Implementing HTTPS with Rails
 
