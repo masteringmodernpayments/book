@@ -130,25 +130,25 @@ end
  
 The Rails scaffolding tends to produce code that doesn't adhere to these practices. Most notably it uses instance variables inside partials and it generates verbose render statements inside forms. The fix is pretty easy. Change this:
 
-```erb
+```rhtml
 <%= form_for @object do |f| %>
   <%= f.text_input :attribute %>
 <% end %>
 ```
 
-```erb
+```rhtml
 <%= render partial: 'form' %>
 ```
 
 To this:
 
-```erb
+```rhtml
 <%= form_for object do |f| %>
   <%= f.text_input :attribute %>
 <% end %>
 ```
 
-```erb
+```rhtml
 <%= render 'form', object: @object %>
 ```
 
