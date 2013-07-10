@@ -105,7 +105,7 @@ Now just configure `www.example.com` as a CNAME pointing at the `herokussl.com` 
 $ curl -kvI https://www.example.com
 ```
 
-This should print out a bunch of stuff about SSL and the headers from your application.
+This should print out a bunch of stuff about SSL and the headers from your application. If things didn't work properly it'll give you errors and hints on how to fix them.
 
 ## Additional Security Best Practices
 
