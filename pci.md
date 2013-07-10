@@ -156,10 +156,10 @@ In more recent versions of Rails `render` is a lot smarter than it used to be. I
 
 ### Brakeman
 
-[Brakeman][pci-brakeman] is a security static analysis scanner for Rails applications. It goes through your code looking for known security vulnerabilities and suggests fixes. The default Rails application, in fact, ships with one of these vulnerabilities. Rails generates a "secret token" that it uses to encrypt session information and sign cookies so users can't modify it. By default, it sticks this token into `config/initializers/secret_token.rb` as plain text. This is a vulnerability because if, for example, you release your application as open source anyone can find the token and decrypt your sessions and sign their own cookies and generally cause havok. There are various schools of thought on how to fix this. For the example application I've put the token into an environment variable. In `config/initializers/secret_token.rb`:
+[Brakeman][pci-brakeman] is a security static analysis scanner for Rails applications. It goes through your code looking for known security vulnerabilities and suggests fixes. The default Rails application, in fact, ships with one of these vulnerabilities: Rails generates a "secret key base" that it uses to encrypt session information and sign cookies so users can't modify it. By default, it sticks this token into `config/initializers/secret_token.rb` as plain text. This is a vulnerability because if, for example, you release your application as open source anyone can find the token and decrypt your sessions and sign their own cookies and generally cause havok. There are various schools of thought on how to fix this. For the example application I've put the token into an environment variable. In `config/initializers/secret_token.rb`:
 
 ```ruby
-Sales::Application.config.secret_token = ENV['SECRET_TOKEN']
+Sales::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']
 ```
 
 ```bash
