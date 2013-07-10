@@ -92,7 +92,7 @@ $ rails g scaffold Product name:string permalink:string description:text price:i
 $ rake db:migrate
 ```
 
-`name` and `description` will actually get displayed to the customer, `permalink` and `download_url` will be used later. Open up `app/models/product.rb` and change it too look like this:
+`name` and `description` will be displayed to the customer, `permalink` and `file` will be used later. Open up `app/models/product.rb` and change it too look like this:
 
 ```ruby
 class Product < ActiveRecord::Base
