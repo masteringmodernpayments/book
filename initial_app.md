@@ -103,7 +103,11 @@ class Product < ActiveRecord::Base
 end
 ```
 
-We're using [Paperclip][initial-app-paperclip] to 
+We're using [Paperclip][initial-app-paperclip] to attach the downloadable files to the product record. Let's add it to `Gemfile`:
+
+```ruby
+gem 'paperclip', '~> 3.0'
+```
 
 Our app needs a way to track product sales. Let's make a Sale model too.
 
