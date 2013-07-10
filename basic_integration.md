@@ -163,3 +163,6 @@ $ git push heroku master
 
 You should be able to navigate to `https://your-app.herokuapp.com/buy/some_permalink` and click the buy button to buy and download a product.
 
+## Next
+
+In this chapter we built (almost) the simplest Stripe integration possible. In the next chapter we're going to take a detour and talk about PCI and what you have to do to be compliant and secure while using Stripe and Rails.
