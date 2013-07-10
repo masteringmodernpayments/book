@@ -144,7 +144,7 @@ We create the Sale object, and then instead of doing the Stripe processing in th
 
 It would be nice to see all of this information we're saving now. Let's change the `Sales#show` template to dump out all of the fields:
 
-```erb
+```rhtml
 <p id="notice"><%= notice %></p>
 <table>
   <tr>
@@ -198,7 +198,7 @@ end
 
 Here's some simple code for the `SalesController#show` action to display the history of the sale. In `app/views/sales/show.html.erb`:
 
-```erb
+```rhtml
 <table>
   <thead>
     <tr>
