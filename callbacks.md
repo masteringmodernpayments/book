@@ -187,7 +187,7 @@ end
 
 In `app/views/receipt_mailer/receipt.html.erb`:
 
-```erb
+```rhtml
 <html>
   <body>
     <h1>Receipt</h1>
