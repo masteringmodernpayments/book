@@ -82,7 +82,7 @@ class TransactionsController < ApplicationController
     @sale = Sale.where(guid: params[:guid]).first
     raise ActionController::RoutingError.new("Not found") unless @sale
 
-    resp = HTTParty.get(@sale.product.download_url)
+    resp = HTTParty.get(@sale.product.file.url)
 
     send_data resp.body,
       :filename => File.basename(@sale.product.download_url),
@@ -92,7 +92,7 @@ class TransactionsController < ApplicationController
 end
 ```
 
-`#new` is just a placeholder for rendering the corresponding view. The real action happens in `#create` where we look up the product and actually charge the customer. In the last chapter we included a `permalink` attribute in `Product` and we use that here to look up the product, mainly because it'll let us generate nicer-looking URLs. If there's an error we display the `#new` action again. If there's not we redirect to a route named `pickup`. Inside the view for `#show` we include link to `/download`, which actually proxies the Product's `download_url`. This is to prevent people from sharing the download url indiscriminately.
+`#new` is just a placeholder for rendering the corresponding view. The real action happens in `#create` where we look up the product and actually charge the customer. In the last chapter we included a `permalink` attribute in `Product` and we use that here to look up the product, mainly because it'll let us generate nicer-looking URLs. If there's an error we display the `#new` action again. If there's not we redirect to a route named `pickup`. Inside the view for `#show` we include link to `/download` which sends the data to the user from Paperclip.
 
 ## Routes
 
