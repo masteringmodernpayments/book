@@ -16,7 +16,7 @@ In addition, we're going to leverage Stripe's excellent admininstration interfac
 First, add the Stripe gem to your Gemfile:
 
 ```ruby
-gem 'stripe', git: 'https://github.com/stripe/stripe-ruby'
+gem 'stripe', '~> 1.8.3'
 ```
 
 And then run `bundle install`.
