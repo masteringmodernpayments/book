@@ -64,7 +64,7 @@ and this in `app/views/layouts/application.html.erb` right after the `body` tag:
 
 Also, you'll want to delete `public/index.html` because it interferes with `root :to =>...`. 
 
-Now, let's create a User model for devise to work with:
+Now, let's create a User model for Devise to work with:
 
 ```bash
 $ rails generate devise User
