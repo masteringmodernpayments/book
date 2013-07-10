@@ -30,7 +30,7 @@ Here's the form we'll be using:
     </label>
   </div>
 
-  <div class="form-row">
+  <div class="control-group">
     <label class="control-label">Expiration (MM/YYYY)</label>
     <div class="controls">
       <input type="text" size="2" data-stripe="exp-month" placeholder="MM"/>
@@ -39,7 +39,7 @@ Here's the form we'll be using:
     </div>
   </div>
 
-  <div class="form-row">
+  <div class="control-group">
     <div class="controls">
       <button type="submit" class="btn btn-primary">Pay</button>
     </div>
