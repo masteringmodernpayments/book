@@ -123,7 +123,7 @@ class Sale < ActiveRecord::Base
   belongs_to :product
 
   before_save :populate_guid
-
+  
   def populate_guid
     if new_record?
       self.guid = SecureRandom.uuid()
@@ -136,7 +136,7 @@ We're using a GUID here so that when we eventually allow the user to look at the
 
 ## Deploying
 
-[Heroku][initial-app-heroku] is bar-none the fastest way to get a Rails app deployed into a production environment, so that's what we're going to use throughout the guide. If you already have a deployment system for your application by all means use that. First, download and install the [Heroku Toolbelt][initial-app-toolbelt] for your platform. Make sure you `heroku login` to set your credentials.
+[Heroku][initial-app-heroku] is the fastest way to get a Rails app deployed into a production environment so that's what we're going to use throughout the guide. If you already have a deployment system for your application by all means use that. First, download and install the [Heroku Toolbelt][initial-app-toolbelt] for your platform. Make sure you `heroku login` to set your credentials.
 
 We have to add one more config option. Because of how Heroku handles databases, our app does not have access to the database while compiling assets. Conveniently Rails has an option to turn off connecting to the database at that time. Set it in `config/application.rb`:
 
