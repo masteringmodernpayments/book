@@ -71,13 +71,13 @@ $ rails generate devise User
 $ rake db:migrate
 ```
 
-Open up `app/controllers/application_controller.rb` and add this line, which will secure everything by default:
+Open up `app/controllers/application_controller.rb` and add this line which will secure everything by default:
 
 ```ruby
 before_filter :authenticate_user!
 ```
 
-You'll need to a user so you can actually log in to the site. Fire up `rails console` and type:
+You'll need to create a user so you can actually log in to the site. Fire up `rails console` and type:
 
 ```ruby
 User.create!(email: 'you@example.com', password: 'password', password_confirmation: 'password')
