@@ -98,7 +98,7 @@ One thing to keep in mind is that once you create any `Stripe::Recipient`s *your
 
 Theoretically you could collect marketplace participants' checking account information via a normal Rails action because PCI-DSS does not consider them sensitive information. However, `stripe.js` provides the capability to tokenize the numbers the same way it tokenizes credit card numbers and you really should take advantage of it. That way sensitive information never touches your server:
 
-```erb
+```rhtml
 <%= form_tag update_checking_account_path(id: @user.id), :class => 'form-horizontal', :id => 'account-form' do %>
   <div class="control-group">
     <label class="control-label" for="fullName">Full Name</label>
