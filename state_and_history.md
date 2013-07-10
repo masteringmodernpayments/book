@@ -140,7 +140,7 @@ def create
 end
 ```
 
-We create the Sale object, and then instead of doing the Stripe processing in the controller we call the `process!` method that `aasm` creates. If the sale is finished we'll redirect to the pickup url. If isn't finished we assume it's errored, so we render out the `new` view with the error.
+We create the Sale object, and then instead of doing the Stripe processing in the controller we call the `process!` method that `aasm` creates. If the sale is finished we'll redirect to the pickup url. If isn't finished we assume it's errored so we render out the `new` view with the error.
 
 It would be nice to see all of this information we're saving now. Let's change the `Sales#show` template to dump out all of the fields:
 
