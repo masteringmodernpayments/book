@@ -102,7 +102,7 @@ class Product < ActiveRecord::Base
 end
 ```
 
-The sales site needs a way to track product sales. Let's make a Sale model too.
+Our app needs a way to track product sales. Let's make a Sale model too.
 
 ```bash
 $ rails g scaffold Sale email:string guid:string product_id:integer
@@ -113,8 +113,6 @@ Open up `app/models/sale.rb` and make it look like this:
 
 ```ruby
 class Sale < ActiveRecord::Base
-  attr_accessible :email, :product_id
-
   belongs_to :product
 
   before_save :populate_guid
