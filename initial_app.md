@@ -2,6 +2,7 @@
 [initial-app-heroku]: https://www.heroku.com
 [initial-app-postgresql]: http://www.postgresql.org
 [initial-app-toolbelt]: https://toolbelt.heroku.com
+[initial-app-paperclip]: https://github.com/thoughtbot/paperclip
 
 # Initial Application
 
@@ -101,6 +102,8 @@ class Product < ActiveRecord::Base
   belongs_to :user
 end
 ```
+
+We're using [Paperclip][initial-app-paperclip] to 
 
 Our app needs a way to track product sales. Let's make a Sale model too.
 
