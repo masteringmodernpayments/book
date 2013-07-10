@@ -4,7 +4,7 @@ Thanks for purchasing *Mastering Modern Payments*. In this book we're going to t
 
 Stripe has revolutionized the payment landscape for Software as a Service applications. Before Stripe you had to deal with multiple parties, multiple moving pieces, and integrate everything yourself. Now, all you have to do is make some very simple API calls. You don't even have to create an account, since the documentation site creates one for you on the fly. Every example is directly usable.
 
-In this book we're going to cover a basic Stripe integrat
+In this guide we're going to cover a basic Stripe integration and then expand upon it to cover things like background workers, subscriptions, audit trails, and more. When you're done with the guide you should have a good grasp on how 
 
 ## Why this book?
 
