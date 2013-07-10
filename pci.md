@@ -60,7 +60,7 @@ This generates a 2048 bit [RSA key][pci-rsa] and stores it in `example.com.key`.
 $ openssl req -new -key example.com.key -out example.com.csr
 ```
 
-OpenSSL will ask you a bunch of questions now. Fill them in like the prompts, but when you get to the `Common Name` question, use the exact name of web server. Note that this really does have to be an exact match, so if you want to secure, say, `www.example.com`. that's what you should use. Putting just `example.com` won't work. For a wildcard certificate you'd put `*.example.com`, which would let you secure `foo.example.com` and `bar.example.com`, but those cost quite a bit more than individual certificates.
+OpenSSL will ask you a bunch of questions now. Fill them in like the prompts, but when you get to the `Common Name` question, use the exact name of web server. Note that this really does have to be an exact match, so if you want to secure, say, `www.example.com`. that's what you should use. Putting just `example.com` won't work. You can also create what's called a *wildcard certificate* which will secure all of the subdomains for a given parent domain by setting `*.example.com` for the `Common Name`. This is much more expensive than single certificates, of course.
 
 Also, make sure to leave extra attributes including the challenge password blank.
 
