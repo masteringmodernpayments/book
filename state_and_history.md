@@ -224,3 +224,7 @@ Here's some simple code for the `SalesController#show` action to display the his
 ```
 
 Each change will have a timestamp, the event, and a block of changes, one row for each column that changed in that update. For a typical completed sale there will be three rows, "pending", and "processing" rows in the history table and the current attributes will show all of the information from Stripe. By examining the audit trail for a clean transaction you can do things like get rough performance numbers for your interactions with Stripe, and if you ever have broken transactions you can see when things went wrong and more importantly how things went wrong which will better help you fix them.
+
+## Next
+
+In the next chapter we're going to talk about how to handle Stripe's events system, which will call a webhook in your app whenever interesting things happen with your charges, customers, or subscriptions.
