@@ -3,6 +3,7 @@
 [initial-app-postgresql]: http://www.postgresql.org
 [initial-app-toolbelt]: https://toolbelt.heroku.com
 [initial-app-paperclip]: https://github.com/thoughtbot/paperclip
+[initial-app-mandrill]: http://mandrill.com
 
 # Initial Application
 
@@ -172,6 +173,28 @@ config.action_mailer.smtp_settings = {
 }
 ```
 
+Mandrill is made by the same folks that make MailChimp. It's relable, powerful, and cost effective. They give you 12,000 emails per month for free to get started. I use it for all of my applications.
+
+We also need to set up Paperclip to save uploaded files to S3 instead of the local file system. On Heroku your processes live inside what they call a *dyno* which is just a lightweight Linux virtual machine with your application code inside. Each dyno has an *ephemeral filesystem* which gets erased at least once every 24 hours, thus the need to push uploads somewhere else. Paperclip makes this pretty painless. You'll need to add another gem to your Gemfile:
+
+```ruby
+gem 'aws-sdk'
+```
+
+and then configure Paperclip to use it in `config/environments/production.rb`:
+
+```ruby
+config.paperclip_defaults = {
+  storage: :s3,
+  s3_credentials: {
+    bucket: ENV['AWS_BUCKET'],
+    access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+  }
+}
+```
+
+Just set those config variables with Heroku, `bundle install`, and then commit and push up to Heroku.
 
 You should see a login prompt from Devise. Go ahead and login and create a few products. We'll get to buying and downloading in the next chapter.
 
