@@ -163,7 +163,7 @@ Sales::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']
 ```
 
 ```bash
-$ heroku config:add SECRET_TOKEN=some-secret-token
+$ heroku config:add SECRET_KEY_BASE=some-long-random-string
 ```
 
 Running `brakeman` is similar to running `rails_best_practices`. Just invoke it from the root of your project to start a scan. I would again suggest creating a rake task to run `brakeman`. In `lib/tasks/security.rake`:
