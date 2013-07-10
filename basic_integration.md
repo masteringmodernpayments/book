@@ -144,7 +144,7 @@ This is a very simple example of a product purchase page with the product's name
 
 The view for `#pickup` is even simpler, since it basically just has to display the product's download link. In `app/views/transactions/pickup.html.erb`:
 
-```erb
+```rhtml
 <h1>Download <%= @product.name %></h1>
 
 <p>Thanks for buying "<%= @product.name %>". You can download your purchase by clicking the link below.</p>
