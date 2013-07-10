@@ -86,7 +86,7 @@ You'll get taken to a web page with a handy dandy flow chart, and within a few m
 
 ### Installing the certificate at Heroku
 
-At this point, you'll need to attach the SSL certificate to your application. With Heroku, [this is easy][pci-heroku_ssl].
+Now that you have your bright shiny new certificate you'll need to attach it to your application. With Heroku, [this is easy][pci-heroku_ssl].
 
 ```bash
 $ heroku addons:add ssl:endpoint
@@ -99,7 +99,7 @@ To see if the certificate installed properly:
 $ heroku certs
 ```
 
-Now just configure `www.example.com` as a CNAME pointing at the `herokussl.com` endpoint printed from `heroku certs` and test it out:
+Now just configure `www.example.com` as a CNAME pointing at the `herokussl.com` endpoint printed by `heroku certs` and test it out:
 
 ```bash
 $ curl -kvI https://www.example.com
