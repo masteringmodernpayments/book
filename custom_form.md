@@ -7,7 +7,7 @@ Until now we've been using Stripe's excellent `checkout.js` that provides a popu
 
 Here's the form we'll be using:
 
-```erb
+```rhtml
 <%= form_tag buy_path(permalink: @product.permalink), :class => 'form-horizontal', :id => 'payment-form' do %>
   <span class="payment-errors"></span>
   <div class="control-group">
@@ -59,7 +59,7 @@ To do that we need to actually send the form to Stripe. First include `stripe.js
 
 Next, Stripe needs our publishable key. Remember that we have that in the Rails config due to the initializer we set up in the initial application. To set it call `Stripe.setPublishableKey()` like this:
 
-```erb
+```rhtml
 <script type="text/javascript">
 $(function({
   Stripe.setPublishableKey('<%= Rails.configuration.stripe[:publishable_key] %>');
@@ -132,7 +132,7 @@ This page loads jQuery and Twitter Bootstrap from public CDNs and then uses them
 
 The iframe just loads the normal `/buy` action which contains the whole product description. More importantly, after the customer buys the thing they expect to be able to click on the download link and save the product, but that won't happen because we haven't set the `X-Frame-Options` header to allow the iframe to do anything. Let's fix the first problem. Move the form into a new partial named `_form.html.erb` and then call it like this in `transactions/new.html.erb`:
 
-```erb
+```rhtml
 <%= render :partial => 'form' %>
 ```
 
@@ -153,7 +153,7 @@ end
 
 In `app/views/transactions/iframe.html.rb`:
 
-```erb
+```rhtml
 <h1><%= @product.name %></h1>
 
 <p>Price: <%= formatted_price(@product.price) %></p>
