@@ -223,6 +223,8 @@
 
 ### 2013-07-10
 
+* overall: 10276 831 107 (34%)
+
 *9:00am - 11:00am (2)*
 
 * started implementing hand editing
