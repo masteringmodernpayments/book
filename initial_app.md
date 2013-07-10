@@ -30,7 +30,7 @@ I'm going to use [PostgreSQL][initial-app-postgresql] for the example app becaus
 
 ## Authentication
 
-Eventually we're going to want to be able to authenticate users and admins. The example is going to use a gem named [Devise][initial-app-devise] which handles everything user-related out of the box. Add it to your `Gemfile`:
+We're going to want to be able to authenticate users and admins. The example is going to use a gem named [Devise][initial-app-devise] which handles everything user-related out of the box. Add it to your `Gemfile`:
 
 ```ruby
 gem 'devise', '~> 2.2.4'
