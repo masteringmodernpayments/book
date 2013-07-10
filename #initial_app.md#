@@ -178,11 +178,20 @@ Mandrill is made by the same folks that make MailChimp. It's relable, powerful, 
 We also need to set up Paperclip to save uploaded files to S3 instead of the local file system. On Heroku your processes live inside what they call a *dyno* which is just a lightweight Linux virtual machine with your application code inside. Each dyno has an *ephemeral filesystem* which gets erased at least once every 24 hours, thus the need to push uploads somewhere else. Paperclip makes this pretty painless. You'll need to add another gem to your Gemfile:
 
 ```ruby
-gem 'aws-sdk', '~> 1.5.7'
+gem 'aws-sdk'
 ```
 
-and then configure Paperclip to use it in `config:
+and then configure Paperclip to use it in `config/environments/production.rb`:
 
+```ruby
+config.paperclip_defaults = {
+  storage: :s3,
+  s3_credentials: {
+    bucket: ENV['AWS_BUCKET'],
+    access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+    secret_addess_key: ENV['AWS_SECRET
+  }
+}
 ```
 
 You should see a login prompt from Devise. Go ahead and login and create a few products. We'll get to buying and downloading in the next chapter.
