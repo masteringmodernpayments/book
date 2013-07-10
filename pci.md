@@ -176,7 +176,7 @@ end
 
 ### Running Security Scanners on Deploy
 
-I usually create a task named `check` which runs tests, Brakeman, and Rails Best Practices all at the same time:
+I have found it helpful to create task named `check` which runs tests, Brakeman, and Rails Best Practices all at the same time:
 
 ```ruby
 task :check do
@@ -191,9 +191,8 @@ In my projects I usually take this one step even farther and create a task named
 ```ruby
 task :deploy do
   Rake::Task['check'].invoke
-  sh "git push origin master"
-  sh "cap deploy"
+  sh "git push origin heroku"
 end
 ```
 
-This checks the code using the test suite and the two scanners, pushes it to my git server, and then deploys using Capistrano. I would advise having a task like this and always using it to deploy. That way you know you always have correct code running on the server.
+This checks the code using the test suite and the two scanners and then pushes it to heroku. You should have like this and always use it to deploy. That way you know you always have correct code running on the server.
