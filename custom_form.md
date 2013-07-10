@@ -3,7 +3,7 @@
 
 # Custom Payment Forms
 
-Until now we've been using Stripe's excellent `checkout.js` that provides a popup iframe to collect credit card information, post it to Stripe and turn it into a `stripeToken` and then finally post our form. There's something conspicuously absent from all of this, however. Remember how Sale has an email attribute? We're not populating that right now because `checkout.js` doesn't let us add our own fields. For that we'll need to create our own form. Stripe still makes this easy, though, with `stripe.js`. The first half of this chapter is adapted from Stripe's [custom form tutorial][custom-form-tutorial].
+Until now we've been using Stripe's excellent `checkout.js` that provides a popup iframe to collect credit card information, post it to Stripe and turn it into a `stripeToken` and then finally post our form. There's something conspicuously absent from all of this, however. Remember how Sale has an email attribute? We're not populating that right now because `checkout.js` doesn't let us add our own fields. For that we'll need to create our own form. Stripe makes this easy, though, with `stripe.js`. The first half of this chapter is adapted from Stripe's [custom form tutorial][custom-form-tutorial].
 
 Here's the form we'll be using:
 
