@@ -138,12 +138,6 @@ We're using a GUID here so that when we eventually allow the user to look at the
 
 [Heroku][initial-app-heroku] is the fastest way to get a Rails app deployed into a production environment so that's what we're going to use throughout the guide. If you already have a deployment system for your application by all means use that. First, download and install the [Heroku Toolbelt][initial-app-toolbelt] for your platform. Make sure you `heroku login` to set your credentials.
 
-We have to add one more config option. Because of how Heroku handles databases, our app does not have access to the database while compiling assets. Conveniently Rails has an option to turn off connecting to the database at that time. Set it in `config/application.rb`:
-
-```
-config.assets.initialize_on_precompile = false
-```
-
 Next, create an appliation and deploy the example code to it:
 
 ```bash
@@ -157,6 +151,13 @@ $ heroku run console # create a new user like we did before in the local console
 $ heroku restart web # restart the web dyno to pick up the database changes
 $ heroku open
 ```
+
+We'll need to set a few more config options to make our site usable on Heroku. First, we need to set up an outgoing email server and configure `ActionMailer` to use it. Let's add the [Mandrill][initial-app-mandrill] addon:
+
+```bash
+$ heroku addons:add mandrill:starter
+```
+
 
 You should see a login prompt from Devise. Go ahead and login and create a few products. We'll get to buying and downloading in the next chapter.
 
