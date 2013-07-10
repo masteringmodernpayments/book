@@ -113,7 +113,7 @@ RESTful URLs are great if you're building a reusable API, but for this example w
 
 Time to set up the views. Put this in `app/views/transactions/new.html.erb`:
 
-```html
+```rhtml
 <h1><%= @product.name %></h1>
 
 <%= @product.description.html_safe %>
