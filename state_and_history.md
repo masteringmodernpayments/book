@@ -32,7 +32,7 @@ end
 
 As you can see AASM implements a simple DSL for states and events. It will create a few methods on instances of Turnstile, things like `pay!` and `use!` to trigger the corresponding events and `locked?` and `unlocked?` to ask about the state.
 
-AASM can also be used with ActiveRecord, just like it's predecessor. Let's begin by adding some more fields to `Sale`:
+AASM can also be used with ActiveRecord by adding a column to hold the current state. Let's begin by adding some more fields to `Sale`:
 
 ```bash
 $ rails g migration AddFieldsToSale \
@@ -62,22 +62,11 @@ It'll also have a few different events for the transaction: `process`, `finish`,
 
 ```ruby
 class Sale < ActiveRecord::Base
-  attr_accessible \
-    :email,
-    :guid,
-    :product_id,
-    :state,
-    :stripe_id,
-    :stripe_token,
-    :card_expiration,
-    :error,
-    :fee_amount
-
   before_save :populate_guid
 
   include AASM
 
-  aasm column: 'state', skip_validation_on_save: true do
+  aasm column: 'state' do
     state :pending, initial: true
     state :processing
     state :finished
