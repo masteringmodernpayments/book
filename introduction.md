@@ -25,6 +25,7 @@ Versions of software used in examples:
 * Stripe Ruby API 1.8.3
 * Devise 3.0.0.rc
 * Paper Trail rails4 branch
+* PostgreSQL 9.2
 
 ## Conventions
 
