@@ -161,7 +161,7 @@ $ heroku addons:add mandrill:starter
 
 Now configure it in `config/environments/production.rb`:
 
-```
+```ruby
 config.action_mailer.delivery_method = :smtp
 config.action_mailer.smtp_settings = {
   address:        'smtp.mandrillapp.com',
