@@ -116,7 +116,7 @@ end
 
 Inside the `aasm` block, every state we described earlier gets a `state` declaration and every event gets an `event` declaration. Notice that the `:pending` state is what the record will be created with initially. Also notice that the transition from `:pending` to `:processing` has an `:after` callback declared. After AASM updates the `state` property and saves the record it will call the `charge_card` method. AASM will automatically create scopes, so for example you can find how many finished records there are with `Sale.finished.count`.
 
-We moved the stuff about charging the card moved into the model which adheres to the [Fat Model Skinny Controller][state-fmsc] principle, where all of the logic lives in the model and the controller just drives it. Here's how `TransactionsController#create` method looks now:
+We moved the stuff about charging the card moved into the model which adheres to the [Fat Model Skinny Controller][state-fmsc] principle, where all of the logic lives in the model and the controller just drives it. `TransactionsController#create` is quite a bit simpler now:
 
 ```ruby
 def create
@@ -140,7 +140,7 @@ def create
 end
 ```
 
-Not that much different, really. We create the Sale object, and then instead of doing the Stripe processing in the controller we call the `process!` method that `aasm` creates. If the sale is finished we'll redirect to the pickup url. If isn't finished we assume it's errored, so we render out the `new` view with the error.
+We create the Sale object, and then instead of doing the Stripe processing in the controller we call the `process!` method that `aasm` creates. If the sale is finished we'll redirect to the pickup url. If isn't finished we assume it's errored, so we render out the `new` view with the error.
 
 It would be nice to see all of this information we're saving now. Let's change the `Sales#show` template to dump out all of the fields:
 
