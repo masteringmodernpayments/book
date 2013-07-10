@@ -43,7 +43,6 @@ There are many different places where you can buy a certificate. I've had good l
 * Using your private key, generate a Certificate Signing Request
 * Send the CSR to Namecheap
 * Receive your shiny new certificate
-* Remove the passphrase from your certificate so that the webserver can use it.
 
 First make sure you have `openssl` installed on your machine. It comes installed by default on Mac OS X but on Linux you may have to install it from your package manager.
 
