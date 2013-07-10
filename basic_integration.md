@@ -4,10 +4,11 @@
 
 This chapter is going to be a whirlwind integration with Stripe which will give us something to build on for the next few chapters. This is loosely based on Stripe's own [Rails Checkout Guide][basic-integration-stripe_guide].
 
-Remember that this application is going to be selling digital downloads, so we're going to have two actions:
+Remember that this application is going to be selling digital downloads, so we're going to have three actions:
 
-* **buy** where we create a Sale record and actually charge the customer,
-* **pickup** where the customer can download their product.
+* **buy** where we create a Sale record and actually charge the customer
+* **pickup** where the customer can download their product
+* **download** which will actually send the file to the customer
 
 In addition, we're going to leverage Stripe's excellent admininstration interface, which will show us all of our sales as they come in.
 
