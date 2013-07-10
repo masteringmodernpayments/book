@@ -140,7 +140,7 @@ def formatted_price(amount)
 end
 ```
 
-This is a very simple example of a product purchase page with the product's name, description, and a Stripe button using `checkout.js`. Notice that we just drop the description in as html, so make sure that's locked down. We're rendering this for the `#create` action, too, so if there's an error we'll display it above the checkout button.
+This is a very simple example of a product purchase page with the product's name, description, and a Stripe button using `checkout.js`. Notice that we just drop the description in as html which makes it a risk for cross-site-scripting attacks. Make sure you trust the users you allow to create products. We're rendering this for the `#create` action, too, so if there's an error we'll display it above the checkout button.
 
 The view for `#pickup` is even simpler, since it basically just has to display the product's download link. In `app/views/transactions/pickup.html.erb`:
 
