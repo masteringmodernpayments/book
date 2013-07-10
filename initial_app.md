@@ -26,7 +26,7 @@ $ rake db:migrate
 $ rake test
 ```
 
-I'm going to use [PostgreSQL][initial-app-postgresql] for the example app because that's what I know best, it's what [Heroku][initial-app-heroku] provides for free, and it's what I suggest to everyone who asks. If you want to use a different database, feel free to substitute. Any `ActiveRecord`-compatible database should be sufficient.
+I'm going to use [PostgreSQL][initial-app-postgresql] for the example app because that's what I know best, it's what [Heroku][initial-app-heroku] provides for free, and it's what I suggest to everyone who asks. If you want to use a different database, feel free to substitute. Any `ActiveRecord`-compatible database will do fine.
 
 ## Authentication
 
