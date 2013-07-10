@@ -158,6 +158,20 @@ We'll need to set a few more config options to make our site usable on Heroku. F
 $ heroku addons:add mandrill:starter
 ```
 
+Now configure it in `config/environments/production.rb`:
+
+```
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+  address:        'smtp.mandrillapp.com',
+  port:           587,
+  username:       ENV['MANDRILL_USERNAME'],
+  password:       ENV['MANDRILL_APIKEY'],
+  domain:         'heroku.com',
+  authentication: :plain
+}
+```
+
 
 You should see a login prompt from Devise. Go ahead and login and create a few products. We'll get to buying and downloading in the next chapter.
 
