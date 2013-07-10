@@ -167,4 +167,4 @@ We can fix the other problem, with the `X-Frame-Options` header, simply by chang
 
 ## Next
 
-We have an application where y
+We have an application where you can upload products and sell them to customers who can then download them. In this chapter we created a custom payment form. In the next chapter we're going to talk about keeping an audit trail using state machines and a gem name
