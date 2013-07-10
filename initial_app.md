@@ -96,7 +96,7 @@ $ rake db:migrate
 
 ```ruby
 class Product < ActiveRecord::Base
-  attr_accessible :description, :name, :permalink, :price, :user_id, :download_url
+  has_attached_file :file
 
   belongs_to :user
 end
