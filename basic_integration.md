@@ -163,6 +163,3 @@ $ git push heroku master
 
 You should be able to navigate to `https://your-app.herokuapp.com/buy/some_permalink` and click the buy button to buy and download a product.
 
-## Next
-
-In this chapter we built (almost) the simplest Stripe integration possible. In the next chapter we're going to cover why and how to save more information about the transaction to our own database.
