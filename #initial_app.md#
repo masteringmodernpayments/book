@@ -173,7 +173,7 @@ config.action_mailer.smtp_settings = {
 }
 ```
 
-Mandrill is the transactional email system that powers MailChimp, a flexible news
+Mandrill is made by the same folks that make MailChimp. It's relable, powerful, and cost effective. They give you 12,000 emails per month for free to get started
 
 
 You should see a login prompt from Devise. Go ahead and login and create a few products. We'll get to buying and downloading in the next chapter.
