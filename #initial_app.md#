@@ -175,7 +175,7 @@ config.action_mailer.smtp_settings = {
 
 Mandrill is made by the same folks that make MailChimp. It's relable, powerful, and cost effective. They give you 12,000 emails per month for free to get started. I use it for all of my applications.
 
-We also need to set up Paperclip to save uploaded files to S3 instead of the local file system. On Heroku your processes live inside what t
+We also need to set up Paperclip to save uploaded files to S3 instead of the local file system. On Heroku your processes live inside what they call a *dyno* which is just a lightweight Linux virtual machine with your application code inside. Each dyno has an *ephemeral filesystem* which gets erased at least once every 24 hours. Thus the ne
 
 You should see a login prompt from Devise. Go ahead and login and create a few products. We'll get to buying and downloading in the next chapter.
 
