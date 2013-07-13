@@ -90,7 +90,7 @@ We skip Devise's `authenticate_user!` before filter because Stripe is obviously 
 
 ## Handling Events
 
-The first thing we should do is handle a dispute. Dispute events fire when a customer initiates a chargeback, which if we get enough of Stripe will think about dropping our account. In response to a dispute we send an email to ourselves with all of the details. Disputes should be rare enough that we can deal with them individually just with an email:
+The first thing we should do is handle a dispute which fire when a customer initiates a chargeback, which if we get enough of Stripe will think about dropping our account. In response to a dispute we send an email to ourselves with all of the details. Disputes should be rare enough that we can deal with them individually just with an email:
 
 
 ```ruby
