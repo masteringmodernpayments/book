@@ -150,7 +150,7 @@ Many of the events that Stripe sends are for dealing with subscriptions. For exa
 
 ## Effective Emailing
 
-Customers expect to be emailed when things happen with their account, and especially when you're charging them money. It's critical that you send them a few basic emails, and Stripe's events make it really easy.
+Customers expect to be emailed when things happen with their account, and especially when you're charging them money. It's critical that you send them a few basic transactional emails, and Stripe's events make it really easy.
 
 ### Events to care about
 
