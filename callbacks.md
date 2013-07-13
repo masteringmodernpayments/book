@@ -60,6 +60,7 @@ class EventsController < ApplicationController
         render nothing: true
       end
     end
+    render nothing: true
   end
 
   private
