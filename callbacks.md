@@ -53,12 +53,7 @@ class EventsController < ApplicationController
 
   def create
     if self.class.private_method_defined? event_method
-      response = self.send(event_method, @event)
-      if response
-        render json: response.to_json
-      else
-        render nothing: true
-      end
+      self.send(event_method, @event)
     end
     render nothing: true
   end
