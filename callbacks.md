@@ -64,6 +64,10 @@ class EventsController < ApplicationController
 
   private
 
+  def event_method
+    "stripe_#{@event.stripe_type.gsub('.', '_')}".to_sym
+  end
+
   def parse_and_validate_event
     event = JSON.parse(request.body.read)
 
