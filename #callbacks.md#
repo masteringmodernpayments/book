@@ -5,7 +5,7 @@
 
 # Handling Webhooks
 
-Stri
+Stripe tracks every event that happens to the payments, invoices, subscriptions, plans, and recipients that belong to your account. Every time something happens they create an Event object 
 
 Stripe will send your application events that they call webhooks as things happen to payments that you initiate and your users' subscriptions. The full list of event types can be found in Stripe's API documentation, but here's a brief list:
 
