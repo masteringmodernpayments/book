@@ -170,6 +170,8 @@ In `Gemfile`:
 gem 'docverter'
 ```
 
+In `app/mailers/receipt_mailer.rb`:
+
 ```ruby
 class ReceiptMailer < ActionMailer::Base
   def receipt(sale)
