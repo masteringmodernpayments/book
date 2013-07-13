@@ -72,15 +72,16 @@ class EventsController < ApplicationController
   def parse_and_validate_event
     event = JSON.parse(request.body.read)
 
-    if Rails.env.production? && event.livemode == false
-      render :nothing => true and return
-    end
-
     @event = Event.new(id: event['id'], type: event['type'])
 
-    unless event.save
-      render :nothing => true, :status => 400
-      return
+    unless @event.save
+      if @event.valid?
+        # valid event, can't be saved for some other reason
+        render :nothing => true, status: 400
+      else
+        # invalid event, move along
+        render :nothing => true
+      end
     end
     @stripe_event = @event.stripe_event
   end
