@@ -84,7 +84,7 @@ class EventsController < ApplicationController
 end
 ```
 
-We skip Devise's `authenticate_user!` before filter because Stripe is obviously not going to have a user for our application. Then, we make our own `before_filter` that actually parses out the event and does the work of preventing replay attacks. This involves just creating an `Event` record, which validates that the `stripe_id` is unique. If the event doesn't validate we return 400 and move on. If the event is a testing mode event and the app is running in production mode, it silently accepts the event and does nothing. Stripe will happily send both live and test application events to our live endpoint so we need to check. If everything goes smoothly we ask Stripe for a fresh copy of the event and then deal with it.
+We skip Devise's `authenticate_user!` before filter because Stripe is obviously not going to have a user for our application. Then, we make our own `before_filter` that actually parses out the event and does the work of preventing replay attacks. This involves just creating an `Event` record, which validates that the `stripe_id` is unique. If the event doesn't validate we return 400 and move on. If everything goes smoothly we ask Stripe for a fresh copy of the event and then deal with it.
 
 `create` is where all the action happens. `event_method` will generate a symbol. If we've defined a private method of that name, call it with the event as the argument. If the handler doesn't throw an exception let Stripe know that we handled it by returning a success code. This setup lets us easily handle the events we care about by defining the appropriate handler while ignoring the noise.
 
