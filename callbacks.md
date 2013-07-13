@@ -27,7 +27,7 @@ $ rails g model Event \
     stripe_type:string
 ```
 
-We only need to store the `stripe_id` because we'll be looking up the event using the API every time. Storing the type could be useful later on for reporting purposes.
+We need to store the `stripe_id` because we'll be looking up the event using the API every time. We'll use the type later for figuring out what handler method to call.
 
 The model should look like this:
 
