@@ -2,8 +2,11 @@
 [callbacks-PrinceXML]: http://www.princexml.com
 [callbacks-DocRaptor]: http://docraptor.com
 [callbacks-Docverter]: http://www.docverter.com
+[callbacks-stripe-event-docs]: https://stripe.com/docs/api/ruby#events
 
 # Handling Webhooks
+
+Stripe tracks every event that happens to the payments, invoices, subscriptions, plans, and recipients that belong to your account. Every time something happens they create an Event object and save it to their database. If you'd like you can iterate over all of these events using [the api][callbacks-stripe-event-docs]
 
 Stripe will send your application events that they call webhooks as things happen to payments that you initiate and your users' subscriptions. The full list of event types can be found in Stripe's API documentation, but here's a brief list:
 
