@@ -15,7 +15,7 @@ Stripe tracks every event that happens to the payments, invoices, subscriptions,
 
 Some of these are more important than others. For example, if you're selling one-off products you probably don't care about the events about charge successes and failures because you're initiating the charge and will know immediately how it went. Those events are more useful for subscription sites where Stripe is handling the periodic billing for you. On the other hand, you always want to know about charge disputes. Too many of those and Stripe may drop your account.
 
-Webhook handling is going to be unique to every application but we can sketch out a general framework that can be used for any application. This will be similar to the [stripe_event][callbacks-stripe_event] gem but with some added features. In particular, we'll be able to send responses back to Stripe for things like invoices.
+Webhook handling is going to be unique to every application but we can sketch out a general framework that can be used for any application. This will be similar to the [stripe_event][callbacks-stripe_event] gem, but instead of using notifications it uses a simple metaprogramming system.
 
 ## Validating Events
 
