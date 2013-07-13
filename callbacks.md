@@ -82,6 +82,7 @@ class EventsController < ApplicationController
         # invalid event, move along
         render :nothing => true
       end
+      return
     end
     @stripe_event = @event.stripe_event
   end
