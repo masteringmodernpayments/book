@@ -212,3 +212,4 @@ In `app/views/receipt_mailer/receipt.html.erb`:
 </html>
 ```
 
+This will send a PDF copy of the customer's receipt along with the email which they should be able to drop directly into their expense reporting sytem.
