@@ -76,7 +76,7 @@ The drawback to Sucker Punch, of course, is that if the web process falls over t
 
 ### Database Persistence
 
-The classic, tried-and-true background worker is called [Delayed Job][background-worker-dj]. It's been around since 2008 and is battle tested and production ready. At my day job we use it to process hundreds of thousands of events every day and it's basically fire and forget. It's also easier to use than Sucker Punch. Assuming a class like this:
+The classic, tried-and-true background worker is [Delayed Job][background-worker-dj]. It's been around since 2008 and is battle tested and production ready. At my day job we use it to process hundreds of thousands of events every day and it's basically fire and forget. It's also easier to use than Sucker Punch. Assuming a class like this:
 
 ```ruby
 class Banana
