@@ -1,5 +1,7 @@
 # Additional Resources
 
+Hopefully this guide has given you a good overview of working with Stripe with Rails and the tips and hints I've given have been helpful. What follows is a list of links to additional resources that I've found very helpful to my Stripe implementations.
+
 ## Documentation
 
 * [Stripe's documentation](https://stripe.com/docs) is truly excellent. If some question isn't answered in this book that should be the first place you look.
@@ -17,3 +19,7 @@
 * [Devise](https://github.com/plataformatec/devise), a Rails authentication library
 * [CanCan](https://github.com/ryanb/cancan), a Rails authorization library
 * [jQuery Payment](https://github.com/stripe/jquery.payment) is a veruy useful set of jQuery functions for working with payment fields
+
+## Books
+
+* [The Tangled Web](http://lcamtuf.coredump.cx/tangled/) is a guide to web security and how crazy the internet really is. Not directly applicable to a Stripe/Rails integration but it is a great read and is full of useful tips and explanations. Highly recommended.
