@@ -14,6 +14,16 @@ In this guide we're going to cover a basic Stripe integration and then expand up
 
 I'm Pete Keen. I've been working with the Stripe API for a little over two years now and have built six applications that run payments through it. In addition, I've worked with a wide variety of payment systems at my day job. I've seen learned quite a lot about how to handle payments in general and I've tried to condense it down into something manageable in this guide.
 
+## Conventions
+
+```text
+Code examples are marked out like this.
+```
+
+Shorter code snippets are marked `like this`.
+
+Links are [underlined](http://www.petekeen.net) and are all clickable from all of the electronic versions.
+
 ## Versions
 
 This guide uses semantic versioning. The major version will change with major Rails or Stripe API changes, minor with smaller API changes, and the patch level will change when bugs or typos are fixed in the text or example code. Speaking of typos or bugs, if you spot any please email me at [bugs@petekeen.net](mailto:bugs@petekeen.com).
@@ -30,13 +40,3 @@ Versions of software used in examples:
 ## Changelog
 
 * 1.0.0 - Initial release
-
-## Conventions
-
-```text
-Code examples are marked out like this.
-```
-
-Shorter code snippets are marked `like this`.
-
-Links are [underlined](http://www.petekeen.net) and are all clickable from all of the electronic versions.
