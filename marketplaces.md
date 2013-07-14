@@ -6,7 +6,7 @@
 
 # Marketplaces
 
-Marketplaces let multiple people sell goods and services on the same site at the same time. Stripe lets your SaaS implement a marketplace in two different ways. With [Stripe Connect][marketplaces-stripe-connect] your users connect their Stripe account with yours, allowing you to make charges with their Stripe account securely and while passing fees through directly. This is great for a technical audience or for a marketplace who's participants want to be able to manage their own Stripe account.
+Marketplaces let multiple people sell goods and services on the same site at the same time. Stripe lets your SaaS implement a marketplace in two different ways. With [Stripe Connect][marketplaces-stripe-connect] your users connect their Stripe account with yours, allowing you to make charges with their Stripe account securely and passing fees through directly. This is great for a technical audience or for a marketplace who's participants want to be able to manage their own Stripe account.
 
 Stripe recently added the ability to send transfers to any authorized US checking account via ACH transfers using a feature called [Payouts][marketplaces-stripe-payouts]. This enables for more nuanced interactions with your marketplace participants. For example, you could send their collected payments to them once a month, or only if they've passed a certain threshold. Payouts also allows non-technical people to easily participate in your marketplace, since they don't have to leave your site to create a Stripe account via Stripe's OAuth flow.
 

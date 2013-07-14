@@ -264,3 +264,7 @@ If the customer still doesn't update their card or if it's declined for other re
 Speaking of cutting them off, you really shouldn't automatically cancel anyone's account without a manual review process. Charges fail sometimes and it's nobody's fault, which is why Stripe automatically retries for you for a configurable number of days. After that's up and the charge finally fails, send yourself an email and follow up with the customer, either by email or over the phone.
 
 There's one more aspect to dunning: following up on cancelled accounts. If a high value customer decides to cancel, give them a call and ask if there's anything you can do to change their mind. It's worth a shot, and most of the time you can work something out.
+
+## Next
+
+In this chapter we talked about one type of business that Stripe enables, the software-as-a-service subscription application. In the next chapter we'll discuss another: marketplaces.
