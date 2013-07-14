@@ -258,3 +258,7 @@ function showError(error) {
 ```
     
 Putting the call to `Stripe::Charge` in a background job and having the client poll eliminates a whole class of problems related to network failures and insulates you from problems in Stripe's backend. If charges don't go through we just report that back to the user and if the job fails for some other reason Sidekiq will retry until it succeeds.
+
+## Next
+
+Running payments through a background worker makes it easy to scale your applcation as well as insulates you from failures or slowdowns at any point between your customer and Stripe's servers. 
