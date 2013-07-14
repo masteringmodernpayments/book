@@ -228,3 +228,16 @@
 *9:00am - 11:00am (2)*
 
 * started implementing hand editing
+
+### 2013-07-13
+
+*9:00pm - 10:00pm (1)*
+
+* worked on hand editing
+
+### 2013-07-14
+
+*1:30pm - 3:00pm (1.5)*
+
+* Finished hand editing
+* Worked on build process
