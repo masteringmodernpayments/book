@@ -28,7 +28,7 @@ Links are [underlined](http://www.petekeen.net) and are all clickable from all o
 
 This guide uses semantic versioning. The major version will change with major Rails or Stripe API changes, minor with smaller API changes, and the patch level will change when bugs or typos are fixed in the text or example code. Speaking of typos or bugs, if you spot any please email me at [bugs@petekeen.net](mailto:bugs@petekeen.com).
 
-Versions of software used in examples:
+Versions of software used in most of the examples:
 
 * Ruby 2.0.0-p0
 * Rails 4.0.0
