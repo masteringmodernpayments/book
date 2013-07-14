@@ -241,3 +241,4 @@
 
 * Finished hand editing
 * Worked on build process
+* Made the html prettier
