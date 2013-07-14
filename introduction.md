@@ -16,7 +16,7 @@ I'm Pete Keen. I've been working with the Stripe API for a little over two years
 
 ## Versions
 
-This guide uses semantic versioning. The current version is <b>0.1.0</b>. The major version will change with major Rails or Stripe API changes, minor with smaller API changes, and the patch level will change when bugs or typos are fixed in the text or example code. Speaking of typos or bugs, if you spot any please email me at [bugs@petekeen.net](mailto:bugs@petekeen.com).
+This guide uses semantic versioning. The major version will change with major Rails or Stripe API changes, minor with smaller API changes, and the patch level will change when bugs or typos are fixed in the text or example code. Speaking of typos or bugs, if you spot any please email me at [bugs@petekeen.net](mailto:bugs@petekeen.com).
 
 Versions of software used in examples:
 
@@ -26,6 +26,10 @@ Versions of software used in examples:
 * Devise 3.0.0.rc
 * Paper Trail rails4 branch
 * PostgreSQL 9.2
+
+## Changelog
+
+* 1.0.0 - Initial version
 
 ## Conventions
 
