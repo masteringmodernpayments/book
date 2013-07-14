@@ -134,7 +134,7 @@ To work jobs, fire up Sidekiq:
 $ bundle exec sidekiq
 ```
 
-For this example we're going to use Sidekiq. If you'd like to use one of the other job systems described above, or if you already have your own for other things, it should be trivial to change.
+For this example we're going to use Sidekiq. If you'd like to use one of the other job systems described above, or if you already have your own for other things, it should be trivial to adapt the following.
 
 First, let's create a job class:
 
