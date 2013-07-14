@@ -1,4 +1,4 @@
-# Processing Payments with Background Workers
+# Background Workers
 
 [background-worker-stripe]: https://stripe.com/docs/tutorials/checkout
 [background-worker-guide]: /payment-integration.html
