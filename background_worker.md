@@ -261,4 +261,4 @@ Putting the call to `Stripe::Charge` in a background job and having the client p
 
 ## Next
 
-Running payments through a background worker makes it easy to scale your applcation as well as insulates you from failures or slowdowns at any point between your customer and Stripe's servers. 
+Running payments through a background worker makes it easy to scale your applcation as well as insulates you from failures or slowdowns at any point between your customer and Stripe's servers. In the next chapter we're going to talk about Stripe's subscription features and how to make the most out of them.
