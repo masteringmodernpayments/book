@@ -29,7 +29,7 @@ Versions of software used in examples:
 
 ## Changelog
 
-* 1.0.0 - Initial version
+* 1.0.0 - Initial release
 
 ## Conventions
 
