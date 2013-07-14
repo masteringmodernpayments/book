@@ -9,7 +9,7 @@
 [pci-brakeman]: http://brakemanscanner.org
 [pci-cochrane]: http://kencochrane.net/blog/2012/01/developers-guide-to-pci-compliant-web-applications/
 
-<em>Note: I'm not an expert in PCI compliance and this chapter shouldn't be interpreted as legal advice. Rather, this is background information and advice on how to implement Stripe's guidelines. If you have questions, please ask Stripe or your nearest local PCI consultant.<em>
+<em>Note: I'm not an expert in PCI compliance and this chapter shouldn't be interpreted as legal advice. Rather, this is background information and advice on how to implement Stripe's guidelines. If you have questions, please ask Stripe or your nearest local PCI consultant.</em>
 
 In 2004 all of the various card processing companies including Mastercard, Visa, and Discover, started formulating security standards efforts with the aim of reducing the ongoing rash of credit card fraud. Visa dropped their own effort in 2005 and joined up with Mastercard, shortly followed by the rest of the industry. In 2006 version 1 of the [Payment Card Industry Data Security Standards][pci-pci] was officially published which formalized and codified a bunch of common-sense security requirements for processing credit cards. In their merchant agreements every processor specifies that you have to comply with PCI or your account will be dropped and you'll get audited, which is rather undesirable.
 
