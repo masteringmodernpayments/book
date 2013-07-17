@@ -8,7 +8,7 @@
 
 ## About the Author
 
-Pete Keen is a software developer who has built half a dozen different Stripe and Rails integrations over the past few years. He's been professionally developing software for seven years, most recently for a web game plantform named Kongregate.
+Pete Keen is a software developer who has built half a dozen different Stripe and Rails integrations over the past few years. He's been professionally developing software for seven years, most recently for a web game platform named Kongregate.
 
 ## Colophon
 
