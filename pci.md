@@ -74,7 +74,7 @@ This will print out a bunch of information about your certificate. You can ignor
 
 ### Buy the actual certificate
 
-Head on over to [Namecheap's SSL page][pci-namecheap_ssl]. Here you're presented with a bunch of different options presented in what they feel is least-secure to most-secure list. I generally buy the cheapest option because they're all pretty much the same in the $10 range. If you want, you can get EV1 certification which will give you the green bar in Safari and Firefox. You'll have to do some more paperwork to get it, though. For now, let's just get the cheapest Comodo certificate.
+Head on over to [Namecheap's SSL page][pci-namecheap_ssl]. Here you're presented with a bunch of different options in what they feel is least-secure to most-secure list. I generally buy the cheapest option because they're all pretty much the same in the $10 range. If you want, you can get EV1 certification which will give you the green bar in Safari and Firefox. You'll have to do some more paperwork to get it, though. For now, let's just get the cheapest Comodo certificate.
 
 Go through checkout and pay and you'll get sent to a page where you can pick your server type and paste your CSR. For Heroku you should choose the "Other" option in the server dropdown. Open your CSR up and paste the entire contents into the text box, then hit Next.
 
@@ -166,7 +166,13 @@ Sales::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']
 $ heroku config:add SECRET_KEY_BASE=some-long-random-string
 ```
 
-Running `brakeman` is similar to running `rails_best_practices`. Just invoke it from the root of your project to start a scan. You can create a rake task to run `brakeman` too. In `lib/tasks/security.rake`:
+Installing and running `brakeman` is similar to `rails_best_practices`. Just install it and invoke it from the root of your project to start a scan. In `Gemfile`:
+
+``ruby
+gem 'brakeman'
+```
+
+You can create a rake task to run `brakeman` too. In `lib/tasks/security.rake`:
 
 ```ruby
 task :brakeman do
