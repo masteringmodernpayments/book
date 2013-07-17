@@ -75,7 +75,7 @@ class EventsController < ApplicationController
         render nothing: true, status: 400
       else
         # invalid event, move along
-        render :nothing => true
+        render nothing: true
       end
       return
     end
@@ -104,7 +104,7 @@ In `app/mailers/stripe_mailer.rb`:
 
 ```ruby
 class StripeMailer < ActionMailer::Base
-  default :from => 'you@example.com'
+  default from: 'you@example.com'
 
   def admin_dispute_created(event)
     @event = event
