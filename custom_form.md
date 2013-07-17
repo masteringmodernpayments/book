@@ -78,7 +78,7 @@ $('#payment-form').submit(function(event) {
 });
 ```
 
-When the customer clicks the "Pay" button we disable it so they can't click again, then call `Stripe.createToken`, passing in the form and a callback function. Stripe's javascript will submit all of the inputs with a  `data-stripe` attribute to their server, create a token, and call the callback function with a status and response. The implmentation of `stripeResponseHandler` is pretty straightforward:
+When the customer clicks the "Pay" button we disable it so they can't click again, then call `Stripe.createToken`, passing in the form and a callback function. Stripe's JavaScript will submit all of the inputs with a  `data-stripe` attribute to their server, create a token, and call the callback function with a status and response. The implmentation of `stripeResponseHandler` is pretty straightforward:
 
 ```javascript
 function stripeResponseHandler(status, response) {
