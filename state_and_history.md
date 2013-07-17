@@ -169,7 +169,7 @@ Notice that we're deep-linking directly into Stripe's management interface. That
 
 The company I work for deals with payments from about eight different payment providers. Each one of them is custom, one-off code that shares very little with the rest of the system. One day we started getting complaints about payments going missing, so started digging. However, not only were we *not* keeping history in the database, we weren't even comprehensively logging things. It took two software developers almost a week straight to finally figure out how payments were going missing on our end, by cross checking what little information we *did* have with what the payment providers had. We ended up giving away a bunch of gifts to keep everyone happy, not to mention the opportunity cost of having developers tracking things down. With a proper audit trail on our end we would have instantly been able to see when and where things were getting lost.
 
-There are a few different schools of thought on how to implement audit trails. The classical way would be to use database triggers to write copies of the database rows into an audit table. This has the advantage of working whether you use the ActiveRecord interface or straight SQL queries, but it's really hard to implement properly. Another, easier way, is to hook into your ORM to keep track of things. The easiest way to do that that I've found is to use a gem named [Paper Trail][state-paper_trail]. Paper Trail monitors changes on a record using ActiveRecord's lifecycle events and will serialize the state of the object before the change and stuff it into a `versions` table. It has convenient methods for navigating versions, which we'll use to display the history of the record in an admin interface later.
+There are a few different schools of thought on how to implement audit trails. The classical way would be to use database triggers to write copies of the database rows into an audit table. This has the advantage of working whether you use the ActiveRecord interface or straight SQL queries, but it's really hard to implement properly. Another, easier way, is to hook into your ORM to keep track of things. The easiest way to do this that I've found is to use a gem named [Paper Trail][state-paper_trail]. Paper Trail monitors changes on a record using ActiveRecord's lifecycle events and will serialize the state of the object before the change and stuff it into a `versions` table. It has convenient methods for navigating versions, which we'll use to display the history of the record in an admin interface later.
 
 First, add the gem to your Gemfile:
 
@@ -194,7 +194,7 @@ class Sale < ActiveRecord::Base
 end
 ```
 
-`has_paper_trail` takes a bunch of options for things like specifiying which lifecycle events to monitor, which fields to include and which to ignore, etc. which are all described in it's documentation. The defaults should usually be fine.
+`has_paper_trail` takes a bunch of options for things like specifiying which lifecycle events to monitor, which fields to include and which to ignore, etc. which are all described in its documentation. The defaults should usually be fine.
 
 Here's some simple code for the `SalesController#show` action to display the history of the sale. In `app/views/sales/show.html.erb`:
 
