@@ -180,6 +180,8 @@ task :brakeman do
 end
 ```
 
+The `-q` option tells `brakeman` to be suppress informational and `-z` tells it to treat warnings as errors.
+
 ### Running Security Scanners on Deploy
 
 I have found it helpful to create task named `check` which runs tests, Brakeman, and Rails Best Practices all at the same time:
