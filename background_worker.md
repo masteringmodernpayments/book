@@ -40,7 +40,7 @@ There's a million reasons why this code could take time to complete. The connect
 
 ## The Solution
 
-The solution is to put the call to `Stripe::Charge.create` in a background job. By separating the work that can fail or take a long time from the web request we insulate the user from timeouts and errors while giving our app the ability to retry (if possible) or tell us something failed (if not). The customer will submit the form  using AJAX and poll while the background job contacts Stripe and handles the payment details.
+The solution is to put the call to `Stripe::Charge.create` in a background job. By separating the work that can fail or take a long time from the web request, we insulate the user from timeouts and errors while giving our app the ability to retry (if possible) or tell us something failed (if not). The customer will submit the form  using AJAX and poll while the background job contacts Stripe and handles the payment details.
 
 There's a bunch of different background worker systems available for Rails and Ruby in general, scaling all the way from simple in-process threaded workers with no persistence to external workers persisting jobs to the database or [Redis][background-worker-redis], then even further to message busses like AMQP, which are overkill for what we need to do.
 
