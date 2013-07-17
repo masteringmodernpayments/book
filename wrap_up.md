@@ -5,8 +5,8 @@ Hopefully this guide has given you a good overview of working with Stripe with R
 ## Documentation
 
 * [Stripe's documentation](https://stripe.com/docs) is truly excellent. If some question isn't answered in this book that should be the first place you look.
-* [Ruby API Docs](https://stripe.com/docs/api/ruby): The Ruby API has it's own documentation mini site
-* [Ruby API code](https://github.com/stripe/stripe-ruby): The ruby API is open source and is a pretty good read. If you're looking to build a comprehensive HTTP API in Ruby you should definitely model it on this.
+* [Stripe Ruby API Docs](https://stripe.com/docs/api/ruby): The Ruby API has it's own documentation mini site
+* [Stripe Ruby API code](https://github.com/stripe/stripe-ruby): The ruby API is open source and is a pretty good read. If you're looking to build a comprehensive HTTP API in Ruby you should definitely model it on this.
 
 ## Examples
 
