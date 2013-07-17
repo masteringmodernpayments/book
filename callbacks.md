@@ -65,9 +65,9 @@ class StripeEventsController < ApplicationController
   end
 
   def parse_and_validate_event
-    event = JSON.parse(request.body.read)
+    raw_event = JSON.parse(request.body.read)
 
-    @event = StripeEvent.new(id: event['id'], type: event['type'])
+    @event = StripeEvent.new(id: raw_event['id'], type: raw_event['type'])
 
     unless @event.save
       if @event.valid?
