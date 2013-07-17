@@ -32,8 +32,8 @@ There are a bunch of different Rails engines out there that let you more or less
 
 In addition, there's a fair number of example subscription applications you can crib from:
 
-* [monospace-rails][subscriptions-] is Stripe's own example subscription app
-* [rails-stripe-membership-saas][subscriptions-] is another very good example
+* [monospace-rails][subscriptions-monospace-rails] is Stripe's own example subscription app
+* [rails-stripe-membership-saas][subscriptions-rails-stripe-membership-saas] is another very good example
 
 You should definitely check these options out. In this chapter we're going to walk through Monospace Rails and then touch on a few pain points it doesn't cover.
 
