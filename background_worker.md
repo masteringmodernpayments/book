@@ -36,7 +36,7 @@ end
     
 Pretty straight-forward. Using the `stripeToken` that `stripe.js` inserted into your form, create a charge object. If this fails due to a `CardError`, you can safely assume that the customer's card got declined. Behind the scenes, `Stripe::Charge` makes an `https` call to Stripe's API. Typically, this completes almost immediately.
 
-There's a million reasons why this code could take time to complete. The connection between your server and Stripe's could be slow or down. DNS resolution could be failing.Browsers typically have around a one minute timeout and application servers like Unicorn usually will kill the request after 30 seconds. That's a long time to keep the user waiting just to end up at an error page.
+There's a million reasons why this code could take time to complete. The connection between your server and Stripe's could be slow or down. DNS resolution could be failing. Browsers typically have around a one minute timeout and application servers like Unicorn usually will kill the request after 30 seconds. That's a long time to keep the user waiting just to end up at an error page.
 
 ## The Solution
 
