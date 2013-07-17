@@ -106,7 +106,7 @@ Custom forms are all well and good, but wouldn't it be cool if we could embed it
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
   </head>
   <body>
-    <h1>Example Iframe</h1>
+    <h1>Example iframe</h1>
     <button class="btn btn-primary" id="openBtn">Buy</button>
     <div id="paymentModal" class="modal hide fade" role="dialog">
       <div class="modal-body">
