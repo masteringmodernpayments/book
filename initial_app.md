@@ -110,6 +110,12 @@ We're using [Paperclip][initial-app-paperclip] to attach the downloadable files 
 gem 'paperclip', '~> 3.0'
 ```
 
+Now we need to generate the migration so paperclip has a place to keep the file metadata:
+
+```bash
+$ rails generate paperclip product file
+```
+
 Our app needs a way to track product sales. Let's make a Sale model too.
 
 ```bash
