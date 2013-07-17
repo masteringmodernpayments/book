@@ -6,7 +6,7 @@
 
 # Handling Webhooks
 
-Stripe tracks every event that happens to the payments, invoices, subscriptions, plans, and recipients that belong to your account. Every time something happens they create an Event object and save it to their database. If you'd like you can iterate over all of these events using [the API][callbacks-stripe-event-docs], but a much more efficient way to deal with them is to register a webhook endpoint with Stripe. Whenever they create a new event Stripe will POST the information to all of your registered webhooks. Depending on how you respond they may retry later, as well. The full list of event types can be found in Stripe's API documentation but here's a brief list:
+Stripe tracks every event that happens to the payments, invoices, subscriptions, plans, and recipients that belong to your account. Every time something happens they create an Event object and save it to their database. If you'd like you can iterate over all of these events using [the API][callbacks-stripe-event-docs], but a much more efficient way to deal with them is to register a webhook endpoint with Stripe. Whenever they create a new event, Stripe will POST the information to all of your registered webhooks. Depending on how you respond they may retry later, as well. The full list of event types can be found in Stripe's API documentation but here's a brief list:
 
 * when a charge succeeds or fails
 * when a subscription is due to be renewed
