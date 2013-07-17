@@ -32,10 +32,10 @@ We need to store the `stripe_id` because we'll be looking up the event using the
 The model should look like this:
 
 ```ruby
-class Event < ActiveRecord::Base
+class StripeEvent < ActiveRecord::Base
   validates_uniqueness_of :stripe_id
 
-  def stripe_event
+  def event
     Stripe::Event.retrieve(stripe_id)
   end
 end
@@ -43,11 +43,11 @@ end
 
 ## Controller
 
-We'll need a new controller to handle callbacks. In `app/controllers/events_controller.rb`:
+We'll need a new controller to handle callbacks. In `app/controllers/stripe_events_controller.rb`:
 
 ```ruby
 
-class EventsController < ApplicationController
+class StripeEventsController < ApplicationController
   skip_before_filter :authenticate_user!
   before_filter :parse_and_validate_event
 
