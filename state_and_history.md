@@ -223,7 +223,7 @@ Here's some simple code for the `SalesController#show` action to display the his
 </table>
 ```
 
-Each change will have a timestamp, the event, and a block of changes, one row for each column that changed in that update. For a typical completed sale there will be three rows, "pending", and "processing" rows in the history table and the current attributes will show all of the information from Stripe. By examining the audit trail for a clean transaction you can do things like get rough performance numbers for your interactions with Stripe, and if you ever have broken transactions you can see when things went wrong and more importantly how things went wrong which will better help you fix them.
+Each change will have a timestamp, the event, and a block of changes, one row for each column that changed in that update. For a typical completed sale we'll see three rows: record creation, the state change from "pending" to "processing" when the background worker picks the job up, and another row when the background worker updates the Stripe information. The current state table will show the record as "finished". By examining the audit trail for a clean transaction you can do things like get rough performance numbers for your interactions with Stripe, and if you ever have broken transactions you can see when things went wrong and more importantly how things went wrong which will better help you fix them.
 
 ## Next
 
