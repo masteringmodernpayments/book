@@ -22,7 +22,7 @@ Webhook handling is going to be unique to every application but we can sketch ou
 Stripe unfortunately does not sign their events. If they did we could verify that they sent them cryptographically, but because they don't the best thing to do is to take the ID from the POSTed event data and ask Stripe about it directly. Stripe also recommends that we store events and reject IDs that we've seen already to protect against replay attacks. To knock both of these requirements out at the same time, lets make a new model called Event:
 
 ```bash
-$ rails g model Event \
+$ rails g model StripeEvent \
     stripe_id:string \
     stripe_type:string
 ```
