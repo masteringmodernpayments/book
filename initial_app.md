@@ -90,7 +90,7 @@ User.create!(email: 'you@example.com', password: 'password', password_confirmati
 Our sales site needs something to sell, so let's create a product model:
 
 ```bash
-$ rails g scaffold Product name:string permalink:string description:text price:integer user_id:integer download_url:text
+$ rails g scaffold Product name:string permalink:string description:text price:integer user_id:integer
 $ rake db:migrate
 ```
 
