@@ -106,7 +106,7 @@ $ bundle exec rake jobs:work
 
 Delayed Job does have some drawbacks. First, because it stores jobs in the same database as everything else it has to contend with everything else. For example, your database server almost certainly has a limit on the number of connections it can handle, and every worker will require two of them, one for Delayed Job itself and another for any ActiveRecord objects. Second, it can get tricky to backup because you really don't need to be backing up the jobs table. That said, it's relatively simple and straight forward and has the distinct advantage of not making you run any new external services.
 
-Another PostgreSQL-specific database backed worker system is [Queue Classic][background-worker-qc], which leverages some PostgreSQL-specific features to deliver jobs to workers very efficiently. Specifically it uses `listen` and `notify`, the built-in publish/subscribe system, to tell workers when there are jobs to be done so they don't have to poll. It also uses row-level locking to reduce database load and ensure only one worker is working a job at any given time.
+Another PostgreSQL-specific database backed worker system is [Queue Classic][background-worker-qc], which leverages some PostgreSQL-specific features to deliver jobs to workers very efficiently. Specifically it uses `listen` and `notify`, the built-in publish/subscribe system, to tell workers when there are jobs to be done so they don't have to poll. It also uses row-level locking to reduce database load and ensure only one worker is working on a job at any given time.
 
 ### Redis
 
