@@ -72,7 +72,7 @@ class EventsController < ApplicationController
     unless @event.save
       if @event.valid?
         # valid event, can't be saved for some other reason
-        render :nothing => true, status: 400
+        render nothing: true, status: 400
       else
         # invalid event, move along
         render :nothing => true
