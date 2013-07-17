@@ -33,7 +33,7 @@ Rails after v3.1 makes forcing visitors to HTTPS incredibly easy. In `config/env
 config.force_ssl = true
 ```
 
-This will redirect all non-https requests to https automatically on production. In addition it will set the `Strict-Transport-Security` header to ensure future requests get forced to SSL without asking first, and it ensures that all cookies get the `secure` flag. For this example it's all we need to do because Heroku provides what's called a "wildcard ssl certificate" for all apps accessed at `herokuapp.com`. If you're using your own URL you'll need to get your own certificate (generally around $10 per year) and install it with Heroku which will cost $20 per month. These costs vary if you're using a different hosting provider but most Amazon-based cloud providers will charge $20 because that's how much an Elastic Load Balancer is, which is where the SSL termination actually happens.
+This will redirect all non-HTTPS requests to HTTPS automatically on production. In addition it will set the `Strict-Transport-Security` header to ensure future requests get forced to SSL without asking first, and it ensures that all cookies get the `secure` flag. For this example it's all we need to do because Heroku provides what's called a "wildcard ssl certificate" for all apps accessed at `herokuapp.com`. If you're using your own URL you'll need to get your own certificate (generally around $10 per year) and install it with Heroku which will cost $20 per month. These costs vary if you're using a different hosting provider but most Amazon-based cloud providers will charge $20 because that's how much an Elastic Load Balancer is, which is where the SSL termination actually happens.
 
 ## Buying a Certificate
 
