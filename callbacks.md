@@ -79,7 +79,6 @@ class StripeEventsController < ApplicationController
       end
       return
     end
-    @stripe_event = @event.stripe_event
   end
 end
 ```
