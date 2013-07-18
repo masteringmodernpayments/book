@@ -1,6 +1,6 @@
 # Testing
 
-Automated testing is vitally important in any modern application, but 
+Automated testing is vitally important in any modern application, doubly so for applications involving payments. Automated tests are one of the best ways to make sure your app
 
 ## Unit tests and Mocking
 
