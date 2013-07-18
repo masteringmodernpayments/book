@@ -70,10 +70,9 @@ class StripeEventsController < ApplicationController
 
     unless @event.save
       if @event.valid?
-        # valid event, can't be saved for some other reason
-        render nothing: true, status: 400
+        render nothing: true, status: 400 # valid event, try again later
       else
-        render nothing: true
+        render nothing: true # invalid event, move along
       end
       return
     end
