@@ -113,6 +113,16 @@ class StripeMailer < ActionMailer::Base
 end
 ```
 
+And in `app/views/stripe_mailer/admin_dispute_created.html.erb`:
+
+```rhtml
+<html>
+  <body>
+    <p>Dispute opened on <%= link_to "charge #{@sale.guid}", sale_url(@sale) %></p>
+  </body>
+</html>
+```
+
 Disputes are sad. We should also handle a happy event, like someone buying something. Let's do `charge.succeeded`:
 
 ```ruby
@@ -138,6 +148,17 @@ class StripeMailer < ActionMailer::Base
     mail(to: @sale.email, subject: "Thanks for purchasing #{@sale.product.name}")
   end
 end
+```
+
+In `app/views/admin_charge_succeeded.html.erb`:
+
+```rhtml
+<html>
+  <body>
+    <p>Charge succeeded! Amount: <%= @sale.amount %> </p>
+    <p><%= link_to @sale.guid, sale_url(@sale) %></p>
+  </body>
+</html>
 ```
 
 In response to a charge succeeding we send a receipt to the customer and an alert to ourselves so we can get that sweet dopamine hit when the email alert sound dings.
