@@ -1,7 +1,9 @@
 # Testing
 
-Automated testing is vitally important in any modern application, doubly so for applications involving payments. Automated tests are one of the best ways to make sure your app
+Automated testing is vitally important in any modern application, doubly so for applications involving payments. Tests are one of the best ways to make sure your application works the way you think it does. Testing an external service like Stripe, though, can prove to be difficult.
 
 ## Unit tests and Mocking
+
+Gene
 
 ## Stripe's Test Mode
