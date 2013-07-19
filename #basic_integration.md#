@@ -235,7 +235,7 @@ class TransactionsControllerTest < ActionController::TestCase
 end
 ```
 
-The very first
+The very first thing we do is set a fake Stripe API key. If for some reason we hit Stripe during our test run it will fail immediately and we'll know where else we have to mock. In the test itself, notice that we return a mock `c
 
 
 ## Deploy
