@@ -234,8 +234,7 @@ class TransactionsControllerTest < ActionController::TestCase
 end
 ```
 
-The very first thing we do is set a fake Stripe API key. If for some reason we hit Stripe during our test run it will fail immediately and we'll know where else we have to mock. In the test itself, we set up an expectation on `Stripe::Charge.create` with the arguments that the controller will pass to it and returning the mock 
-
+The very first thing we do is set a fake Stripe API key. If for some reason we hit Stripe during our test run it will fail immediately and we'll know where else we have to mock. In the test itself, we set up an expectation on `Stripe::Charge.create` with the arguments that the controller will pass to it and returning a mock object. Then, we `POST` at the controller and assert some things about the created `Sale` object. The underlying theory here is that in these tests we don't care what Stripe does under the covers with the data we pass it, we just care that our controller method is doing the right thing based on what the API returns.
 
 ## Deploy
 
