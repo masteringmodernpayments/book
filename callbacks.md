@@ -187,6 +187,7 @@ class StripeEventsControllerTest < ActionController::TestCase
     mock_event = mock
     mock_data = mock
     mock_charge = mock
+
     mock_event.expects(:data).returns(mock_data)
     mock_data.expects(:object).returns(mock_charge)
     mock_charge.expects(:id).returns('abc123').at_least_once
