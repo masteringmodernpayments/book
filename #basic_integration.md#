@@ -161,13 +161,18 @@ Manually testing your application is a good first step. Stripe provides <em>test
 
 TODO: screenshot of API keys
 
-By using the test mode keys you can run transactions through Stripe with testing credit card numbers and hit not only the happy case, but also a variety of failure cases. Stripe provides [a variety of credit card numbers][basic-integration-stripe-testing] that trigger different failure modes. Here's a small selection, there's more on t:
+By using the test mode keys you can run transactions through Stripe with testing credit card numbers and hit not only the happy case, but also a variety of failure cases. Stripe provides [a variety of credit card numbers][basic-integration-stripe-testing] that trigger different failure modes. Here's a small selection:
 
+* `4242 4242 4242 4242`: always succeeds
 * `4000 0000 0000 0010`: address failures
 * `4000 0000 0000 0101`: cvs check failure
 * `4000 0000 0000 0002`: card will always be declined
 
-There 
+There are a bunch more failure modes you can check but those are the big ones.
+
+### Automated Tests
+
+Manual testing is all well and good b
 
 ## Deploy
 
