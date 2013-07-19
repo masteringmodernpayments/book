@@ -251,6 +251,6 @@
 
 ### 2013-07-18
 
-*5:00pm - 7:30pm (1.5)*
+*5:00pm - 7:30pm (2.5)*
 
 * Added some sections on testing
