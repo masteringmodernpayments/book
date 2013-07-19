@@ -172,7 +172,9 @@ There are a bunch more failure modes you can check but those are the big ones.
 
 ### Automated Tests
 
-Manual testing is all well and good but you should also write repeatable unit and functional tests that you can run as part of your deploy process. This can get a little tricky, though, because you don't really want 
+Manual testing is all well and good but you should also write repeatable unit and functional tests that you can run as part of your deploy process. This can get a little tricky, though, because you don't really want to be hitting Stripe's API servers with your test requests. They'll be slower and you'll pollute your testing environment with junk data.
+
+Instead, let's set up some mocking. At the bottom 
 
 ## Deploy
 
