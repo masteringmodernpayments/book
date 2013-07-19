@@ -223,9 +223,8 @@ class TransactionsControllerTest < ActionController::TestCase
 
     product = Product.create(permalink: 'test_product', price: 100)
 
-    sale = mock()
-    sale.expects(:email).returns(email)
-
+    charge = mock()
+    Stripe::Charge.expects(:create).with({amount: 100, curren
     
   end
 end
