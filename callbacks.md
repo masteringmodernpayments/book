@@ -165,6 +165,18 @@ In response to a charge succeeding we send a receipt to the customer and an aler
 
 Many of the events that Stripe sends are for dealing with subscriptions. For example, Stripe will let you know when they're about to initiate a periodic charge and give you the opportunity to add extra things to the invoice, like monthly add-ons or overage billing. We'll talk more about this in the chapter on Subscriptions.
 
+## Testing Events
+
+Stripe helpfully provides for test-mode webhooks. Assuming you have a publically accessible version of your site, you can set up webhooks to fire when you make test mode transactions. If you forget to set up a live mode webhook, Stripe will also send live mode events to your test hook. This can be either good or bad, depending on how complicated you like your life.
+
+Testing webhooks automatically is pretty simple, assuming you have the mocking set up like we talked about in Chapter 2. The test setup for `StripeEventsController` would look something like this:
+
+```ruby
+class StripeEventsControllerTest < ActionController::TestCase
+
+end
+```
+
 ## Effective Emailing
 
 Customers expect to be emailed when things happen with their account, and especially when you're charging them money. It's critical that you send them a few basic transactional emails and Stripe's events make it really easy.

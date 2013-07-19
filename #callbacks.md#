@@ -172,7 +172,18 @@ Stripe helpfully provides for test-mode webhooks. Assuming you have a publically
 Testing webhooks automatically is pretty simple, assuming you have the mocking set up like we talked about in Chapter 2. The test setup for `StripeEventsController` would look something like this:
 
 ```ruby
-class StripeEventsC
+class StripeEventsControllerTest < ActionController::TestCase
+
+  setup do
+    Stripe.api_key = 'sk_fake_api_key'
+  end
+
+  test 'charge created' do
+    event_id = 'fake_even
+    Stripe::Event.expects(:fetch).with(
+  end
+end
+```
 
 ## Effective Emailing
 
