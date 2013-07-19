@@ -218,7 +218,15 @@ class TransactionsControllerTest < ActionController::TestCase
   end
 
   test "should post create" do
-  
+    token = 'tok_123456'
+    email = 'foo@example.com'
+
+    product = Product.create(permalink: 'test_product', price: 100)
+
+    sale = mock()
+    sale.expects(:email).returns(email)
+
+    
   end
 end
 ```
