@@ -251,6 +251,8 @@
 
 ### 2013-07-18
 
+* overall: 11265 892 115 (38%)
+
 *5:00pm - 7:30pm (2.5)*
 
 * Added some sections on testing
