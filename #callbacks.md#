@@ -167,7 +167,10 @@ Many of the events that Stripe sends are for dealing with subscriptions. For exa
 
 ## Testing Events
 
+Stripe helpfully provides for test-mode webhooks. Assuming you have a publically accessible version of your site,
 
+* test-mode webhooks
+* automated testing
 
 ## Effective Emailing
 
