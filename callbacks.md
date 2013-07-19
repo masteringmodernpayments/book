@@ -168,7 +168,7 @@ Many of the events that Stripe sends are for dealing with subscriptions. For exa
 
 Stripe helpfully provides for test-mode webhooks. Assuming you have a publically accessible version of your site, you can set up webhooks to fire when you make test mode transactions. If you forget to set up a live mode webhook, Stripe will also send live mode events to your test hook. This can be either good or bad, depending on how complicated you like your life.
 
-Testing webhooks automatically is pretty simple, assuming you have the mocking set up like we talked about in Chapter 2. The test setup for `StripeEventsController` would look something like this:
+Testing webhooks automatically is pretty simple, assuming you have the mocking set up like we talked about in Chapter 3. The test setup for `StripeEventsController` would look something like this:
 
 ```ruby
 class StripeEventsControllerTest < ActionController::TestCase
@@ -199,7 +199,7 @@ class StripeEventsControllerTest < ActionController::TestCase
 end
 ```
 
-There are a few things to note here. First, just like in the tests in Chapter 2 we set up a fake API key so Stripe will tell us right away if we're accidentally hitting their API. Next, we create some testing fixtures to work with and then set up a slew of mocks and expectations. These expectations effectively act as the assertions in this test, so at the end we just `POST` at the controller.
+There are a few things to note here. First, just like in the tests in Chapter 3 we set up a fake API key so Stripe will tell us right away if we're accidentally hitting their API. Next, we create some testing fixtures to work with and then set up a slew of mocks and expectations. These expectations effectively act as the assertions in this test, so at the end we just `POST` at the controller.
 
 When setting this endpoint in Stripe's web interface, make sure to use `https://your-app/events.json`, not just `/events`. That way Rails will automatically decode Stripe's JSON data into params we can work with directly.
 
