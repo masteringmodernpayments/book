@@ -156,7 +156,7 @@ The view for `#pickup` is even simpler, since it basically just has to display t
 
 Testing is vitally important to any modern web application, doubly so for applications involving payments. Tests are one of the best ways to make sure your app works the way you think it does.
 
-Testing with St
+Manually testing your application is a good first step. Stripe provides <em>test mode keys</em> that you can find in y
 
 ## Deploy
 
