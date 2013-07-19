@@ -1,2 +1,2 @@
-<img src="mastering_modern_payments_cover.png" style="height: 6in; width: 8in;">
+<img src="mastering_modern_payments_cover.png" style="height: 6.9in; width: 8.9in;">
 
