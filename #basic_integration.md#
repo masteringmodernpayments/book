@@ -184,7 +184,7 @@ group :development do
 end
 ```
 
-Mocha is a mocking framework that let's us set up fake objects that respond how we want them to. It also allows for expectations, where you de
+Mocha is a mocking framework that let's us set up fake objects that respond how we want them to. It also allows for expectations, where you declare a method will get called in a certain manner and if it doesn't the test will fail. Database Cleaner cleans out the database between test runs, and Factory Girl is a wa
 
 ## Deploy
 
