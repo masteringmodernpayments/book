@@ -184,7 +184,16 @@ group :development do
 end
 ```
 
-Mocha is a mocking framework that let's us set up fake objects that respond how we want them to. It also allows for expectations, where you declare a method will get called in a certain manner and if it doesn't the test will fail. Database Cleaner cleans out the database between test runs, and Factory Girl is a wa
+Mocha is a mocking framework that let's us set up fake objects that respond how we want them to. It also allows for expectations, where you declare a method will get called in a certain manner and if it doesn't the test will fail. Database Cleaner cleans out the database between test runs, and Factory Girl provides factories, an alternative to fixtures.
+
+Let's set all of this up. In `test/test_helper.rb`:
+
+```
+ENV['RAILS_ENV'] = 'test'
+require File.expand_path('../../config/environment', __FILE__)
+require 'rails/test_help'
+require 'database_cle
+```
 
 ## Deploy
 
