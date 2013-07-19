@@ -187,7 +187,7 @@ Mocha is a mocking framework that let's us set up fake objects that respond how 
 
 Let's set all of this up. In `test/test_helper.rb`:
 
-```
+```ruby
 ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -212,6 +212,16 @@ Note that Mocha must be required as the very last thing in `test_helper`.
 Let's write some tests for `TransactionsController`. In `test/functional/transactions_controller_test.rb`:
 
 ```ruby
+class TransactionsControllerTest < ActionController::TestCase
+  setup do
+    Stripe.api_key = 'sk_fake_test_key'
+  end
+
+  test "should post create" do
+  
+  end
+end
+```
 
 
 ## Deploy
