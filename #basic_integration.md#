@@ -210,7 +210,9 @@ end
 require 'mocha/setup'
 ```
 
-Note that Mocha must be required as the very last thing in `te
+Note that Mocha must be required as the very last thing in `test_helper`.
+
+
 
 ## Deploy
 
