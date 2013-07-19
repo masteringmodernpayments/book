@@ -192,8 +192,25 @@ Let's set all of this up. In `test/test_helper.rb`:
 ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'database_cle
+require 'database_cleaner'
+
+class ActiveSupport::TestCase
+
+  FactoryGirl.find_definitions
+
+  setup do
+    DatabaseCleaner.start
+  end
+
+  teardown do
+    DatabaseCleaner.clean
+  end
+end
+
+require 'mocha/setup'
 ```
+
+Note that Mocha must be required as the very last thing in `te
 
 ## Deploy
 
