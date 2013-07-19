@@ -71,7 +71,7 @@ class TransactionsController < ApplicationController
         description: params[:email]
       )
       @sale = Sale.create!(product_id: product.id, email: params[:email])
-      redirect_to pickup_url(guid: sale.guid)
+      redirect_to pickup_url(guid: @sale.guid)
     rescue Stripe::CardError => e
       # The card has been declined or some other error has occured
       @error = e
