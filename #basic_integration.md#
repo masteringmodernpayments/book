@@ -1,4 +1,5 @@
 [basic-integration-stripe_guide]: https://stripe.com/docs/checkout/guides/rails
+[basic-integration-stripe-testing]: https://stripe.com/docs/testing
 
 # The Simplest Stripe Integration
 
@@ -160,7 +161,9 @@ Manually testing your application is a good first step. Stripe provides <em>test
 
 TODO: screenshot of API keys
 
-By using the test mode keys you can run transactions through Stripe with testing credit card numbers an
+By using the test mode keys you can run transactions through Stripe with testing credit card numbers and hit not only the happy case, but also a variety of failure cases. Stripe provides [a variety of credit card numbers that trigger different failure modes:
+
+
 
 ## Deploy
 
