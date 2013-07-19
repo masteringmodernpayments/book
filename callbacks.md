@@ -174,6 +174,25 @@ Testing webhooks automatically is pretty simple, assuming you have the mocking s
 ```ruby
 class StripeEventsControllerTest < ActionController::TestCase
 
+  setup do
+    Stripe.api_key = 'sk_fake_api_key'
+  end
+
+  test 'charge created' do
+    event_id = 'fake_event_id'
+
+    sale = Sale.create(stripe_id: 'abc123', amount: 100, email: 'foo@bar.com')
+
+    mock_event = mock
+    mock_data = mock
+    mock_charge = mock
+    mock_event.expects(:data).returns(mock_data)
+    mock_data.expects(:object).returns(mock_charge)
+    mock_charge.expects(:id).returns('abc123').at_least_once
+    mock_charge.expects(:amount).returns(100)
+
+Stripe::Event.expects(:fetch).with(event_id).at_least_once.returns(mock_event)
+  end
 end
 ```
 
