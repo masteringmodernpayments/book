@@ -194,12 +194,14 @@ class StripeEventsControllerTest < ActionController::TestCase
 
     Stripe::Event.expects(:fetch).with(event_id).at_least_once.returns(mock_event)
 
-    post :create, format: :json, id: event_id, type: 'charge.succeeded'
+    post :create, id: event_id, type: 'charge.succeeded'
   end
 end
 ```
 
+There are a few things to note here. First, just like in the tests in Chapter 2 we set up a fake API key so Stripe will tell us right away if we're accidentally hitting their API. Next, we create some testing fixtures to work with and then set up a slew of mocks and expectations. These expectations effectively act as the assertions in this test, so at the end we just `POST` at the controller.
 
+When setting this endpoint in Stripe's web interface, make sure to use `https://your-app/events.json`, not just `/events`. That way Rails will automatically decode Stripe's JSON data into params we can work with directly.
 
 ## Effective Emailing
 
