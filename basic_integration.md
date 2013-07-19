@@ -209,7 +209,7 @@ require 'mocha/setup'
 
 Note that Mocha must be required as the very last thing in `test_helper`.
 
-Let's write some tests for `TransactionsController`. In `test/functional/transactions_controller_test.rb`:
+Let's write a test for `TransactionsController`. In `test/functional/transactions_controller_test.rb`:
 
 ```ruby
 class TransactionsControllerTest < ActionController::TestCase
@@ -223,8 +223,7 @@ class TransactionsControllerTest < ActionController::TestCase
 
     product = Product.create(permalink: 'test_product', price: 100)
 
-    charge = mock()
-    Stripe::Charge.expects(:create).with({amount: 100, currency: 'usd', card: token, description: email).returns(charge)
+    Stripe::Charge.expects(:create).with({amount: 100, currency: 'usd', card: token, description: email}).returns(mock)
 
     post :create, email: email, stripeToken: token
 
@@ -234,6 +233,8 @@ class TransactionsControllerTest < ActionController::TestCase
   end
 end
 ```
+
+The very first thing we do is set a fake Stripe API key. If for some reason we hit Stripe during our test run it will fail immediately and we'll know where else we have to mock. In the test itself, we set up an expectation on `Stripe::Charge.create` with the arguments that the controller will pass to it and returning the mock 
 
 
 ## Deploy
