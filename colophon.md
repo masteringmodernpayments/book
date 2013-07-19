@@ -14,7 +14,7 @@ Pete Keen is a software developer who has built half a dozen different Stripe an
 
 ## Acknowledgements
 
-Thank you to my fiance Emily for putting up with this wacky project. Thanks to Nathan Barry for writing [Authority][colophon-Authority] and inspiring me to write in the first place. Finally, thanks to [Matt Vanderpol][colophon-Matt] for the dozens of spelling and grammar corrections, content ideas, and bug reports.
+Thank you to my fiance Emily for putting up with this wacky project. Thanks to Nathan Barry for writing [Authority][colophon-Authority] and inspiring me to write in the first place. [Matt Vanderpol][colophon-Matt] sent in dozens of spelling and grammar corrections, content ideas, and bug reports and was overall an awesome resource. Finally, thank you to all of the people who preordered and sent me questions and comments.
 
 ## Colophon
 
