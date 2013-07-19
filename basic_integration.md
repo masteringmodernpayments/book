@@ -152,6 +152,8 @@ The view for `#pickup` is even simpler, since it basically just has to display t
 <p><%= link_to "Download", download_url(@sale) %></p>
 ```
 
+## Testing
+
 ## Deploy
 
 Add all the new files to git and commit, then run:
