@@ -161,9 +161,28 @@ Manually testing your application is a good first step. Stripe provides <em>test
 
 TODO: screenshot of API keys
 
-By using the test mode keys you can run transactions through Stripe with testing credit card numbers and hit not only the happy case, but also a variety of failure cases. Stripe provides [a variety of credit card numbers][basic-integration-stripe-testing] that trigger different failure modes:
+By using the test mode keys you can run transactions through Stripe with testing credit card numbers and hit not only the happy case, but also a variety of failure cases. Stripe provides [a variety of credit card numbers][basic-integration-stripe-testing] that trigger different failure modes. Here's a small selection:
 
+* `4242 4242 4242 4242`: always succeeds
+* `4000 0000 0000 0010`: address failures
+* `4000 0000 0000 0101`: cvs check failure
+* `4000 0000 0000 0002`: card will always be declined
 
+There are a bunch more failure modes you can check but those are the big ones.
+
+### Automated Tests
+
+Manual testing is all well and good but you should also write repeatable unit and functional tests that you can run as part of your deploy process. This can get a little tricky, though, because you don't really want to be hitting Stripe's API servers with your test requests. They'll be slower and you'll pollute your testing environment with junk data.
+
+Instead, let's use mocks and factories. In `Gemfile`:
+
+```ruby
+group :development do
+  gem 'mocha', require: false
+  gem 'database_cleaner'
+  gem 'factory_girl'
+end
+```
 
 ## Deploy
 
