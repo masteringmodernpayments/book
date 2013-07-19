@@ -242,3 +242,15 @@
 * Finished hand editing
 * Worked on build process
 * Made the html prettier
+
+### 2013-07-16
+
+*6:00pm - 8:00pm (2)*
+
+* worked on some stuff
+
+### 2013-07-18
+
+*5:00pm - 6:30pm (1.5)*
+
+* Added some sections on testing
