@@ -180,9 +180,38 @@ Instead, let's use mocks and factories. In `Gemfile`:
 group :development do
   gem 'mocha', require: false
   gem 'database_cleaner'
-  gem 'factory_girl'
 end
 ```
+
+Mocha is a mocking framework that let's us set up fake objects that respond how we want them to. It also allows for expectations, where you declare a method will get called in a certain manner and if it doesn't the test will fail. Database Cleaner cleans out the database between test runs.
+
+Let's set all of this up. In `test/test_helper.rb`:
+
+```
+ENV['RAILS_ENV'] = 'test'
+require File.expand_path('../../config/environment', __FILE__)
+require 'rails/test_help'
+require 'database_cleaner'
+
+class ActiveSupport::TestCase
+
+  setup do
+    DatabaseCleaner.start
+  end
+
+  teardown do
+    DatabaseCleaner.clean
+  end
+end
+
+require 'mocha/setup'
+```
+
+Note that Mocha must be required as the very last thing in `test_helper`.
+
+Let's write a test:
+
+
 
 ## Deploy
 
