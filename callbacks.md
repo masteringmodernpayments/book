@@ -65,8 +65,7 @@ class StripeEventsController < ApplicationController
   end
 
   def parse_and_validate_event
-    raw_event = JSON.parse(request.body.read)
-    @event = StripeEvent.new(id: raw_event['id'], type: raw_event['type'])
+    @event = StripeEvent.new(id: params[:id], type: params[:type])
 
     unless @event.save
       if @event.valid?
@@ -199,6 +198,8 @@ class StripeEventsControllerTest < ActionController::TestCase
   end
 end
 ```
+
+
 
 ## Effective Emailing
 
