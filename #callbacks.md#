@@ -167,7 +167,7 @@ Many of the events that Stripe sends are for dealing with subscriptions. For exa
 
 ## Testing Events
 
-Stripe helpfully provides for test-mode webhooks. Assuming you have a publically accessible version of your site,
+Stripe helpfully provides for test-mode webhooks. Assuming you have a publically accessible version of your site, you can set up webhooks to fire when you make test mode transactions. If you forget to set up a live mode webhook, Stripe will also conveniently send live mode events to your test hook, wh
 
 * test-mode webhooks
 * automated testing
