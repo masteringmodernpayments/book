@@ -70,7 +70,7 @@ class TransactionsController < ApplicationController
         card:        token,
         description: params[:email]
       )
-      sale = Sale.create!(product_id: product.id, email: params[:email])
+      @sale = Sale.create!(product_id: product.id, email: params[:email])
       redirect_to pickup_url(guid: sale.guid)
     rescue Stripe::CardError => e
       # The card has been declined or some other error has occured
@@ -228,7 +228,8 @@ class TransactionsControllerTest < ActionController::TestCase
 
     post :create, email: email, stripeToken: token
 
-
+    assert_not_nil assigns(:sale)
+    
     
   end
 end
