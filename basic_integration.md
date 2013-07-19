@@ -1,4 +1,5 @@
 [basic-integration-stripe_guide]: https://stripe.com/docs/checkout/guides/rails
+[basic-integration-stripe-testing]: https://stripe.com/docs/testing
 
 # The Simplest Stripe Integration
 
@@ -153,6 +154,16 @@ The view for `#pickup` is even simpler, since it basically just has to display t
 ```
 
 ## Testing
+
+Testing is vitally important to any modern web application, doubly so for applications involving payments. Tests are one of the best ways to make sure your app works the way you think it does.
+
+Manually testing your application is a good first step. Stripe provides <em>test mode keys</em> that you can find in your account settings:
+
+TODO: screenshot of API keys
+
+By using the test mode keys you can run transactions through Stripe with testing credit card numbers and hit not only the happy case, but also a variety of failure cases. Stripe provides [a variety of credit card numbers][basic-integration-stripe-testing] that trigger different failure modes:
+
+
 
 ## Deploy
 
