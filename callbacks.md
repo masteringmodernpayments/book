@@ -192,7 +192,9 @@ class StripeEventsControllerTest < ActionController::TestCase
     mock_charge.expects(:id).returns('abc123').at_least_once
     mock_charge.expects(:amount).returns(100)
 
-Stripe::Event.expects(:fetch).with(event_id).at_least_once.returns(mock_event)
+    Stripe::Event.expects(:fetch).with(event_id).at_least_once.returns(mock_event)
+
+    post :create, format: :json, id: event_id, type: 'charge.succeeded'
   end
 end
 ```
