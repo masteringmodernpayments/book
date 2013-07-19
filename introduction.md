@@ -40,3 +40,4 @@ Versions of software used in most of the examples:
 ## Changelog
 
 * 1.0.0 - Initial release
+* 1.0.1 - Spelling, grammar, code improvements. Add sections about testing.
