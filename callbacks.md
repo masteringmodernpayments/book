@@ -181,7 +181,8 @@ class StripeEventsControllerTest < ActionController::TestCase
   test 'charge created' do
     event_id = 'fake_event_id'
 
-    sale = Sale.create(stripe_id: 'abc123', amount: 100, email: 'foo@bar.com')
+    product = Product.create(price: 100, name: 'foo')
+    sale = Sale.create(stripe_id: 'abc123', amount: 100, email: 'foo@bar.com', product: product)
 
     mock_event = mock
     mock_data = mock
