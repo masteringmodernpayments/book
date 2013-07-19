@@ -181,9 +181,14 @@ class StripeEventsControllerTest < ActionController::TestCase
   test 'charge created' do
     event_id = 'fake_event_id'
     mock_event = mock
-    m
-    mock_event.expects(
-    Stripe::Event.expects(:fetch).with(event_id).at_least_once.returns(mock_event)
+    mock_data = mock
+    mock_charge = mock
+    mock_event.expects(:data).returns(mock_data)
+    mock_data.expects(:object).returns(mock_charge)
+    mock_charge.expects(:id).returns(event_id).at_least_once
+    mock_charge.expects(:amount).returns(100)
+
+Stripe::Event.expects(:fetch).with(event_id).at_least_once.returns(mock_event)
   end
 end
 ```
