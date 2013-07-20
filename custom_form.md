@@ -38,10 +38,6 @@ And here's the code:
         <span> / </span>
         <input style="width: 3em" type="text" size="4" id="exp-year" data-stripe="exp-year" placeholder="YYYY" pattern="\d*"/>
       </div>
-      <div style="position: absolute; left: 400px">
-        <label class="control-label">Coupon Code</label>
-        <input style="width: 18em" type="text" name="coupon_code" placeholder="CODE"/>
-      </div>
     </div>
     <div class="row" style="margin-top: 70px">
       <div class="price" style="position: absolute; left: 20px;"><%= price %></div>
