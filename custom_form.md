@@ -7,7 +7,7 @@ Until now we've been using Stripe's excellent `checkout.js` that provides a popu
 
 Here's the form we'll be using:
 
-<img src="custom_form.png" />
+<img src="custom_form.png">
 
 And here's the code:
 
