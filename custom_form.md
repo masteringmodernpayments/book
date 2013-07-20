@@ -9,6 +9,8 @@ Here's the form we'll be using:
 
 <img src="custom_form.png" />
 
+And here's the code:
+
 ```rhtml
 <div class="well" style="margin-left: 0px; position: relative; min-width: 650px; min-height: 180px; max-height: 180px">
 <%= form_tag buy_path(permalink: permalink), :class => '', :id => 'payment-form' do %>
