@@ -8,43 +8,46 @@ Until now we've been using Stripe's excellent `checkout.js` that provides a popu
 Here's the form we'll be using:
 
 ```rhtml
-<%= form_tag buy_path(permalink: @product.permalink), :class => 'form-horizontal', :id => 'payment-form' do %>
-  <span class="payment-errors"></span>
-  <div class="control-group">
+<div class="well" style="margin-left: 0px; position: relative; min-width: 650px; min-height: 180px; max-height: 180px">
+<%= form_tag buy_path(permalink: permalink), :class => '', :id => 'payment-form' do %>
+<div class="row">
+</div>
+<div class="row">
+  <div style="position: absolute; left: 20px">
     <label class="control-label" for="email">Email</label>
-    <div class="controls">
-      <input type="email" name="email" id="email" placeholder="Email"/>
-    </div>
+    <input type="email" name="email" id="email" placeholder="you@example.com" style="width: 25em"/>
   </div>
-  <div class="control-group">
+  <div style="position: absolute; left: 400px">
     <label class="control-label" for="number">Card Number</label>
-    <div class="controls">
-      <input type="text" size="20" data-stripe="number" id="number" placeholder="**** **** **** ****"/>
-    </div>
+    <input type="text" size="20" data-stripe="number" id="number" placeholder="**** **** **** ****" pattern="[\d ]*" style="width: 18em"/>
   </div>
-
-  <div class="control-group">
+</div>
+<div class="row" style="margin-top: 65px">
+  <div style="position: absolute; left: 20px">
     <label class="control-label" for="cvc">CVC</label>
-    <div class="controls">
-      <input type="text" size="3" data-stripe="cvc" id="cvc" placeholder="***"/>
-    </label>
+    <input type="text" style="width: 3em" size="3" data-stripe="cvc" id="cvc" placeholder="***" pattern="\d*"/>
+    <img id="card-image" src="/img/credit.png" style="height: 30px; padding-left: 10px; margin-top: -10px">
   </div>
-
-  <div class="control-group">
-    <label class="control-label">Expiration (MM/YYYY)</label>
-    <div class="controls">
-      <input type="text" size="2" data-stripe="exp-month" placeholder="MM"/>
-      <span> / </span>
-      <input type="text" size="4" data-stripe="exp-year" placeholder="YYYY"/>
-    </div>
+  <div style="position: absolute; left: 150px">
+    <label class="control-label">Exp (MM/YYYY)</label>
+    <input style="width: 2em" type="text" size="2" id="exp-month" data-stripe="exp-month" placeholder="MM" pattern="\d*"/>
+    <span> / </span>
+    <input style="width: 3em" type="text" size="4" id="exp-year" data-stripe="exp-year" placeholder="YYYY" pattern="\d*"/>
   </div>
-
-  <div class="control-group">
-    <div class="controls">
-      <button type="submit" class="btn btn-primary">Pay</button>
-    </div>
+  <div style="position: absolute; left: 400px">
+    <label class="control-label">Coupon Code</label>
+    <input style="width: 18em" type="text" name="coupon_code" placeholder="CODE"/>
   </div>
+</div>
+<div class="row" style="margin-top: 70px">
+  <div class="price" style="position: absolute; left: 20px;"><%= price %></div>
+  <div style="position: absolute; left: 400px">
+    <button type="submit" class="btn btn-primary btn-large">Buy Now</button>
+    <img style="display: none;" src="/img/well_spinner.gif" id="spinner">
+  </div>
+</div>
 <% end %>
+</div>
 ```
 
 There's a few interesting things going on here. First, notice the almost-excessive amount of markup. I'm using [Twitter Bootstrap][custom-form-bootstrap] form markup for this, which gives nice looking styling by default.
