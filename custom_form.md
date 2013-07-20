@@ -13,44 +13,44 @@ And here's the code:
 
 ```rhtml
 <div class="well" style="margin-left: 0px; position: relative; min-width: 650px; min-height: 180px; max-height: 180px">
-<%= form_tag buy_path(permalink: permalink), :class => '', :id => 'payment-form' do %>
-<div class="row">
-</div>
-<div class="row">
-  <div style="position: absolute; left: 20px">
-    <label class="control-label" for="email">Email</label>
-    <input type="email" name="email" id="email" placeholder="you@example.com" style="width: 25em"/>
-  </div>
-  <div style="position: absolute; left: 400px">
-    <label class="control-label" for="number">Card Number</label>
-    <input type="text" size="20" data-stripe="number" id="number" placeholder="**** **** **** ****" pattern="[\d ]*" style="width: 18em"/>
-  </div>
-</div>
-<div class="row" style="margin-top: 65px">
-  <div style="position: absolute; left: 20px">
-    <label class="control-label" for="cvc">CVC</label>
-    <input type="text" style="width: 3em" size="3" data-stripe="cvc" id="cvc" placeholder="***" pattern="\d*"/>
-    <img id="card-image" src="/img/credit.png" style="height: 30px; padding-left: 10px; margin-top: -10px">
-  </div>
-  <div style="position: absolute; left: 150px">
-    <label class="control-label">Exp (MM/YYYY)</label>
-    <input style="width: 2em" type="text" size="2" id="exp-month" data-stripe="exp-month" placeholder="MM" pattern="\d*"/>
-    <span> / </span>
-    <input style="width: 3em" type="text" size="4" id="exp-year" data-stripe="exp-year" placeholder="YYYY" pattern="\d*"/>
-  </div>
-  <div style="position: absolute; left: 400px">
-    <label class="control-label">Coupon Code</label>
-    <input style="width: 18em" type="text" name="coupon_code" placeholder="CODE"/>
-  </div>
-</div>
-<div class="row" style="margin-top: 70px">
-  <div class="price" style="position: absolute; left: 20px;"><%= price %></div>
-  <div style="position: absolute; left: 400px">
-    <button type="submit" class="btn btn-primary btn-large">Buy Now</button>
-    <img style="display: none;" src="/img/well_spinner.gif" id="spinner">
-  </div>
-</div>
-<% end %>
+  <%= form_tag buy_path(permalink: permalink), :class => '', :id => 'payment-form' do %>
+    <div class="row">
+    </div>
+    <div class="row">
+      <div style="position: absolute; left: 20px">
+        <label class="control-label" for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="you@example.com" style="width: 25em"/>
+      </div>
+      <div style="position: absolute; left: 400px">
+        <label class="control-label" for="number">Card Number</label>
+        <input type="text" size="20" data-stripe="number" id="number" placeholder="**** **** **** ****" pattern="[\d ]*" style="width: 18em"/>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 65px">
+      <div style="position: absolute; left: 20px">
+        <label class="control-label" for="cvc">CVC</label>
+        <input type="text" style="width: 3em" size="3" data-stripe="cvc" id="cvc" placeholder="***" pattern="\d*"/>
+        <img id="card-image" src="/img/credit.png" style="height: 30px; padding-left: 10px; margin-top: -10px">
+      </div>
+      <div style="position: absolute; left: 150px">
+        <label class="control-label">Exp (MM/YYYY)</label>
+        <input style="width: 2em" type="text" size="2" id="exp-month" data-stripe="exp-month" placeholder="MM" pattern="\d*"/>
+        <span> / </span>
+        <input style="width: 3em" type="text" size="4" id="exp-year" data-stripe="exp-year" placeholder="YYYY" pattern="\d*"/>
+      </div>
+      <div style="position: absolute; left: 400px">
+        <label class="control-label">Coupon Code</label>
+        <input style="width: 18em" type="text" name="coupon_code" placeholder="CODE"/>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 70px">
+      <div class="price" style="position: absolute; left: 20px;"><%= price %></div>
+      <div style="position: absolute; left: 400px">
+        <button type="submit" class="btn btn-primary btn-large">Buy Now</button>
+        <img style="display: none;" src="/img/well_spinner.gif" id="spinner">
+      </div>
+    </div>
+  <% end %>
 </div>
 ```
 
