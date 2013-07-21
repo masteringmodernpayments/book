@@ -225,7 +225,7 @@ Here's some simple code for the `SalesController#show` action to display the his
 
 And here's what it looks like:
 
-<img src="history_table.png" style="width: 500px;">
+![history table](history_table.png)
 
 Each change will have a timestamp, the event, and a block of changes, one row for each column that changed in that update. For a typical completed sale we'll see three rows: record creation, the state change from "pending" to "processing" when the background worker picks the job up, and another row when the background worker updates the Stripe information. The current state table will show the record as "finished". By examining the audit trail for a clean transaction you can do things like get rough performance numbers for your interactions with Stripe, and if you ever have broken transactions you can see when things went wrong and more importantly how things went wrong which will better help you fix them.
 
