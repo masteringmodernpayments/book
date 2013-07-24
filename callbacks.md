@@ -48,8 +48,8 @@ We'll need a new controller to handle callbacks. In `app/controllers/stripe_even
 ```ruby
 
 class StripeEventsController < ApplicationController
-  skip_before_filter :authenticate_user!
-  before_filter :parse_and_validate_event
+  skip_before_action :authenticate_user!
+  before_action :parse_and_validate_event
 
   def create
     if self.class.private_method_defined? event_method
