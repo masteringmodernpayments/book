@@ -104,9 +104,9 @@ class StripeMailer < ActionMailer::Base
   def admin_dispute_created(event)
     @event = event
     @charge = @event.data.object
-    @sale = Sale.where(stripe_id: @charge.id).first
+    @sale = Sale.find_by(stripe_id: @charge.id)
     if sale
-      mail(to: 'you@example.com', subject: "Dispute created on charge #{@sale.guid} (#{charge.id})")
+      mail(to: 'you@example.com', subject: "Dispute created on charge #{@sale.guid} (#{charge.id})").deliver
     end
   end
 end
