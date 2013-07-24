@@ -60,8 +60,9 @@ root :to => 'products#index'
 and this in `app/views/layouts/application.html.erb` right after the `body` tag:
 
 ```erb
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<% flash.each do |type, msg| %>
+  <%= content_tag :p, msg, class: type %>
+<% end %>
 ```
 
 Also, you'll want to delete `public/index.html` because it interferes with `root :to =>...`. 
