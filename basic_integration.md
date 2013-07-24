@@ -47,19 +47,16 @@ class TransactionsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:new, :create]
 
   def new
-    @product = Product.where(permalink: params[:permalink]).first
-    raise ActionController::RoutingError.new("Not found") unless @product
+    @product = Product.find_by!(permalink: params[:permalink])
   end
 
   def show
-    @sale = Sale.where(guid: params[:guid]).first
-    raise ActionController::RoutingError.new("Not found") unless @sale
+    @sale = Sale.find_by!(guid: params[:guid])
     @product = @sale.product
   end
 
   def create
-    product = Product.where(permalink: params[:permalink]).first
-    raise ActionController::RoutingError.new("Not found") unless product
+    product = Product.find_by!(permalink: params[:permalink])
 
     token = params[:stripeToken]
 
