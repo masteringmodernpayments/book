@@ -116,7 +116,9 @@ There are a few other things you can do to help ensure that your Rails applicati
 [Rails Best Practices][pci-rbp] is a website where people can submit and upvote various practices that help to keep your app safe and secure, and help structure your code in a maintainable way. Conveniently, Rails Best Practices also publishes a gem that automatically checks your app against more than fourty of the most common best practices. To install it, add it to the `Gemfile`:
 
 ```ruby
-gem 'rails_best_practices'
+group :development do
+  gem 'rails_best_practices'
+end
 ```
 
 You should add a rake task to simplfy running it. In `lib/tasks/security.rake`:
