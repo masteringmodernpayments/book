@@ -139,7 +139,7 @@ The Rails scaffolding tends to produce code that doesn't adhere to these practic
 ```
 
 ```rhtml
-<%= render partial: 'form' %>
+<%= render 'form' %>
 ```
 
 To this:
