@@ -149,8 +149,7 @@ In `app/controllers/transactions_controller.rb`:
 
 ```ruby
 def iframe
-  @product = Product.where(permalink: params[:permalink]).first
-  raise ActionController::RoutingError.new("Not found") unless @product
+  @product = Product.find_by!(permalink: params[:permalink])
 end
 ```
 
