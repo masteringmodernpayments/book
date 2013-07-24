@@ -122,18 +122,17 @@ def create
   @product = Product.where(permalink: params[:permalink]).first
   raise ActionController::RoutingError.new("Not found") unless @product
 
-  token = params[:stripeToken]
   sale = Sale.create(
     product_id:   @product.id,
     amount:       @product.price,
     email:        params[:email],
-    stripe_token: token
+    stripe_token: params[:stripeToken]
   )
   sale.process!
   if sale.finished?
     redirect_to pickup_url(guid: sale.guid)
   else
-    flash[:alert] = sale.error
+    flash.now[:alert] = sale.error
     render :new
   end
 end
