@@ -126,7 +126,7 @@ Time to set up the views. Put this in `app/views/transactions/new.html.erb`:
 <%= @error %>
 <% end %>
 
-<p>Price: <%= number_to_currency(@product.price) %></p>
+<p>Price: <%= formatted_price(@product.price) %></p>
 
 <%= form_tag buy_path(permalink: @product.permalink) do %>
   <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
