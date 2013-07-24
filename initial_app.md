@@ -131,7 +131,8 @@ class Sale < ActiveRecord::Base
   belongs_to :product
 
   before_save :populate_guid
-  
+
+  private
   def populate_guid
     if new_record?
       self.guid = SecureRandom.uuid()
