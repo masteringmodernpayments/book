@@ -130,13 +130,11 @@ Open up `app/models/sale.rb` and make it look like this:
 class Sale < ActiveRecord::Base
   belongs_to :product
 
-  before_save :populate_guid
+  before_create :populate_guid
 
   private
   def populate_guid
-    if new_record?
-      self.guid = SecureRandom.uuid()
-    end
+    self.guid = SecureRandom.uuid()
   end
 end
 ```
