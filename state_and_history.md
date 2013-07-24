@@ -62,7 +62,7 @@ It'll also have a few different events for the transaction: `process`, `finish`,
 
 ```ruby
 class Sale < ActiveRecord::Base
-  before_save :populate_guid
+  before_create :populate_guid
 
   include AASM
 
@@ -106,10 +106,9 @@ class Sale < ActiveRecord::Base
     end
   end
 
+  private
   def populate_guid
-    if new_record?
-      self.guid = SecureRandom.uuid()
-    end
+    self.guid = SecureRandom.uuid()
   end
 end
 ```
