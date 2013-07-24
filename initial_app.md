@@ -77,7 +77,7 @@ $ rake db:migrate
 Open up `app/controllers/application_controller.rb` and add this line which will secure everything by default:
 
 ```ruby
-before_filter :authenticate_user!
+before_action :authenticate_user!
 ```
 
 You'll need to create a user so you can actually log in to the site. Fire up `rails console` and type:
