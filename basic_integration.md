@@ -103,10 +103,10 @@ gem 'httparty'
 The routes for transactions are pretty simple. Add this to `config/routes.rb`:
 
 ```ruby
-match '/buy/:permalink' => 'transactions#new',      via: :get,  as: :buy
-match '/buy/:permalink' => 'transactions#create',   via: :post, as: :buy
-match '/pickup/:guid'   => 'transactions#show',     via: :get,  as: :pickup
-match '/download/:guid' => 'transactions#download', via: :get,  as: :download
+get  '/buy/:permalink', to: 'transactions#new',      as: :show_buy
+post '/buy/:permalink', to: 'transactions#create',   as: :buy
+get  '/pickup/:guid',   to: 'transactions#show',     as: :pickup
+get  '/download/:guid'  to: 'transactions#download', as: :download
 ```
 
 ### Why not RESTful URLs?
