@@ -44,7 +44,7 @@ In `app/controllers/transactions_controller.rb`:
 
 ```ruby
 class TransactionsController < ApplicationController
-  skip_before_filter :authenticate_user!, only: [:new, :create]
+  skip_before_action :authenticate_user!, only: [:new, :create]
 
   def new
     @product = Product.where(permalink: params[:permalink]).first
