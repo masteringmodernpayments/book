@@ -261,7 +261,12 @@ expiring_customers.each do |customer|
 end
 ```
 
-Stripe has recently added a new API endpoint that allows you to update parts of the customer's card independently of the 
+Stripe has recently added a new API endpoint that allows you to update parts of the customer's card independently of the actual card number. So, for example, in the update action on `SubscriptionsController` you could do something like this:
+
+```ruby
+customer = Stripe::Customer.retrieve(@subscription.stripe_customer)
+car
+```
 
 If the customer still doesn't update their card or if it's declined for other reasons, you should immediately send them an email. Describe what happened and give them an easy way to login to your app and update their card. According to [Patrick McKenzie][subscriptions-patio11-rainy-day] you should also include a P.S. to the effect that you're a small business, not a bank, and that they're not in trouble or anything. You're sure it's a mistake so you won't be cutting them off for a few days.
 
