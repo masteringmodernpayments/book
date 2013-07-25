@@ -1,0 +1,274 @@
+[subscriptions-koudoku]: https://github.com/andrewculver/koudoku
+[subscriptions-stripe-rails]: https://github.com/thefrontside/stripe-rails
+[subscriptions-stripe_event]: https://github.com/integrallis/stripe_event
+[subscriptions-rails-stripe-membership-saas]: https://github.com/RailsApps/rails-stripe-membership-saas
+[subscriptions-monospace-rails]: https://github.com/stripe/monospace-rails
+[subscriptions-stripe-invoices]: https://stripe.com/docs/api#invoiceitems
+[subscriptions-patio11-rainy-day]: https://training.kalzumeus.com/newsletters/archive/rainy_day_ideas
+[subscriptions-monospace-users-controller]: https://github.com/stripe/monospace-rails/blob/master/app/controllers/users_controller.rb
+[subscriptions-monospace-user-model]: https://github.com/stripe/monospace-rails/blob/master/app/models/user.rb
+[subscriptions-cancan]: https://github.com/ryanb/cancan
+[subscriptions-cancan-wiki]: https://github.com/ryanb/cancan/wiki
+[subscriptions-card-api-blog]: https://stripe.com/blog/multiple-cards
+[subscriptions-card-api]: https://stripe.com/docs/api/ruby#update_card
+
+
+# Subscriptions
+
+So far in the example project we've only dealt with one-off transactions where the customer comes along and buys a product once and we basically never have to deal with them again. The majority of SaaS products aren't really like that, though. Most SaaS products bill customers monthly for services, maybe with some kind of add-on system. The general flow is:
+
+1. Sign a user up for your system
+2. Capture their credit card info using `stripe.js` or `checkout.js`
+3. Create a Stripe-level customer record and attach them to a subscription plan
+4. Stripe handles billing them every period with variety of callbacks that you can hook into to influence the process
+
+The tricky part starts when people want to change their subscription plan and they have add-ons. Stripe automatically handles prorating subscription changes but since add-ons are handled using invoices you have to prorate them yourself.
+
+## Off the shelf solutions
+
+There are a bunch of different Rails engines out there that let you more or less drop a subscription system into your app.
+
+* [Koudoku][subscriptions-koudoku] includes things like a pricing table, helpers for `stripe.js`, and robust plan creation. It does not have particularly good support for Stripe's webhooks.
+* [Stripe::Rails][subscriptions-stripe-rails] has much better webhook support but doesn't help you as much with pricing tables or views
+* [stripe_event][subscriptions-stripe_event] handles *just* Stripe's webhooks, but it does a fairly good job of it.
+
+In addition, there's a fair number of example subscription applications you can crib from:
+
+* [monospace-rails][subscriptions-monospace-rails] is Stripe's own example subscription app
+* [rails-stripe-membership-saas][subscriptions-rails-stripe-membership-saas] is another very good example
+
+You should definitely check these options out. In this chapter we're going to walk through Monospace Rails and then touch on a few pain points it doesn't cover.
+
+## Basic Integration
+
+We're going to start our walkthrough in [app/controllers/users_controller.rb][subscriptions-monospace-users-controller]:
+
+```ruby
+class UsersController < ApplicationController
+  before_filter :require_user, :only => [:edit, :update]
+
+  def new
+    redirect_to root_path, :notice => "You are already registered" if current_user
+
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(params[:user])
+    if @user.save
+      session[:user_id] = @user.id
+      redirect_to root_path, :notice => "Signed up!"
+    else
+      render :action => :new
+    end
+  rescue Stripe::CardError => e
+    @user.errors.add :base, e.message
+    @user.stripe_token = nil
+    render :action => :new
+
+  rescue Stripe::StripeError => e
+    logger.error e.message
+    @user.errors.add :base, "There was a problem with your credit card"
+    @user.stripe_token = nil
+    render :action => :new
+  end
+
+  def edit
+  end
+
+  def update
+    current_user.update_attributes(params[:user])
+    if current_user.save
+      redirect_to root_path, :notice => "Profile updated"
+    else
+      render :action => :edit
+    end
+  rescue Stripe::StripeError => e
+    logger.error e.message
+    @user.errors.add :base, "There was a problem with your credit card"
+    @user.stripe_token = nil
+    render :action => :edit
+  end
+end
+```
+
+Monospace uses it's own user system instead of Devise. `require_user` is defined in `application_controller` and just redirects to `/` if there's no user. The actions are all pretty standard, but note that we're dealing with `Stripe::StripeError` and `Stripe::CardError` directly. Generally you'd want to do these interactions in a background worker and show the user a spinner while the application is talking to Stripe. You can read all about that in the previous chapter on background workers.
+
+The juciest part of Monospace is in the model [app/models/user.rb][subscriptions-monospace-user-model]:
+
+```ruby
+class User < ActiveRecord::Base
+  attr_accessible :name, :email, :password, :password_confirmation, :stripe_token, :last_4_digits
+
+  attr_accessor :password, :stripe_token
+  before_save :encrypt_password
+  before_save :update_stripe
+
+  validates_confirmation_of :password
+  validates_presence_of :password, :on => :create
+
+  validates_presence_of :name
+  validates_presence_of :email
+  validates_uniqueness_of :email
+  validates_presence_of :last_4_digits
+
+  def stripe_description
+    "#{name}: #{email}"
+  end
+
+  def update_stripe
+    if stripe_id.nil?
+      if !stripe_token.present?
+        raise "We're doing something wrong -- this isn't supposed to happen"
+      end
+
+      customer = Stripe::Customer.create(
+        :email => email,
+        :description => stripe_description,
+        :card => stripe_token
+      )
+      self.last_4_digits = customer.active_card.last4
+      response = customer.update_subscription({:plan => "premium"})
+    else
+      customer = Stripe::Customer.retrieve(stripe_id)
+
+      if stripe_token.present?
+        customer.card = stripe_token
+      end
+
+      # in case they've changed
+      customer.email = email
+      customer.description = stripe_description
+
+      customer.save
+
+      self.last_4_digits = customer.active_card.last4
+    end
+
+    self.stripe_id = customer.id
+    self.stripe_token = nil
+  end
+
+  def self.authenticate(email, password)
+    user = self.find_by_email(email)
+    if user && BCrypt::Password.new(user.hashed_password) == password
+      user
+    else
+      nil
+    end
+  end
+
+
+  def encrypt_password
+    if password.present?
+      self.hashed_password = BCrypt::Password.create(password)
+    end
+  end
+end
+```
+
+`self.authenticate` and `encrypt_password` are part of the very simple authentication system. `BCrypt` is one of the best options to use for encrypting things. It handles all of the current industry best practices for storing and hashing passwords.
+
+`update_stripe` is where all the action happens. If there's a token present and no saved `stripe_id` we create a customer and save off the customer's card's last 4 digits. We also update their subscription to a fixed subscription plan which we set up earlier in the Stripe web interface. If the record *does* have a `stripe_id` we know we're doing an update, so we look up the `Stripe::Customer` record and update it's properties. One important thing to note is `stripe_description`, which combine's the customer's name and email. `description` is a free-form string property stored at Stripe which they don't do anything with. However, it's searchable from their dashboard which makes it super easy to look up all of a customer's charges just by typing in their email address into the search tool.
+
+Monospace does not actually *do* anything with these users and their subscriptions. Rails Stripe Membership SaaS goes much more in depth as to what a particular subscription plan means, in particular using a system called [CanCan][subscriptions-cancan]. CanCan lets you easily encapsulate logic around authorizations and permissions. For example, let's say Monospace actually has two plans, `premium` and `standard`. Premium members can post things while standard ones can only read. You'd specify that in CanCan like this:
+
+```ruby
+class Ability
+  include CanCan::Ability
+
+  def initialize(user)
+    if user.plan == 'premium'
+      can :create, Article
+    end
+    can :read, Article
+  end
+end
+```
+
+And you'd check those permissions in a controller like this:
+
+```ruby
+can? :read, @article
+can? :create, @article
+```
+
+For more details, see the [CanCan documentation][subscriptions-cancan-wiki]. 
+
+## Utility-Style Metered Billing
+
+Handling a basic subscription is straight forward and well covered in the example apps. Let's say, however, you're building an app where you want metered billing like a phone bill. You'd have a basic subscription for access and then monthly invoicing for anything else. Stripe has a feature they call [Invoices][subscriptions-stripe-invoice] that makes this easy. For example, you want to allow customers to send email to a list and base the charge it on how many emails get sent. You could do something like this:
+
+```ruby
+class EmailSend < ActiveRecord::Base
+  # ...
+
+  belongs_to :user
+  after_create :add_invoice_item
+
+  def add_invoice_item
+    Stripe::InvoiceItem.create(
+      customer: user.stripe_customer_id,
+      amount: 1,
+      currency: "usd",
+      description: "email to #{address}"
+    )
+  end
+end
+```
+
+At the end of the customer's billing cycle Stripe will tally up all of the `InvoiceItems` that you've added to the customer's bill and charge them the total plus their subscription plan's amount.
+
+Stripe will also send you a webook detailing the customer's entire invoice right before they initiate the charge. Instead of creating an invoice item for every single email as it gets sent, you could just create one invoice item for the number of emails sent in the billing period:
+
+```ruby
+def stripe_invoice_created(event)
+  invoice = event.data.object
+
+  num_emails = EmailSend.where('created_at between ? and ?', [Time.at(invoice.period_start), Time.at(invoice.period_end)]).count
+  Stripe::InvoiceItem.create(
+    invoice: invoice.id,
+    amount: num_emails,
+    currency: 'usd',
+    description: "#{num_emails} emails sent @ $0.01"
+  )
+end
+```
+
+Note that this can get kind of complicated if invoice items can be charged at different rates. You can either add one `InvoiceItem` per indivicual charge, or you can add one `InvoiceItem` per item type with the amount set to `num_items * item amount`. 
+
+## Add-ons
+
+Let's say your app lets people print off their photos and send them to their family. A basic subscription gets you one set of 5 photos sent to two addresses each month. An add-on would be something where the customer wants to send an additional photo to each address for just this month, or they want to send the set of 5 to a third address just this month. You would set this up just like the utility billing example above. Each photo sent that's more than their plan level gets an InvoiceItem.
+
+For unlimited usage add-ons I would suggest that you don't try to do them, because prorating things is not easy to do on your own. Stripe plans are very lightweight, you can easily create a new plan for every permutation of base + monthly add-on on the fly and just add customers to them. In the photo printing example, this would be something like adding two additional destination addresses each month and also adding three more photos, all for a discount on top of the normal per-photo additional charge. Just make sure your plan names are deterministic so you can deduce what users are supposed to pay when invoice time comes around.
+
+## Dunning
+
+Sometimes customers don't pay their bill, often through no fault of their own. The process of communicating with your customers to get them to pay is called "dunning" and it's vital for any type of business. For a subscription SaaS using Stripe where the customer's card is billed automatically every period the dunning process kicks in when a charge fails for some reason and we send them an email. The next month we send them another, more strongly worded email, eventually leading to cancelling their account.
+
+Really, though, you don't want to let the process even get started. The number one reason why subscription charges start getting declined is that the customer's card expires. Since you're saving the customer's card expiration in your database (if you're not, you should start), it's a trivial matter to find all of the customers that have an expiration coming up and send them a short reminder email:
+
+```ruby
+expiring_customers = Customer.where(
+  'date_reminded is null and expiration_date <= ?',
+  Date.today() + 30.days
+)
+
+expiring_customers.each do |customer|
+  StripeMailer.card_expiring(customer).deliver
+  customer.update_attributes(date_reminded: Date.today)
+end
+```
+
+Stripe has recently added a new API endpoint that allows you to update parts of the customer's card independently of the 
+
+If the customer still doesn't update their card or if it's declined for other reasons, you should immediately send them an email. Describe what happened and give them an easy way to login to your app and update their card. According to [Patrick McKenzie][subscriptions-patio11-rainy-day] you should also include a P.S. to the effect that you're a small business, not a bank, and that they're not in trouble or anything. You're sure it's a mistake so you won't be cutting them off for a few days.
+
+Speaking of cutting them off, you really shouldn't automatically cancel anyone's account without a manual review process. Charges fail sometimes and it's nobody's fault, which is why Stripe automatically retries for you for a configurable number of days. After that's up and the charge finally fails, send yourself an email and follow up with the customer, either by email or over the phone.
+
+There's one more aspect to dunning: following up on cancelled accounts. If a high value customer decides to cancel, give them a call and ask if there's anything you can do to change their mind. It's worth a shot, and most of the time you can work something out.
+
+## Next
+
+In this chapter we talked about one type of business that Stripe enables, the software-as-a-service subscription application. In the next chapter we'll discuss another: marketplaces.
