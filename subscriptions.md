@@ -37,7 +37,7 @@ In addition, there's a few example subscription applications you can crib from:
 * [monospace-rails][subscriptions-monospace-rails] is Stripe's own example subscription app
 * [rails-stripe-membership-saas][subscriptions-rails-stripe-membership-saas] is another very good example
 
-You should definitely check these options out. If you just want to drop something and get going I suggest looking into Koudoku, but in this chapter we're going to walk through Monospace Rails and then touch on a few pain points it doesn't cover.
+You should definitely check these options out. If you just want to drop something and get going I suggest looking into Koudoku first. In this chapter we're going to walk through Monospace Rails and then touch on a few pain points it doesn't cover.
 
 ## Basic Integration
 
