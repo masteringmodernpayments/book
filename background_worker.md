@@ -221,7 +221,7 @@ $(function() {
   function stripeResponseHandler(status, response) {
     var form = $('#payment-form');
     if (response.error) {
-      showError(response.error);
+      showError(response.error.message);
     } else {
       var token = response.id;
       form.append($('<input type="hidden" name="stripeToken">').val(token));
