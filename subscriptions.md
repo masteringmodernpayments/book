@@ -9,6 +9,8 @@
 [subscriptions-monospace-user-model]: https://github.com/stripe/monospace-rails/blob/master/app/models/user.rb
 [subscriptions-cancan]: https://github.com/ryanb/cancan
 [subscriptions-cancan-wiki]: https://github.com/ryanb/cancan/wiki
+[subscriptions-card-api-blog]: https://stripe.com/blog/multiple-cards
+[subscriptions-card-api]: https://stripe.com/docs/api/ruby#update_card
 
 
 # Subscriptions
