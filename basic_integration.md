@@ -106,7 +106,7 @@ The routes for transactions are pretty simple. Add this to `config/routes.rb`:
 get  '/buy/:permalink', to: 'transactions#new',      as: :show_buy
 post '/buy/:permalink', to: 'transactions#create',   as: :buy
 get  '/pickup/:guid',   to: 'transactions#show',     as: :pickup
-get  '/download/:guid'  to: 'transactions#download', as: :download
+get  '/download/:guid', to: 'transactions#download', as: :download
 ```
 
 ### Why not RESTful URLs?
