@@ -32,12 +32,12 @@ There are a bunch of different Rails engines out there that let you more or less
 * [Stripe::Rails][subscriptions-stripe-rails] has more flexible webhook support but doesn't help you as much with pricing tables or baked-in notifications and metrics support.
 * [stripe_event][subscriptions-stripe_event] handles *just* Stripe's webhooks and does a fairly good job of it.
 
-In addition, there's a fair number of example subscription applications you can crib from:
+In addition, there's a few example subscription applications you can crib from:
 
 * [monospace-rails][subscriptions-monospace-rails] is Stripe's own example subscription app
 * [rails-stripe-membership-saas][subscriptions-rails-stripe-membership-saas] is another very good example
 
-You should definitely check these options out. In this chapter we're going to walk through Monospace Rails and then touch on a few pain points it doesn't cover.
+You should definitely check these options out. If you just want to drop something and get going I suggest looking into Koudoku, but in this chapter we're going to walk through Monospace Rails and then touch on a few pain points it doesn't cover.
 
 ## Basic Integration
 
