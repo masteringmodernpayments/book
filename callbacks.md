@@ -3,6 +3,7 @@
 [callbacks-DocRaptor]: http://docraptor.com
 [callbacks-Docverter]: http://www.docverter.com
 [callbacks-stripe-event-docs]: https://stripe.com/docs/api/ruby#events
+[callbacks-prawn]: http://prawn.majesticseacreature.com
 
 # Handling Webhooks
 
@@ -217,7 +218,7 @@ Subscription businesses, on the other hand, get a rich variety of events from St
 
 Customers, especially business customers, appreciate getting a PDF receipt along with the email. You make their lives measurably easier by including a file that they can just attach to their expense report, rather than having to go through a convoluted dance to convert your email into something they can use.
 
-There is a paid product named [PrinceXML][callbacks-PrinceXML] that makes excellent PDFs but it is very expensive and not very usable on cloud platforms like Heroku. [DocRaptor][callbacks-DocRaptor] is a paid service that has licensed PrinceXML and provides a nice API. However, the easiest and cheapest way to generate PDFs that I know of is to use an open-source service that I created named [Docverter][callbacks-Docverter]. All you have to do is generate some HTML and pass it to Docverter's API which then returns a PDF:
+There is a paid product named [PrinceXML][callbacks-PrinceXML] that makes excellent PDFs but it is very expensive and not very usable on cloud platforms like Heroku. [DocRaptor][callbacks-DocRaptor] is a paid service that has licensed PrinceXML and provides a nice API. There's also a nice gem named [Prawn][callbacks-prawn] that lets you generate PDFs without going through an HTML intermediary. However, the easiest and cheapest way to generate PDFs that I know of is to use an open-source service that I created named [Docverter][callbacks-Docverter]. All you have to do is generate some HTML and pass it to Docverter's API which then returns a PDF:
 
 In `Gemfile`:
 
