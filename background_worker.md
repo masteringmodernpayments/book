@@ -194,8 +194,7 @@ class TransactionsController < ApplicationController
   end
   
   def status
-    sale = Sale.find(params[:guid])
-    raise ActionController::RoutingError.new('not found') unless sale
+    sale = Sale.find_by!(guid: params[:guid])
 
     render json: { status: sale.state }
   end
@@ -222,7 +221,7 @@ $(function() {
   function stripeResponseHandler(status, response) {
     var form = $('#payment-form');
     if (response.error) {
-      showError(response.error.message);
+      showError(response.error);
     } else {
       var token = response.id;
       form.append($('<input type="hidden" name="stripeToken">').val(token));
