@@ -63,7 +63,7 @@ class TransactionsController < ApplicationController
     begin
       charge = Stripe::Charge.create(
         amount:      product.price,
-        currency:    "usd",
+        currency:    "usd",  # this would be 'cad' if you have a Canadian Stripe account
         card:        token,
         description: params[:email]
       )
