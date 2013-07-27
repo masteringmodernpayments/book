@@ -187,7 +187,7 @@ Mocha is a mocking framework that let's us set up fake objects that respond how 
 Let's set all of this up. In `test/test_helper.rb`:
 
 ```ruby
-ENV['RAILS_ENV'] = 'test'
+ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'database_cleaner'
