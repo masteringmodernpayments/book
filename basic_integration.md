@@ -167,7 +167,7 @@ Manually testing your application is a good first step. Stripe provides <em>test
 * `4000 0000 0000 0101`: cvs check failure
 * `4000 0000 0000 0002`: card will always be declined
 
-There are a bunch more failure modes you can check but those are the big ones.
+There are a bunch more failure modes you can check but those are the big ones. Make sure to manually run your test through at least these failure cases. You'll catch bugs you wouldn't think to test for and you'll actually be interacting with Stripe's API, which you won't be in your automated tests.
 
 ### Automated Tests
 
