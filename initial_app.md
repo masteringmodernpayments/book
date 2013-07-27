@@ -35,7 +35,7 @@ I'm going to use [PostgreSQL][initial-app-postgresql] for the example app becaus
 We're going to want to be able to authenticate users who can add and manage products and view sales. The example is going to use a gem named [Devise][initial-app-devise] which handles everything user-related out of the box. Add it to your `Gemfile`:
 
 ```ruby
-gem 'devise', '~> 2.2.4'
+gem 'devise', '~> 3.0.0.rc'
 ```
 
 then run bundler and set up Devise:
@@ -64,8 +64,6 @@ and this in `app/views/layouts/application.html.erb` right after the `body` tag:
   <%= content_tag :p, msg, class: type %>
 <% end %>
 ```
-
-Also, you'll want to delete `public/index.html` because it interferes with `root :to =>...`. 
 
 Now, let's create a User model for Devise to work with:
 
