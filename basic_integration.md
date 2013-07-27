@@ -105,7 +105,7 @@ class Product < ActiveRecord::Base
 end
 ```
 
-We're using [Paperclip][initial-app-paperclip] to attach the downloadable files to the product record. Let's add it to `Gemfile`:
+Note the `has_attached_file`. We're using [Paperclip][initial-app-paperclip] to attach the downloadable files to the product record. Let's add it to `Gemfile`:
 
 ```ruby
 gem 'paperclip', '~> 3.0'
@@ -117,10 +117,38 @@ Now we need to generate the migration so paperclip has a place to keep the file 
 $ rails generate paperclip product file
 ```
 
+We should add an upload button to the Product edit form as well. In `app/views/products/_form.html.erb` inside the `form_for`:
+
+```rhtml
+<div class="field">
+  <%= f.label :file %><br />
+  <%= f.file_field :file %>
+</div>
+```
+
+We also need to populate the `user` reference. In `ProductsController#create`:
+
+```ruby
+def create
+  @product = Product.new(product_params)
+  @product.user = current_user
+
+  respond_to do |format|
+    if @product.save
+      format.html { redirect_to [:admin, @product], notice: 'Product was successfully created.' }
+      format.json { render json: @product, status: :created, location: @product }
+    else
+      format.html { render "new" }
+      format.json { render json: @product.errors, status: :unprocessable_entity }
+    end
+  end
+end
+```
+
 Our app needs a way to track product sales. Let's make a Sale model too.
 
 ```bash
-$ rails g scaffold Sale email:string guid:string product_id:integer
+$ rails g scaffold Sale email:string guid:string product:references
 $ rake db:migrate
 ```
 
@@ -349,7 +377,9 @@ def formatted_price(amount)
 end
 ```
 
-This is a very simple example of a product purchase page with the product's name, description, and a Stripe button using `checkout.js`. Notice that we just drop the description in as html which makes it a risk for cross-site-scripting attacks. Make sure you trust the users you allow to create products. We're rendering the `new` view for the `#create` action, too, so if there's an error we'll display it above the checkout button.
+This is a very simple example of a product purchase page with the product's name, description, and a Stripe button using `checkout.js`. Checkout puts a simple button on your page that pops up a small overlay onto your page where the user puts in their credit card information. Stripe automatically processes the card information into a single use token while handling errors for you. When all of that is done `checkout.js` will submit the surrounding form to your server, taking care to strip out sensitive information. It's a convenient way to collect card information if you don't want to go to the trouble of making your own custom form, which we'll talk about in a later chapter.
+
+Notice that we just drop the description in as html which makes it a risk for cross-site-scripting attacks. Make sure you trust the users you allow to create products. We're rendering the `new` view for the `#create` action, too, so if there's an error we'll display it above the checkout button.
 
 The view for `#pickup` is even simpler, since it basically just has to display the product's download link. In `app/views/transactions/pickup.html.erb`:
 
