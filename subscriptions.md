@@ -261,6 +261,14 @@ expiring_customers.each do |customer|
 end
 ```
 
+This should actually be an entire campaign, with emails at 30, 15, and three days before card expiration, as well as the day of. Experience shows that giving the customer plenty of opportunity to update their card leads to about half of them doing so before getting any failed payments at all. Make sure to describe what's going on and give them an easy way to login to your app and update their card. If the payment does eventually fail, make sure to contact them again. According to [Patrick McKenzie][subscriptions-patio11-rainy-day] you should also include a P.S. to the effect that you're a small business, not a bank, and that they're not in trouble or anything. You're sure it's a mistake so you won't be cutting them off for a few days.
+
+Speaking of cutting them off, you really shouldn't automatically cancel anyone's account without a manual review process. Charges fail sometimes and it's nobody's fault, which is why Stripe automatically retries for you for a configurable number of days. After that's up and the charge finally fails, send yourself an email and follow up with the customer, either by email or over the phone.
+
+There's one more aspect to dunning: following up on cancelled accounts. If a high value customer decides to cancel, give them a call and ask if there's anything you can do to change their mind. It's worth a shot, and most of the time you can work something out.
+
+## Updating Cards, Multiple Cards
+
 Stripe has [recently added][subscriptions-card-api-blog] a new API endpoint that allows you to update parts of the customer's card independently of the actual card number. So, for example, in the update action on `SubscriptionsController` you could do something like this:
 
 ```ruby
@@ -272,12 +280,6 @@ card.save
 ```
 
 At the same time, Stripe added the ability to save multiple cards to a customer object. Only one card is used for any given subscription, but once a card is attached to a customer you can freely change the association on the subscription itself. You could also bill one off transactions to a different card, for example. The [API docs][subscriptions-card-api] go into greater depth about all of the things you can do with a card.
-
-If the customer still doesn't update their card or if it's declined for other reasons, you should immediately send them an email. Describe what happened and give them an easy way to login to your app and update their card. According to [Patrick McKenzie][subscriptions-patio11-rainy-day] you should also include a P.S. to the effect that you're a small business, not a bank, and that they're not in trouble or anything. You're sure it's a mistake so you won't be cutting them off for a few days.
-
-Speaking of cutting them off, you really shouldn't automatically cancel anyone's account without a manual review process. Charges fail sometimes and it's nobody's fault, which is why Stripe automatically retries for you for a configurable number of days. After that's up and the charge finally fails, send yourself an email and follow up with the customer, either by email or over the phone.
-
-There's one more aspect to dunning: following up on cancelled accounts. If a high value customer decides to cancel, give them a call and ask if there's anything you can do to change their mind. It's worth a shot, and most of the time you can work something out.
 
 ## Next
 
