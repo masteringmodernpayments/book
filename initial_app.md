@@ -163,6 +163,8 @@ We'll need to set a few more config options to make our site usable on Heroku. F
 $ heroku addons:add mandrill:starter
 ```
 
+<span class="pagebreak"></span>
+
 Now configure it in `config/environments/production.rb`:
 
 ```ruby
