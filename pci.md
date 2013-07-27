@@ -11,7 +11,7 @@
 
 <i>Note: I'm not an expert in PCI compliance and this chapter shouldn't be interpreted as legal advice. Rather, this is background information and advice on how to implement Stripe's guidelines. If you have questions, please ask Stripe or your nearest local PCI consultant.</i>
 
-In 2004 all of the various card processing companies including Mastercard, Visa, and Discover, started formulating security standards efforts with the aim of reducing the ongoing rash of credit card fraud. Visa dropped their own effort in 2005 and joined up with Mastercard, shortly followed by the rest of the industry. In 2006 version 1 of the [Payment Card Industry Data Security Standards][pci-pci] was officially published which formalized and codified a bunch of common-sense security requirements for processing credit cards. In their merchant agreements every processor specifies that you have to comply with PCI or your account will be dropped and you'll get audited, which is rather undesirable.
+In 2004 all of the various card processing companies including Mastercard, Visa, and Discover, started formulating security standards efforts with the aim of reducing the ongoing rash of credit card fraud. Visa dropped their own effort in 2005 and joined up with Mastercard, shortly followed by the rest of the industry. In 2006 version 1 of the [Payment Card Industry Data Security Standards][pci-pci] was officially published which formalized and codified a bunch of common-sense security requirements for processing credit cards. In their merchant agreements every processor specifies that you have to comply with PCI with failure leading to audits and them possibly dropping your account.
 
 ## Developer's Guide
 
@@ -33,7 +33,7 @@ Rails after v3.1 makes forcing visitors to HTTPS incredibly easy. In `config/env
 config.force_ssl = true
 ```
 
-This will redirect all non-HTTPS requests to HTTPS automatically on production. In addition it will set the `Strict-Transport-Security` header to ensure future requests get forced to SSL without asking first, and it ensures that all cookies get the `secure` flag. For this example it's all we need to do because Heroku provides what's called a "wildcard ssl certificate" for all apps accessed at `herokuapp.com`. If you're using your own URL you'll need to get your own certificate (generally around $10 per year) and install it with Heroku which will cost $20 per month. These costs vary if you're using a different hosting provider but most Amazon-based cloud providers will charge $20 because that's how much an Elastic Load Balancer is, which is where the SSL termination actually happens.
+This will redirect all non-HTTPS requests to HTTPS automatically on production. In addition it will set the `Strict-Transport-Security` header to ensure future requests get forced to SSL without asking first, and it ensures that all cookies get the `secure` flag. For this example it's all we need to do because Heroku provides what's called a "wildcard ssl certificate" for all apps accessed at `herokuapp.com`. The disadvantage of a wildcard certificate is that you're constrained to using `yourapp.herokuapp.com`. If you want to use your own URL you'll need to get your own certificate (generally around $10 per year) and install it with Heroku which will cost $20 per month. These costs vary if you're using a different hosting provider but most Amazon-based cloud providers will charge $20/mo because that's how much an Elastic Load Balancer is, which is where the SSL termination actually happens.
 
 ## Buying a Certificate
 
