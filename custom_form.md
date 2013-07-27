@@ -3,7 +3,7 @@
 
 # Custom Payment Forms
 
-Until now we've been using Stripe's excellent `checkout.js` that provides a popup iframe to collect credit card information, post it to Stripe and turn it into a `stripeToken` and then finally post our form. There's something conspicuously absent from all of this, however. Remember how Sale has an email attribute? We're not populating that right now because `checkout.js` doesn't let us add our own fields. For that we'll need to create our own form. Stripe makes this easy though, with `stripe.js`. The first half of this chapter is adapted from Stripe's [custom form tutorial][custom-form-tutorial].
+In the simple Stripe introduction we used Stripe's excellent `checkout.js` that provides a popup iframe to collect credit card information, post it to Stripe and turn it into a `stripeToken` and then finally post our form. There's something conspicuously absent from all of this, however. Remember how Sale has an email attribute? We're not populating that right now because `checkout.js` doesn't let us add our own fields. For that we'll need to create our own form. Stripe makes this easy though, with `stripe.js`. The first half of this chapter is adapted from Stripe's [custom form tutorial][custom-form-tutorial].
 
 Here's the form we'll be using:
 
@@ -12,6 +12,10 @@ Here's the form we'll be using:
 And here's the code:
 
 ```rhtml
+<!-- css links should go in the header of the document, this is just here for completeness -->
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+<!-- end header content -->
+
 <div class="well" style="margin-left: 0px; position: relative; min-width: 650px; min-height: 180px; max-height: 180px">
   <%= form_tag buy_path(permalink: permalink), :class => '', :id => 'payment-form' do %>
     <div class="row">
@@ -136,7 +140,7 @@ This page loads jQuery and Twitter Bootstrap from public CDNs and then uses them
 The iframe just loads the normal `/buy` action which contains the whole product description. More importantly, after the customer buys the thing they expect to be able to click on the download link and save the product, but that won't happen because we haven't set the `X-Frame-Options` header to allow the iframe to do anything. Let's fix the first problem. Move the form into a new partial named `_form.html.erb` and then call it like this in `transactions/new.html.erb`:
 
 ```rhtml
-<%= render :partial => 'form' %>
+<%= render 'form', permalink: @product.permalink, sale: @sale, price: formatted_price(@product.price) %>
 ```
 
 Then, create a new action named `iframe`, first in `config/routes.rb`:
@@ -160,7 +164,7 @@ In `app/views/transactions/iframe.html.rb`:
 
 <p>Price: <%= formatted_price(@product.price) %></p>
 
-<%= render :partial => 'form' %>
+<%= render 'form', permalink: @product.permalink, sale: @sale, price: formatted_price(@product.price) %>
 ```
 
 Now, change `frameSrc` to point at `/iframe/design-for-failure` and reload the page.
