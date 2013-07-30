@@ -137,7 +137,7 @@ Custom forms are all well and good, but wouldn't it be cool if we could embed it
 
 This page loads jQuery and Twitter Bootstrap from public CDNs and then uses them to create a Bootstrap Modal containing an `iframe`. Initially this iframe's `src` attribute is set to nothing. This is to prevent the iframe from loading on page load which could cause a lot of unnecessary traffic on the server running the sales application. When the customer clicks the button we set up the `src` attribute of the iframe and then show the modal.
 
-The iframe just loads the normal `/buy` action which contains the whole product description. More importantly, after the customer buys the thing they expect to be able to click on the download link and save the product, but that won't happen because we haven't set the `X-Frame-Options` header to allow the iframe to do anything. Let's fix the first problem. Move the form into a new partial named `_form.html.erb` and then call it like this in `transactions/new.html.erb`:
+The iframe just loads the normal `/buy` action which contains the whole product description. More importantly, after the customer buys the thing they expect to be able to click on the download link and save the product, but that won't happen because Rails adds a header named `X-Frame-Options` that disallows any part of the site from being framed. Let's fix the first problem. Move the form into a new partial named `_form.html.erb` and then call it like this in `transactions/new.html.erb`:
 
 ```rhtml
 <%= render 'form', permalink: @product.permalink, sale: @sale, price: formatted_price(@product.price) %>
@@ -152,10 +152,20 @@ match '/iframe/:permalink' => 'transactions#iframe', via: :get, as: :buy_iframe
 In `app/controllers/transactions_controller.rb`:
 
 ```ruby
+before_filter :strip_iframe_protection
+
 def iframe
   @product = Product.find_by!(permalink: params[:permalink])
+  @sale = Sale.new(product_id: @product)
+end
+
+private
+def strip_iframe_protection
+  response.headers.delete('X-Frame-Options')
 end
 ```
+
+The `strip_iframe_protection` removes the `X-Frame-Options` header. Without that, all modern browsers will refuse to display the form within an iframe. We remove it from all actions in `TransactionsController` so that the redirect after `POST /buy` works properly.
 
 In `app/views/transactions/iframe.html.rb`:
 
@@ -168,8 +178,6 @@ In `app/views/transactions/iframe.html.rb`:
 ```
 
 Now, change `frameSrc` to point at `/iframe/design-for-failure` and reload the page.
-
-We can fix the other problem, with the `X-Frame-Options` header, simply by changing the language to say "Make sure to right-click and select Save As" indead of just telling the customer to click the link. In a later chapter I'll talk about emailing and we'll be changing this some more.
 
 ## Next
 
