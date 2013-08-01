@@ -170,7 +170,7 @@ $ heroku config:add SECRET_KEY_BASE=some-long-random-string
 
 Installing and running `brakeman` is similar to `rails_best_practices`. Just install it and invoke it from the root of your project to start a scan. In `Gemfile`:
 
-``ruby
+```ruby
 gem 'brakeman'
 ```
 
@@ -205,4 +205,4 @@ task :deploy do
 end
 ```
 
-This checks the code using the test suite and the two scanners and then pushes it to heroku. You should have like this and always use it to deploy. That way you know you always have correct code running on the server.
+This checks the code using the test suite and the two scanners and then pushes it to heroku. You should have a task like this and always use it to deploy. That way you know you always have correct code running on the server.
