@@ -264,7 +264,7 @@ Rails.configuration.stripe = {
   secret_key:      ENV['STRIPE_SECRET_KEY'],
 }
 
-Stripe.api_key = Rails.configuration.stripe.secret_key
+Stripe.api_key = Rails.configuration.stripe[:secret_key]
 ```
 
 Note that we're getting the keys from the environment. This is for two reasons: first, because it lets us easily have different keys for testing and for production; second, and more importantly, it means we don't have to hardcode any potentially dangerous security credentials. Putting the keys directly in your code means that anyone with access to your code base can make Stripe transactions with your account.
