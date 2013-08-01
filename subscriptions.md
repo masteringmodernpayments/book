@@ -261,7 +261,11 @@ expiring_customers.each do |customer|
 end
 ```
 
-This should actually be an entire campaign, with emails at 30, 15, and three days before card expiration, as well as the day of. Experience shows that giving the customer plenty of opportunity to update their card leads to about half of them doing so before getting any failed payments at all. Make sure to describe what's going on and give them an easy way to login to your app and update their card. If the payment does eventually fail, make sure to contact them again. According to [Patrick McKenzie][subscriptions-patio11-rainy-day] you should also include a P.S. to the effect that you're a small business, not a bank, and that they're not in trouble or anything. You're sure it's a mistake so you won't be cutting them off for a few days.
+Andrew Culver is the author of [Koudoku][subscriptions-koudoku] and currently is developing a product to automate this process. He has had phenomenal success reducing churn using this method:
+
+> In one product where this approach has been taken, the campaign stops 50% of expiring credit card accounts from having a failed payment. For the remaining 50% we have another campaign that kicks in once the payment fails. Then after a couple days an email is sent to the sales team. Before we automated this process it was a major source of pain for us to manage these accounts going delinquent. It's still a source of work for our sales team and a source of customer churn for us, but it's much smaller and more manageable overall.
+
+Andrew's campaign sends emails at 30, 15, and three days before card expiration, as well as the day of. Make sure to describe what's going on and give them an easy way to login to your app and update their card. If the payment does eventually fail, make sure to contact them again. According to [Patrick McKenzie][subscriptions-patio11-rainy-day] you should also include a P.S. to the effect that you're a small business, not a bank, and that they're not in trouble or anything. You're sure it's a mistake so you won't be cutting them off for a few days.
 
 Speaking of cutting them off, you really shouldn't automatically cancel anyone's account without a manual review process. Charges fail sometimes and it's nobody's fault, which is why Stripe automatically retries for you for a configurable number of days. After that's up and the charge finally fails, send yourself an email and follow up with the customer, either by email or over the phone.
 
