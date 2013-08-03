@@ -14,7 +14,7 @@ Both Connect and Payouts are easily integrated into a Rails application with a f
 
 ## Connect
 
-Connect is Stripe's OAuth2-based way for your application to create transactions, customers, subscription plans, and everything else Stripe has to offer on behalf of another user. Hooking it up to your Rails application is easy because someone else has done all of the hard work for you in a gem named [OmniAuth::StripeConnect][marketplaces-OmniAuth::StripeConnect]. This gem uses the [OmniAuth][marketplaces-Omniauth] OAuth abstraction library to allow you to connect to your users' Stripe accounts by simply sending them to `/auth/stripe_connect`, which will direct them through the OAuth2 dance and bring them back to your site.
+Connect is Stripe's OAuth2-based way for your application to create transactions, customers, subscription plans, and everything else Stripe has to offer on behalf of another user. Hooking it up to your Rails application is easy because someone else has done all of the hard work for you in a gem named [OmniAuth::StripeConnect][marketplaces-OmniAuth::StripeConnect]. This gem uses the [OmniAuth][marketplaces-OmniAuth] OAuth abstraction library to allow you to connect to your users' Stripe accounts by simply sending them to `/auth/stripe_connect`, which will direct them through the OAuth2 dance and bring them back to your site.
 
 To start hooking this up, simply add the gems to your `Gemfile`:
 

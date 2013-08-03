@@ -106,7 +106,7 @@ class StripeMailer < ActionMailer::Base
     @event = event
     @charge = @event.data.object
     @sale = Sale.find_by(stripe_id: @charge.id)
-    if sale
+    if @sale
       mail(to: 'you@example.com', subject: "Dispute created on charge #{@sale.guid} (#{charge.id})").deliver
     end
   end
