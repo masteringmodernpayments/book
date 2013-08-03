@@ -64,8 +64,6 @@ It'll also have a few different events for the transaction: `process`, `finish`,
 
 ```ruby
 class Sale < ActiveRecord::Base
-  before_create :populate_guid
-
   include AASM
 
   aasm column: 'state' do
@@ -106,11 +104,6 @@ class Sale < ActiveRecord::Base
       self.update_attributes(error: e.message)
       self.fail!
     end
-  end
-
-  private
-  def populate_guid
-    self.guid = SecureRandom.uuid()
   end
 end
 ```
