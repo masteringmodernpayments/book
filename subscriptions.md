@@ -225,7 +225,10 @@ Stripe will also send you a webook detailing the customer's entire invoice right
 def stripe_invoice_created(event)
   invoice = event.data.object
 
-  num_emails = EmailSend.where('created_at between ? and ?', [Time.at(invoice.period_start), Time.at(invoice.period_end)]).count
+  num_emails = EmailSend.where(
+    'created_at between ? and ?',
+    [Time.at(invoice.period_start), Time.at(invoice.period_end)]
+  ).count
   Stripe::InvoiceItem.create(
     invoice: invoice.id,
     amount: num_emails,

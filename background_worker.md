@@ -144,7 +144,7 @@ class StripeCharger
 
   def perform(guid)
     ActiveRecord::Base.connection_pool.with_connection do
-      sale = Sale.where(guid: guid).first
+      sale = Sale.find_by(guid: guid)
       return unless sale
       sale.process!
     end
@@ -174,8 +174,9 @@ Now, in the TransactionsController, all we have to do is create the `Sale` recor
 class TransactionsController < ApplicationController
 
   def create
-    product = Product.where(permalink: params[:permalink]).first
-    raise ActionController::RoutingError.new("Not found") unless product
+    product = Product.find_by!(
+      permalink: params[:permalink]
+    )
 
     token = params[:stripeToken]
 
@@ -189,7 +190,10 @@ class TransactionsController < ApplicationController
     if sale.save
       render json: { guid: sale.guid }
     else
-      render json: { error: sale.errors.full_messages.join(" ") }, status: 400
+      errors = sale.errors.full_messages
+      render json: {
+        error: errors.join(" ")
+      }, status: 400
     end
   end
   

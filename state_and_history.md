@@ -121,8 +121,9 @@ We moved the stuff about charging the card moved into the model which adheres to
 
 ```ruby
 def create
-  @product = Product.where(permalink: params[:permalink]).first
-  raise ActionController::RoutingError.new("Not found") unless @product
+  @product = Product.find_by!(
+    permalink: params[:permalink]
+  )
 
   sale = Sale.create(
     product_id:   @product.id,

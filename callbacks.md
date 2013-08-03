@@ -144,7 +144,7 @@ class StripeMailer < ActionMailer::Base
 
   def receipt(event)
     @charge = @event.data.object
-    @sale = Sale.where(stripe_id: @charge.id).first
+    @sale = Sale.find_by!(stripe_id: @charge.id)
     mail(to: @sale.email, subject: "Thanks for purchasing #{@sale.product.name}")
   end
 end

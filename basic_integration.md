@@ -300,23 +300,27 @@ class TransactionsController < ApplicationController
         card:        token,
         description: params[:email]
       )
-      @sale = product.sales.create!(product_id: product.id, email: params[:email])
+      @sale = product.sales.create!(
+        product_id: product.id,
+        email:      params[:email]
+      )
       redirect_to pickup_url(guid: @sale.guid)
     rescue Stripe::CardError => e
-      # The card has been declined or some other error has occured
+      # The card has been declined or
+      # some other error has occured
       @error = e
       render :new
     end
   end
 
   def download
-    @sale = Sale.where(guid: params[:guid]).first
-    raise ActionController::RoutingError.new("Not found") unless @sale
+    @sale = Sale.find_by!(guid: params[:guid])
 
     resp = HTTParty.get(@sale.product.file.url)
 
+    filename = @sale.product.file.url
     send_data resp.body,
-      :filename => File.basename(@sale.product.product.file.url),
+      :filename => File.basename(filename),
       :content_type => resp.headers['Content-Type']
   end
 
@@ -455,9 +459,17 @@ class TransactionsControllerTest < ActionController::TestCase
     token = 'tok_123456'
     email = 'foo@example.com'
 
-    product = Product.create(permalink: 'test_product', price: 100)
+    product = Product.create(
+      permalink: 'test_product',
+      price:     100
+    )
 
-    Stripe::Charge.expects(:create).with({amount: 100, currency: 'usd', card: token, description: email}).returns(mock)
+    Stripe::Charge.expects(:create).with({
+      amount:      100,
+      currency:    'usd',
+      card:        token,
+      description: email
+    }).returns(mock)
 
     post :create, email: email, stripeToken: token
 
@@ -475,7 +487,9 @@ The very first thing we do is set a fake Stripe API key. If for some reason we h
 Add all the new files to git and commit, then run:
 
 ```bash
-$ heroku config:add STRIPE_PUBLISHABLE_KEY=pk_your_test_publishable_key STRIPE_SECRET_KEY=sk_your_test_secret_key
+$ heroku config:add \
+    STRIPE_PUBLISHABLE_KEY=pk_your_test_publishable_key \
+    STRIPE_SECRET_KEY=sk_your_test_secret_key
 $ git push heroku master
 ```
 
