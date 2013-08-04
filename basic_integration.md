@@ -50,7 +50,9 @@ $ rails generate devise:install
 At this point you have to do some manual configuration. Add this to `config/environments/development.rb`:
 
 ```ruby
-config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+config.action_mailer.default_url_options = {
+  :host => 'localhost:3000'
+}
 ```
 
 This to `config/routes.rb`:
@@ -83,7 +85,11 @@ before_action :authenticate_user!
 You'll need to create a user so you can actually log in to the site. Fire up `rails console` and type:
 
 ```ruby
-User.create!(email: 'you@example.com', password: 'password', password_confirmation: 'password')
+User.create!(
+  email:                 'you@example.com',
+  password:              'password',
+  password_confirmation: 'password'
+)
 ```
 
 ## Models
@@ -91,7 +97,12 @@ User.create!(email: 'you@example.com', password: 'password', password_confirmati
 Our sales site needs something to sell, so let's create a product model:
 
 ```bash
-$ roails g scaffold Product name:string permalink:string description:text price:integer user:references
+$ rails g scaffold Product \
+    name:string \
+    permalink:string \
+    description:text \
+    price:integer \
+    user:references
 $ rake db:migrate
 ```
 
@@ -135,11 +146,21 @@ def create
 
   respond_to do |format|
     if @product.save
-      format.html { redirect_to [:admin, @product], notice: 'Product was successfully created.' }
-      format.json { render json: @product, status: :created, location: @product }
+      format.html {
+        redirect_to [:admin, @product],
+          notice: 'Product was successfully created.'
+      }
+      format.json {
+        render json: @product,
+          status: :created,
+          location: @product
+      }
     else
       format.html { render "new" }
-      format.json { render json: @product.errors, status: :unprocessable_entity }
+      format.json {
+        render json: @product.errors,
+          status: :unprocessable_entity
+      }
     end
   end
 end
@@ -148,7 +169,10 @@ end
 Our app needs a way to track product sales. Let's make a Sale model too.
 
 ```bash
-$ rails g scaffold Sale email:string guid:string product:references
+$ rails g scaffold Sale \
+    email:string \
+    guid:string \
+    product:references
 $ rake db:migrate
 ```
 
@@ -182,8 +206,8 @@ $ git add .
 $ git commit -m 'Initial commit'
 $ git push heroku master
 $ heroku run rake db:migrate
-$ heroku run console # create a new user like we did before in the local console
-$ heroku restart web # restart the web dyno to pick up the database changes
+$ heroku run console # create a user
+$ heroku restart web
 $ heroku open
 ```
 
@@ -264,7 +288,8 @@ Rails.configuration.stripe = {
   secret_key:      ENV['STRIPE_SECRET_KEY'],
 }
 
-Stripe.api_key = Rails.configuration.stripe[:secret_key]
+Stripe.api_key = \
+  Rails.configuration.stripe[:secret_key]
 ```
 
 Note that we're getting the keys from the environment. This is for two reasons: first, because it lets us easily have different keys for testing and for production; second, and more importantly, it means we don't have to hardcode any potentially dangerous security credentials. Putting the keys directly in your code means that anyone with access to your code base can make Stripe transactions with your account.
@@ -277,10 +302,13 @@ In `app/controllers/transactions_controller.rb`:
 
 ```ruby
 class TransactionsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new, :create]
+  skip_before_action :authenticate_user!,
+    only: [:new, :create]
 
   def new
-    @product = Product.find_by!(permalink: params[:permalink])
+    @product = Product.find_by!(
+      permalink: params[:permalink]
+    )
   end
 
   def show
@@ -289,14 +317,16 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    product = Product.find_by!(permalink: params[:permalink])
+    product = Product.find_by!(
+      permalink: params[:permalink]
+    )
 
     token = params[:stripeToken]
 
     begin
       charge = Stripe::Charge.create(
         amount:      product.price,
-        currency:    "usd",  # this would be 'cad' if you have a Canadian Stripe account
+        currency:    "usd",
         card:        token,
         description: params[:email]
       )
@@ -327,7 +357,9 @@ class TransactionsController < ApplicationController
 end
 ```
 
-`#new` is just a placeholder for rendering the corresponding view. The real action happens in `#create` where we look up the product and actually charge the customer. In the last chapter we included a `permalink` attribute in `Product` and we use that here to look up the product, mainly because it'll let us generate nicer-looking URLs. If there's an error we display the `#new` action again. If there's not we redirect to a route named `pickup`. Inside the view for `#show` we include link to `/download` which sends the data to the user from S3.
+`#new` is just a placeholder for rendering the corresponding view. The real action happens in `#create` where we look up the product and actually charge the customer. Note that we hardcode `usd` as the currency. If you have a Stripe account in a different country you'll want to provide your country's currency code here.
+
+In the last chapter we included a `permalink` attribute in `Product` and we use that here to look up the product, mainly because it'll let us generate nicer-looking URLs. If there's an error we display the `#new` action again. If there's not we redirect to a route named `pickup`. Inside the view for `#show` we include link to `/download` which sends the data to the user from S3.
 
 We get the data from S3 using a gem named `HTTParty`. Let's add it to the Gemfile:
 
@@ -366,10 +398,11 @@ Time to set up the views. Put this in `app/views/transactions/new.html.erb`:
 <p>Price: <%= formatted_price(@product.price) %></p>
 
 <%= form_tag buy_path(permalink: @product.permalink) do %>
-  <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
-           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-           data-description="<%= @product.name %>"
-           data-amount="<%= @product.price %>"></script>
+  <script src="https://checkout.stripe.com/v2/checkout.js"
+    class="stripe-button"
+    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+    data-description="<%= @product.name %>"
+    data-amount="<%= @product.price %>"></script>
 <% end %>
 ```
 
@@ -488,8 +521,8 @@ Add all the new files to git and commit, then run:
 
 ```bash
 $ heroku config:add \
-    STRIPE_PUBLISHABLE_KEY=pk_your_test_publishable_key \
-    STRIPE_SECRET_KEY=sk_your_test_secret_key
+    STRIPE_PUBLISHABLE_KEY=pk_test_publishable_key \
+    STRIPE_SECRET_KEY=sk_test_secret_key
 $ git push heroku master
 ```
 
