@@ -42,3 +42,4 @@ Versions of software used in most of the examples:
 * 1.0.0 - Initial release
 * 1.0.1 - Spelling, grammar, code improvements. Add sections about testing.
 * 1.0.2 - More spelling, grammar, code improvements. Combine intro chapters.
+* 1.0.3 - Fix links, typos, bugs, remove duplicate code, clarify callbacks
