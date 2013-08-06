@@ -36,8 +36,9 @@ The model should look like this:
 class StripeEvent < ActiveRecord::Base
   validates_uniqueness_of :stripe_id
 
-  def event
-    Stripe::Event.retrieve(stripe_id)
+  def event_object
+    event = Stripe::Event.retrieve(stripe_id)
+    event.data.object
   end
 end
 ```
@@ -47,14 +48,13 @@ end
 We'll need a new controller to handle callbacks. In `app/controllers/stripe_events_controller.rb`:
 
 ```ruby
-
 class StripeEventsController < ApplicationController
   skip_before_action :authenticate_user!
   before_action :parse_and_validate_event
 
   def create
     if self.class.private_method_defined? event_method
-      self.send(event_method, @event)
+      self.send(event_method, @event.event_object)
     end
     render nothing: true
   end
@@ -66,7 +66,7 @@ class StripeEventsController < ApplicationController
   end
 
   def parse_and_validate_event
-    @event = StripeEvent.new(id: params[:id], type: params[:type])
+    @event = StripeEvent.new(stripe_id: params[:id], stripe_type: params[:type])
 
     unless @event.save
       if @event.valid?
@@ -74,7 +74,6 @@ class StripeEventsController < ApplicationController
       else
         render nothing: true # invalid event, move along
       end
-      return
     end
   end
 end
@@ -84,15 +83,22 @@ We skip Devise's `authenticate_user!` before filter because Stripe is obviously 
 
 `create` is where all the action happens. `event_method` will generate a symbol. If we've defined a private method of that name, call it with the event as the argument. If the handler doesn't throw an exception let Stripe know that we handled it by returning a success code. This setup lets us easily handle the events we care about by defining the appropriate handler while ignoring the noise.
 
+We also need to set up a route to this controller. In `config/routes.rb`:
+
+```ruby
+resources :stripe_events, only: [:create]
+```
+
+In Stripe's management interface you would add a webhook with the address `https://your-app.example.com/stripe_events.json`.
+
 ## Handling Events
 
 The first thing we should do is handle a dispute which fires when a customer initiates a chargeback. In response to a dispute we send an email to ourselves with all of the details which should be enough to deal with them, since they should be fairly rare:
 
-
 ```ruby
 private
-def stripe_charge_dispute_created(event)
-  StripeMailer.admin_dispute_created(event).send
+def stripe_charge_dispute_created(charge)
+  StripeMailer.admin_dispute_created(charge).send
 end
 ```
 
@@ -102,9 +108,8 @@ In `app/mailers/stripe_mailer.rb`:
 class StripeMailer < ActionMailer::Base
   default from: 'you@example.com'
 
-  def admin_dispute_created(event)
-    @event = event
-    @charge = @event.data.object
+  def admin_dispute_created(charge)
+    @charge = charge
     @sale = Sale.find_by(stripe_id: @charge.id)
     if @sale
       mail(to: 'you@example.com', subject: "Dispute created on charge #{@sale.guid} (#{charge.id})").deliver
@@ -127,9 +132,9 @@ Disputes are sad. We should also handle a happy event, like someone buying somet
 
 ```ruby
 private
-def stripe_charge_succeeded(event)
-  StripeMailer.receipt(event).send
-  StripeMailer.admin_charge_succeeded(event).send
+def stripe_charge_succeeded(charge)
+  StripeMailer.receipt(charge).send
+  StripeMailer.admin_charge_succeeded(charge).send
 end
 ```
 
@@ -137,13 +142,13 @@ end
 class StripeMailer < ActionMailer::Base
   # ...
 
-  def admin_charge_succeeded(event)
-    @charge = @event.data.object
+  def admin_charge_succeeded(charge)
+    @charge = charge
     mail(to: 'you@example.com', subject: 'Woo! Charge Succeeded!')
   end
 
-  def receipt(event)
-    @charge = @event.data.object
+  def receipt(charge)
+    @charge = charge
     @sale = Sale.find_by!(stripe_id: @charge.id)
     mail(to: @sale.email, subject: "Thanks for purchasing #{@sale.product.name}")
   end
