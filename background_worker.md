@@ -154,21 +154,7 @@ end
 
 Again, pretty straightforward. Sidekiq will create an instance of your job class and call `#perform` on it with a hash of values that you pass in to the queue, which we'll get to in a second. We look up the relevant `Sale` record and tell it to process using the state machine event we set up earlier using `AASM`.
 
-To actually get `StripeCharger` in the loop we have to call it from an `after_create` hook.
-
-```ruby
-class Sale < ActiveRecord::Base
-  #...
-
-  after_create :queue_charge
-
-  def queue_charge
-    StripeCharger.perform_async(guid)
-  end
-end
-```
-
-Now, in the TransactionsController, all we have to do is create the `Sale` record:
+Now, in the TransactionsController, all we have to do is create the `Sale` record and queue the job:
 
 ```ruby
 class TransactionsController < ApplicationController
@@ -188,6 +174,7 @@ class TransactionsController < ApplicationController
     end
 
     if sale.save
+      StripeCharger.perform_async(sale.guid)
       render json: { guid: sale.guid }
     else
       errors = sale.errors.full_messages
@@ -205,7 +192,7 @@ class TransactionsController < ApplicationController
 end
 ```
 
-The `create` method creates a new `Sale` record which queues the transaction to be processed by `StripeCharger`. The `status` method simply looks up the transaction and spits back some JSON. To actually process the form we have something like this, which includes the call to `stripe.js`:
+The `create` method creates a new `Sale` record and then queues the transaction to be processed by `StripeCharger`. Note that you may be tempted to do this in an `after_create` hook, but don't do that. `after_create` will run *before* the record is committed to the database, so if Sidekiq is warmed up it will start trying to process jobs before they're ready. By explicitly queuing the job you'll save yourself a headache. Another alternative is to queue the job in an `after_commit` hook but testing this with rspec gets a little weird because things are never actually ever committed in an rspec test. The `status` method simply looks up the transaction and spits back some JSON. To actually process the form we have something like this, which includes the call to `stripe.js`:
 
 ```javascript
 $(function() {
