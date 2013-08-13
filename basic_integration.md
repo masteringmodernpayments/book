@@ -231,9 +231,12 @@ config.action_mailer.smtp_settings = {
   domain:         'heroku.com',
   authentication: :plain
 }
+config.action_mailer.default_url_options = {
+  :host => 'your-app.herokuapp.com'
+}
 ```
 
-Mandrill is made by the same folks that make MailChimp. It's reliable, powerful, and cost effective. They give you 12,000 emails per month for free to get started. I use it for all of my applications.
+Mandrill is made by the same folks that make MailChimp. It's reliable, powerful, and cost effective. They give you 12,000 emails per month for free to get started. I use it for all of my applications. Note also that we configure the `default_url_options` here again for ActionMailer. This is what Devise uses to generate links inside emails, so it's pretty important to get it right.
 
 We also need to set up Paperclip to save uploaded files to S3 instead of the local file system. On Heroku your processes live inside what they call a *dyno* which is just a lightweight Linux virtual machine with your application code inside. Each dyno has an *ephemeral filesystem* which gets erased at least once every 24 hours, thus the need to push uploads somewhere else. Paperclip makes this pretty painless. You'll need to add another gem to your Gemfile:
 
