@@ -18,4 +18,4 @@ Thank you to my fiance Emily for putting up with this wacky project. Thanks to N
 
 ## Colophon
 
-This book is typeset using [Lora][colophon-Lora] for body text, [Droid Sans][colophon-Droid Sans] for headers, and [Inconsolata][colophon-Inconsolata] for code, all from [Google Web Fonts][colophon-Google Web Fonts]. Initial production happened in Emacs using Markdown for basic formatting. Final production uses a toolchain involving Rake and [Docverter][colophon-Docverter], the author's open source document conversion service. <a href="http://thenounproject.com/noun/money-transfer/#icon-No3050" target="_blank">Money Transfer</a> icon designed by <a href="http://thenounproject.com/hakan" target="_blank">Hakan Yalcin</a> from The Noun Project.
+This book is typeset using [Lora][colophon-Lora] for body text, [Droid Sans][colophon-Droid Sans] for headers, and [Inconsolata][colophon-Inconsolata] for code, all from [Google Web Fonts][colophon-Google Web Fonts]. Initial production happened in Emacs using Markdown for basic formatting. Final production uses a toolchain involving Rake and [Docverter][colophon-Docverter], the author's open source document conversion service.
