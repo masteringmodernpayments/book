@@ -166,6 +166,14 @@ def create
 end
 ```
 
+We should also define `product_params`. Note that we include the `file` attribte for Paperclip:
+
+```ruby
+def product_params
+  params.require(:product).permit(:description, :name, :permalink, :price, :file)
+end
+```
+
 Our app needs a way to track product sales. Let's make a Sale model too.
 
 ```bash
