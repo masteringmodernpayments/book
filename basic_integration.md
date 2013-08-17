@@ -214,10 +214,10 @@ end
 Next, create an appliation and deploy the example code to it:
 
 ```bash
-$ heroku create
 $ git init
 $ git add .
 $ git commit -m 'Initial commit'
+$ heroku create
 $ git push heroku master
 $ heroku run rake db:migrate
 $ heroku run console # create a user
