@@ -199,7 +199,13 @@ class Sale < ActiveRecord::Base
 end
 ```
 
-We're using a GUID here so that when we eventually allow the user to look at their transaction they won't see the `id`, which means they won't be able to guess the next ID in the sequence and potentially see someone else's transaction.
+We're using a GUID here so that when we eventually allow the user to look at their transaction they won't see the `id`, which means they won't be able to guess the next ID in the sequence and potentially see someone else's transaction. We should also add the relationship to `Product`:
+
+```ruby
+class Product < ActiveRecord::Base
+  has_many :sales
+end
+```
 
 ## Deploying
 
