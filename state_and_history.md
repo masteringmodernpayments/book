@@ -168,7 +168,7 @@ There are a few different schools of thought on how to implement audit trails. T
 First, add the gem to your Gemfile:
 
 ```ruby
-gem 'paper_trail', '~> 2'
+gem 'paper_trail', '~> 3.0.0.beta', git: 'git://github.com/airblade/paper_trail.git'
 ```
 
 Install the gem, which will generate a migration for you, and run the migration:
