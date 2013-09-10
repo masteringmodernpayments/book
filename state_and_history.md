@@ -41,7 +41,7 @@ $ rails g migration AddFieldsToSale \
     state:string \
     stripe_id:string \
     stripe_token:string \
-    card_expiration:string \
+    card_expiration:date \
     error:text \
     fee_amount:integer
 $ rake db:migrate
