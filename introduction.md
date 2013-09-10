@@ -45,3 +45,4 @@ Versions of software used in most of the examples:
 * 1.0.3 - Fix links, typos, bugs, remove duplicate code, clarify callbacks
 * 1.1.0 - New cover, fix race condition in job queue, Heroku changes
 * 1.1.1 - Fix Heroku app creation order, a few typos
+* 1.1.2 - Fix local db create, add some beginner-level links, bump versions
