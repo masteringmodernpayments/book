@@ -4,8 +4,10 @@
 [initial-app-toolbelt]: https://toolbelt.heroku.com
 [initial-app-paperclip]: https://github.com/thoughtbot/paperclip
 [initial-app-mandrill]: http://mandrill.com
+[initial-app-postgres-tutorial]: http://www.moncefbelyamani.com/how-to-install-postgresql-on-a-mac-with-homebrew-and-lunchy/
 [basic-integration-stripe_guide]: https://stripe.com/docs/checkout/guides/rails
 [basic-integration-stripe-testing]: https://stripe.com/docs/testing
+[basic-integration-heroku-vars]: https://devcenter.heroku.com/articles/config-vars
 
 # Basic Integration
 
@@ -25,12 +27,12 @@ Let's create an initial application:
 $ rails new sales --database postgresql --test-framework=rspec
 $ cd sales
 $ createuser -s sales
-$ rake db:setup
+$ rake db:create
 $ rake db:migrate
 $ rake test
 ```
 
-I'm going to use [PostgreSQL][initial-app-postgresql] for the example app because that's what I know best, it's what [Heroku][initial-app-heroku] provides for free, and it's what I suggest to everyone who asks. If you want to use a different database, feel free to substitute. Any `ActiveRecord`-compatible database will do fine.
+I'm going to use [PostgreSQL][initial-app-postgresql] for the example app because that's what I know best, it's what [Heroku][initial-app-heroku] provides for free, and it's what I suggest to everyone who asks. If you're using a Mac and don't have PostgreSQL installed, [this][initial-app-postgres-tutorial] is an excellent tutorial. If you want to use a different database, feel free to substitute. Any `ActiveRecord`-compatible database will do fine.
 
 ## Authentication
 
@@ -87,7 +89,7 @@ You'll need to create a user so you can actually log in to the site. Fire up `ra
 ```ruby
 User.create!(
   email:                 'you@example.com',
-  password:              'password',
+  password:              'password',  # has to be at least 8 characters
   password_confirmation: 'password'
 )
 ```
@@ -119,8 +121,10 @@ end
 Note the `has_attached_file`. We're using [Paperclip][initial-app-paperclip] to attach the downloadable files to the product record. Let's add it to `Gemfile`:
 
 ```ruby
-gem 'paperclip', '~> 3.0'
+gem 'paperclip', '~> 3.5.1'
 ```
+
+And `bundle install` again to get Paperclip installed.
 
 Now we need to generate the migration so paperclip has a place to keep the file metadata:
 
@@ -128,7 +132,7 @@ Now we need to generate the migration so paperclip has a place to keep the file 
 $ rails generate paperclip product file
 ```
 
-We should add an upload button to the Product edit form as well. In `app/views/products/_form.html.erb` inside the `form_for`:
+We should add an upload button to the Product edit form as well. In `app/views/products/_form.html.erb` inside the `form_for` below the other fields:
 
 ```rhtml
 <div class="field">
@@ -147,7 +151,7 @@ def create
   respond_to do |format|
     if @product.save
       format.html {
-        redirect_to [:admin, @product],
+        redirect_to @product,
           notice: 'Product was successfully created.'
       }
       format.json {
@@ -156,7 +160,7 @@ def create
           location: @product
       }
     else
-      format.html { render "new" }
+      format.html { render 'new' }
       format.json {
         render json: @product.errors,
           status: :unprocessable_entity
@@ -166,13 +170,16 @@ def create
 end
 ```
 
-We should also define `product_params`. Note that we include the `file` attribte for Paperclip:
+We should also define `product_params` in `ProductsController` toward the bottom. Note that we include the `file` attribte for Paperclip:
 
 ```ruby
+private
 def product_params
   params.require(:product).permit(:description, :name, :permalink, :price, :file)
 end
 ```
+
+We don't allow the `user_id` because we're setting it explicitly to `current_user`.
 
 Our app needs a way to track product sales. Let's make a Sale model too.
 
@@ -204,6 +211,10 @@ We're using a GUID here so that when we eventually allow the user to look at the
 ```ruby
 class Product < ActiveRecord::Base
   has_many :sales
+
+  validates_numericality_of :price,
+    greater_than: 49,
+    message: "must be at least 50 cents"
 end
 ```
 
@@ -266,12 +277,12 @@ config.paperclip_defaults = {
   s3_credentials: {
     bucket: ENV['AWS_BUCKET'],
     access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
   }
 }
 ```
 
-Just set those config variables with Heroku, `bundle install`, and then commit and push up to Heroku.
+Just [set those config variables with Heroku][basic-integration-heroku-vars], `bundle install`, and then commit and push up to Heroku.
 
 You should see a login prompt from Devise. Go ahead and login and create a few products. We'll get to buying and downloading in the next section.
 
