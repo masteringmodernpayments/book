@@ -79,7 +79,7 @@ class StripeEventsController < ApplicationController
 end
 ```
 
-We skip Devise's `authenticate_user!` before filter because Stripe is obviously not going to have a user for our application. Then, we make our own `before_filter` that actually parses out the event and does the work of preventing replay attacks. This involves just creating a `StripeEvent` record, which validates that the `stripe_id` is unique. If the event doesn't validate we return 400 and move on. If everything goes smoothly we ask Stripe for a fresh copy of the event and then deal with it.
+We skip Devise's `authenticate_user!` before filter because Stripe is obviously not going to have a user for our application. Then, we make our own `before_filter` that actually parses out the event and does the work of preventing replay attacks. This involves just creating a `StripeEvent` record, which validates that the `stripe_id` is unique. If the event doesn't validate it's not unique, move on. If the event *is* valid but doesn't save, it must be a problem on our end. Maybe the database is full. In any case, return a 400 so that Stripe will retry later. If everything goes smoothly we ask Stripe for a fresh copy of the event and then deal with it.
 
 `create` is where all the action happens. `event_method` will generate a symbol. If we've defined a private method of that name, call it with the event as the argument. If the handler doesn't throw an exception let Stripe know that we handled it by returning a success code. This setup lets us easily handle the events we care about by defining the appropriate handler while ignoring the noise.
 
@@ -172,9 +172,7 @@ Many of the events that Stripe sends are for dealing with subscriptions. For exa
 
 ## Testing Events
 
-Stripe helpfully provides for test-mode webhooks. Assuming you have a publicly accessible version of your site, you can set up webhooks to fire when you make test mode transactions. If you forget to set up a live mode webhook, Stripe will also send live mode events to your test hook. This can be either good or bad, depending on how complicated you like your life.
-
-Testing webhooks automatically is pretty simple, assuming you have the mocking set up like we talked about in Chapter 3. The test setup for `StripeEventsController` would look something like this:
+Stripe helpfully provides for test-mode webhooks. Assuming you have a publicly accessible staging version of your application, you can set up webhooks to fire when you make test mode transactions. Testing webhooks automatically is pretty simple, assuming you have the mocking set up like we talked about in Chapter 3. The test setup for `StripeEventsController` would look something like this:
 
 ```ruby
 class StripeEventsControllerTest < ActionController::TestCase
