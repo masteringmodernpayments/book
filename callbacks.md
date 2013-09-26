@@ -4,6 +4,7 @@
 [callbacks-Docverter]: http://www.docverter.com
 [callbacks-stripe-event-docs]: https://stripe.com/docs/api/ruby#events
 [callbacks-prawn]: http://prawn.majesticseacreature.com
+[callbacks-stripe-receipts]: https://stripe.com/blog/email-receipts
 
 # Handling Webhooks
 
@@ -213,7 +214,7 @@ Customers expect to be emailed when things happen with their account, and especi
 
 ### Events to care about
 
-For a simple app that just sells downloadable things, there aren't that many events that you really need to care about. Your relationship with the customer, as far as their credit card is concerned, is a one time thing. Be sure to send them a receipt when the transaction goes through. Disputes are about the only thing that can cause you pain and we've already dealt with them above.
+For a simple app that just sells downloadable things, there aren't that many events that you really need to care about. Your relationship with the customer, as far as their credit card is concerned, is a one time thing. Be sure to send them a receipt when the transaction goes through. Note that Stripe has [built in receipts][callbacks-stripe-receipts] but if you want to modify the content, layout, or attachments, you'll need to do it yourself. Disputes are about the only thing that can cause you pain and we've already dealt with them above.
 
 Subscription businesses, on the other hand, get a rich variety of events from Stripe. For example, in the chapter on Subscriptions we're going to talk about how to use the Invoice events to handle Utility-style billing. One helpful hint: if you use Stripe's subscription trial periods you should ignore the first charge event, since it will be for zero dollars.
 
