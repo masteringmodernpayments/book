@@ -92,7 +92,7 @@ Other than the optional application fee and passing the user's access key to `St
 
 Stripe Payouts are another, more flexible way to implement marketplaces with Stripe. Instead of connecting to a user's Stripe account and making charges through it, you get authorization to make deposits directly into their checking account. Charges run through your Stripe account and you decide when to pay out to the user. This is useful if your marketplace particpants don't care that you're using Stripe, or if signing them up for an account is more burdensome than you want to deal with. For example, one of the initial customers for Stripe Payouts was Lyft, a do-it-yourself taxi service. Drivers give Lyft their checking account info who then create `Stripe::Recipient`s. Passengers pay with their credit cards through Lyft's mobile app, which uses Stripe behind the scenes to actually run payments. Drivers never have to deal with Stripe directly, instead Lyft just pays out to their accounts periodically.
 
-One thing to keep in mind is that once you create any `Stripe::Recipient`s *your account will no longer receive automatic payouts*. Instead, Stripe will hold funds in your account until you tell them where to send them.
+One thing to keep in mind is that once you create a `Stripe::Recipient` and turn on production transfers in Stripe's management interface *your account will no longer receive automatic payouts*. Instead, Stripe will hold funds in your account until you tell them where to send them.
 
 ### Collect Account Info
 
