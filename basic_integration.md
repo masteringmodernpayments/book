@@ -24,7 +24,7 @@ Our app will sell downloadable products. Users will be able to create products a
 Let's create an initial application:
 
 ```bash
-$ rails new sales --database postgresql --test-framework=rspec
+$ rails new sales --database postgresql
 $ cd sales
 $ createuser -s sales
 $ rake db:create
