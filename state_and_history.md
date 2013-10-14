@@ -202,7 +202,7 @@ Here's some simple code for the `SalesController#show` action to display the his
     </tr>
   </thead>
   <tbody>
-  <%= @sale.versions.each do |version| %>
+  <% @sale.versions.each do |version| %>
     <tr>
       <td><%= version.created_at %></td>
       <td><%= version.event %></td>
