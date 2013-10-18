@@ -1,5 +1,6 @@
 [custom-form-bootstrap]: http://twitter.github.io/bootstrap
 [custom-form-tutorial]: https://stripe.com/docs/tutorials/forms
+[custom-form-card-icons]: http://www.shopify.com/blog/6335014-32-free-credit-card-icons#axzz2i4nAS6FV
 
 # Custom Payment Forms
 
@@ -53,6 +54,8 @@ And here's the code:
   <% end %>
 </div>
 ```
+
+(You can find the file `credit.png` in a free download from [Shopify][custom-form-card-icons].)
 
 There's a few interesting things going on here. First, notice the almost-excessive amount of markup. We're using [Twitter Bootstrap][custom-form-bootstrap] form markup for this, which gives nice looking styling for the form elements but requires a bunch of layout markup.
 
