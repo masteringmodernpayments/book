@@ -222,7 +222,7 @@ end
 
 [Heroku][initial-app-heroku] is the fastest way to get a Rails app deployed into a production environment so that's what we're going to use throughout the guide. If you already have a deployment system for your application by all means use that. First, download and install the [Heroku Toolbelt][initial-app-toolbelt] for your platform. Make sure you `heroku login` to set your credentials.
 
-Next, create an appliation and deploy the example code to it:
+Next, create an application and deploy the example code to it:
 
 ```bash
 $ git init
