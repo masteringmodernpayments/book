@@ -402,7 +402,7 @@ The routes for transactions are pretty simple. Add this to `config/routes.rb`:
 ```ruby
 get  '/buy/:permalink', to: 'transactions#new',      as: :show_buy
 post '/buy/:permalink', to: 'transactions#create',   as: :buy
-get  '/pickup/:guid',   to: 'transactions#show',     as: :pickup
+get  '/pickup/:guid',   to: 'transactions#pickup',   as: :pickup
 get  '/download/:guid', to: 'transactions#download', as: :download
 ```
 
