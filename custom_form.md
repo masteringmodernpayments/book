@@ -71,7 +71,7 @@ Next, Stripe needs our publishable key. Remember that we have that in the Rails 
 
 ```rhtml
 <script type="text/javascript">
-$(function({
+$(function(){
   Stripe.setPublishableKey('<%= Rails.configuration.stripe[:publishable_key] %>');
 });
 </script>
