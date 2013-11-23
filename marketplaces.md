@@ -86,7 +86,25 @@ Application Fee     100
 Total Paid to User  841
 ```
 
-Other than the optional application fee and passing the user's access key to `Stripe::Charge#create` there's nothing else you have to do for Connect.
+You'll also need to use the user's publishable key instead of your own when tokeninzing cards with `stripe.js`. For a custom form that would be:
+
+```rhtml
+<script type="text/javascript">
+$(function(){
+  Stripe.setPublishableKey('<%= current_user.stripe_publishable_key %>');
+});
+</script>
+```
+
+While for a Stripe Checkout form you'd use something like this:
+
+```rhtml
+  <script src="https://checkout.stripe.com/v2/checkout.js"
+    class="stripe-button"
+    data-key="<%= current_user.stripe_publishable_key %>"
+    data-description="<%= @product.name %>"
+    data-amount="<%= @product.price %>"></script>
+```
 
 ## Payouts
 
