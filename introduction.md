@@ -31,7 +31,7 @@ This guide uses semantic versioning. The major version will change with major Ra
 Versions of software used in most of the examples:
 
 * Ruby 2.0.0-p0
-* Rails 4.0.0
+* Rails 4.0.2
 * Stripe Ruby API 1.8.3
 * Devise 3.0.0.rc
 * Paper Trail rails4 branch
