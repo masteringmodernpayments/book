@@ -48,3 +48,4 @@ Versions of software used in most of the examples:
 * 1.1.2 - Fix local db create, add some beginner-level links, bump versions
 * 1.1.3 - A few small changes from feedback from Stripe
 * 1.1.4 - Added a link to the card icons used in the custom form, fixed typos
+* 1.1.5 - Clarified publishable key usage in Connect, bug fixes, Heroku fixes
