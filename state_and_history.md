@@ -100,7 +100,7 @@ class Sale < ActiveRecord::Base
         fee_amount:      charge.fee
       )
       self.finish!
-    rescue Stripe::Error => e
+    rescue Stripe::StripeError => e
       self.update_attributes(error: e.message)
       self.fail!
     end
