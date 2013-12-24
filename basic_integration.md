@@ -170,7 +170,7 @@ def create
 end
 ```
 
-We should also define `product_params` in `ProductsController` toward the bottom. Note that we include the `file` attribte for Paperclip:
+We should also define `product_params` in `ProductsController` toward the bottom. Note that we include the `file` attribute for Paperclip:
 
 ```ruby
 private
