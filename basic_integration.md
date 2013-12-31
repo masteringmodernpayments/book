@@ -365,7 +365,6 @@ class TransactionsController < ApplicationController
         description: params[:email]
       )
       @sale = product.sales.create!(
-        product_id: product.id,
         email:      params[:email]
       )
       redirect_to pickup_url(guid: @sale.guid)
