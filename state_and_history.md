@@ -119,8 +119,7 @@ def create
     permalink: params[:permalink]
   )
 
-  sale = Sale.create(
-    product_id:   @product.id,
+  sale = @product.sales.create(
     amount:       @product.price,
     email:        params[:email],
     stripe_token: params[:stripeToken]
