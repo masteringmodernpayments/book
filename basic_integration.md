@@ -370,7 +370,7 @@ class TransactionsController < ApplicationController
       redirect_to pickup_url(guid: @sale.guid)
     rescue Stripe::CardError => e
       # The card has been declined or
-      # some other error has occured
+      # some other error has occurred
       @error = e
       render :new
     end
