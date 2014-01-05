@@ -149,7 +149,7 @@ It would be nice to see all of this information we're saving now. Let's change t
   <tr>
     <td><%= key %></td>
     <td><%= value %></td>
-  </tr>>
+  </tr>
   <% end %>
 </table>
 
