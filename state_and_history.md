@@ -94,7 +94,7 @@ class Sale < ActiveRecord::Base
         card: self.stripe_token,
         description: self.email,
       )
-      balance = Stripe::Balance.retrieve(charge.balance_transaction)
+      balance = Stripe::BalanceTransaction.retrieve(charge.balance_transaction)
       self.update(
         stripe_id:       charge.id,
         card_expiration: Date.new(charge.card.exp_year, charge.card.exp_month, 1),
