@@ -99,7 +99,7 @@ The first thing we should do is handle a dispute which fires when a customer ini
 ```ruby
 private
 def stripe_charge_dispute_created(charge)
-  StripeMailer.admin_dispute_created(charge).send
+  StripeMailer.admin_dispute_created(charge).deliver
 end
 ```
 
@@ -134,8 +134,8 @@ Disputes are sad. We should also handle a happy event, like someone buying somet
 ```ruby
 private
 def stripe_charge_succeeded(charge)
-  StripeMailer.receipt(charge).send
-  StripeMailer.admin_charge_succeeded(charge).send
+  StripeMailer.receipt(charge).deliver
+  StripeMailer.admin_charge_succeeded(charge).deliver
 end
 ```
 
