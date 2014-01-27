@@ -220,7 +220,7 @@ $(function() {
         type: "POST",
         url: "/buy/<%= permalink %>",
         data: $('#payment-form').serialize(),
-        success: function(data) { console.log(data); poll(data.guid) },
+        success: function(data) { console.log(data); poll(data.guid, 30) },
         error: function(data) { console.log(data); showError(data.responseJSON.error) }
       });
     }
