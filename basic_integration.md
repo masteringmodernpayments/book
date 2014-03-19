@@ -108,7 +108,7 @@ $ rails g scaffold Product \
 $ rake db:migrate
 ```
 
-`name` and `description` will be displayed to the customer, `permalink` and `file` will be used later. Open up `app/models/product.rb` and change it to look like this:
+`name` and `description` will be displayed to the customer, `permalink` will be used later. Open up `app/models/product.rb` and change it to look like this:
 
 ```ruby
 class Product < ActiveRecord::Base
