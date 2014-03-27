@@ -11,6 +11,7 @@
 [subscriptions-cancan-wiki]: https://github.com/ryanb/cancan/wiki
 [subscriptions-card-api-blog]: https://stripe.com/blog/multiple-cards
 [subscriptions-card-api]: https://stripe.com/docs/api/ruby#update_card
+[subscriptions-multiple-subs]: https://support.stripe.com/questions/whats-new-with-multiple-subscriptions-per-customer-january-2014
 
 
 # Subscriptions
@@ -287,6 +288,56 @@ card.save
 ```
 
 At the same time, Stripe added the ability to save multiple cards to a customer object. Only one card is used for any given subscription, but once a card is attached to a customer you can freely change the association on the subscription itself. You could also bill one off transactions to a different card, for example. The [API docs][subscriptions-card-api] go into greater depth about all of the things you can do with a card.
+
+## Multiple Subscriptions
+
+As of January 31st, 2014 Stripe has [supported adding multiple subscriptions to your customers][subscriptions-multiple-subs]. This is super useful if, for example, you provide VPS hosting services and want to have each VPS be it's own subscription. You can also create invoices and invoice items specific to a subscription. Again for the VPS example, this would be something like a disk space upgrade or an extra IP address. One unfortunate drawback that I should mention is that Stripe only allows you to charge one card for all of the subscriptions.
+
+Here's a short example of how you'd create two subscriptions:
+
+```ruby
+customer = Stripe::Customer.retrieve(customer_id)
+sub1 = customer.subscriptions.create({plan: 'vps_256'})
+sub2 = customer.subscriptions.create({plan: 'vps_1024'})
+
+Stripe::InvoiceItem.create(
+  customer: customer_id,
+  subscription: sub1.id,
+  description: 'Extra IP Address',
+  amount: 200,
+  currency: 'usd'
+)
+```
+
+## Custom Statement Descriptors
+
+From the very beginning Stripe has let you set the statement descriptor for your charges. For example, when you buy my book you'll see "PETEKEEN.NET/CHRG" in your credit card statement. If you go to that URL you'll see a brief description of who I am, what I do, and how you can contact me. Recently Stripe has added the ability to dynamically add more text to this string on a per-charge and per-plan basis. So, for example, I could add my sale guid to the descriptor like this:
+
+```ruby
+Stripe::Charge.create(
+  card:        sale.stripe_token,
+  amount:      5900,
+  currency:    'usd',
+  description: sale.guid,
+  statement_description: sale.guid
+)
+```
+
+When this shows up on a credit card statement it'll look like something like this: "PETEKEEN.NET/CHRG 0FG123".
+
+You can also set this up on a per-plan basis:
+
+```ruby
+Stripe::Plan.create(
+  id:       'vps_256',
+  amount:   '500',
+  currency: 'usd',
+  interval: 'monthly',
+  statement_description: 'VPS 256'
+)
+```
+
+which would look something like "PETEKEEN.NET/CHRG VPS 256" on the statement.
 
 ## Next
 
