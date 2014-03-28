@@ -51,3 +51,4 @@ Versions of software used in most of the examples:
 * 1.1.5 - Clarified publishable key usage in Connect, bug fixes, Heroku fixes
 * 1.1.6 - Use balance api for fee amount, object creation style fix, typos
 * 1.1.7 - A bunch of fixes from Ryan Jelks
+* 1.1.8 - Add mentions of multiple subscriptions and statement descriptors
