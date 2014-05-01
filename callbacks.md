@@ -63,7 +63,7 @@ class StripeEventsController < ApplicationController
   private
 
   def event_method
-    "stripe_#{@event.stripe_type.gsub('.', '_')}".to_sym
+    "stripe_#{@event.stripe_type.gsub('.', '_')}"
   end
 
   def parse_and_validate_event
@@ -82,7 +82,7 @@ end
 
 We skip Devise's `authenticate_user!` before filter because Stripe is obviously not going to have a user for our application. Then, we make our own `before_action` that actually parses out the event and does the work of preventing replay attacks. This involves just creating a `StripeEvent` record, which validates that the `stripe_id` is unique. If the event doesn't validate it's not unique, move on. If the event *is* valid but doesn't save, it must be a problem on our end. Maybe the database is full. In any case, return a 400 so that Stripe will retry later. If everything goes smoothly we ask Stripe for a fresh copy of the event and then deal with it.
 
-`create` is where all the action happens. `event_method` will generate a symbol. If we've defined a private method of that name, call it with the event as the argument. If the handler doesn't throw an exception let Stripe know that we handled it by returning a success code. This setup lets us easily handle the events we care about by defining the appropriate handler while ignoring the noise.
+`create` is where all the action happens. `event_method` will generate a method name. If we've defined a private method of that name, call it with the event as the argument. If the handler doesn't throw an exception let Stripe know that we handled it by returning a success code. This setup lets us easily handle the events we care about by defining the appropriate handler while ignoring the noise.
 
 We also need to set up a route to this controller. In `config/routes.rb`:
 
