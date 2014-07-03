@@ -1,18 +1,22 @@
 # Introduction
 
-Thanks for purchasing *Mastering Modern Payments*. In this guide we're going to talk about integrating the Stripe payment processing system with Rails, a comprehensive modern web application stack. If you don't use Rails you'll have to translate the examples to your language and framework of choice, but the broad concepts should all transfer pretty well.
+Thanks for purchasing *Mastering Modern Payments: Using Stripe with Rails*. In this guide we're going to walk through a complete example of integrating Stripe, a credit card payments API, with Ruby on Rails, a comprehensive modern web application stack.
 
-Stripe has revolutionized the payment landscape for Software as a Service applications. Before Stripe you had to deal with multiple parties, multiple moving pieces, and integrate everything yourself. Now, all you have to do is make some very simple API calls. You don't even have to create an account, since the documentation site creates one for you on the fly so every example is directly usable.
+## A Bit of History
+
+Before Stripe came onto the scene, alteratives for accepting payments online were either expensive, annoying, complicated, or three. PayPal was (and still is) a large portion of the business, but the API is very old and the payment flow is not conducive to a modern application. To accept credit cards, you either you had to use PayPal or integrate at least three separate services: a merchant account, a credit card gateway, and a recurring subscription service. You had the responsibility to make sure every piece was secure, and all of the software that integrated them had to be maintained.
+
+Stripe makes all of this irrelevant. You can create an account on Stripe's website and be making real live charges the next day with very simple, easy to use APIs and documentation
 
 ## Why this guide?
 
-Stripe has excellent documentation. Why should you read this guide? Because the documentation does not go far enough. It assumes that Stripe will always be available and responsive. It gives small examples that don't apply well to a production application. This guide goes farther and deeper than the short examples in Stripe's documentation and fully fleshes out production-level code.
+Stripe has excellent documentation. Why should you read this guide? Because the documentation does not go far enough. It often assumes that Stripe will always be available and responsive. It gives small examples that don't apply well to a production application. This guide goes farther and deeper than Stripe's documentation. It builds up a complete production-level Rails application and covers every step along the way.
 
-In this guide we're going to cover a basic Stripe integration and then expand upon it to cover things like background workers, subscriptions, audit trails, and more. When you're done with the guide you should have a good grasp on how to do a complete, robust integration.
+In this guide we're going to cover a basic Stripe integration and then expand upon it to cover things like background workers, subscriptions, audit trails, PCI compliance, and more. When you're done with the guide you should have a good grasp on how to do a complete, robust integration.
 
 ## Who am I?
 
-I'm Pete Keen. I've been working with the Stripe API for a little over two years now and have built six applications that run payments through it. In addition, I've worked with a wide variety of payment systems at my day job. I've learned quite a lot about how to handle payments in general and I've tried to condense it down into something manageable in this guide.
+I'm Pete Keen. I've been working with the Stripe API for a little over three years now and have built many applications with it. In addition, I've worked with a wide variety of payment systems at my full time and consulting jobs and learned quite a lot about how to handle payments in general.
 
 ## Conventions
 
@@ -28,7 +32,7 @@ Links are [underlined](http://www.petekeen.net) and are all clickable from all o
 
 This guide uses semantic versioning. The major version will change with major Rails or Stripe API changes, minor with smaller API changes, and the patch level will change when bugs or typos are fixed in the text or example code. Speaking of typos or bugs, if you spot any please email me at [bugs@petekeen.net](mailto:bugs@petekeen.com).
 
-Versions of software used in most of the examples:
+Versions of software used in the examples:
 
 * Ruby 2.0.0-p0
 * Rails 4.0.2
@@ -36,19 +40,3 @@ Versions of software used in most of the examples:
 * Devise 3.0.0.rc
 * Paper Trail rails4 branch
 * PostgreSQL 9.2
-
-## Changelog
-
-* 1.0.0 - Initial release
-* 1.0.1 - Spelling, grammar, code improvements. Add sections about testing.
-* 1.0.2 - More spelling, grammar, code improvements. Combine intro chapters.
-* 1.0.3 - Fix links, typos, bugs, remove duplicate code, clarify callbacks
-* 1.1.0 - New cover, fix race condition in job queue, Heroku changes
-* 1.1.1 - Fix Heroku app creation order, a few typos
-* 1.1.2 - Fix local db create, add some beginner-level links, bump versions
-* 1.1.3 - A few small changes from feedback from Stripe
-* 1.1.4 - Added a link to the card icons used in the custom form, fixed typos
-* 1.1.5 - Clarified publishable key usage in Connect, bug fixes, Heroku fixes
-* 1.1.6 - Use balance api for fee amount, object creation style fix, typos
-* 1.1.7 - A bunch of fixes from Ryan Jelks
-* 1.1.8 - Add mentions of multiple subscriptions and statement descriptors
