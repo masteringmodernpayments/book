@@ -14,6 +14,10 @@ Stripe has excellent documentation. Why should you read this guide? Because the 
 
 In this guide we're going to cover a basic Stripe integration and then expand upon it to cover things like background workers, subscriptions, audit trails, PCI compliance, and more. When you're done with the guide you should have a good grasp on how to do a complete, robust integration.
 
+## How does the guide work?
+
+As you work through the guide you'll encounter lots of code examples. Each one of these will link to a GitHub commit adding that code into the application that we're building. If you encounter issues with either the code or the guide, there are links on every page to file GitHub issues. There is also a discussion thread associated with each chapter, hosted as a GitHub issue.
+
 ## Who am I?
 
 I'm Pete Keen. I've been working with the Stripe API for a little over three years now and have built many applications with it. In addition, I've worked with a wide variety of payment systems at my full time and consulting jobs and learned quite a lot about how to handle payments in general.
