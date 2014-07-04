@@ -6,10 +6,6 @@
 
 ---
 
-Thanks for purchasing *Mastering Modern Payments: Using Stripe with Rails*. In this guide we're going to walk through a complete example of integrating Stripe, a credit card payments API, with Ruby on Rails, a comprehensive modern web application stack.
-
-## A Bit of History
-
 Before Stripe came onto the scene, alteratives for accepting payments online were either expensive, annoying, complicated, or three. PayPal was (and still is) a large portion of the business, but the API is very old and the payment flow is not conducive to a modern application. To accept credit cards, you either you had to use PayPal or integrate at least three separate services: a merchant account, a credit card gateway, and a recurring subscription service. You had the responsibility to make sure every piece was secure, and all of the software that integrated them had to be maintained.
 
 Stripe makes all of this irrelevant. You can create an account on Stripe's website and be making real live charges the next day with very simple, easy to use APIs and documentation
