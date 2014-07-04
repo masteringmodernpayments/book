@@ -4,6 +4,11 @@
 
 # State and History
 
+* Learn how to structure processes as state machines
+* Add an automatic audit trail to ActiveRecord models
+
+---
+
 So far in our little example app we can buy and sell downloadable products using Stripe. We're not keeping much information in our own database, though. We can't easily see how much we've earned, we can't see how big Stripe's cut has been. Ideally our application's database would keep track of this. The mantra with financial transactions should always be "trust and verify" and to that end we should be tracking sales through each stage of the process, from the point the customer clicks the buy button all the way through to a possible refund. We should know, at any given moment, what state a transaction is in and it's entire history.
 
 ## State Machines

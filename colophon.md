@@ -1,6 +1,6 @@
 [colophon-Inconsolata]: http://www.google.com/fonts/specimen/Inconsolata
-[colophon-Lora]: http://www.google.com/fonts/specimen/Lora
-[colophon-Droid Sans]: http://www.google.com/fonts/specimen/Droid%20Sans
+[colophon-Merriweather]: http://www.google.com/fonts/specimen/Merriweather
+[colophon-Lato]: http://www.google.com/fonts/specimen/Lato
 [colophon-Google Web Fonts]: http://www.google.com/webfonts
 [colophon-Docverter]: http://www.docverter.com
 [colophon-Authority]: http://www.nathanbarry.com/authority
@@ -18,4 +18,4 @@ Thank you to my fiance Emily for putting up with this wacky project. Thanks to N
 
 ## Colophon
 
-This book is typeset using [Lora][colophon-Lora] for body text, [Droid Sans][colophon-Droid Sans] for headers, and [Inconsolata][colophon-Inconsolata] for code, all from [Google Web Fonts][colophon-Google Web Fonts]. Initial production happened in Emacs using Markdown for basic formatting. Final production uses a toolchain involving Rake and [Docverter][colophon-Docverter], the author's open source document conversion service.
+This book is typeset using [Merriweather][colophon-Merriweather] for body text, [Lato][colophon-Lato] for headers, and [Inconsolata][colophon-Inconsolata] for code, all from [Google Web Fonts][colophon-Google Web Fonts]. Initial production happened in Emacs using Markdown for basic formatting. Final production uses a toolchain involving Rake and [Docverter][colophon-Docverter], the author's open source document conversion service.

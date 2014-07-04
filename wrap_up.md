@@ -1,5 +1,9 @@
 # Additional Resources
 
+* More links to docs, examples, and libraries
+
+---
+
 Hopefully this guide has given you a good overview of working with Stripe with Rails and the tips and hints I've given have been helpful. What follows is a list of links to additional resources that I've found very helpful to my Stripe implementations.
 
 ## Documentation

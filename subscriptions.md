@@ -13,8 +13,13 @@
 [subscriptions-card-api]: https://stripe.com/docs/api/ruby#update_card
 [subscriptions-multiple-subs]: https://support.stripe.com/questions/whats-new-with-multiple-subscriptions-per-customer-january-2014
 
-
 # Subscriptions
+
+* Tour through Stripe's example subscriptions application
+* Learn what dunning is and how to make it happen
+* Miscellaneous Stripe features that support subscriptions
+
+---
 
 So far in the example project we've only dealt with one-off transactions where the customer comes along and buys a product once and we basically never have to deal with them again. The majority of SaaS products aren't really like that, though. Most SaaS products bill customers monthly for services, maybe with some kind of add-on system. The general flow is:
 
