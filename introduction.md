@@ -1,5 +1,11 @@
 # Introduction
 
+* Learn what makes Stripe great
+* Read about this book
+* Learn how the book is organized
+
+---
+
 Thanks for purchasing *Mastering Modern Payments: Using Stripe with Rails*. In this guide we're going to walk through a complete example of integrating Stripe, a credit card payments API, with Ruby on Rails, a comprehensive modern web application stack.
 
 ## A Bit of History
