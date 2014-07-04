@@ -11,6 +11,12 @@
 
 # Basic Integration
 
+* Create a basic Rails application
+* Do the simplest Stripe integration
+* Learn how to deploy to Heroku
+
+---
+
 In this chapter we're going to create a simple Rails application so we have something to work with for later chapters. All of the rest of the examples in the guide will be based on this app.
 
 Our app will sell downloadable products. Users will be able to create products and customers will be able to buy them, and we'll keep track of sales so we can do reporting later. Customers will be able to come back and download their purchases multiple times. We'll need three models:
