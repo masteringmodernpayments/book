@@ -6,23 +6,33 @@
 
 ---
 
-Before Stripe came onto the scene, alteratives for accepting payments online were either expensive, annoying, complicated, or all three. PayPal was (and still is) a large portion of the business, but the API is very old and the payment flow is not conducive to a modern application. To accept credit cards, you either you had to use PayPal or integrate at least three separate services: a merchant account, a credit card gateway, and a recurring subscription service. You had the responsibility to make sure every piece was secure, and all of the software that integrated them had to be maintained.
+Before Stripe came onto the scene, alteratives for accepting payments online were either expensive, annoying, complicated, or all three. PayPal had (and still has) a large portion of the business, but the API is very old and the payment flow is not conducive to a modern application. To accept credit cards, you either you had to use PayPal or integrate at least three separate services: a merchant account, a credit card gateway, and a recurring subscription service. You had the responsibility to make sure every piece was secure, and all of the software that integrated them had to be maintained.
 
-Stripe makes all of this irrelevant. You can create an account on Stripe's website and be making real live charges the next day with very simple, easy to use APIs and documentation
+Stripe makes all of this irrelevant. You can create an account on Stripe's website and be making real live charges the next day with simple, easy to use APIs and documentation. The power of this is huge: you can go from idea to accepting payments in very little time, often less than a day.
 
 ## Why this guide?
 
-Stripe has excellent documentation. Why should you read this guide? Because the documentation does not go far enough. It often assumes that Stripe will always be available and responsive. It gives small examples that don't apply well to a production application. This guide goes farther and deeper than Stripe's documentation. It builds up a complete production-level Rails application and covers every step along the way.
+If Stripe is so easy to use, why read a whole book about it? There's a few reasons. Stripe's documentation often does not go far enough. It assumes that Stripe will always be availble and responsive. It also only gives small or limited examples that don't directly apply to production applications.
 
-In this guide we're going to cover a basic Stripe integration and then expand upon it to cover things like background workers, subscriptions, audit trails, PCI compliance, and more. When you're done with the guide you should have a good grasp on how to do a complete, robust integration.
+This guide goes farther and deeper than Stripe's documentation. It builds up a complete production-level Rails application and covers every step along the way.
+
+In this guide we're going to cover a basic Stripe integration and then expand upon it to cover things like background workers, subscriptions, marketplaces, audit trails, PCI compliance, and more. When you're done with the guide you should have a good grasp on how to build a complete, robust Stripe integration.
 
 ## How does the guide work?
 
-As you work through the guide you'll encounter lots of code examples. Each one of these will link to a GitHub commit adding that code into the application that we're building. If you encounter issues with either the code or the guide, there are links on every page to file GitHub issues. There is also a discussion thread associated with each chapter, hosted as a GitHub issue.
+This guide builds an application lovingly named Sully after the big blue monster in the Pixar movie Monsters, Inc. Sully's job is to sell downloadable products. By the end of the book it will be a full marketplace where sellers can upload one-off and subscription content.
+
+As you work through each chapter you'll notice blocks like this:
+
+!GH[masteringmoderpayments/sully#12345]
+
+Clicking on the link in that block will take you to the specific github commit that adds the code for that section of the guide. If you see errors, you can submit a bug report directly from those blocks.
+
+Each chapter has a GitHub discussion thread associated with it that you can get to by clicking on the Discuss button in the upper lefthand corner. Here, you can ask questions and give help to your fellow readers.
 
 ## Who am I?
 
-I'm Pete Keen. I've been working with the Stripe API for a little over three years now and have built many applications with it. In addition, I've worked with a wide variety of payment systems at my full time and consulting jobs and learned quite a lot about how to handle payments in general.
+My name is Pete Keen. I've been working with the Stripe API for a little over three years now and have built many applications with it. In addition, I've worked with a wide variety of other payment systems at my full time and consulting jobs and learned quite a lot about how to handle payments in general.
 
 ## Conventions
 
@@ -36,8 +46,6 @@ Links are [underlined](http://www.petekeen.net) and are all clickable from all o
 
 ## Versions
 
-This guide uses semantic versioning. The major version will change with major Rails or Stripe API changes, minor with smaller API changes, and the patch level will change when bugs or typos are fixed in the text or example code. Speaking of typos or bugs, if you spot any please email me at [bugs@petekeen.net](mailto:bugs@petekeen.com).
-
 Versions of software used in the examples:
 
 * Ruby 2.0.0-p0
@@ -46,3 +54,5 @@ Versions of software used in the examples:
 * Devise 3.0.0.rc
 * Paper Trail rails4 branch
 * PostgreSQL 9.2
+
+See the [Changelog](/changelog) for details about changes to the guide itself.
