@@ -15,6 +15,8 @@
 * Survey the landscape of background processing systems
 * Make charges in the background
 
+---
+
 Stripe does everything in their power to make sure the payment process goes smoothly for you and your customers, but sometimes things out of everyone's control can go wrong. This chapter is about making sure that your payment system keeps going in the face of things like connection failures and large bursts of traffic to your application.
 
 ## The Problem
