@@ -8,6 +8,7 @@
 [pci-rbp]: http://rails-bestpractices.com
 [pci-brakeman]: http://brakemanscanner.org
 [pci-cochrane]: http://kencochrane.net/blog/2012/01/developers-guide-to-pci-compliant-web-applications/
+[pci-code-climate]: https://codeclimate.com
 
 * Learn about PCI compliance
 * Generate and install an SSL certificate
@@ -17,7 +18,9 @@
 
 <i>Note: I'm not an expert in PCI compliance and this chapter shouldn't be interpreted as legal advice. Rather, this is background information and advice on how to implement Stripe's guidelines. If you have questions, please ask Stripe or your nearest local PCI consultant.</i>
 
-In 2004 all of the various card processing companies including Mastercard, Visa, and Discover, started formulating security standards efforts with the aim of reducing the ongoing rash of credit card fraud. Visa dropped their own effort in 2005 and joined up with Mastercard, shortly followed by the rest of the industry. In 2006 version 1 of the [Payment Card Industry Data Security Standards][pci-pci] was officially published which formalized and codified a bunch of common-sense security requirements for processing credit cards. In their merchant agreements every processor specifies that you have to comply with PCI with failure leading to audits and them possibly dropping your account.
+In 2004 some of the big credit card processing companies, including Mastercard, Visa, and Discover, all started putting together security standards that their merchants would have to agree to abide by if they wanted to charge cards. This included things like what information from a card you can and can't store and what types of security your systems would have to have.
+
+By 2006 the whole industry had joined up and published version 1 of the [Payment Card Industry Data Security Standards][pci-pci] (PCI-DSS). Every credit card processor put language in their merchant agreement that bound each merchant to abiding by PCI-DSS. Security breaches from things that PCI-DSS prevents lead to audits and possibly dropping your account and getting put on an industry-wide blacklist.
 
 ## Developer's Guide
 
@@ -25,11 +28,22 @@ One of the best resources that I've found that talks about all of these requirem
 
 ## Stripe and PCI
 
-The really revolutionary part of how Stripe works is in how they [reduce your compliance scope][pci-stripe_pci] as a merchant. Before Stripe, a typical online merchant would have a normal HTML form on their website where customers would put in their credit card information. This form would post to the merchant's server, where they would take the credit card info and pass it along to their *gateway service*, which would then talk to all of the various banks and things and then eventually deposit the money into their *merchant account*.  Theoretically an attacker could stick some code into a merchant's payment processing system and divert credit card numbers. Or, if the merchant's site wasn't using HTTPS they could perform a man-in-the-middle attack and capture credit card information as it travels over the wire. This means that each and every merchant would have to become PCI certified, even if they weren't storing the credit card info anywhere in their system.
+The really revolutionary part of how Stripe works is in how they [reduce your compliance scope][pci-stripe_pci] as a merchant. Let's walk through a transaction on a page that doesn't use Stripe.
 
-Stripe makes all of this irrelevant with their tokenization process. When you create a form using `stripe.js` or `checkout.js` loaded from Stripe's servers none of your customer's credit card info is sent through your servers. Instead, Stripe's JavaScript sends that info to their servers over HTTPS where they turn it into a single-use *token*. This token is injected into your form and sent to your server which can use it to refer to a customer's credit card without ever having seen it.
+1. Enter your card information into a normal HTML.
+1. This form POSTs to the merchant's server
+1. The merchant's software passes the credit card information to their *gateway service*
+1. The gateway service talks to all of the various banks involved.
+1. When a transaction is approved by the bank, the gateway eventually deposits the money into the *merchant account*.
 
-The only thing you as a merchant have to do to be PCI compliant according to Stripe is to make sure you're serving up your payment-related pages over HTTPS and ensure they use `stripe.js` or `checkout.js`. We've already talked about `checkout.js` and we'll cover `stripe.js` in the chapter on Custom Forms. Let's talk about setting up HTTPS.
+There's quite a few attack surfaces here. By far the most common was for an attacker to exploit a bug in the merchant's application and get into their database. Once they're in the database, an attacker would have free-range to copy credit card information.
+
+Another attack vector would be to listen in on an unencrypted wifi network and wait for someone to put their card information into a non-encrypted web page, which was also common before PCI-DSS came onto the scene.
+
+Stripe makes both of these attacks, along with many more, irrelevant with their tokenization process. When you create a form using `stripe.js` or Stripe Checkout loaded from Stripe's servers none of your customer's credit card info is sent through your servers.
+Instead, Stripe's JavaScript sends that info to their servers over HTTPS where they turn it into a single-use *token*. This token is injected into your form and sent to your server which can use it to refer to a customer's credit card without ever having seen it.
+
+The only thing you as a merchant have to do to be PCI compliant according to Stripe is to make sure you're serving up your payment-related pages over HTTPS and ensure they use `stripe.js` or Stripe Checkout. We've already talked about Checkout and we'll cover `stripe.js` in the chapter on Custom Forms. Let's talk about setting up HTTPS.
 
 ## Implementing HTTPS with Rails
 
@@ -39,7 +53,11 @@ Rails after v3.1 makes forcing visitors to HTTPS incredibly easy. In `config/env
 config.force_ssl = true
 ```
 
-This will redirect all non-HTTPS requests to HTTPS automatically on production. In addition it will set the `Strict-Transport-Security` header to ensure future requests get forced to SSL without asking first, and it ensures that all cookies get the `secure` flag. For this example it's all we need to do because Heroku provides what's called a "wildcard ssl certificate" for all apps accessed at `herokuapp.com`. The disadvantage of a wildcard certificate is that you're constrained to using `yourapp.herokuapp.com`. If you want to use your own URL you'll need to get your own certificate (generally around $10 per year) and install it with Heroku which will cost $20 per month. These costs vary if you're using a different hosting provider but most Amazon-based cloud providers will charge $20/mo because that's how much an Elastic Load Balancer is, which is where the SSL termination actually happens.
+This will redirect all non-HTTPS requests to HTTPS automatically on production and sets the `Strict-Transport-Security` header which tells the customer's browser to always use HTTPS. It also ensures that all cookies get the `secure` flag.
+
+For this example `force_ssl` is all we need to do because Heroku provides what's called a "wildcard ssl certificate" for all apps accessed at `herokuapp.com`. The disadvantage of using Heroku's free certificate is that you're constrained to using `yourapp.herokuapp.com`.
+
+If you want to use your own URL you'll need to get your own certificate (generally around $10 per year) and install it with Heroku which will cost $20 per month.
 
 ## Buying a Certificate
 
@@ -80,7 +98,11 @@ This will print out a bunch of information about your certificate. You can ignor
 
 ### Buy the actual certificate
 
-Head on over to [Namecheap's SSL page][pci-namecheap_ssl]. Here you're presented with a bunch of different options in what they feel is least-secure to most-secure list. I generally buy the cheapest option because they're all pretty much the same in the $10 range. If you want, you can get EV1 certification which will give you the green bar in Safari and Firefox. You'll have to do some more paperwork to get it, though. For now, let's just get the cheapest Comodo certificate.
+Head on over to [Namecheap's SSL page][pci-namecheap_ssl]. Here you're presented with a bunch of different options in what they feel is least-secure to most-secure list. I generally buy the cheapest option because they're all pretty much the same in the $10 range.
+
+Another option is to go through Extended Verification (EV), which involves quite a bit more paperwork, time, and money. The benefit is that your customers will see a green bar in Firefox and Safari with your company name instead of the URL. This increases customer confidence that you are who you say you are.
+
+For now, let's just get the cheapest Comodo certificate.
 
 Go through checkout and pay and you'll get sent to a page where you can pick your server type and paste your CSR. For Heroku you should choose the "Other" option in the server dropdown. Open your CSR up and paste the entire contents into the text box, then hit Next.
 
@@ -113,9 +135,9 @@ $ curl -kvI https://www.example.com
 
 This should print out a bunch of stuff about SSL and the headers from your application. If things didn't work properly it'll give you errors and hints on how to fix them.
 
-## Additional Security Best Practices
+## Rails Security Tools
 
-There are a few other things you can do to help ensure that your Rails application is secure, above and beyond requiring HTTPS. Adhering to Rails best practices and making sure you don't accidentally introduce known attack vectors into your code are two of the best things you can do to make sure attackers won't be successful.
+There are a few other tools you can use help ensure that your Rails application is secure, above and beyond requiring HTTPS. Adhering to Rails best practices and making sure you don't accidentally introduce known attack vectors into your code are two of the lowest-effort things you can do to make your app secure.
 
 ### Rails Best Practices
 
@@ -212,3 +234,7 @@ end
 ```
 
 This checks the code using the test suite and the two scanners and then pushes it to heroku. You should have a task like this and always use it to deploy. That way you know you always have correct code running on the server.
+
+### Code Climate
+
+A service named [Code Climate][pci-code-climate] wraps both both Rails Best Practices and Brakeman up into an automated service that hooks into your GitHub account. Every time you push, Code Climate will pick up the change and analyze it for known bugs, security issues, and code cleanliness problems, and then email you a report. I highly recommend it if you are working with more than just yourself and if you're using GitHub mosting. It's well worth the price.
