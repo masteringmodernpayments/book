@@ -1,3 +1,7 @@
+---
+discussion_issue: 6
+---
+
 [state-aasm]: https://github.com/aasm/aasm
 [state-fmsc]: http://weblog.jamisbuck.org/2006/10/18/skinny-controller-fat-model
 [state-paper_trail]: https://github.com/airblade/paper_trail

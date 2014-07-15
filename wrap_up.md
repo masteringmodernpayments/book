@@ -1,3 +1,7 @@
+---
+discussion_issue: 11
+---
+
 # Additional Resources
 
 * More links to docs, examples, and libraries

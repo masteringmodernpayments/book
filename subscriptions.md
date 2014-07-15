@@ -1,3 +1,7 @@
+---
+discussion_issue: 9
+---
+
 [subscriptions-koudoku]: https://github.com/andrewculver/koudoku
 [subscriptions-stripe-rails]: https://github.com/thefrontside/stripe-rails
 [subscriptions-stripe_event]: https://github.com/integrallis/stripe_event

@@ -1,3 +1,7 @@
+---
+discussion_issue: 3
+---
+
 [initial-app-devise]: https://github.com/plataformatec/devise
 [initial-app-heroku]: https://www.heroku.com
 [initial-app-postgresql]: http://www.postgresql.org

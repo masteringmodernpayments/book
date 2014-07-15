@@ -1,3 +1,7 @@
+---
+discussion_issue: 7
+---
+
 [callbacks-stripe_event]: https://github.com/integrallis/stripe_event
 [callbacks-PrinceXML]: http://www.princexml.com
 [callbacks-DocRaptor]: http://docraptor.com

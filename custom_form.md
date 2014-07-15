@@ -1,3 +1,7 @@
+---
+discussion_issue: 5
+---
+
 [custom-form-bootstrap]: http://twitter.github.io/bootstrap
 [custom-form-tutorial]: https://stripe.com/docs/tutorials/forms
 [custom-form-card-icons]: http://www.shopify.com/blog/6335014-32-free-credit-card-icons#axzz2i4nAS6FV

@@ -1,3 +1,8 @@
+---
+discussion_issue: 2
+---
+
+
 # Introduction
 
 * Learn what makes Stripe great

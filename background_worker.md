@@ -1,3 +1,7 @@
+---
+discussion_issue: 8
+---
+
 # Background Workers
 
 [background-worker-stripe]: https://stripe.com/docs/tutorials/checkout

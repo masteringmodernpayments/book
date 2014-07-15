@@ -1,3 +1,7 @@
+---
+discussion_issue: 10
+---
+
 [marketplaces-stripe-connect]: https://stripe.com/connect
 [marketplaces-stripe-payouts]: https://stripe.com/blog/send-payouts-with-stripe
 [marketplaces-OmniAuth]: https://github.com/intridea/omniauth
