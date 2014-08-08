@@ -15,6 +15,121 @@ The majority of SaaS businesses don't operate that way. Most of them will want t
 
 ## Basic Integration
 
+For this example, we're going to add a simple subscription system where people can sign up to receive periodic download links, like magazine articles.
+
+Let's start by making a few models. We'll need models to keep track of our pricing plans and each user's subscriptions, since they may sign up for one or more magazine.
+
+```bash
+$ rails g model plan \
+    stripe_id:string \
+    name:string \
+    description:text \
+    amount:integer \
+    interval:string \
+    published:boolean
+```
+
+```bash
+$ rails g model subscription \
+    user:references \
+    plan:references \
+    stripe_id:string
+```
+
+Open up the models and add audit trails:
+
+```ruby
+class Plan < ActiveRecord::Base
+  has_paper_trail
+  validates :stripe_id, uniqueness: true
+end
+```
+
+```ruby
+class Subscription < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :plan
+
+  has_paper_trail
+end
+```
+
+Notice we also added a uniqueness constraint to `Plan`. Re-using Stripe plan IDs is technically allowed but it's not a very good idea.
+
+
+### Service Objects
+
+In this integration we're going to be using service objects to encapsulate the business logic of creating users and subscriptions. In our usage, a service object lives in `/app/services` and contains one main class method named `call` which receives all of the dependencies that the object needs to do it's job.
+
+Here's our `CreateUser` service, in `/app/services/create_user.rb`:
+
+```ruby
+class CreateUser
+  def self.call(email_address)
+
+    user = User.find_by(email: email_address)
+
+    return user if user.present?
+
+    raw_token, enc_token = Devise.token_generator.generate(User, :reset_password_token)
+    password = SecureRandom.hex(32)
+
+    user = User.create!(
+      email: email_address,
+      password: password,
+      password_confirmation: password,
+      reset_password_token: enc_token,
+      reset_password_sent_at: Time.now
+    )
+
+    return user, raw_token
+  end
+end
+```
+
+In our signup flow, we are going to have the user provide their email address at the same time they give us their credit card. Internally, Devise will set up a password reset token for us if we ask, but there's no way to get out the raw token so we can send it to the user so we have to do it ourselves.
+
+`CreateUser.call` takes an email address and first attempts to look up the user with that email address. If there isn't one, it proceeds to generate the Devise password reset token, create the user, and then return both the user and the token.
+
+Now that we can create a user, let's create a subscription:
+
+```ruby
+class CreateSubscription
+  def self.call(plan, email_address, token)
+    user, raw_token = CreateUser.call(email_address)
+
+    subscription = Subscription.new(
+      plan: plan,
+      user: user
+    )
+
+    begin
+      customer = Stripe::Customer.create(
+        card: token,
+        email: user.email,
+        plan: plan.stripe_id,
+      )
+
+      subscription.stripe_id = customer.id
+
+      subscription.save!
+
+      UserMailer.send_receipt(user.id, plan.id, raw_token)
+          if s.errors.empty?
+
+    rescue Stripe::StripeError => e
+      subscription.errors[:base] << e.message
+    end
+
+    subscription
+  end 
+end
+```
+
+One of the best things about service objects is how easy it is to compose them. We can just use the `CreateUser` service we set up to create a user wherever we want, including in other service objects.
+
+First we create the user and then a `Subscription` object. Next, we actually talk to Stripe. All we have to do is create a `Stripe::Customer` object with the plan, token, and email address of the user. We store the customer ID onto our `Subscription` object for later reference then send a receipt email which will contain a link for the user to set up their password.
+
 * models
   - plan
   - subscription
@@ -45,3 +160,4 @@ The majority of SaaS businesses don't operate that way. Most of them will want t
 ## Reporting
 
 * keeping your db in sync with stripe
+* 3rd party services
