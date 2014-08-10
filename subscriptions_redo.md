@@ -71,7 +71,8 @@ class CreateUser
 
     return user if user.present?
 
-    raw_token, enc_token = Devise.token_generator.generate(User, :reset_password_token)
+    raw_token, enc_token = Devise.token_generator.generate(
+      User, :reset_password_token)
     password = SecureRandom.hex(32)
 
     user = User.create!(
@@ -87,7 +88,7 @@ class CreateUser
 end
 ```
 
-In our signup flow, we are going to have the user provide their email address at the same time they give us their credit card. Internally, Devise will set up a password reset token for us if we ask, but there's no way to get out the raw token so we can send it to the user so we have to do it ourselves.
+In our signup flow, we are going to have the user provide their email address at the same time they give us their credit card. Internally, Devise will set up a password reset token for us if we ask, but there's no way to get out the raw token so we can send it to the user so we have to do it ourselves. `NOTE <-- wtf`
 
 `CreateUser.call` takes an email address and first attempts to look up the user with that email address. If there isn't one, it proceeds to generate the Devise password reset token, create the user, and then return both the user and the token.
 

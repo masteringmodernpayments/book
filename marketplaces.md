@@ -40,7 +40,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 end
 ```
 
-`STRIPE_SECRET_KEY` is the same key we set up in `config/initializers/stripe.rb` way back in the beginning. To get the value for `STRIPE_CONNECT_CLIENT_ID` you need to [register an application][stripe-connect-register]. This should be a simple process but I've had trouble with it before. Feel free to contact Stripe's very helpful support if you hit any snags.
+`STRIPE_SECRET_KEY` is the same key we set up in `config/initializers/stripe.rb` way back in the beginning. To get the value for `STRIPE_CONNECT_CLIENT_ID` you need to [register an application][marketplaces-stripe-connect-register]. This should be a simple process but I've had trouble with it before. Feel free to contact Stripe's very helpful support if you hit any snags.
 
 When you send the user through `/auth/stripe_connect`, after registering them or logging them in Stripe will send them back to `/auth/stripe_connect/callback` (via OmniAuth). Add a route to handle this:
 
@@ -54,7 +54,7 @@ Let's set up that controller in `app/controllers/stripe_connect.rb`:
 class StripeConnectController < ApplicationController
 
   def create
-    auth_hash = params[:auth_hash]
+    auth_hash = request.env['omniauth.auth']
     current_user.stripe_id = auth_hash['uid']
     current_user.stripe_access_key = auth_hash['credentials']['token']
     current_user.stripe_publishable_key = auth_hash['info']['stripe_publishable_key']
