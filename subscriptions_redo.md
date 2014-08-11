@@ -131,6 +131,69 @@ One of the best things about service objects is how easy it is to compose them. 
 
 First we create the user and then a `Subscription` object. Next, we actually talk to Stripe. All we have to do is create a `Stripe::Customer` object with the plan, token, and email address of the user. We store the customer ID onto our `Subscription` object for later reference then send a receipt email which will contain a link for the user to set up their password.
 
+### Controller
+
+The next thing we have to do is actually use the service objects. Thankfully, that's pretty simple:
+
+```ruby
+class SubscriptionsController < ApplicationController
+  skip_before_filter :authenticate_user!
+
+  before_filter :load_plans
+
+  def index
+  end
+
+  def new
+    @subscription = Subscription.new
+    @plan = Plan.find(params[:plan_id])
+  end
+
+  def create
+    @subscription = CreateSubscription.call(
+      params[:email_address],
+      Plan.find(params[:plan_id]),
+      params[:stripeToken]
+    )
+    if @subscription.errors.blank?
+      flash[:notice] = 'Thank you for your purchase! Please click the link in the email we just sent you to get started.'
+      redirect_to :root
+    else
+      render :new
+    end
+  end
+
+protected
+
+  def load_plans
+    @plans = Plan.where(published: true).order('price desc')
+  end
+
+end
+```
+
+Before we do anything else, we have to load the published plans. We show them in price-decending order because of a thing called price anchoring. Someone's initial impression of the quality of a product is highly influenced by the price you charge, and the price that they first see sticks in their mind. Therefore, to get the highest value out of your service you should show them a high price first and then show them less expensive options that they can choose. <--NOTE this sorta sucks.
+
+Other than that, this is a normal, ordinary, every day Rails controller. We use the service object we created previously to actually create the subscription, and we check that it made it all the way through the process without any errors. Let's fill out the views:
+
+`/app/views/subscriptions/index.html.erb`:
+```rhtml
+<% @plans.each do |plan| %>
+  <%= link_to plan.name, new_subscription_path(@plan) %>
+<% end %>
+```
+
+`/app/views/subscriptions/new.html.erb`:
+```rhtml
+<% unless @subscription.errors.blank? %>
+  <%= @subscription.errors.full_messages.to_sentence %>
+<% end %>
+
+<%= form_for @subscription do |f| %>
+<% end %>
+```
+
+
 * models
   - plan
   - subscription
@@ -140,6 +203,7 @@ First we create the user and then a `Subscription` object. Next, we actually tal
 * creating a customer with a subscription
 * adding more than one subscription
 * user roles (authority gem)
+* self-service cancellation, upgrade, downgrade
 
 ## Testing
 
