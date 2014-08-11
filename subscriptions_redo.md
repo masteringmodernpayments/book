@@ -177,6 +177,7 @@ Before we do anything else, we have to load the published plans. We show them in
 Other than that, this is a normal, ordinary, every day Rails controller. We use the service object we created previously to actually create the subscription, and we check that it made it all the way through the process without any errors. Let's fill out the views:
 
 `/app/views/subscriptions/index.html.erb`:
+
 ```rhtml
 <% @plans.each do |plan| %>
   <%= link_to plan.name, new_subscription_path(@plan) %>
@@ -184,6 +185,7 @@ Other than that, this is a normal, ordinary, every day Rails controller. We use 
 ```
 
 `/app/views/subscriptions/new.html.erb`:
+
 ```rhtml
 <% unless @subscription.errors.blank? %>
   <%= @subscription.errors.full_messages.to_sentence %>
