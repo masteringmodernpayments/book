@@ -56,7 +56,6 @@ end
 
 Notice we also added a uniqueness constraint to `Plan`. Re-using Stripe plan IDs is technically allowed but it's not a very good idea.
 
-
 ### Service Objects
 
 In this integration we're going to be using service objects to encapsulate the business logic of creating users and subscriptions. In our usage, a service object lives in `/app/services` and contains one main class method named `call` which receives all of the dependencies that the object needs to do it's job.
@@ -192,6 +191,7 @@ Other than that, this is a normal, ordinary, every day Rails controller. We use 
 <% end %>
 
 <%= form_for @subscription do |f| %>
+NOTE this is where the stripe form goes
 <% end %>
 ```
 
