@@ -12,6 +12,9 @@ discussion_issue: 3
 [basic-integration-stripe_guide]: https://stripe.com/docs/checkout/guides/rails
 [basic-integration-stripe-testing]: https://stripe.com/docs/testing
 [basic-integration-heroku-vars]: https://devcenter.heroku.com/articles/config-vars
+[basic-integration-aws]: http://aws.amazon.com
+[basic-integration-stripe-api-keys]: https://dashboard.stripe.com/account/apikeys
+[basic-integration-stripe-mock]: https://github.com/rebelidealist/stripe-ruby-mock
 
 # Basic Integration
 
@@ -49,7 +52,7 @@ I'm going to use [PostgreSQL][initial-app-postgresql] for the example app becaus
 We're going to want to be able to authenticate users who can add and manage products and view sales. The example is going to use a gem named [Devise][initial-app-devise] which handles everything user-related out of the box. Add it to your `Gemfile`:
 
 ```ruby
-gem 'devise', '~> 3.0.0.rc'
+gem 'devise', '~> 3.3.0'
 ```
 
 then run bundler and set up Devise:
@@ -65,12 +68,6 @@ At this point you have to do some manual configuration. Add this to `config/envi
 config.action_mailer.default_url_options = {
   :host => 'localhost:3000'
 }
-```
-
-This to `config/routes.rb`:
-
-```ruby
-root :to => 'products#index'
 ```
 
 and this in `app/views/layouts/application.html.erb` right after the `body` tag:
@@ -131,7 +128,7 @@ end
 Note the `has_attached_file`. We're using [Paperclip][initial-app-paperclip] to attach the downloadable files to the product record. Let's add it to `Gemfile`:
 
 ```ruby
-gem 'paperclip', '~> 3.5.1'
+gem 'paperclip', '~> 4.2.0'
 ```
 
 And `bundle install` again to get Paperclip installed.
@@ -197,7 +194,8 @@ Our app needs a way to track product sales. Let's make a Sale model too.
 $ rails g scaffold Sale \
     email:string \
     guid:string \
-    product:references
+    product:references \
+    stripe_id:string
 $ rake db:migrate
 ```
 
@@ -207,16 +205,24 @@ Open up `app/models/sale.rb` and make it look like this:
 class Sale < ActiveRecord::Base
   belongs_to :product
 
-  before_create :populate_guid
+  before_save :populate_guid
+  validates_uniqueness_of :guid
 
   private
+
   def populate_guid
-    self.guid = SecureRandom.uuid()
+    if new_record?
+      while !valid? || self.guid.nil?
+        self.guid = SecureRandom.random_number(1_000_000_000).to_s(36)
+      end
+    end
   end
 end
 ```
 
-We're using a GUID here so that when we eventually allow the user to look at their transaction they won't see the `id`, which means they won't be able to guess the next ID in the sequence and potentially see someone else's transaction. We should also add the relationship to `Product`:
+We're using a GUID here so that when we eventually allow the user to look at their transaction they won't see the `id`, which means they won't be able to guess the next ID in the sequence and potentially see someone else's transaction. This isn't an official UUID since those tend to be long and awkward. Instead, we pick a number between 0 and one billion, turn it into a string by encoding it with base 36 (lowercase letters a-z and numbers 0-9). Then we test to make sure the record is valid. The loop will continue until there's a unique GUID value because of the `validates_uniqueness_of` on `:guid`.
+
+We should also add the relationship to `Product`:
 
 ```ruby
 class Product < ActiveRecord::Base
@@ -225,8 +231,26 @@ class Product < ActiveRecord::Base
   validates_numericality_of :price,
     greater_than: 49,
     message: "must be at least 50 cents"
+
+  has_attached_file :file
+
+  validates_attachment_content_type :file, :content_type => [
+    "image/jpg",
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "application/pdf",
+    "application/zip"
+  ]
+
 end
 ```
+
+Stripe does not allow charges less than $0.50, so we add a validation to make sure a product doesn't end up like that.
+
+We're also setting up the paperclip integration on `Product`. The first line, `has_attached_file :file`, tells Paperclip to add the appropriate access methods. The second section, `validates_attachment_content_type`, ensures that only files of the specified content types get uploaded. This list includes several image types as well as PDFs and Zip files. If you're going to be selling something else, make sure to add the appropriate MIME types here.
+
+At this point, you should be able to fire up `rails server` and create a product or two.
 
 ## Deploying
 
@@ -298,6 +322,8 @@ config.paperclip_defaults = {
 }
 ```
 
+[Sign up on Amazon's site][basic-integration-aws] to get AWS credentials if you don't already have them.
+
 Just [set those config variables with Heroku][basic-integration-heroku-vars], `bundle install`, and then commit and push up to Heroku.
 
 You should see a login prompt from Devise. Go ahead and login and create a few products. We'll get to buying and downloading in the next section.
@@ -319,7 +345,7 @@ In addition, we're going to leverage Stripe's excellent management interface whi
 First, add the Stripe gem to your Gemfile:
 
 ```ruby
-gem 'stripe', '~> 1.8.3'
+gem 'stripe', '~> 1.15.0'
 ```
 
 And then run `bundle install`.
@@ -337,6 +363,8 @@ Stripe.api_key = \
 ```
 
 Note that we're getting the keys from the environment. This is for two reasons: first, because it lets us easily have different keys for testing and for production; second, and more importantly, it means we don't have to hardcode any potentially dangerous security credentials. Putting the keys directly in your code means that anyone with access to your code base can make Stripe transactions with your account.
+
+You can get your publishable and secret key from your [Stripe account settings][basic-integration-stripe-api-keys] in the Dashboard.
 
 ## Controller
 
@@ -375,7 +403,8 @@ class TransactionsController < ApplicationController
         description: params[:email]
       )
       @sale = product.sales.create!(
-        email:      params[:email]
+        email:      params[:email],
+        stripe_id:  charge.id
       )
       redirect_to pickup_url(guid: @sale.guid)
     rescue Stripe::CardError => e
@@ -492,12 +521,12 @@ Instead, let's use mocks and factories. In `Gemfile`:
 
 ```ruby
 group :development do
-  gem 'mocha', require: false
+  gem 'stripe_mock'
   gem 'database_cleaner'
 end
 ```
 
-Mocha is a mocking framework that let's us set up fake objects that respond how we want them to. It also allows for expectations, where you declare a method will get called in a certain manner and if it doesn't the test will fail. Database Cleaner cleans out the database between test runs.
+[StripeMock][basic-integration-stripe-mock] provides mocks for the entire Stripe API so your tests don't have to actually hit Stripe's servers. Database Cleaner cleans out the database between test runs.
 
 Let's set all of this up. In `test/test_helper.rb`:
 
@@ -511,14 +540,14 @@ class ActiveSupport::TestCase
 
   setup do
     DatabaseCleaner.start
+    StripeMock.start
   end
 
   teardown do
     DatabaseCleaner.clean
+    StripeMock.stop
   end
 end
-
-require 'mocha/setup'
 ```
 
 Note that Mocha must be required as the very last thing in `test_helper`.
@@ -527,36 +556,23 @@ Let's write a test for `TransactionsController`. In `test/functional/transaction
 
 ```ruby
 class TransactionsControllerTest < ActionController::TestCase
-  setup do
-    Stripe.api_key = 'sk_fake_test_key'
-  end
-
   test "should post create" do
-    token = 'tok_123456'
-    email = 'foo@example.com'
-
     product = Product.create(
       permalink: 'test_product',
       price:     100
     )
 
-    Stripe::Charge.expects(:create).with({
-      amount:      100,
-      currency:    'usd',
-      card:        token,
-      description: email
-    }).returns(mock)
-
     post :create, email: email, stripeToken: token
 
     assert_not_nil assigns(:sale)
+    assert_not_nil assigns(:sale).stripe_id
     assert_equal product.id, assigns(:sale).product_id
     assert_equal email, assigns(:sale).email
   end
 end
 ```
 
-The very first thing we do is set a fake Stripe API key. If for some reason we hit Stripe during our test run it will fail immediately and we'll know where else we have to mock. In the test itself, we set up an expectation on `Stripe::Charge.create` with the arguments that the controller will pass to it and returning a mock object. Then, we `POST` at the controller and assert some things about the created `Sale` object. The underlying theory here is that in these tests we don't care what Stripe does under the covers with the data we pass it, we just care that our controller method is doing the right thing based on what the API returns.
+This is a straight forward controller test. First, we create a `Product` instance, then we `POST` at the `:create` action, which will create an instance of `Sale`, setting the appropriate attributes. The important part here is that `stripe_id` is populated, which means `Stripe::Mock` is doing it's job by mocking out all of the Stripe API calls.
 
 ## Deploy
 
