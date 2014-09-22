@@ -27,12 +27,6 @@ In this guide we're going to cover a basic Stripe integration and then expand up
 
 This guide builds an application lovingly named Sully after the big blue monster in the Pixar movie Monsters, Inc. Sully's job is to sell downloadable products. By the end of the book it will be a full marketplace where sellers can upload one-off and subscription content.
 
-As you work through each chapter you'll notice blocks like this:
-
-!GH[masteringmoderpayments/sully#12345]
-
-Clicking on the link in that block will take you to the specific github commit that adds the code for that section of the guide. If you see errors, you can submit a bug report directly from those blocks.
-
 Each chapter has a GitHub discussion thread associated with it that you can get to by clicking on the Discuss button in the upper lefthand corner. Here, you can ask questions and give help to your fellow readers.
 
 ## Who am I?
