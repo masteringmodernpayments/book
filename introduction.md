@@ -49,9 +49,9 @@ Versions of software used in the examples:
 
 * Ruby 2.0.0-p0
 * Rails 4.0.2
-* Stripe Ruby API 1.8.3
-* Devise 3.0.0.rc
-* Paper Trail rails4 branch
+* Stripe Ruby API 1.15.0
+* Devise 3.3.0
+* Paper Trail 3.0
 * PostgreSQL 9.2
 
 See the [Changelog](/changelog) for details about changes to the guide itself.
