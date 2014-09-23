@@ -6,7 +6,7 @@
 * [Security and PCI Compliance](/pci)
 * [Custom Payment Forms](/custom_form)
 * [State and History](/state_and_history)
-* [Handling Webhooks](/callbacks)
+* [Handling Webhooks](/webhooks)
 * [Background Workers](/background_worker)
 * [Subscriptions](/subscriptions)
 * [Marketplaces](/marketplaces)
