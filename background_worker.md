@@ -44,9 +44,11 @@ rescue Stripe::CardError => e
 end
 ```
     
-Pretty straight-forward. Using the `stripeToken` that `stripe.js` inserted into your form, create a charge object. If this fails due to a `CardError`, you can safely assume that the customer's card got declined. Behind the scenes, `Stripe::Charge` makes an `https` call to Stripe's API. Typically, this completes almost immediately.
+Using the `stripeToken` that `stripe.js` inserted into your form, create a charge object. If this fails due to a `CardError`, you can safely assume that the customer's card got declined. Behind the scenes, `Stripe::Charge` makes an `https` call to Stripe's API. Typically, this completes almost immediately.
 
-There's a million reasons why this code could take time to complete. The connection between your server and Stripe's could be slow or down. DNS resolution could be failing. Browsers typically have around a one minute timeout and application servers like Unicorn usually will kill the request after 30 seconds. That's a long time to keep the user waiting just to end up at an error page.
+Sometimes it takes a long time, for one of a million different reasons For example, the connection between your server and Stripe's could be slow or down. DNS resolution could be failing. Stripe's backend could be returning errors or just not returning at all.
+
+Browsers typically have around a one minute timeout and application servers like Unicorn usually will kill the request after 30 seconds. That's a long time to keep the user waiting just to end up at an error page.
 
 ## The Solution
 
@@ -118,9 +120,9 @@ Delayed Job does have some drawbacks. First, because it stores jobs in the same 
 
 Another PostgreSQL-specific database backed worker system is [Queue Classic][background-worker-qc], which leverages some PostgreSQL-specific features to deliver jobs to workers very efficiently. Specifically it uses `listen` and `notify`, the built-in publish/subscribe system, to tell workers when there are jobs to be done so they don't have to poll. It also uses row-level locking to reduce database load and ensure only one worker is working on a job at any given time.
 
-### Redis
+### Redis Persistence
 
-[Redis][background-worker-redis] bills itself as a "networked data structure server". It's a database server that provides rich data types like lists, queues, sets, and hashes, all while being extremely fast because everything is in-memory all the time. The best Redis-based background worker, in my opinion, is [Sidekiq][background-worker-sidekiq] written by [Mike Perham][background-worker-mperham]. It uses the same actor-based concurrency library under the hood as Sucker Punch, but because it stores jobs in Redis it can also provide things like a beautiful management console and fine-grained control over jobs. The setup is essentially identical to Sucker Punch:
+[Redis][background-worker-redis] bills itself as a "networked data structure server". It's a database server that provides rich data types like lists, queues, sets, and hashes, all while being extremely fast because everything is in-memory all the time. The best Redis-based background worker, in my opinion, is [Sidekiq][background-worker-sidekiq] written by [Mike Perham][background-worker-mperham]. It uses the same actor-based concurrency library under the hood as Sucker Punch but because it stores jobs in Redis it can also provide things like a beautiful management console and fine-grained control over jobs. The setup is essentially identical to Sucker Punch:
 
 ```ruby
 class BananaWorker
@@ -144,6 +146,8 @@ To work jobs, fire up Sidekiq:
 $ bundle exec sidekiq
 ```
 
+## Handling Payments
+
 For this example we're going to use Sidekiq. If you'd like to use one of the other job systems described above, or if you already have your own for other things, it should be trivial to adapt the following.
 
 First, let's create a job class:
@@ -162,7 +166,7 @@ class StripeCharger
 end
 ```
 
-Again, pretty straightforward. Sidekiq will create an instance of your job class and call `#perform` on it with a hash of values that you pass in to the queue, which we'll get to in a second. We look up the relevant `Sale` record and tell it to process using the state machine event we set up earlier using `AASM`.
+Sidekiq will create an instance of your job class and call `#perform` on it with a hash of values that you pass in to the queue, which we'll get to in a second. We look up the relevant `Sale` record and tell it to process using the state machine event we set up earlier using `AASM`.
 
 Now, in the TransactionsController, all we have to do is create the `Sale` record and queue the job:
 
@@ -202,7 +206,9 @@ class TransactionsController < ApplicationController
 end
 ```
 
-The `create` method creates a new `Sale` record and then queues the transaction to be processed by `StripeCharger`. Note that you may be tempted to do this in an `after_create` hook, but don't do that. `after_create` will run *before* the record is committed to the database, so if Sidekiq is warmed up it will start trying to process jobs before they're ready. By explicitly queuing the job you'll save yourself a headache. Another alternative is to queue the job in an `after_commit` hook but testing this with rspec gets a little weird because things are never actually ever committed in an rspec test. The `status` method simply looks up the transaction and spits back some JSON. To actually process the form we have something like this, which includes the call to `stripe.js`:
+The `create` method creates a new `Sale` record and then queues the transaction to be processed by `StripeCharger`. Note that you may be tempted to do this in an `after_create` hook, but don't do that. `after_create` will run *before* the record is committed to the database, so if Sidekiq is warmed up it will start trying to process jobs before they're ready. By explicitly queuing the job you'll save yourself a headache. Another alternative is to queue the job in an `after_commit` hook but testing this gets weird because things are never actually ever committed in an rspec test.
+
+The `status` method simply looks up the transaction and spits back some JSON. To actually process the form we have something like this, which includes the call to `stripe.js`:
 
 ```javascript
 $(function() {
