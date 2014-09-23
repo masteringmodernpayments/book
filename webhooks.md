@@ -27,89 +27,67 @@ Stripe tracks every event that happens to the payments, invoices, subscriptions,
 
 Some of these are more important than others. For example, if you're selling one-off products you probably don't care about the events about charge successes and failures because you're initiating the charge and will know immediately how it went. Those events are more useful for subscription sites where Stripe is handling the periodic billing for you. On the other hand, you always want to know about charge disputes. Too many of those and Stripe may drop your account.
 
-Webhook handling is going to be unique to every application but we can sketch out a general framework that can be used for any application. This will be similar to the [stripe_event][callbacks-stripe_event] gem, but instead of using notifications it uses a simple metaprogramming system.
+We're going to use the [StripeEvent][callbacks-stripe_event] gem to listen for webhooks. It provides an easy to use interface for handling events from Stripe in any way you choose.
+
+## Setup
+
+The first thing to do is to add `stripe_event` to your `Gemfile`:
+
+```ruby
+gem 'stripe_event'
+```
+
+Then, run `bundle install`.
+
+`StripeEvent` acts as a Rails engine, which means you get everything it offers just by mounting it in your routes. Add this to `config/routes.rb`:
+
+```ruby
+mount StripeEvent::Engine => '/stripe-events'
+```
+
+In Stripe's management interface you should add a webhook with the address `https://your-app.example.com/stripe-events`.
 
 ## Validating Events
 
-Stripe unfortunately does not sign their events. If they did we could verify that they sent them cryptographically, but because they don't the best thing to do is to take the ID from the POSTed event data and ask Stripe about it directly. Stripe also recommends that we store events and reject IDs that we've seen already to protect against replay attacks. To knock both of these requirements out at the same time, let's make a new model called StripeEvent:
+Stripe unfortunately does not sign their events. If they did we could verify that they sent them cryptographically, but because they don't the best thing to do is to take the ID from the POSTed event data and ask Stripe about it directly. Stripe also recommends that we store events and reject IDs that we've seen already to protect against replay attacks. To knock both of these requirements out at the same time, let's make a new model called StripeWebhook:
 
 ```bash
-$ rails g model StripeEvent \
-    stripe_id:string \
-    stripe_type:string
+$ rails g model StripeWebhook \
+    stripe_id:string
 ```
-
-We need to store the `stripe_id` because we'll be looking up the event using the API every time. We'll use the type later for figuring out what handler method to call.
 
 The model should look like this:
 
 ```ruby
-class StripeEvent < ActiveRecord::Base
+class StripeWebhook < ActiveRecord::Base
   validates_uniqueness_of :stripe_id
-
-  def event_object
-    event = Stripe::Event.retrieve(stripe_id)
-    event.data.object
-  end
 end
 ```
 
-## Controller
+Notice that we've set up a simple uniqueness validator on `stripe_id`.
 
-We'll need a new controller to handle callbacks. In `app/controllers/stripe_events_controller.rb`:
+When a webhook event comes in `StripeEvent` will ignore everything except the ID that comes from Stripe using what it calls an "event retriever". To actually deduplicate events let's set up a custom event retriever in `config/initializers/stripe_event.rb`:
 
 ```ruby
-class StripeEventsController < ApplicationController
-  skip_before_action :authenticate_user!
-  before_action :parse_and_validate_event
-
-  def create
-    if self.class.private_method_defined? event_method
-      self.send(event_method, @event.event_object)
-    end
-    render nothing: true
-  end
-
-  private
-
-  def event_method
-    "stripe_#{@event.stripe_type.gsub('.', '_')}"
-  end
-
-  def parse_and_validate_event
-    @event = StripeEvent.new(stripe_id: params[:id], stripe_type: params[:type])
-
-    unless @event.save
-      if @event.valid?
-        render nothing: true, status: 400 # valid event, try again later
-      else
-        render nothing: true # invalid event, move along
-      end
-    end
-  end
+StripeEvent.event_retriever = lambda do |params|
+  return nil if StripeWebhook.exists?(stripe_id: params[:id])
+  StripeWebhook.create!(stripe_id: params[:id])
+  StripeEvent.retrieve(params[:id])
 end
 ```
 
-We skip Devise's `authenticate_user!` before filter because Stripe is obviously not going to have a user for our application. Then, we make our own `before_action` that actually parses out the event and does the work of preventing replay attacks. This involves just creating a `StripeEvent` record, which validates that the `stripe_id` is unique. If the event doesn't validate it's not unique, move on. If the event *is* valid but doesn't save, it must be a problem on our end. Maybe the database is full. In any case, return a 400 so that Stripe will retry later. If everything goes smoothly we ask Stripe for a fresh copy of the event and then deal with it.
+Returning `nil` from your event retriever tells `StripeEvent` to ignore this particular event. You could use this to do other things. For example, if you are using Stripe Connect and you want to ignore events from certain users you would put that logic here.
 
-`create` is where all the action happens. `event_method` will generate a method name. If we've defined a private method of that name, call it with the event as the argument. If the handler doesn't throw an exception let Stripe know that we handled it by returning a success code. This setup lets us easily handle the events we care about by defining the appropriate handler while ignoring the noise.
-
-We also need to set up a route to this controller. In `config/routes.rb`:
-
-```ruby
-resources :stripe_events, only: [:create]
-```
-
-In Stripe's management interface you would add a webhook with the address `https://your-app.example.com/stripe_events.json`.
 
 ## Handling Events
 
-The first thing we should do is handle a dispute which fires when a customer initiates a chargeback. In response to a dispute we send an email to ourselves with all of the details which should be enough to deal with them, since they should be fairly rare:
+The first thing we should do is handle a dispute which fires when a customer initiates a chargeback. In response to a dispute we send an email to ourselves with all of the details which should be enough to deal with them, since they should be fairly rare. In `config/initializers/stripe_event.rb`:
 
 ```ruby
-private
-def stripe_charge_dispute_created(charge)
-  StripeMailer.admin_dispute_created(charge).deliver
+StripeEvent.configure do |events|
+  events.subscribe 'charge.dispute.created' do |event|
+    StripeMailer.admin_dispute_created(event.data.object).deliver
+  end
 end
 ```
 
@@ -142,10 +120,14 @@ And in `app/views/stripe_mailer/admin_dispute_created.html.erb`:
 Disputes are sad. We should also handle a happy event, like someone buying something. Let's do `charge.succeeded`:
 
 ```ruby
-private
-def stripe_charge_succeeded(charge)
-  StripeMailer.receipt(charge).deliver
-  StripeMailer.admin_charge_succeeded(charge).deliver
+StripeEvent.configure do |events|
+  # ...
+
+  events.subscribe 'charge.succeeded' do |event|
+    charge = event.data.object
+    StripeMailer.receipt(charge).deliver
+    StripeMailer.admin_charge_succeeded(charge).deliver
+  end
 end
 ```
 
@@ -183,40 +165,25 @@ Many of the events that Stripe sends are for dealing with subscriptions. For exa
 
 ## Testing Events
 
-Stripe helpfully provides for test-mode webhooks. Assuming you have a publicly accessible staging version of your application, you can set up webhooks to fire when you make test mode transactions. Testing webhooks automatically is pretty simple, assuming you have the mocking set up like we talked about in Chapter 3. The test setup for `StripeEventsController` would look something like this:
+Stripe helpfully provides for test-mode webhooks. Assuming you have a publicly accessible staging version of your application, you can set up webhooks to fire when you make test mode transactions. Testing webhooks automatically is pretty simple with `StripeMock`. Let's create a new test in `test/integration/webhooks_test.rb`:
 
 ```ruby
-class StripeEventsControllerTest < ActionController::TestCase
-
-  setup do
-    Stripe.api_key = 'sk_fake_api_key'
-  end
-
+class WebhooksTest < ActionDispatch::IntegrationTest
   test 'charge created' do
-    event_id = 'fake_event_id'
+    event = StripeMock.mock_webhook_event('charge.succeeded', id: 'abc123')
 
     product = Product.create(price: 100, name: 'foo')
     sale = Sale.create(stripe_id: 'abc123', amount: 100, email: 'foo@bar.com', product: product)
 
-    mock_event = mock
-    mock_data = mock
-    mock_charge = mock
+    post '/stripe-events', id: event.id
+    assert_equal "200", response.code
 
-    mock_event.expects(:data).returns(mock_data)
-    mock_data.expects(:object).returns(mock_charge)
-    mock_charge.expects(:id).returns('abc123').at_least_once
-    mock_charge.expects(:amount).returns(100)
+    assert_equal 2, StripeMailer.deliveries.length
 
-    Stripe::Event.expects(:retrieve).with(event_id).at_least_once.returns(mock_event)
-
-    post :create, id: event_id, type: 'charge.succeeded'
+    assert_equal 'abc123', StripeWebhook.last.stripe_id
   end
 end
 ```
-
-There are a few things to note here. First, just like in the tests in Chapter 3 we set up a fake API key so Stripe will tell us right away if we're accidentally hitting their API. Next, we create some testing fixtures to work with and then set up a slew of mocks and expectations. These expectations effectively act as the assertions in this test, so at the end we just `POST` at the controller.
-
-When setting this endpoint in Stripe's web interface, make sure to use `https://your-app/events.json`, not just `/events`. That way Rails will automatically decode Stripe's JSON data into params we can work with directly.
 
 ## Effective Emailing
 
