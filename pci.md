@@ -241,5 +241,5 @@ This checks the code using the test suite and the two scanners and then pushes i
 
 ### Code Climate
 
-A service named [Code Climate][pci-code-climate] wraps both both Rails Best Practices and Brakeman up into an automated service that hooks into your GitHub account. Every time you push, Code Climate will pick up the change and analyze it for known bugs, security issues, and code cleanliness problems, and then email you a report. I highly recommend it if you are working with more than just yourself and if you're using GitHub mosting. It's well worth the price.
+A service named [Code Climate][pci-code-climate] wraps both both Rails Best Practices and Brakeman up into an automated service that hooks into your GitHub account. Every time you push, Code Climate will pick up the change and analyze it for known bugs, security issues, and code cleanliness problems, and then email you a report. I highly recommend it if you are working with more than just yourself and if you're using GitHub hosting. It's well worth the price.
 
