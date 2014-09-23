@@ -4,8 +4,9 @@ discussion_issue: 9
 
 # Subscriptions
 
-* topic
-* list
+* Learn how to set up basic subscriptions
+* Create composable service objects
+* 
 
 ---
 
@@ -155,7 +156,9 @@ class SubscriptionsController < ApplicationController
       params[:stripeToken]
     )
     if @subscription.errors.blank?
-      flash[:notice] = 'Thank you for your purchase! Please click the link in the email we just sent you to get started.'
+      flash[:notice] = 'Thank you for your purchase!' +
+        'Please click the link in the email we just sent ' +
+        'you to get started.'
       redirect_to :root
     else
       render :new
@@ -165,21 +168,20 @@ class SubscriptionsController < ApplicationController
 protected
 
   def load_plans
-    @plans = Plan.where(published: true).order('price desc')
+    @plans = Plan.where(published: true).order('price')
   end
 
 end
 ```
 
-Before we do anything else, we have to load the published plans. We show them in price-decending order because of a thing called price anchoring. Someone's initial impression of the quality of a product is highly influenced by the price you charge, and the price that they first see sticks in their mind. Therefore, to get the highest value out of your service you should show them a high price first and then show them less expensive options that they can choose. <--NOTE this sorta sucks.
-
-Other than that, this is a normal, ordinary, every day Rails controller. We use the service object we created previously to actually create the subscription, and we check that it made it all the way through the process without any errors. Let's fill out the views:
+Before we do anything else, we have to load the published plans so they're available for the actions. Other than that, this is a normal, ordinary, every day Rails controller. We use the service object we created previously to actually create the subscription, and we check that it made it all the way through the process without any errors. Let's fill out the views:
 
 `/app/views/subscriptions/index.html.erb`:
 
 ```rhtml
 <% @plans.each do |plan| %>
-  <%= link_to plan.name, new_subscription_path(@plan) %>
+  <%= link_to "#{plan.name} (#{plan.price})",
+        new_subscription_path(@plan) %>
 <% end %>
 ```
 
@@ -191,18 +193,75 @@ Other than that, this is a normal, ordinary, every day Rails controller. We use 
 <% end %>
 
 <%= form_for @subscription do |f| %>
-NOTE this is where the stripe form goes
+  <span class="payment-errors"></span>
+
+  <div class="form-row">
+    <label>
+      <span>Email Address</span>
+      <input type="email" size="20" name="email_address"/>
+    </label>
+  </div>
+
+  <div class="form-row">
+    <label>
+      <span>Card Number</span>
+      <input type="text" size="20" data-stripe="number"/>
+    </label>
+  </div>
+
+  <div class="form-row">
+    <label>
+      <span>CVC</span>
+      <input type="text" size="4" data-stripe="cvc"/>
+    </label>
+  </div>
+
+  <div class="form-row">
+    <label>
+      <span>Expiration (MM/YYYY)</span>
+      <input type="text" size="2" data-stripe="exp-month"/>
+    </label>
+    <span> / </span>
+    <input type="text" size="4" data-stripe="exp-year"/>
+  </div>
+
+  <button type="submit">Submit Payment</button>
 <% end %>
 ```
 
+`/app/assets/javascripts/subscriptions.js`:
 
-* models
-  - plan
-  - subscription
-  - additions to user
-* basic pricing table
-* collecting card information
-* creating a customer with a subscription
+```javascript
+jQuery(function($) {
+  $('#payment-form').submit(function(event) {
+    var $form = $(this);
+
+    $form.find('button').prop('disabled', true);
+
+    Stripe.card.createToken($form, stripeResponseHandler);
+
+    return false;
+  });
+});
+
+function stripeResponseHandler(status, response) {
+  var $form = $('#payment-form');
+
+  if (response.error) {
+    // Show the errors on the form
+    $form.find('.payment-errors').text(response.error.message);
+    $form.find('button').prop('disabled', false);
+  } else {
+    // response contains id and card, which contains additional card details
+    var token = response.id;
+    // Insert the token into the form so it gets submitted to the server
+    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+    // and submit
+    $form.get(0).submit();
+  }
+};
+```
+
 * adding more than one subscription
 * user roles (authority gem)
 * self-service cancellation, upgrade, downgrade
