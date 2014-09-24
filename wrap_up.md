@@ -18,16 +18,24 @@ Hopefully this guide has given you a good overview of working with Stripe with R
 
 ## Examples
 
+* [Stripe's GitHub Projects](https://github.com/stripe) contain lots of gems, including all of their language SDKs
 * [Rails Stripe Membership SaaS](http://railsapps.github.io/rails-stripe-membership-saas/) is a comprehensive example of a Stripe membership integration.
 * [RailsApps](http://railsapps.github.io) is great collection of example Rails apps in general.
 * [Working with Stripe Payouts](http://blog.chriswinn.com/working-with-stripe-payouts) is a short article about integrating Stripe Payouts into your rails app
+* [Monospace Rails](https://github.com/stripe/monospace-rails), Stripe's official subscription example
 
 ## Libraries
 
+* [Koudoku](https://github.com/andrewculver/koudoku), a Rails engine for subscription billing with Stripe
+* [StripeEvent](https://github.com/integrallis/stripe_event), a Rails engine for Stripe event handling
+* [StripeMock](https://github.com/rebelidealist/stripe-ruby-mock), a library for mocking and testing Stripe webhooks and API integrations
+* [StripeTester](https://github.com/buttercloud/stripe_tester), another library for testing Stripe webhooks
 * [Devise](https://github.com/plataformatec/devise), a Rails authentication library
 * [CanCan](https://github.com/ryanb/cancan), a Rails authorization library
 * [jQuery Payment](https://github.com/stripe/jquery.payment) is a very useful set of jQuery functions for working with payment fields
+* [Stripe Auto Paginate](https://github.com/vandrijevik/stripe_auto_paginate) sets up automatic pagination for Stripe's API responses
 
-## Books
+## Additional Reading
 
 * [The Tangled Web](http://lcamtuf.coredump.cx/tangled/) is a guide to web security and how crazy the internet really is. Not directly applicable to a Stripe/Rails integration but it is a great read and is full of useful tips and explanations. Highly recommended.
+* [Developer's Guide to PCI Compliant Web Applications](http://kencochrane.net/blog/2012/01/developers-guide-to-pci-compliant-web-applications/) goes into great depth about how to write a PCI compliant web application, and how Stripe makes it easier.
