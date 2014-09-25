@@ -25,11 +25,10 @@ Both Connect and Payouts are easily integrated into a Rails application with a f
 
 Connect is Stripe's OAuth2-based way for your application to create transactions, customers, subscription plans, and everything else Stripe has to offer on behalf of another user. Hooking it up to your Rails application is easy because someone else has done all of the hard work for you in a gem named [OmniAuth::StripeConnect][marketplaces-OmniAuth::StripeConnect]. This gem uses the [OmniAuth][marketplaces-OmniAuth] OAuth abstraction library to allow you to connect to your users' Stripe accounts by simply sending them to `/auth/stripe_connect`, which will direct them through the OAuth2 dance and bring them back to your site.
 
-To start hooking this up, simply add the gems to your `Gemfile`:
+To start hooking this up, simply add the gem to your `Gemfile`:
 
 ```ruby
-gem 'omniauth'
-gem 'omniauth-stripe-connect'
+gem 'omniauth-stripe-connect', '>= 2.4.0'
 ```
 
 Then, add the middleware in an initializer `config/initializers/omniauth.rb`:
@@ -58,6 +57,7 @@ class StripeConnectController < ApplicationController
     current_user.stripe_id = auth_hash['uid']
     current_user.stripe_access_key = auth_hash['credentials']['token']
     current_user.stripe_publishable_key = auth_hash['info']['stripe_publishable_key']
+    current_user.stripe_refresh_token = auth_hash['credentials']['refresh_token']
     current_user.save!
     flash[:notice] = "Stripe info saved"
     redirect_to '/'
@@ -66,7 +66,18 @@ class StripeConnectController < ApplicationController
 end
 ```
 
-OmniAuth populates a param named `auth_hash` containing all of the OAuth information that Stripe returned. The salient bits are the user's `uid`, their `stripe_access_key`, and `stripe_publishable_key`.
+OmniAuth will run before your controller and populate a key in the request env named `omniauth.auth` with the OAuth2 information that Stripe returned. The salient bits are the user's `uid`, their `stripe_access_key`, `stripe_publishable_key`, and refresh token. You need to save the refresh token so you can regenerate your access key if necessary. For example, if you were vulnerable to the Heartbleed SSL attack you should have rolled your customers' access tokens.
+
+Before any of this will work we need to add the fields to `User`:
+
+```bash
+$ rails g migration AddStripeConnectFieldsToUser \
+  stripe_id:string \
+  stripe_access_key:string \
+  stripe_publishable_key:string \
+  stripe_refresh_token:string
+$ rake db:migrate
+```
 
 ### Make Charges with a User's Credentials
 
