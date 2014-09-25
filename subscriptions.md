@@ -300,7 +300,7 @@ CreateSubscription.call(
 )
 ```
 
-### Upgrading and Downgrading Subscriptions
+### TODO Upgrading and Downgrading Subscriptions
 
 * service for changing plans
 * controller actions
