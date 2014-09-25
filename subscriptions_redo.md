@@ -6,7 +6,7 @@ discussion_issue: 9
 
 * Learn how to set up basic subscriptions
 * Create composable service objects
-* 
+* Advanced subscriptions techniques
 
 ---
 
