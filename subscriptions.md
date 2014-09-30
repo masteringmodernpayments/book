@@ -149,6 +149,42 @@ One of the best things about service objects is how easy it is to compose them. 
 
 First we create the user and then a `Subscription` object. Next, we actually talk to Stripe. All we have to do is create a `Stripe::Customer` object with the plan, token, and email address of the user. We store the customer ID onto our `Subscription` object for later reference then send a receipt email which will contain a link for the user to set up their password.
 
+How do we get those plans, though? Let's create one more service object for creating new plans in our database and propagating them to Stripe:
+
+```ruby
+class CreatePlan
+  def self.call(options={})
+    plan = Plan.new(options)
+
+    if !plan.valid?
+      return plan
+    end
+
+    begin
+      Stripe::Plan.create(
+        id: options[:stripe_id],
+        amount: options[:amount],
+        currency: 'usd',
+        interval: options[:interval],
+        name: options[:name],
+      )
+    rescue Stripe::StripeError => e
+      subscription.errors[:base] << e.message
+    end
+
+    plan.save!
+
+    return plan
+  end
+end
+```
+
+All this does is pass the options hash through to `Plan#new` and then attempts to create a Stripe-level plan with those same options. If everything goes well, it then saves our new plan and returns it. It's very easy to use this service object in the console so we're not going to build out a controller here. Here's an example of creating a plan from the console:
+
+```bash
+irb(main):001:0> CreatePlan.call(stripe_id: 'test_plan', name: 'Test Plan', amount: 500, interval: 'month', description: 'Test Plan', published: false)
+```
+
 ### Controller
 
 The next thing we have to do is actually use the service objects. Thankfully, that's pretty simple:
@@ -302,9 +338,54 @@ CreateSubscription.call(
 
 ### TODO Upgrading and Downgrading Subscriptions
 
-* service for changing plans
-* controller actions
+What about when a user wants to change their plan? For example, a user wants to go from the 10 frobs a month plan to one with 1000. Or maybe go the other way?
 
+Let's wrap that up in another service object:
+
+```ruby
+class ChangePlan
+  def self.call(subscription, to_plan)
+    from_plan = subscription.plan
+    begin
+      user = subscription.user
+      customer = Stripe::Customer.retrieve(user.stripe_customer_id)
+      stripe_sub = customer.subscriptions.retrieve(subscription.stripe_id)
+
+      stripe_sub.plan = to_plan.stripe_id
+      stripe_sub.save!
+      subscription.plan = to_plan
+      subscription.save!
+    rescue Stripe::StripeError => e
+      subscription.errors[:base] << e.message
+    end
+
+    subscription
+  end
+end
+```
+
+What if the user wants to change or update their card? Again, pretty simple. Just set up a form like above but just with the card attributes, then create another service object to handle the action:
+
+```ruby
+class ChangeSubscriptionCard
+  def self.call(subscription, token)
+    begin
+      user = subscription.user
+      customer = Stripe::Customer.retrieve(user.stripe_customer_id)
+      stripe_sub = customer.subscriptions.retrieve(subscription.stripe_id)
+
+      stripe_sub.card = token
+      stripe_sub.save!
+    rescue Stripe::StripeError => e
+      subscription.errors[:base] << e.message
+    end
+
+    subscription
+  end
+end
+```
+
+The controller actions for both of these are self-explanatory. Just grab the subscription in question and the plan or token and pass them to the appropriate service object's `call` method.
 
 ## Dunning
 
