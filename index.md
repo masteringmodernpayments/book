@@ -9,6 +9,6 @@
 * [Handling Webhooks](/webhooks)
 * [Background Workers](/background_worker)
 * [Subscriptions](/subscriptions)
-* [Marketplaces](/marketplaces)
+* [Connect and Marketplaces](/marketplaces)
 * [Additional Resouces](/wrap_up)
 * [Colophon](/colophon)

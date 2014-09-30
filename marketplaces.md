@@ -8,7 +8,7 @@ discussion_issue: 10
 [marketplaces-OmniAuth::StripeConnect]: https://github.com/isaacsanders/omniauth-stripe-connect
 [marketplaces-stripe-connect-register]: https://stripe.com/docs/connect/getting-started#register-application
 
-# Marketplaces
+# Connect and Marketplaces
 
 * Use OAuth to connect to your customer's accounts
 * Make payments to third-party bank accounts with Receipients and Transfers
@@ -125,6 +125,23 @@ While for a Stripe Checkout form you'd use something like this:
     data-description="<%= @product.name %>"
     data-amount="<%= @product.price %>"></script>
 ```
+
+### Webhooks
+
+Stripe will send webhook events to your application for any connected users. There's one gotcha here, in that Stripe will by default send both *live* and *test mode* events to your application's *live* end point. If you don't filter those events out you'll see a lot of errors. Here's an extension of our StripeEvent retriever from the Webhooks chapter that filters out test-mode events:
+
+```ruby
+StripeEvent.event_retriever = lambda do |params|
+  return nil if Rails.env.production? && !params[:livemode]
+
+  return nil if StripeWebhook.exists?(stripe_id: params[:id])
+
+  StripeWebhook.create!(stripe_id: params[:id])
+  Stripe::Event.retrieve(params[:id])
+end
+```
+
+This would also be an excellent place to filter out any events for users that don't have active subscriptions. This filter would go after you retrieve the event from Stripe so you can look up the account ID in your database.
 
 ## Payouts
 

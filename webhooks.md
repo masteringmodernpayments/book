@@ -72,7 +72,7 @@ When a webhook event comes in `StripeEvent` will ignore everything except the ID
 StripeEvent.event_retriever = lambda do |params|
   return nil if StripeWebhook.exists?(stripe_id: params[:id])
   StripeWebhook.create!(stripe_id: params[:id])
-  StripeEvent.retrieve(params[:id])
+  Stripe::Event.retrieve(params[:id])
 end
 ```
 
