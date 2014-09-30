@@ -132,9 +132,9 @@ class CreateSubscription
 
       subscription.save!
 
-
-      UserMailer.send_receipt(user.id, plan.id, raw_token)
-          if subscription.errors.empty?
+      if subscription.errors.empty?
+        UserMailer.send_receipt(user.id, plan.id, raw_token)
+      end
 
     rescue Stripe::StripeError => e
       subscription.errors[:base] << e.message
@@ -326,7 +326,7 @@ With those in place, you should be able to click through and create paying users
 
 ### Multiple Subscriptions
 
-Stripe allows a customer to have multiple subscriptions. Because of the way we've set up our `Subscription` class, this is trivial to accomplish in our application. Basically, all you have to do is call `CreateSubscription.call()`, passing in the user's email address, the plan, and a blank token, like this:
+Stripe allows a customer to have multiple subscriptions. Because of the way we've set up our `Subscription` class, this is trivial to accomplish in our application. All you have to do is call `CreateSubscription.call()`, passing in the user's email address, the plan, and a blank token, like this:
 
 ```ruby
 CreateSubscription.call(
@@ -336,7 +336,7 @@ CreateSubscription.call(
 )
 ```
 
-### TODO Upgrading and Downgrading Subscriptions
+### Upgrading and Downgrading Subscriptions
 
 What about when a user wants to change their plan? For example, a user wants to go from the 10 frobs a month plan to one with 1000. Or maybe go the other way?
 
