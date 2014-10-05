@@ -1,8 +1,11 @@
 ---
+title: Background Workers
 discussion_issue: 8
+bullets:
+  - Learn why processing payments in the background is necessary
+  - Survey the landscape of background processing systems
+  - Make charges in the background
 ---
-
-# Background Workers
 
 [background-worker-stripe]: https://stripe.com/docs/tutorials/checkout
 [background-worker-guide]: /payment-integration.html
@@ -14,12 +17,6 @@ discussion_issue: 8
 [background-worker-sidekiq]: http://sidekiq.org
 [background-worker-mperham]: http://www.mikeperham.com
 [background-worker-qc]: https://github.com/ryandotsmith/queue_classic
-
-* Learn why processing payments in the background is necessary
-* Survey the landscape of background processing systems
-* Make charges in the background
-
----
 
 Stripe does everything in their power to make sure the payment process goes smoothly for you and your customers, but sometimes things out of everyone's control can go wrong. This chapter is about making sure that your payment system keeps going in the face of things like connection failures and large bursts of traffic to your application.
 

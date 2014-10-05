@@ -1,14 +1,10 @@
 ---
 discussion_issue: 2
----
-
-
-# Introduction
-
-* Learn what makes Stripe great
-* Read about this book
-* Learn how the book is organized
-
+title: Introduction
+bullets:
+  - Learn what makes Stripe great
+  - Read about this book
+  - Learn how the book is organized
 ---
 
 Before Stripe came onto the scene, alteratives for accepting payments online were either expensive, annoying, complicated, or all three. PayPal had (and still has) a large portion of the business, but the API is very old and the payment flow is not conducive to a modern application. To accept credit cards, you either you had to use PayPal or integrate at least three separate services: a merchant account, a credit card gateway, and a recurring subscription service. You had the responsibility to make sure every piece was secure, and all of the software that integrated them had to be maintained.

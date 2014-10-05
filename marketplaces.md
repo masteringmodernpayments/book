@@ -1,5 +1,9 @@
 ---
 discussion_issue: 10
+title: Connect and Marketplaces
+bullets:
+  - Use OAuth to connect to your customer's accounts
+  - Make payments to third-party bank accounts with Receipients and Transfers
 ---
 
 [marketplaces-stripe-connect]: https://stripe.com/connect
@@ -7,13 +11,6 @@ discussion_issue: 10
 [marketplaces-OmniAuth]: https://github.com/intridea/omniauth
 [marketplaces-OmniAuth::StripeConnect]: https://github.com/isaacsanders/omniauth-stripe-connect
 [marketplaces-stripe-connect-register]: https://stripe.com/docs/connect/getting-started#register-application
-
-# Connect and Marketplaces
-
-* Use OAuth to connect to your customer's accounts
-* Make payments to third-party bank accounts with Receipients and Transfers
-
----
 
 Marketplaces let multiple people sell goods and services on the same site at the same time. Stripe lets your SaaS app implement a marketplace in two different ways. With [Stripe Connect][marketplaces-stripe-connect] your users connect their Stripe account with yours, allowing you to make charges with their Stripe account securely and passing fees through directly. This is great for a technical audience or for a marketplace who's participants want to be able to manage their own Stripe account.
 

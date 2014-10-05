@@ -1,5 +1,10 @@
 ---
+title: Handling Webhooks
 discussion_issue: 7
+bullets:
+  - One way of handling Stripe events with Ruby metaprogramming
+  - Testing your event handling
+  - Learn how to send PDF receipts
 ---
 
 [callbacks-stripe_event]: https://github.com/integrallis/stripe_event
@@ -9,14 +14,6 @@ discussion_issue: 7
 [callbacks-stripe-event-docs]: https://stripe.com/docs/api/ruby#events
 [callbacks-prawn]: http://prawn.majesticseacreature.com
 [callbacks-stripe-receipts]: https://stripe.com/blog/email-receipts
-
-# Handling Webhooks
-
-* One way of handling Stripe events with Ruby metaprogramming
-* Testing your event handling
-* Learn how to send PDF receipts
-
----
 
 Stripe tracks every event that happens to the payments, invoices, subscriptions, plans, and recipients that belong to your account. Every time something happens they create an Event object and save it to their database. If you'd like you can iterate over all of these events using [the API][callbacks-stripe-event-docs], but a much more efficient way to deal with them is to register a webhook endpoint with Stripe. Whenever they create a new event, Stripe will POST the information to all of your registered webhooks. Depending on how you respond they may retry later as well. The full list of event types can be found in Stripe's API documentation but here's a brief list:
 
@@ -72,7 +69,7 @@ When a webhook event comes in `StripeEvent` will ignore everything except the ID
 StripeEvent.event_retriever = lambda do |params|
   return nil if StripeWebhook.exists?(stripe_id: params[:id])
   StripeWebhook.create!(stripe_id: params[:id])
-  Stripe::Event.retrieve(params[:id])
+  StripeEvent.retrieve(params[:id])
 end
 ```
 

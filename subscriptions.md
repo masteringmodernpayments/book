@@ -1,13 +1,10 @@
 ---
 discussion_issue: 9
----
-
-# Subscriptions
-
-* Learn how to set up basic subscriptions
-* Create composable service objects
-* Advanced subscriptions techniques
-
+title: Subscriptions
+bullets:
+  - Learn how to set up basic subscriptions
+  - Create composable service objects
+  - Advanced subscriptions techniques
 ---
 
 So far in this book we've talked about how to sell products once. A customer selects a product, puts their information in, and hits the "buy now" button, and that's end of our interaction with them.

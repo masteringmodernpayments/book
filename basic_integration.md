@@ -1,5 +1,10 @@
 ---
+title: Basic Integration
 discussion_issue: 3
+bullets:
+  - Create a basic Rails application
+  - Do the simplest Stripe integration
+  - Learn how to deploy to Heroku
 ---
 
 [initial-app-devise]: https://github.com/plataformatec/devise
@@ -15,14 +20,6 @@ discussion_issue: 3
 [basic-integration-aws]: http://aws.amazon.com
 [basic-integration-stripe-api-keys]: https://dashboard.stripe.com/account/apikeys
 [basic-integration-stripe-mock]: https://github.com/rebelidealist/stripe-ruby-mock
-
-# Basic Integration
-
-* Create a basic Rails application
-* Do the simplest Stripe integration
-* Learn how to deploy to Heroku
-
----
 
 In this chapter we're going to create a simple Rails application so we have something to work with for later chapters. All of the rest of the examples in the guide will be based on this app.
 

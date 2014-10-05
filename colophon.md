@@ -1,5 +1,6 @@
 ---
 discussion_issue: 12
+title: Colophon
 ---
 
 [colophon-Inconsolata]: http://www.google.com/fonts/specimen/Inconsolata
@@ -9,8 +10,6 @@ discussion_issue: 12
 [colophon-Docverter]: http://www.docverter.com
 [colophon-Authority]: http://www.nathanbarry.com/authority
 [colophon-Matt]: http://vanderpol.net
-
-# Colophon
 
 ## About the Author
 

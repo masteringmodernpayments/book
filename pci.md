@@ -1,8 +1,11 @@
 ---
 discussion_issue: 4
+title: Security and PCI Compliance
+bullets:
+  - Learn about PCI compliance
+  - Generate and install an SSL certificate
+  - Set up Rails security tools
 ---
-
-# Security and PCI Compliance
 
 [pci-pci]: https://www.pcisecuritystandards.org
 [pci-stripe_pci]: https://stripe.com/help/security
@@ -13,12 +16,6 @@ discussion_issue: 4
 [pci-brakeman]: http://brakemanscanner.org
 [pci-cochrane]: http://kencochrane.net/blog/2012/01/developers-guide-to-pci-compliant-web-applications/
 [pci-code-climate]: https://codeclimate.com
-
-* Learn about PCI compliance
-* Generate and install an SSL certificate
-* Set up Rails security tools
-
----
 
 <i>Note: I'm not an expert in PCI compliance and this chapter shouldn't be interpreted as legal advice. Rather, this is background information and advice on how to implement Stripe's guidelines. If you have questions, please ask Stripe or your nearest local PCI consultant.</i>
 
