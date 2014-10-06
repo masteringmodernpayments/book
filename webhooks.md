@@ -2,7 +2,7 @@
 title: Handling Webhooks
 discussion_issue: 7
 bullets:
-  - One way of handling Stripe events with Ruby metaprogramming
+  - Handling webhooks with Stripe Event
   - Testing your event handling
   - Learn how to send PDF receipts
 ---

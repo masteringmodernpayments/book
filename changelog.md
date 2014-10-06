@@ -1,4 +1,7 @@
-# Changelog
+---
+title: Changelog
+preview: true
+---
 
 ## March 27th, 2014 - 1.1.8
 

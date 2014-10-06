@@ -1,6 +1,7 @@
 ---
 title: Basic Integration
 discussion_issue: 3
+preview: true
 bullets:
   - Create a basic Rails application
   - Do the simplest Stripe integration

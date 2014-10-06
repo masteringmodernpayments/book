@@ -1,6 +1,7 @@
 ---
 discussion_issue: 2
 title: Introduction
+preview: true
 bullets:
   - Learn what makes Stripe great
   - Read about this book

@@ -1,6 +1,7 @@
 ---
 discussion_issue: 4
 title: Security and PCI Compliance
+preview: true
 bullets:
   - Learn about PCI compliance
   - Generate and install an SSL certificate

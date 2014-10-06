@@ -1,6 +1,7 @@
 ---
 discussion_issue: 12
 title: Colophon
+preview: true
 ---
 
 [colophon-Inconsolata]: http://www.google.com/fonts/specimen/Inconsolata
