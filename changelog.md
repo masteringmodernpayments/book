@@ -3,6 +3,12 @@ title: Changelog
 preview: true
 ---
 
+## October 15th, 2014 - 2.0.0
+
+* Second edition launch
+* Complete rewrite of subscriptions chapter
+* Lots of edits
+
 ## March 27th, 2014 - 1.1.8
 
 * Add mentions of multiple subscriptions and statement descriptors
