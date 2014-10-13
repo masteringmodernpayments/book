@@ -10,7 +10,7 @@ bullets:
 [custom-form-tutorial]: https://stripe.com/docs/tutorials/forms
 [custom-form-card-icons]: http://www.shopify.com/blog/6335014-32-free-credit-card-icons#axzz2i4nAS6FV
 
-In the simple Stripe introduction we used Stripe's excellent `checkout.js` that provides a popup iframe to collect credit card information, post it to Stripe and turn it into a `stripeToken` and then finally post our form. There's something conspicuously absent from all of this, however. Remember how Sale has an email attribute? We're not populating that right now because `checkout.js` doesn't let us add our own fields. For that we'll need to create our own form. Stripe makes this easy though, with `stripe.js`. The first half of this chapter is adapted from Stripe's [custom form tutorial][custom-form-tutorial].
+In the simple Stripe introduction we used Stripe's excellent `checkout.js` that provides a popup iframe to collect credit card information, post it to Stripe and turn it into a `stripeToken` and then finally post our form. Sometimes Checkout doesn't really do what you need, though. For example, let's say you're building a subscription site and you need to include a package selection dropdown or a password field. Checkout doesn't let you add your own fields, which means you're left building your own form. In this example we're going to build a form that just duplicates what Checkout gives us, but the principles hold for any kind of form you build.
 
 Here's the form we'll be using:
 
