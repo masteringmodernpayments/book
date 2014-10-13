@@ -1,1 +1,1 @@
-<img src="cover.png" class='cover-image' style="width: 6.5in; height: 5in; padding-left: 0.25in" />
+<img src="cover.png" class='cover-image' style="width: 4in; height: 5in; padding-left: 1.5in" />

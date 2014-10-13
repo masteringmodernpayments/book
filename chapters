@@ -3,7 +3,7 @@ basic_integration
 pci
 custom_form
 state_and_history
-callbacks
+webhooks
 background_worker
 subscriptions
 marketplaces
